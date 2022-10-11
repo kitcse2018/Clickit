@@ -33,7 +33,7 @@ const UserView = () =>{
                             </ul>
                         </div>
                         <div class={"fac-status"}>
-                            <p>예약 현황 2/4</p>
+                            <p>예약 현황 2/4 </p>
                         </div>
                         <div class={"fac-reserve"}>
                             <button class={"fac-reserve-button"}>
