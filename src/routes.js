@@ -23,6 +23,7 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import Testing from "views/examples/Testing";
+import UserView from "./views/examples/UserView";
 
 var routes = [
   {
@@ -79,6 +80,13 @@ var routes = [
     name: "Testing",
     icon: "ni ni-key-25 text-info",
     component: Testing,
+    layout: "/admin"
+  },
+  {
+    path: "/userView",
+    name: "UserView",
+    icon: "ni ni-key-25 text-info",
+    component: UserView,
     layout: "/admin"
   }
 ];
