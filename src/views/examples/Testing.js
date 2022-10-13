@@ -14,7 +14,8 @@ const Testing = () =>{
                     <dic className={"reservation-main-contents"}>
                         <div className={"innerFacility-img"}>
                             {/* innerFacility-img here */}
-                            <img src={require('../../assets/img/brand/argon-react.png')} alt={"img test"}/>
+                            {/* <img src={require('../../assets/img/brand/argon-react.png')} alt={"img test"}/> */}
+                            <img src={require('../../assets/img/brand/'+'argon-react.png')} alt={"img test"}/>
                             <h1>innerFacility-img</h1>
                         </div>
                         <div className={"innerFacility-seat-time-list"}>
