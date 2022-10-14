@@ -62,6 +62,77 @@ const Template = (props) => {
             {/* You must read here */}
             {/* Change main-container className */}
             <div className={"main-container"}>
+                <div className={"fac-box"}>
+                    <div className={"fac-left"}>
+                        <div className={"fac-img"}>
+                            <img
+                                alt="..."
+                                className="fac-img-detail"
+                                src={require("../assets/img/theme/vue.jpg")}
+                                /*이미지는 보니깐 디비에 저장된사진의 위치 url을 보내고 여기서 가져와야할듯 */
+                            />
+                        </div>
+                    </div>
+                    <div className={"fac-right"}>
+                        <div className={"fac-name"}>
+                            <h2>체력 단련실</h2>
+                        </div>
+                        <div className={"fac-content"}>
+                            <ul className={"fac-content-detail"}>
+                                <li className={"fac-content-detail-name"}>
+                                    제한 인원 -4
+                                </li>
+                                <li className={"fac-content-detail-time"}>
+                                    이용 가능 시간 - 00:00 ~ 23:59
+                                </li>
+                            </ul>
+                        </div>
+                        <div className={"fac-status"}>
+                            <p>예약 현황 2/4 </p>
+                        </div>
+                        <div className={"fac-reserve"}>
+                            <button className={"fac-reserve-button"}>
+                                예약하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className={"fac-box"}>
+                    <div className={"fac-left"}>
+                        <div className={"fac-img"}>
+                            <img
+                                alt="..."
+                                className="fac-img-detail"
+                                src={require("../assets/img/theme/vue.jpg")}
+                                /*이미지는 보니깐 디비에 저장된사진의 위치 url을 보내고 여기서 가져와야할듯 */
+                            />
+                        </div>
+                    </div>
+                    <div className={"fac-right"}>
+                        <div className={"fac-name"}>
+                            <h2>체력 단련실</h2>
+                        </div>
+                        <div className={"fac-content"}>
+                            <ul className={"fac-content-detail"}>
+                                <li className={"fac-content-detail-name"}>
+                                    제한 인원 -4
+                                </li>
+                                <li className={"fac-content-detail-time"}>
+                                    이용 가능 시간 - 00:00 ~ 23:59
+                                </li>
+                            </ul>
+                        </div>
+                        <div className={"fac-status"}>
+                            <p>예약 현황 2/4 </p>
+                        </div>
+                        <div className={"fac-reserve"}>
+                            <button className={"fac-reserve-button"}>
+                                예약하기
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
         </>
