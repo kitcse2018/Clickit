@@ -1,0 +1,9 @@
+.fac-box{
+    display: flex;
+}
+.fac-img{
+    float:left;
+}
+.fac-right{
+    float:right;
+}
