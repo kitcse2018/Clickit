@@ -25,6 +25,7 @@ import Icons from "views/examples/Icons.js";
 import Testing from "views/examples/Testing";
 import UserView from "./views/examples/UserView";
 import Third from "./views/Third";
+import Template from "./views/template";
 
 var routes = [
   {
@@ -95,6 +96,13 @@ var routes = [
     name: "Third",
     icon: "ni ni-user-run",
     component: Third,
+    layout: "/admin"
+  },
+  {
+    path: "/Template",
+    name: "Template",
+    icon: "ni ni-user-run",
+    component: Template,
     layout: "/admin"
   }
 ];
