@@ -25,7 +25,7 @@ import Icons from "views/examples/Icons.js";
 import Testing from "views/examples/Testing";
 import Third from "./views/Third";
 import Template from "./views/template";
-import UserView from "./views/template"
+import UserView from "./views/userView";
 
 var routes = [
   {
