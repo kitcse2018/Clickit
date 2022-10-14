@@ -23,9 +23,9 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import Testing from "views/examples/Testing";
-import UserView from "./views/examples/UserView";
 import Third from "./views/Third";
 import Template from "./views/template";
+import UserView from "./views/template"
 
 var routes = [
   {
@@ -103,6 +103,13 @@ var routes = [
     name: "Template",
     icon: "ni ni-user-run",
     component: Template,
+    layout: "/admin"
+  },
+  {
+    path: "/UserView",
+    name: "UserView",
+    icon: "ni ni-user-run",
+    component: UserView,
     layout: "/admin"
   }
 ];
