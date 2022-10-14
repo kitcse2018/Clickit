@@ -32,6 +32,7 @@ const Testing = () =>{
                                     <li className={"reservation-seat-select"}>
                                         reservation-seat-select
                                     </li>
+                                    <button>reservation-request-button</button>
                                 </ul>
                             </div>
                         </div>
