@@ -24,6 +24,7 @@ import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import Testing from "views/examples/Testing";
 import UserView from "./views/examples/UserView";
+import Third from "./views/Third";
 
 var routes = [
   {
