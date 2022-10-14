@@ -1,0 +1,86 @@
+.btn_del {
+    margin-left: 10px;
+    color: #fff;
+    background-color: firebrick;
+}
+
+button {
+    margin-left: 10px;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    border: 0 none;
+    border-radius: 6px;
+    padding: 6px 15px;
+    color: #fff;
+    background-color: dodgerblue;
+}
+
+.input_area {
+    margin-left: 10px;
+}
+
+.Search {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.SeachBox{
+    display: flex;
+    width: 44%;
+}
+.inputStudent{
+    width: 70%;
+    line-height: 200%;
+}
+.inputOrshow{
+    background-color:transparent;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-size: medium;
+    border: 1px solid #0a0c0d;
+
+}
+.input_area label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+.icon{
+    height: inherit;
+    text-align: center;
+    background-color: #f5f2f2;
+    border-left: 1px solid #0a0c0d;
+    border-bottom: 1px solid #0a0c0d;
+    border-top:1px solid #0a0c0d;
+}
+.studentList{
+    display: flex;
+    width: 100%;
+    background-color: #c6eeda;
+    margin-bottom: 10px;
+    padding-right: 10px;
+}
+.input_area input {
+    width: 400px;
+    height: 40px;
+    font-size: 20px;
+    padding: 0 10px;
+}
+
+.input_area select {
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+}
+.studentBoard{
+    background-color: #efebeb;
+    border: 1px solid black;
+    width: fit-content;
+    padding : 10px;
+    margin-left: 13%;
+}
