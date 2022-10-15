@@ -23,14 +23,21 @@
     background-color: red;
     width: 100%;
     height: 45%;
+    /*display: inline-flex;*/
     display: flex;
     align-items: center;
+    /*flex-wrap: wrap;*/
 }
 
 .innerFacility-img>img{
     background-color: white;
     margin: 0 auto;
 }
+
+/*.innerFacility-img-break{*/
+/*    flex-basis: 100%;*/
+/*    height: 0%;*/
+/*}*/
 
 .innerFacility-seat-time-list{
     background-color: #3d027b;

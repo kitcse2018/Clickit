@@ -16,6 +16,7 @@ const Testing = () =>{
                             {/* innerFacility-img part */}
                             {/* <img src={require('../../assets/img/brand/argon-react.png')} alt={"img test"}/> */}
                             <img src={require('../../assets/img/brand/'+'argon-react.png')} alt={"img test"}/>
+                            {/*<div className={"innerFacility-img-break"}></div>*/}
                             {/*<h1>innerFacility-img</h1>*/}
                         </div>
                         <div className={"innerFacility-name"}>
