@@ -1,0 +1,48 @@
+.reservation-section input[id*="slide"]{
+    display: none;
+}
+
+.reservation-section .reservation-slide-wrap{
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.reservation-section .reservation-slide-list{
+    white-space: nowrap;
+    font-size: 0;
+}
+
+.reservation-section .reservation-slide-list > li {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    transition: all .5s;
+}
+
+.reservation-section .reservation-slide-list > li > a{
+    display: block;
+    position: relative;
+}
+
+.reservation-section .reservation-slide-list > li > a img{
+    width: 100%;
+}
+
+.reservation-slide-list .reservation-slide-list label{
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 50px;
+    cursor: pointer;
+}
+
+.reservation-section .reservation-slide-list .slide-left{
+    left: 30px;
+
+}
+
+.reservation-section .reservation-slide-list .slide-right{
+    right: 30px;
+}

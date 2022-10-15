@@ -22,12 +22,14 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
-import Testing from "views/examples/Testing";
 import Third from "./views/Third";
 import Template from "./views/template";
 import UserView from "./views/userView";
+import Reservation from "./views/examples/Reservation";
+import ReservationView from "./views/ReservationView";
+import CarouselTest from "./views/examples/CarouselTest";
 
-var routes = [
+let routes = [
   {
     path: "/index",
     name: "Dashboard",
@@ -78,13 +80,6 @@ var routes = [
     layout: "/auth"
   },
   {
-    path: "/testing",
-    name: "Testing",
-    icon: "ni ni-key-25 text-info",
-    component: Testing,
-    layout: "/admin"
-  },
-  {
     path: "/userView",
     name: "UserView",
     icon: "ni ni-key-25 text-info",
@@ -110,6 +105,27 @@ var routes = [
     name: "UserView",
     icon: "ni ni-user-run",
     component: UserView,
+    layout: "/admin"
+  },
+  {
+    path: "/reservation",
+    name: "Reservation",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: Reservation,
+    layout: "/admin"
+  },
+  {
+    path: "/reservationView",
+    name: "ReservationView",
+    icon: "ni ni-bullet-list-67 text-black",
+    component: ReservationView,
+    layout: "/admin"
+  },
+  {
+    path: "/carouselTest",
+    name: "Carousel",
+    icon: "ni ni-pin-3 text-orange",
+    component: CarouselTest,
     layout: "/admin"
   }
 ];
