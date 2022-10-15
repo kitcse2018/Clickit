@@ -62,7 +62,7 @@
 .innerFacility-seat-time-list>.reservation-time-select{
     height:15%;
     color: black;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
     box-shadow: 0px 0px 5px gray;
 }
 
@@ -76,6 +76,12 @@
 
 .reservation-seat-select{
     display: inline-flex;
+}
+
+.reservation-seat-select, .reservation-time-select{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 .reservation-seat-select>h3{
