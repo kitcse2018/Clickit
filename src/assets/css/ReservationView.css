@@ -54,8 +54,9 @@
     /*box-shadow: 2px 2px 2px;*/
     /*background-color: #11cdef;*/
     margin-top: 2rem;
-    height: 45%;
+    height: 35%;
     width: 100%;
+    overflow: auto;
 }
 
 .innerFacility-seat-time-list>.reservation-time-select{
