@@ -48,17 +48,8 @@ import {
 
 import Header from "components/Headers/Header.js";
 import "../../assets/css/ReservationView.css";
-import Paginations from "../../components/Paginations";
 import "../../methods/innerFacility.js";
 import $ from 'jquery';
-
-// You must read here
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change const "Template" name!!!
-// !!!ex) Template -> fileName    !!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
 
 const Reservation = (props) => {
     // edit innerFacility_img
@@ -82,7 +73,51 @@ const Reservation = (props) => {
                         <div className={"innerFacility-seat-time-list"}>
                             <ul className={"reservation-time-select"}>
                                 <li className={"reservation-seat-select"}>
-                                    <p className={"reservation-time-title"}>time1
+                                    <p className={"reservation-time-title"}>
+                                        time1
+                                        <span className={"reservation-accIcon"}/>
+                                    </p>
+                                    <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            1번자리
+                                        </div>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                    <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            2번자리
+                                        </div>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                    <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            3번자리
+                                        </div>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                </li>
+                                <li className={"reservation-seat-select"}>
+                                    <p className={"reservation-time-title"}>
+                                        time2
+                                        <span className={"reservation-accIcon"}/>
+                                    </p>
+                                    <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            1번자리
+                                        </div>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                    <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            2번자리
+                                        </div>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                </li>
+                            {/*  start test li tag  */}
+                                <li className={"reservation-seat-select"}>
+                                    <p className={"reservation-time-title"}>
+                                        time3
                                         <span className={"reservation-accIcon"}/>
                                     </p>
                                     <div className={"reservation-seat"}>
@@ -99,7 +134,8 @@ const Reservation = (props) => {
                                     </div>
                                 </li>
                                 <li className={"reservation-seat-select"}>
-                                    <p className={"reservation-time-title"}>time2
+                                    <p className={"reservation-time-title"}>
+                                        time4
                                         <span className={"reservation-accIcon"}/>
                                     </p>
                                     <div className={"reservation-seat"}>
@@ -115,6 +151,25 @@ const Reservation = (props) => {
                                         <Button>reservation-request-button</Button>
                                     </div>
                                 </li>
+                                <li className={"reservation-seat-select"}>
+                                    <p className={"reservation-time-title"}>
+                                        time5
+                                        <span className={"reservation-accIcon"}/>
+                                    </p>
+                                    <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            1번자리
+                                        </div>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                    <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            2번자리
+                                        </div>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                </li>
+                            {/*  end test li tag */}
                             </ul>
                         </div>
                         {/*<div className={"innerFacility-select"}>*/}

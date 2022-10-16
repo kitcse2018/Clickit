@@ -185,7 +185,7 @@
     transform: rotate(90deg);
 }
 
-.reservation-time-select .reservation-seat-select .seat-name{
+.reservation-time-select .reservation-seat-select .reservation-seat{
     opacity: 0;
     height: 0;
     padding: 0px 20px;
@@ -199,7 +199,7 @@
     letter-spacing: 0.5px;
 }
 
-.reservation-time-select .reservation-seat-select .seat-name.show{
+.reservation-time-select .reservation-seat-select .reservation-seat.show{
     opacity: 1;
     height: auto;
     padding: 25px 20px;
@@ -216,10 +216,10 @@ p.innerFacility-time-title{
     padding: 0 10px;
 }
 
-.reservation-seat{
-    padding: 20px;
-    display: none;
-}
+/*.reservation-seat{*/
+/*    padding: 20px;*/
+/*    display: none;*/
+/*}*/
 
 li.reservation-seat-select{
     display: block;

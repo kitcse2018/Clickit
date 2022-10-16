@@ -1,14 +1,22 @@
 let accordionBtn = document.querySelectorAll('.reservation-time-title');
-let allText = document.querySelectorAll('.seat-name');
+let allTexts = document.querySelectorAll('.reservation-seat');
 let accIcon = document.querySelectorAll('.reservation-accIcon');
 
 accordionBtn.forEach(function (el){
     el.addEventListener('click', toggleAccordion)
 })
 
+function accordionMethod(el){
+    let curTargetParent = el.currentTarget.parentElement;
+    let childrenElement = curTargetParent.children;
+
+    for(let count = 1; count<childrenElement.length; count++){
+       console.log(childrenElement.item(count).innerHTML);
+    }
+}
+
 function toggleAccordion(el){
-    let targetText =
-        el.currentTarget.nextElementSibling.classList;
+    let targetText = el.currentTarget.nextElementSibling.classList;
 
     let targetAccIcon = el.currentTarget.children[0];
     let target = el.currentTarget;
@@ -21,7 +29,7 @@ function toggleAccordion(el){
         accordionBtn.forEach(function (el){
             el.classList.remove('accordionTitleActive');
 
-            allText.forEach(function (el){
+            allTexts.forEach(function (el){
                 el.classList.remove('show');
             })
 
