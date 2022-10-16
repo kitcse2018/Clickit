@@ -26,8 +26,6 @@ import Third from "./views/Third";
 import Template from "./views/template";
 import UserView from "./views/userView";
 import Reservation from "./views/examples/Reservation";
-import ReservationView from "./views/ReservationView";
-import CarouselTest from "./views/examples/CarouselTest";
 
 let routes = [
   {
@@ -114,19 +112,5 @@ let routes = [
     component: Reservation,
     layout: "/admin"
   },
-  {
-    path: "/reservationView",
-    name: "ReservationView",
-    icon: "ni ni-bullet-list-67 text-black",
-    component: ReservationView,
-    layout: "/admin"
-  },
-  {
-    path: "/carouselTest",
-    name: "Carousel",
-    icon: "ni ni-pin-3 text-orange",
-    component: CarouselTest,
-    layout: "/admin"
-  }
 ];
 export default routes;

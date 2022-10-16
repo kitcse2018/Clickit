@@ -49,12 +49,19 @@ import {
 import Header from "components/Headers/Header.js";
 import "../../assets/css/ReservationView.css";
 import Paginations from "../../components/Paginations";
+import Dropdown from "../reservationComponent/Dropdown";
+import $ from 'jquery';
 
 // You must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!Change const "Template" name!!!
 // !!!ex) Template -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+$("p.reservation-time-title").on('click', function(){
+    $(".reservation-seat").slideUp(100);
+    $(this).next(".reservation-seat").slideDown(100);
+})
 
 const Reservation = (props) => {
     // edit innerFacility_img
@@ -76,39 +83,20 @@ const Reservation = (props) => {
                         </div>
                         <hr/>
                         <div className={"innerFacility-seat-time-list"}>
-                            {/* innerFacility time & seat list container part */}
-                            {/* innerFacility time list part */}
                             <ul className={"reservation-time-select"}>
-                                <h3>reservation-time-select</h3>
-                                {/* innerFacility seat list part */}
                                 <li className={"reservation-seat-select"}>
-                                    <h3>reservation-seat-select</h3>
-                                    <Button>reservation-request-button</Button>
+                                    <p className={"reservation-time-title"}>time1</p>
+                                    <div className={"reservation-seat"}>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                </li>
+                                <li className={"reservation-seat-select"}>
+                                    <p className={"reservation-time-title"}>time2</p>
+                                    <div className={"reservation-seat"}>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
                                 </li>
                             </ul>
-                            <ul className={"reservation-time-select"}>
-                                <h3>reservation-time-select</h3>
-                            </ul>
-                            <ul className={"reservation-time-select"}>
-                                <h3>reservation-time-select</h3>
-                            </ul>
-                            {/* testing ul tag */}
-                            <ul className={"reservation-time-select"}>
-                                <h3>reservation-time-select</h3>
-                            </ul>
-                            <ul className={"reservation-time-select"}>
-                                <h3>reservation-time-select</h3>
-                            </ul>
-                            <ul className={"reservation-time-select"}>
-                                <h3>reservation-time-select</h3>
-                            </ul>
-                            <ul className={"reservation-time-select"}>
-                                <h3>reservation-time-select</h3>
-                            </ul>
-                            <ul className={"reservation-time-select"}>
-                                <h3>reservation-time-select</h3>
-                            </ul>
-                            {/* testing ul tag */}
                         </div>
                         {/*<div className={"innerFacility-select"}>*/}
                         {/*    /!* innerFacility change part *!/*/}
@@ -122,9 +110,4 @@ const Reservation = (props) => {
     );
 };
 
-// you must read here
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change "Template" name      !!!
-// !!!ex) Template -> fileName    !!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 export default Reservation;

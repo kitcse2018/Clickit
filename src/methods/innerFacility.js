@@ -1,3 +1,2 @@
-const createInnerFacility=(props)=>{
-
-}
+// temp script file
+// by jiseong
