@@ -49,7 +49,7 @@ import {
 import Header from "components/Headers/Header.js";
 import "../../assets/css/ReservationView.css";
 import Paginations from "../../components/Paginations";
-import Dropdown from "../reservationComponent/Dropdown";
+import "../../methods/innerFacility.js";
 import $ from 'jquery';
 
 // You must read here
@@ -58,10 +58,7 @@ import $ from 'jquery';
 // !!!ex) Template -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-$("p.reservation-time-title").on('click', function(){
-    $(".reservation-seat").slideUp(100);
-    $(this).next(".reservation-seat").slideDown(100);
-})
+
 
 const Reservation = (props) => {
     // edit innerFacility_img
@@ -85,14 +82,36 @@ const Reservation = (props) => {
                         <div className={"innerFacility-seat-time-list"}>
                             <ul className={"reservation-time-select"}>
                                 <li className={"reservation-seat-select"}>
-                                    <p className={"reservation-time-title"}>time1</p>
+                                    <p className={"reservation-time-title"}>time1
+                                        <span className={"reservation-accIcon"}/>
+                                    </p>
                                     <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            1번자리
+                                        </div>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                    <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            2번자리
+                                        </div>
                                         <Button>reservation-request-button</Button>
                                     </div>
                                 </li>
                                 <li className={"reservation-seat-select"}>
-                                    <p className={"reservation-time-title"}>time2</p>
+                                    <p className={"reservation-time-title"}>time2
+                                        <span className={"reservation-accIcon"}/>
+                                    </p>
                                     <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            1번자리
+                                        </div>
+                                        <Button>reservation-request-button</Button>
+                                    </div>
+                                    <div className={"reservation-seat"}>
+                                        <div className={"seat-name"}>
+                                            2번자리
+                                        </div>
                                         <Button>reservation-request-button</Button>
                                     </div>
                                 </li>
