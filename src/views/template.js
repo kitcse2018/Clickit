@@ -61,9 +61,7 @@ const Template = (props) => {
             {/* Page content */}
             {/* You must read here */}
             {/* Change main-container className */}
-            <Container className={"main-container"}>
 
-            </Container>
         </>
     );
 };
