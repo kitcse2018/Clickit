@@ -1,21 +1,28 @@
 import React from 'react';
-
+import "../../assets/css/mycss/StudnetList.css"
 function Student({ student, onRemove }) {
     return (
         <div className="studentList">
-            <div >
-                <input className="inputOrshow" type="text" name="department" value={student.student_id} readOnly/>
-            </div>
-            <div >
-                <input className="inputOrshow" type="text" name="department" value={student.student_name} readOnly/>
-            </div>
-            <div >
-                <input className="inputOrshow" type="text" name="department" value= {student.student_password} readOnly/>
-            </div>
-            <div >
-                <input className="inputOrshow" type="text" name="department" value= {student.dormitory} readOnly/>
-            </div>
-            <button onClick={() => onRemove(student.student_num)}>삭제</button>
+            <div className="gnb_menu">
+                <ul className="student_ul">
+                    <li className="dp1">
+                        <input className="inputOrshow" type="text" name="department" value={student.student_id} readOnly/>
+                    </li>
+                    <li className="dp1">
+                        <input className="inputOrshow" type="text" name="department" value={student.student_name} readOnly/>
+                    </li>
+                    <li className="dp1">
+                        <input className="inputOrshow" type="text" name="department" value={student.student_password} readOnly/>
+                    </li>
+                    <li className="dp1">
+                        <input className="inputOrshow" type="text" name="department" value={student.dormitory} readOnly/>
+                    </li>
+                </ul>
+                <button onClick={() => onRemove(student.student_num)}>수정</button>
+                <button onClick={() => onRemove(student.student_num)}>삭제</button>
+                <button id="stop" onClick={() => onRemove(student.student_num)}>정지</button>
+                </div>
+
         </div>
     );
 }

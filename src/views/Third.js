@@ -2,9 +2,16 @@ import Header from "components/Headers/Header.js";
 import Student from "components/JDcomponents/Student.js"
 import SelectBox from "../components/SelectBox/SelectBox";
 import "../assets/css/mycss/Third.css";
-import {useState} from "react";
-import Axios from 'axios'
 
+import React, {useState} from "react";
+import Axios from 'axios'
+import {Container} from "reactstrap";
+
+// you must read here
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// !!!Change "Template" name      !!!
+// !!!ex) Template -> fileName    !!!
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 const Third = (props) => {
     function showText(txt) {
@@ -24,9 +31,15 @@ const Third = (props) => {
         });
     }
     return (
-        <div>
-            <Header />{}
-            <h1 > &nbsp; &nbsp;생활관생 관리</h1>
+        <>
+            <Header />
+            {/* Page content */}
+            {/* You must read here */}
+            {/* Change main-container className */}
+            <Container className={"third-container"}>
+
+
+            <h1 > &nbsp; 생활관생 관리</h1>
             <div className="Search">
                 <SelectBox ></SelectBox>
 
@@ -43,23 +56,24 @@ const Third = (props) => {
                     />
                     <button  onClick={getStudents}>조회</button>
                 </div>
-
-
+                <div>
+                <button  onClick = {showName}> 학생 추가 </button>
                 <button  onClick = {showName}> upload </button>
-
+                </div>
             </div>
 
             <div className="studentBoard">
 
                 {studentList.map( student => (
 
-                        <Student student={ student } key={ student.student_num } onRemove={onRemove} />
+                    <Student student={ student } key={ student.student_num } onRemove={onRemove} />
 
-                    ))}
+                ))}
             </div>
 
+           </Container>
 
-        </div>
+        </>
     );
 };
 

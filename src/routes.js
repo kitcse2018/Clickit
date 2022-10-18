@@ -86,7 +86,7 @@ let routes = [
   },
   {
     path: "/Third",
-    name: "Third",
+    name: "Student",
     icon: "ni ni-user-run",
     component: Third,
     layout: "/admin"

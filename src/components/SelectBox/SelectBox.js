@@ -1,27 +1,24 @@
+import React, {useState} from "react";
+import Axios from "axios";
 
+const SelectBox = () => {
+    const [dormitoryList,setdormitoryList] = useState([]);
+       Axios.get("http://localhost:3001/dormitories").then((response) => {
+            setdormitoryList(response.data);
+       });
 
-    const SelectBox = () => {
+    return (
+        <form>
+            <div className="input_area">
 
-        return (
-          <form>
-              <div className="input_area">
-
-                  <select id="class">
-                      <optgroup label="푸름관">
-                          <option value="푸름1동">푸름1동</option>
-                          <option value="푸름2동">푸름2동</option>
-                          <option value="푸름3동">푸름3동</option>
-                          <option value="푸름4동">푸름4동</option>
-                      </optgroup>
-                      <optgroup label="오름관">
-                          <option value="오름1동">오름1동</option>
-                          <option value="오름2동">오름2동</option>
-                          <option value="오름3동">오름3동</option>
-                      </optgroup>
-                  </select>
-              </div>
-          </form>
-        );
+                <select id="class">
+                    <option value="none" >생활관 선택</option>
+                    {dormitoryList.map( dormitory => (
+                        <option value={dormitory.iddormitory}>{dormitory.name}</option>
+                    ))}
+                </select>
+            </div>
+        </form>
+    );
 }
 export default SelectBox;
-
