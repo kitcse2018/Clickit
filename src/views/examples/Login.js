@@ -34,10 +34,18 @@ import {
 import "../../assets/css/loginView.css";
 //import {useUserContext} from "../../methods/loginMethods";
 //import {useHistory} from "react-router-dom";
-//import {useState} from "react";
+import {useState} from "react";
+import {signIn} from "../../methods/signIn";
 
 const Login = () => {
   const password_design = "비밀번호 구성\n원스톱 이메일 앞 3자리 + 전화번호 뒷 4자리";
+
+  const [user, setUser] = useState(null);
+  const authenticated = user != null;
+
+  const mLogin = ({ id, password }) => setUser(signIn({id, password}));
+  const mLogout = () => setUser(null);
+
   // start
 
   // 주석 풀 때 import 쪽도 풀기
