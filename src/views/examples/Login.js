@@ -29,10 +29,13 @@ import {
   InputGroupText,
   InputGroup,
   Row,
-  Col
+  Col, UncontrolledTooltip
 } from "reactstrap";
 
+import "../../assets/css/loginView.css";
+
 const Login = () => {
+  const password_design = "비밀번호 구성\n원스톱 이메일 앞 3자리 + 전화번호 뒷 4자리";
   return (
     <>
       <Col lg="5" md="7">
@@ -94,7 +97,7 @@ const Login = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Email"
+                    placeholder="Student Number"
                     type="email"
                     autoComplete="new-email"
                   />
@@ -133,6 +136,9 @@ const Login = () => {
                 </Button>
               </div>
             </Form>
+            <div className={"password-explain"}>
+              <p>{password_design}</p>
+            </div>
           </CardBody>
         </Card>
         <Row className="mt-3">

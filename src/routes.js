@@ -23,7 +23,7 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import Third from "./views/Third";
-import Template from "./views/template";
+import Template from "./views/Template";
 import UserView from "./views/userView";
 import Reservation from "./views/examples/Reservation";
 
