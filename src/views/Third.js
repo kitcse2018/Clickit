@@ -2,7 +2,7 @@ import Header from "components/Headers/Header.js";
 import Student from "components/JDcomponents/Student.js"
 import SelectBox from "../components/SelectBox/SelectBox";
 import "../assets/css/mycss/Third.css";
-
+import Ins from "./examples/Ins";
 import React, {useState} from "react";
 import Axios from 'axios'
 import {Container} from "reactstrap";
@@ -61,13 +61,10 @@ const Third = (props) => {
                 <button  onClick = {showName}> upload </button>
                 </div>
             </div>
-
+            <Ins></Ins>
             <div className="studentBoard">
-
                 {studentList.map( student => (
-
                     <Student student={ student } key={ student.student_num } onRemove={onRemove} />
-
                 ))}
             </div>
 
