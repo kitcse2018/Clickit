@@ -216,10 +216,13 @@ p.innerFacility-time-title{
     padding: 0 10px;
 }
 
-/*.reservation-seat{*/
-/*    padding: 20px;*/
-/*    display: none;*/
-/*}*/
+.reservation-seat{
+    padding: 20px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
 
 li.reservation-seat-select{
     display: block;

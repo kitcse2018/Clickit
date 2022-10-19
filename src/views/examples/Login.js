@@ -20,7 +20,6 @@
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   FormGroup,
   Form,
@@ -32,7 +31,50 @@ import {
   Col
 } from "reactstrap";
 
+import "../../assets/css/loginView.css";
+//import {useUserContext} from "../../methods/loginMethods";
+//import {useHistory} from "react-router-dom";
+import {useState} from "react";
+import {signIn} from "../../methods/signIn";
+
 const Login = () => {
+  const password_design = "비밀번호 구성\n원스톱 이메일 앞 3자리 + 전화번호 뒷 4자리";
+
+  const [user, setUser] = useState(null);
+  const authenticated = user != null;
+
+  const mLogin = ({ id, password }) => setUser(signIn({id, password}));
+  const mLogout = () => setUser(null);
+
+  // start
+
+  // 주석 풀 때 import 쪽도 풀기
+  // const {setUser} = useUserContext();
+  // const history = useHistory();
+  // const [account, setAccount] = useState({
+  //   id: "",
+  //   password: "",
+  // });
+  //
+  // const onChangeAccount = (e) => {
+  //   setAccount({
+  //     ...account,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+  //
+  // const onSubmitAccount = async () =>{
+  //   try{
+  //     const user = await fetchLogin(account); // fetchLogin 이 어딨는지 모르겠음
+  //
+  //     setUser(user);
+  //     history.replace("/");
+  //   }catch (error){
+  //     window.alert(error);
+  //   }
+  // };
+
+  //end
   return (
     <>
       <Col lg="5" md="7">
@@ -94,7 +136,7 @@ const Login = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Email"
+                    placeholder="Student Number"
                     type="email"
                     autoComplete="new-email"
                   />
@@ -133,13 +175,17 @@ const Login = () => {
                 </Button>
               </div>
             </Form>
+            <div className={"password-explain"}>
+              <p>{password_design}</p>
+            </div>
           </CardBody>
         </Card>
         <Row className="mt-3">
           <Col xs="6">
             <a
               className="text-light"
-              href="#pablo"
+              // href="#pablo"
+              href={"#"}
               onClick={(e) => e.preventDefault()}
             >
               <small>Forgot password?</small>
@@ -148,7 +194,8 @@ const Login = () => {
           <Col className="text-right" xs="6">
             <a
               className="text-light"
-              href="#pablo"
+              // href="#pablo"
+              href={"#"}
               onClick={(e) => e.preventDefault()}
             >
               <small>Create new account</small>
