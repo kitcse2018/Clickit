@@ -37,7 +37,7 @@ import "../../assets/css/loginView.css";
 import {useState} from "react";
 import { Redirect } from "react-router-dom";
 
-const Login = ({authenticated, login}) => {
+const LoginForm = ({authenticated, login}) => {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
 
@@ -52,7 +52,8 @@ const Login = ({authenticated, login}) => {
     };
 
 
-    if (authenticated) return <Redirect to="/admin/index"/>;
+    if (authenticated==="admin") return <Redirect to="/admin/index"/>;
+    if (authenticated==="student") return <Redirect to="/admin/user-profile"/>;
 
     const password_design = "비밀번호 구성\n원스톱 이메일 앞 3자리 + 전화번호 뒷 4자리";
 
@@ -219,4 +220,4 @@ const Login = ({authenticated, login}) => {
     );
 };
 
-export default Login;
+export default LoginForm;
