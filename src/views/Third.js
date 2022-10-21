@@ -1,6 +1,7 @@
 import Header from "components/Headers/Header.js";
 import Student from "components/JDcomponents/Student.js"
 import SelectBox from "../components/SelectBox/SelectBox";
+import StudentSearch from "./examples/StudentSearch";
 import "../assets/css/mycss/Third.css";
 import Ins from "./examples/Ins";
 import React, {useState} from "react";
@@ -14,9 +15,6 @@ import {Container} from "reactstrap";
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 const Third = (props) => {
-    function showText(txt) {
-        console.log(txt);
-    }
 
     function showName(txt) {
         console.log(txt);
@@ -25,11 +23,7 @@ const Third = (props) => {
     const onRemove = id => {
         setStudentList(studentList.filter(student => student.student_num !== id));
     };
-    const getStudents = () => {
-        Axios.get("http://localhost:3001/students").then((response) => {
-            setStudentList(response.data);
-        });
-    }
+
     return (
         <>
             <Header />
@@ -43,25 +37,12 @@ const Third = (props) => {
             <div className="Search">
                 <SelectBox ></SelectBox>
 
-                <div className="SeachBox">
-                    <div className="icon">
-                        <i className="fas fa-search"></i>
-                    </div>
-                    <input placeholder="학번 입력" className="inputStudent"
-                           type="text"
-                           onChange={e => {
-                               const txt = e.target.value;
-                               showText(txt);
-                           }}
-                    />
-                    <button  onClick={getStudents}>조회</button>
-                </div>
+              <StudentSearch setStudentList={setStudentList}></StudentSearch>
                 <div>
                 <button  onClick = {showName}> 학생 추가 </button>
                 <button  onClick = {showName}> upload </button>
                 </div>
             </div>
-            <Ins></Ins>
             <div className="studentBoard">
                 {studentList.map( student => (
                     <Student student={ student } key={ student.student_num } onRemove={onRemove} />
