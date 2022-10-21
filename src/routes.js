@@ -56,6 +56,7 @@ let routes = [
     component: Profile,
     layout: "/admin"
   },
+
   {
     path: "/tables",
     name: "Tables",

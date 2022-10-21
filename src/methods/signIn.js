@@ -1,6 +1,6 @@
 const users = [
     {
-        id : 20200000,
+        id : "20200000",
         password : "abc1234",
         type : "오름1동"
     },
