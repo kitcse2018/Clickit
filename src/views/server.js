@@ -33,6 +33,24 @@ app.get('/students',(req,res) => {
     );
 });
 
+app.post('/login',async (req,res) =>{
+    const{id,password}=req.body;
+    db.query("SELECT * FROM STUDY WHERE STUDENT_ID = '${id}'",
+        (err,rows,fileds)=>{
+            if(rows != undefined){
+                if(rows[0]==undefined){
+                    res.send(null);
+                }else {
+                    if(password==rows[0].student_password){
+                        res.send(rows[0])
+                    }else{
+                        res.send('실패')
+                    }
+                }
+            }}
+    )
+});
+
 app.post("/idplz", (req,res)=>{
     const postDormitoryName = req.body.postDormitoryName;
 
@@ -50,12 +68,12 @@ app.post("/idplz", (req,res)=>{
         });
 });
 
-app.get("/searchStudent", (req,res)=>{
+app.get("/searchStudents", async (req,res)=>{
     const postStudentName = req.query.postStudentName;
-    console.log(postStudentName);
+
     db.query(
-        "SELECT * FROM STUDY WHERE student_name = ?"
-        ,'손정동',
+        "SELECT * FROM STUDY WHERE student_name = (?)"
+        ,[postStudentName],
         function(err,result){
             if(err){
                 console.log(err)
