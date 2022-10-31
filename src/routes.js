@@ -100,13 +100,6 @@ let routes = [
     layout: "/admin"
   },
   {
-    path: "/UserView",
-    name: "UserView",
-    icon: "ni ni-user-run",
-    component: UserView,
-    layout: "/admin"
-  },
-  {
     path: "/reservation",
     name: "Reservation",
     icon: "ni ni-bullet-list-67 text-blue",
