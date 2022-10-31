@@ -50,11 +50,17 @@ import Header from "components/Headers/Header.js";
 import "../../assets/css/ReservationView.css";
 import "../../methods/innerFacility.js";
 import $ from 'jquery';
+import Axios from "axios";
 
 const Reservation = (props) => {
     // edit innerFacility_img
     let innerFacility_img = 'argon-react.png';
     let img_name = innerFacility_img.substring(0, innerFacility_img.indexOf('.'));
+
+    const [facilityList,setfacilityList] = useState([]);
+    Axios.get("http://localhost:3001/facility").then((response) => {
+        setfacilityList(response.data);
+    });
 
     return (
         <>
@@ -73,98 +79,15 @@ const Reservation = (props) => {
                         <div className={"innerFacility-seat-time-list"}>
                             <ul className={"reservation-time-select"}>
                                 <li className={"reservation-seat-select"}>
+                                    {/*디비에 시간 개수만큼 가져오기*/}
                                     <p className={"reservation-time-title"}>
-                                        time1
+                                        {/*시작시간 끝시간 뜨기*/}
                                         <span className={"reservation-accIcon"}/>
                                     </p>
                                     <div className={"reservation-seat"}>
+                                        {/*해당 시간의 자리 개수만큼 가져오기*/}
                                         <div className={"seat-name"}>
-                                            1번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            2번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            3번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                </li>
-                                <li className={"reservation-seat-select"}>
-                                    <p className={"reservation-time-title"}>
-                                        time2
-                                        <span className={"reservation-accIcon"}/>
-                                    </p>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            1번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            2번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                </li>
-                            {/*  start test li tag  */}
-                                <li className={"reservation-seat-select"}>
-                                    <p className={"reservation-time-title"}>
-                                        time3
-                                        <span className={"reservation-accIcon"}/>
-                                    </p>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            1번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            2번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                </li>
-                                <li className={"reservation-seat-select"}>
-                                    <p className={"reservation-time-title"}>
-                                        time4
-                                        <span className={"reservation-accIcon"}/>
-                                    </p>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            1번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            2번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                </li>
-                                <li className={"reservation-seat-select"}>
-                                    <p className={"reservation-time-title"}>
-                                        time5
-                                        <span className={"reservation-accIcon"}/>
-                                    </p>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            1번자리
-                                        </div>
-                                        <Button>reservation-request-button</Button>
-                                    </div>
-                                    <div className={"reservation-seat"}>
-                                        <div className={"seat-name"}>
-                                            2번자리
+                                        {/*    해당 자리 이름 가져오기*/}
                                         </div>
                                         <Button>reservation-request-button</Button>
                                     </div>
