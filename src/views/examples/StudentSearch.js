@@ -12,7 +12,7 @@ const StudentSearch = (props) => {
 
     function submitGetStudents ()  {
         Axios.get("http://localhost:3001/searchStudents",{params : {
-                postStudentName : state.studentName,
+                postStudentId : state.studentId,
             }}).then((response) => {
                 props.setStudentList(response.data);
         });
@@ -22,8 +22,8 @@ const StudentSearch = (props) => {
                 <div className="icon">
                     <i className="fas fa-search"></i>
                 </div>
-                <input placeholder="이름 입력" className="inputStudent"
-                       type="text" name = "studentName"
+                <input placeholder="학번 입력" className="inputStudent"
+                       type="number" name = "studentId"
                        onChange={handleChange}
                 />
                 <button  onClick={()=>{submitGetStudents()}}>조회</button>

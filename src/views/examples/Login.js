@@ -45,37 +45,6 @@ const Login = () => {
   const authenticated = user== null ? null : user.authenticated;
   const logout = () => setUser(null);
 
-
-
-  // start
-
-  // 주석 풀 때 import 쪽도 풀기
-  // const {setUser} = useUserContext();
-  // const history = useHistory();
-  // const [account, setAccount] = useState({
-  //   id: "",
-  //   password: "",
-  // });
-  //
-  // const onChangeAccount = (e) => {
-  //   setAccount({
-  //     ...account,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-  //
-  // const onSubmitAccount = async () =>{
-  //   try{
-  //     const user = await fetchLogin(account); // fetchLogin 이 어딨는지 모르겠음
-  //
-  //     setUser(user);
-  //     history.replace("/");
-  //   }catch (error){
-  //     window.alert(error);
-  //   }
-  // };
-
-  //end
   return (
       <>
        <LoginForm login={login} authenticated={authenticated}></LoginForm>

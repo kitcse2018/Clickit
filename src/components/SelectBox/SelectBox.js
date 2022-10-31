@@ -14,7 +14,7 @@ const SelectBox = () => {
                 <select id="class">
                     <option value="none" >생활관 선택</option>
                     {dormitoryList.map( dormitory => (
-                        <option value={dormitory.iddormitory}>{dormitory.name}</option>
+                        <option value={dormitory.dormitory_num}>{dormitory.dormitory_name}</option>
                     ))}
                 </select>
             </div>
