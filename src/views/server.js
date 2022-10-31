@@ -14,7 +14,7 @@ const db = mysql.createConnection(
         user: 'root',
         host:'localhost',
         password: 'cym0523200!',
-        database: 'study'
+        database: 'ccd'
     }
 );
 
@@ -22,7 +22,7 @@ db.connect();
 
 app.get('/students',(req,res) => {
     db.query(
-        "SELECT * FROM STUDY",
+        "SELECT * FROM student",
         (err,result) => {
             if(err){
                 console.log(err)
@@ -31,6 +31,24 @@ app.get('/students',(req,res) => {
             }
         }
     );
+});
+
+app.post('/login',async (req,res) =>{
+    const{id,password}=req.body;
+    db.query("SELECT * FROM student WHERE STUDENT_ID = '${id}'",
+        (err,rows,fileds)=>{
+            if(rows != undefined){
+                if(rows[0]==undefined){
+                    res.send(null);
+                }else {
+                    if(password==rows[0].student_password){
+                        res.send(rows[0])
+                    }else{
+                        res.send('실패')
+                    }
+                }
+            }}
+    )
 });
 
 app.post("/idplz", (req,res)=>{
@@ -50,12 +68,12 @@ app.post("/idplz", (req,res)=>{
         });
 });
 
-app.get("/searchStudent", (req,res)=>{
-    const postStudentName = req.query.postStudentName;
-    console.log(postStudentName);
+app.get("/searchStudents", async (req,res)=>{
+    const postStudentId = req.query.postStudentId;
+
     db.query(
-        "SELECT * FROM STUDY WHERE student_name = ?"
-        ,'손정동',
+        "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)"
+        ,['%'+postStudentId+'%'],
         function(err,result){
             if(err){
                 console.log(err)
