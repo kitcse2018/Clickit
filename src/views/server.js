@@ -98,6 +98,36 @@ app.get("/signIn", async (req,res)=>{
         });
 });
 
+app.get('/facility',(req,res) => {
+    db.query(
+        "SELECT * FROM facility",
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+
+app.get('/inner_facility',async(req,res) => {
+    let inner_facility_num = req.query.facilityNum;
+    db.query(
+        "SELECT * FROM inner_facility AS inf INNER JOIN facility_seat AS fs ON inf.inner_facility_num = fs.inner_facility_num " +
+        "INNER JOIN seat_availability AS sa ON fs.facility_seat_num = sa.facility_seat_num WHERE inf.facility_num = ?",[inner_facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+
 
 app.listen(PORT,()=>{
     console.log(`yes,your server is running on port ${PORT}!`);
