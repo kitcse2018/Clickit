@@ -40,6 +40,7 @@ import InnerFacilityReservation from "components/JDcomponents/InnerFacilityReser
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 const Reservation = (props) => {
+
     let innerFacility_img = 'argon-react.png';
     let img_name = innerFacility_img.substring(0, innerFacility_img.indexOf('.'));
     const findFacilityNum = props.match.params.facility_num
