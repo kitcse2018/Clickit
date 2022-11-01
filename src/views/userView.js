@@ -39,13 +39,12 @@ import "../assets/css/UserView.css";
 // !!!ex) Template -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-const Template = (props) => {
+const userView = (props) => {
     return (
         <>
             <Header />
             <Facility></Facility>
 
-            {/**/}
             {/* Page content */}
             {/* You must read here */}
             {/* Change main-container className */}
@@ -60,4 +59,4 @@ const Template = (props) => {
 // !!!Change "Template" name      !!!
 // !!!ex) Template -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-export default Template;
+export default userView;
