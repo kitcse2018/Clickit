@@ -17,6 +17,7 @@ const StudentSearch = (props) => {
                 props.setStudentList(response.data);
         });
     }
+
     return(
             <div className="SeachBox">
                 <div className="icon">

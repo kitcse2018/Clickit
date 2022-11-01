@@ -33,23 +33,7 @@ app.get('/students',(req,res) => {
     );
 });
 
-app.post('/login',async (req,res) =>{
-    const{id,password}=req.body;
-    db.query("SELECT * FROM student WHERE STUDENT_ID = '${id}'",
-        (err,rows,fileds)=>{
-            if(rows != undefined){
-                if(rows[0]==undefined){
-                    res.send(null);
-                }else {
-                    if(password==rows[0].student_password){
-                        res.send(rows[0])
-                    }else{
-                        res.send('실패')
-                    }
-                }
-            }}
-    )
-});
+
 
 app.post("/idplz", (req,res)=>{
     const postDormitoryName = req.body.postDormitoryName;
@@ -97,6 +81,23 @@ app.get('/dormitories',(req,res) => {
         }
     );
 });
+
+app.get("/signIn", async (req,res)=>{
+    const postAuthId = req.query.postAuthId;
+    const postAuthPassword = req.query.postAuthPassword;
+    db.query(
+        "SELECT * FROM admin where admin_id=(?) and admin_password=(?) ;"
+        ,[postAuthId,postAuthPassword],
+        function(err,result){
+            if(err){
+                console.log(err)
+            }else{
+                console.log(result);
+                res.send(result);
+            }
+        });
+});
+
 
 app.listen(PORT,()=>{
     console.log(`yes,your server is running on port ${PORT}!`);
