@@ -112,6 +112,7 @@ app.get('/facility',(req,res) => {
 });
 
 
+
 app.get('/inner_facility',async(req,res) => {
     let inner_facility_num = req.query.facilityNum;
     db.query(
