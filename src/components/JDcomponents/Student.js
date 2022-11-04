@@ -5,7 +5,6 @@ function Student({ student, onRemove }) {
         <div className="studentList">
             <div className="gnb_menu">
                 <ul className="student_ul">
-
                     <li className="dp1">
                         <input className="inputOrshow" type="text" name="department" value={student.student_id} readOnly/>
                     </li>

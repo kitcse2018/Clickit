@@ -26,6 +26,7 @@ import Third from "./views/Third";
 import Template from "./views/Template";
 import UserView from "./views/userView";
 import Reservation from "./views/examples/Reservation";
+import DormitoryManager from "./views/examples/DormitoryManager";
 
 let routes = [
   {
@@ -104,6 +105,13 @@ let routes = [
     name: "Reservation",
     icon: "ni ni-bullet-list-67 text-blue",
     component: Reservation,
+    layout: "/admin"
+  },
+  {
+    path: "/dormitoryManager",
+    name: "DormitoryManager",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: DormitoryManager,
     layout: "/admin"
   },
 ];
