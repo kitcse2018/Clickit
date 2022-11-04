@@ -20,6 +20,8 @@ const Third = (props) => {
         console.log(txt);
     }
     const [studentList,setStudentList] = useState([]);
+    const [optionValue,setOptionValue] = useState([]);
+
     const onRemove = id => {
         setStudentList(studentList.filter(student => student.student_num !== id));
     };
@@ -35,9 +37,8 @@ const Third = (props) => {
 
             <h1 > &nbsp; 생활관생 관리</h1>
             <div className="Search">
-                <SelectBox ></SelectBox>
-
-              <StudentSearch setStudentList={setStudentList}></StudentSearch>
+                <SelectBox setOptionValue={setOptionValue} ></SelectBox>
+              <StudentSearch setStudentList={setStudentList} optionValue={optionValue}></StudentSearch>
                 <div>
                 <button  onClick = {showName}> 학생 추가 </button>
                 <button  onClick = {showName}> upload </button>
