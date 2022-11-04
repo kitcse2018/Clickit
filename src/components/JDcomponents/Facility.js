@@ -4,17 +4,11 @@ import {Link} from 'react-router-dom'
 
 
 const Facility = () => {
+
     const [facilityList,setfacilityList] = useState([]);
     Axios.get("http://localhost:3001/facility").then((response) => {
         setfacilityList(response.data);
     });
-    const [innerFacilityNum, setInnerFacilityNum] = useState([{
-        inner_facility_num: '',
-    }])
-    Axios.get("http://localhost:3001/seat_availability").then((response) => {
-        setfacilityList(response.data);
-    });
-
 
     return (
         <div>
@@ -47,19 +41,21 @@ const Facility = () => {
                             <p>예약 현황 2/4 </p>
                         </div>
                         <div className={"fac-reserve"}>
-                            <Link to={'/inner'}>
-                                <button className={"fac-reserve-button"}>
-                                    예약하기
+                                <button className={"fac-reserve-button"} onClick={async () =>{
+                                    let response = await Axios.get("http://localhost:3001/inner_facility",{
+                                        params : {Facility_Num : 1},
+                                    });
+                                    console.log(response.data)
+                                }} >
+                                    <a href = {'/admin/reservation/' + facility.facility_num}>
+                                        예약하기
+                                    </a>
                                 </button>
-                            </Link>
-
-
                         </div>
                     </div>
                 </div>
             ))}
         </div>
-
     );
 }
 export default Facility;

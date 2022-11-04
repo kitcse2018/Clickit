@@ -100,7 +100,7 @@ let routes = [
     layout: "/admin"
   },
   {
-    path: "/reservation",
+    path: "/reservation/:facility_num",
     name: "Reservation",
     icon: "ni ni-bullet-list-67 text-blue",
     component: Reservation,

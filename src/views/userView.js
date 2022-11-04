@@ -39,7 +39,7 @@ import "../assets/css/UserView.css";
 // !!!ex) Template -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-const Template = (props) => {
+const userView = (props) => {
     return (
         <>
             <Header />
@@ -59,4 +59,4 @@ const Template = (props) => {
 // !!!Change "Template" name      !!!
 // !!!ex) Template -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-export default Template;
+export default userView;
