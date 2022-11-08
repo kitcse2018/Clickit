@@ -1,4 +1,20 @@
+/*!
 
+=========================================================
+* Argon Dashboard React - v1.2.2
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import { useState } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
@@ -31,32 +47,28 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
-import Facility from "components/JDcomponents/Facility.js"
-import "../assets/css/UserView.css";
+
 // You must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!Change const "Template" name!!!
 // !!!ex) Template -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-const userView = (props) => {
+const DormitoryEdit = (props) => {
     return (
         <>
             <Header />
-            <Facility></Facility>
-
-            {/* Page content */}
-            {/* You must read here */}
-            {/* Change main-container className */}
+            <Container className={"DormitoryEdit-Container"}>
+                Testing
+            </Container>
 
         </>
     );
 };
-
 
 // you must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!Change "Template" name      !!!
 // !!!ex) Template -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-export default userView;
+export default DormitoryEdit;

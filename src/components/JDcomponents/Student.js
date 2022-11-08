@@ -5,17 +5,15 @@ function Student({ student, onRemove }) {
         <div className="studentList">
             <div className="gnb_menu">
                 <ul className="student_ul">
+
                     <li className="dp1">
                         <input className="inputOrshow" type="text" name="department" value={student.student_id} readOnly/>
                     </li>
                     <li className="dp1">
-                        <input className="inputOrshow" type="text" name="department" value={student.student_name} readOnly/>
+                        <input className="inputOrshow" type="text" name="department" value={student.dormitory_name} readOnly/>
                     </li>
                     <li className="dp1">
                         <input className="inputOrshow" type="text" name="department" value={student.student_password} readOnly/>
-                    </li>
-                    <li className="dp1">
-                        <input className="inputOrshow" type="text" name="department" value={student.dormitory} readOnly/>
                     </li>
                 </ul>
                 <button onClick={() => onRemove(student.student_num)}>수정</button>

@@ -32,12 +32,11 @@ import {
 } from "reactstrap";
 
 import "../../assets/css/loginView.css";
-//import {useUserContext} from "../../methods/loginMethods";
-//import {useHistory} from "react-router-dom";
+
 import {useState} from "react";
 import { Redirect } from "react-router-dom";
 
-const LoginForm = ({authenticated, login}) => {
+const LoginForm = ({admin_type, login}) => {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
 
@@ -50,94 +49,16 @@ const LoginForm = ({authenticated, login}) => {
             setPassword("");
         }
     };
-
-
-    if (authenticated==="admin") return <Redirect to="/admin/index"/>;
-    if (authenticated==="student") return <Redirect to="/admin/user-profile"/>;
-
     const password_design = "비밀번호 구성\n원스톱 이메일 앞 3자리 + 전화번호 뒷 4자리";
 
-
-    // start
-
-    // 주석 풀 때 import 쪽도 풀기
-    // const {setUser} = useUserContext();
-    // const history = useHistory();
-    // const [account, setAccount] = useState({
-    //   id: "",
-    //   password: "",
-    // });
-    //
-    // const onChangeAccount = (e) => {
-    //   setAccount({
-    //     ...account,
-    //     [e.target.name]: e.target.value,
-    //   });
-    // };
-    //
-    // const onSubmitAccount = async () =>{
-    //   try{
-    //     const user = await fetchLogin(account); // fetchLogin 이 어딨는지 모르겠음
-    //
-    //     setUser(user);
-    //     history.replace("/");
-    //   }catch (error){
-    //     window.alert(error);
-    //   }
-    // };
-
-    //end
     return (
         <>
             <Col lg="5" md="7">
                 <Card className="bg-secondary shadow border-0">
-                    {/* from here */}
-                    {/*<CardHeader className="bg-transparent pb-5">*/}
-                    {/*  <div className="text-muted text-center mt-2 mb-3">*/}
-                    {/*    <small>Sign in with</small>*/}
-                    {/*  </div>*/}
-                    {/*  <div className="btn-wrapper text-center">*/}
-                    {/*    <Button*/}
-                    {/*      className="btn-neutral btn-icon"*/}
-                    {/*      color="default"*/}
-                    {/*      href="#pablo"*/}
-                    {/*      onClick={(e) => e.preventDefault()}*/}
-                    {/*    >*/}
-                    {/*      <span className="btn-inner--icon">*/}
-                    {/*        <img*/}
-                    {/*          alt="..."*/}
-                    {/*          src={*/}
-                    {/*            require("../../assets/img/icons/common/github.svg")*/}
-                    {/*              .default*/}
-                    {/*          }*/}
-                    {/*        />*/}
-                    {/*      </span>*/}
-                    {/*      <span className="btn-inner--text">Github</span>*/}
-                    {/*    </Button>*/}
-                    {/*    <Button*/}
-                    {/*      className="btn-neutral btn-icon"*/}
-                    {/*      color="default"*/}
-                    {/*      href="#pablo"*/}
-                    {/*      onClick={(e) => e.preventDefault()}*/}
-                    {/*    >*/}
-                    {/*      <span className="btn-inner--icon">*/}
-                    {/*        <img*/}
-                    {/*          alt="..."*/}
-                    {/*          src={*/}
-                    {/*            require("../../assets/img/icons/common/google.svg")*/}
-                    {/*              .default*/}
-                    {/*          }*/}
-                    {/*        />*/}
-                    {/*      </span>*/}
-                    {/*      <span className="btn-inner--text">Google</span>*/}
-                    {/*    </Button>*/}
-                    {/*  </div>*/}
-                    {/*</CardHeader>*/}
-                    {/* to here */}
+
                     <CardBody className="px-lg-5 py-lg-5">
                         <div className="text-center text-muted mb-4">
-                            {/*<small>Or sign in with credentials</small>*/}
-                            {/*  here */}
+
                         </div>
                         <Form role="form">
                             <FormGroup className="mb-3">
@@ -218,6 +139,7 @@ const LoginForm = ({authenticated, login}) => {
             </Col>
         </>
     );
+
 };
 
 export default LoginForm;
