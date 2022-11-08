@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host:'localhost',
-        password: '1234',
+        password: 'cym0523200!',
         database: 'ccd'
     }
 );
@@ -32,6 +32,8 @@ app.get('/students',(req,res) => {
         }
     );
 });
+
+
 
 app.post("/idplz", (req,res)=>{
     const postDormitoryName = req.body.postDormitoryName;
@@ -66,7 +68,8 @@ app.get("/searchStudents", async (req,res)=>{
         });
 });
 
-app.get('/dormitory',(req,res) => {
+
+app.get('/dormitories',(req,res) => {
     db.query(
         "SELECT * FROM dormitory",
         (err,result) => {
@@ -108,6 +111,8 @@ app.get('/facility',(req,res) => {
     );
 });
 
+
+
 app.get('/inner_facility',async(req,res) => {
     let inner_facility_num = req.query.facilityNum;
     db.query(
@@ -122,6 +127,8 @@ app.get('/inner_facility',async(req,res) => {
         }
     );
 });
+
+
 
 app.listen(PORT,()=>{
     console.log(`yes,your server is running on port ${PORT}!`);

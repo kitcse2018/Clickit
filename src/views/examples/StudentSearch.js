@@ -8,11 +8,10 @@ const StudentSearch = (props) => {
             [e.target.name]: e.target.value,
         });
     };
-
-
     function submitGetStudents ()  {
+
         Axios.get("http://localhost:3001/searchStudents",{params : {
-                postStudentId : state.studentId,
+                postStudentId : state.studentId, postOptionValue : props.optionValue
             }}).then((response) => {
                 props.setStudentList(response.data);
         });

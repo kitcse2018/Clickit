@@ -64,7 +64,7 @@ const Reservation = (props) => {
                                     <img src={require('../../assets/img/innerFacility/' + innerFacility_img)}/>
                                 </div>
                                 <div className={"innerFacility-name"}>
-                                    <h1 className={"display-3"}>{innerFacility.inner_facility_name}</h1>
+                                    <h1 className={"display-3"}>{img_name}</h1>
                                 </div>
                                 <hr/>
                                 <div className={"innerFacility-seat-time-list"}>
@@ -73,11 +73,11 @@ const Reservation = (props) => {
                                             {/*디비에 시간 개수만큼 가져오기*/}
                                             <p className={"reservation-time-title"}>
                                                 시간 {innerFacility.seat_availability_start_time}
+                                                {findFacilityNum}
                                                 {/*시작시간 끝시간 뜨기*/}
                                                 <span className={"reservation-accIcon"}/>
                                             </p>
                                             <div className={"reservation-seat"}>
-
                                                 {/*해당 시간의 자리 개수만큼 가져오기*/}
                                                 <div className={"seat-name"}>
                                                     {/*    해당 자리 이름 가져오기*/}
