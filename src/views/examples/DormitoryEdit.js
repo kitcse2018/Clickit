@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { useState } from "react";
+import React, { useState } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -47,6 +47,7 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
+import "../../assets/css/dormitory-edit.css";
 
 // You must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -55,11 +56,45 @@ import Header from "components/Headers/Header.js";
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 const DormitoryEdit = (props) => {
+
+    //dormitory name variable
+    let dormitory_name = "dormitory_name";
+    //img name variable
+    let img_name = "clickit.png";
+
     return (
         <>
             <Header />
-            <Container className={"DormitoryEdit-Container"}>
-                Testing
+            <Container className={"dormitoryEdit-container"}>
+                <div className={"dormitory-name"}>
+                    <h1>{dormitory_name}</h1>
+                </div>
+                {/* =============== start dormitory edit content =============== */}
+                <div className={"dormitory-edit-content"}>
+                    <div className={"dormitory-edit-content-header"}>
+                        <div className={"dormitory-img"}>
+                            <img src={require('../../assets/img/dormitory/' + img_name)}/>
+                        </div>
+                        <input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>
+                        <input type={"text"} className={"dormitory-name-input"} placeholder={dormitory_name}/>
+                        <input type={"submit"} className={"dormitory-edit-save"} value={"이름 변경"}/>
+                        <input type={"submit"} className={"dormitory-edit-save"} value={"저장"}/>
+                        <input type={"submit"} className={"dormitory-edit-save"} value={"시설물 추가"}/>
+                    </div>
+                    <div className={"dormitory-edit-content-body"}>
+                        <div className={"dormitory-innerFacility-list"}>
+                            <ul className={"dormitory-innerFacility-list-ul"}>
+                                <li className={"dormitory-innerFacility-list-li"}>
+                                    가나다
+                                </li>
+                                <li className={"dormitory-innerFacility-list-li"}>
+                                    라마바
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {/* =============== end of dormitory edit content ===============  */}
             </Container>
 
         </>
