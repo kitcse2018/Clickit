@@ -23,6 +23,8 @@ import UserView from "./views/userView";
 import Reservation from "./views/examples/Reservation";
 import DormitoryEdit from "./views/examples/DormitoryEdit";
 import Login from "./views/examples/Login";
+import Terms from "./views/examples/Terms";
+import Notice from "./views/examples/Notice";
 
 let routes = [
   /*{
@@ -156,6 +158,20 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryEdit,
     layout: "/admin"
-  }
+  },
+  {
+    path: "/terms",
+    name: "Terms",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: Terms,
+    layout: "/admin"
+  },
+  {
+    path: "/notice",
+    name: "Notice",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: Notice,
+    layout: "/admin"
+    }
 ];
 export default routes;
