@@ -2,8 +2,7 @@
 생활관 시설물 예약 시스템
 
 
-**commit 주의사항**
-
+## **commit 주의사항**
 1. commit에 대하여 종류 명시<br>
   └ create : js, css등 파일을 생성의 경우<br>
   └ update : function이나 component 내부를 변경한 경우<br>
@@ -18,16 +17,17 @@
   ex) update : example.js change exampleFunction logic
 
 4. 변경 사항이 여러가지일 경우<br>
+```
   create
   - example1.js
   - example2.js
-
+  
   update
   - example1.js : change exampleFunction logic
-
+```
 ---
 
-**Branch 사용**
+## **Branch 사용**<br>
 새로운 페이지 생성할 경우 Branch를 사용하여 따로 생성<br>
     └ 원격 origin/master에서 새로운 Branch 생성 
 
