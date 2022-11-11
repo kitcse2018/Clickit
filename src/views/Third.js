@@ -23,7 +23,7 @@ const Third = (props) => {
     const [optionValue,setOptionValue] = useState([]);
 
     const onRemove = id => {
-        setStudentList(studentList.filter(student => student.student_num !== id));
+        setStudentList(studentList.filter(student => student.student_id !== id));
     };
 
     return (
@@ -46,7 +46,7 @@ const Third = (props) => {
             </div>
             <div className="studentBoard">
                 {studentList.map( student => (
-                    <Student student={ student } key={ student.student_num } onRemove={onRemove} />
+                    <Student student={ student } key={ student.student_id } onRemove={onRemove} />
                 ))}
             </div>
 

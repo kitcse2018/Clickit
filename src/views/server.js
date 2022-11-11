@@ -12,8 +12,8 @@ app.use(cors());
 const db = mysql.createConnection(
     {
         user: 'root',
-        host:'localhost',
-        password: 'cym0523200!',
+        host: 'localhost',
+        password: 'ql!@#$%qjs12',
         database: 'ccd'
     }
 );
@@ -33,7 +33,23 @@ app.get('/students',(req,res) => {
     );
 });
 
-
+app.post('/login',async (req,res) =>{
+    const{id,password}=req.body;
+    db.query("SELECT * FROM student WHERE STUDENT_ID = '${id}'",
+        (err,rows,fileds)=>{
+            if(rows != undefined){
+                if(rows[0]==undefined){
+                    res.send(null);
+                }else {
+                    if(password==rows[0].student_password){
+                        res.send(rows[0])
+                    }else{
+                        res.send('실패')
+                    }
+                }
+            }}
+    )
+});
 
 app.post("/idplz", (req,res)=>{
     const postDormitoryName = req.body.postDormitoryName;
