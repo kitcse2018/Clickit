@@ -11,13 +11,18 @@
   └ e.t.c : 기타의 경우
   
 2. target file 명시<br>
-  ex) create : example.js
-
+```
+  ex)
+  create : example.js
+```
 3.  datail 명시<br>
-  ex) update : example.js change exampleFunction logic
-
+```
+  ex)
+  update : example.js change exampleFunction logic
+```
 4. 변경 사항이 여러가지일 경우<br>
 ```
+  ex)
   create
   - example1.js
   - example2.js
@@ -34,3 +39,10 @@
 새로운 Branch의 경우 페이지 이름으로 네이밍
 
 페이지 완성한 다음 origin/master에 merge
+<br>
+
+![image](https://user-images.githubusercontent.com/67218734/201326208-669aac73-00fd-4c7a-8ed2-666956972aa6.png)
+
+![image](https://user-images.githubusercontent.com/67218734/201326308-0ccea3e1-e0cb-4c10-bc2b-a4e958ea340e.png)
+
+
