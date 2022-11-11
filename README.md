@@ -2,7 +2,7 @@
 생활관 시설물 예약 시스템
 
 
-**commit 時 주의사항
+**commit 주의사항**
 
 1. commit에 대하여 종류 명시
   └ create : js, css등 파일을 생성의 경우
@@ -27,4 +27,10 @@
 
 ---
 
-**Branch 사용
+**Branch 사용**
+새로운 페이지 생성할 경우 Branch를 사용하여 따로 생성
+    └ 원격 origin/master에서 새로운 Branch 생성 
+
+새로운 Branch의 경우 페이지 이름으로 네이밍
+
+페이지 완성한 다음 origin/master에 merge
