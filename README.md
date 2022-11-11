@@ -23,7 +23,7 @@
   - example2.js
 
   update
-  - example1.js change exampleFunction logic
+  - example1.js : change exampleFunction logic
 
 ---
 
