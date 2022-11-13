@@ -4,7 +4,7 @@
 README.md 개요  
 1. commit 주의사항
 2. branch 사용법
-3. <span style="color:red">git clone 파일이 안 보일 경우 해결 방법</span>
+3. git clone 파일이 안 보일 경우 해결 방법
 
 <br>
 
