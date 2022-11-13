@@ -48,6 +48,7 @@ import {
 
 import Header from "components/Headers/Header.js";
 import "../../assets/css/dormitory-edit.css";
+import Axios from "axios";
 
 // You must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -62,26 +63,45 @@ const DormitoryEdit = (props) => {
     //img name variable
     let img_name = "clickit.png";
 
+    const findDormitoryNumName = props.match.params.dormitory_num
+    const findDormitoryValue = findDormitoryNumName.split('|')
+
+
+
+    const [dormitoryEditList,setdormitoryEditList] = useState([]);
+    Axios.get("http://localhost:3001/dormitory_edit",{params:{
+            dormitoryNum : findDormitoryValue[0],
+        }}).then((response) => {
+        setdormitoryEditList(response.data);
+    });
+
+
     return (
         <>
             <Header />
             <Container className={"dormitoryEdit-container"}>
                 <div className={"dormitory-name"}>
-                    <h1>{dormitory_name}</h1>
+                    <h1>{findDormitoryValue[1]}</h1>
                 </div>
                 {/* =============== start dormitory edit content =============== */}
+
                 <div className={"dormitory-edit-content"}>
                     <div className={"dormitory-edit-content-header"}>
                         <div className={"dormitory-img"}>
                             <img src={require('../../assets/img/dormitory/' + img_name)}/>
                         </div>
-                        <input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>
+                        <Button className={"dormitory-img-edit"} type={"button"} color={"primary"} size={"sm"}>이미지 수정</Button>
+                        {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
                         <input type={"text"} className={"dormitory-name-input"} placeholder={dormitory_name}/>
-                        <input type={"submit"} className={"dormitory-edit-save"} value={"이름 변경"}/>
-                        <input type={"submit"} className={"dormitory-edit-save"} value={"저장"}/>
-                        <input type={"submit"} className={"dormitory-edit-save"} value={"시설물 추가"}/>
+                        <Button className={"dormitory-name-edit"} type={"button"} color={"primary"} size={"sm"}>이름 변경</Button>
+                        <Button className={"dormitory-edit-save"} type={"button"} color={"primary"}>저장</Button>
+                        <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"}>시설물 추가</Button>
                     </div>
+
                     <div className={"dormitory-edit-content-body"}>
+                        {/*dormitoryEditList에 있는 facility name limit time 넣어주기*/}
+
+
                         <div className={"dormitory-innerFacility-list"}>
                             <ul className={"dormitory-innerFacility-list-ul"}>
                                 <li className={"dormitory-innerFacility-list-li"}>
@@ -94,7 +114,7 @@ const DormitoryEdit = (props) => {
                         </div>
                     </div>
                 </div>
-            {/* =============== end of dormitory edit content ===============  */}
+                {/* =============== end of dormitory edit content ===============  */}
             </Container>
 
         </>
