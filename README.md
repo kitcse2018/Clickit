@@ -5,8 +5,11 @@ README.md 개요
 1. commit 주의사항
 2. branch 사용법
 3. git clone 파일이 안 보일 경우 해결 방법
+4. npm install 오류 해결 코드
 
 <br>
+
+---
 
 ## **1. commit 주의사항**
 1. commit에 대하여 종류 명시<br>
@@ -64,3 +67,14 @@ README.md 개요
 1. 윈도우 탐색기에서 해당 프로젝트가 있는 폴더를 연다.
 2. 프로젝트 내부의 .idea 폴더를 삭제한다.
 3. IDE를 재시작한다.
+4. 우측 하단 npm install 실행 또는 오류 해결 코드 실행
+
+<br>
+
+---
+
+## **4. npm install 오류 해결 코드**
+```
+npm install react-paypal-express-checkout --save --legacy-peer-deps
+```
+<br>
