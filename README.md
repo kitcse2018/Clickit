@@ -1,8 +1,14 @@
-창의융합종합설계1 프로젝트<br>
-생활관 시설물 예약 시스템
+# 창의융합종합설계1 프로젝트<br>
+**생활관 시설물 예약 시스템**
 
+README.md 개요  
+1. commit 주의사항
+2. branch 사용법
+3. git clone 파일이 안 보일 경우 해결 방법
 
-## **commit 주의사항**
+<br>
+
+## **1. commit 주의사항**
 1. commit에 대하여 종류 명시<br>
   └ create : js, css등 파일을 생성의 경우<br>
   └ update : function이나 component 내부를 변경한 경우<br>
@@ -30,9 +36,11 @@
   update
   - example1.js : change exampleFunction logic
 ```
+<br>
+
 ---
 
-## **Branch 사용**<br>
+## **2. Branch 사용법**<br>
 새로운 페이지 생성할 경우 Branch를 사용하여 따로 생성<br>
     └ 원격 origin/master에서 새로운 Branch 생성 
 
@@ -45,4 +53,14 @@
 
 ![image](https://user-images.githubusercontent.com/67218734/201326308-0ccea3e1-e0cb-4c10-bc2b-a4e958ea340e.png)
 
+<br>
 
+---
+
+## **3. git clone 한 다음 프로젝트에서 파일이 안 보일 경우**
+![image](https://user-images.githubusercontent.com/67218734/201525954-1d425e9e-8603-4508-b2f4-1694a1f5c027.png)
+
+위 화면과 같이 보일 경우 해결 절차
+1. 윈도우 탐색기에서 해당 프로젝트가 있는 폴더를 연다.
+2. 프로젝트 내부의 .idea 폴더를 삭제한다.
+3. IDE를 재시작한다.
