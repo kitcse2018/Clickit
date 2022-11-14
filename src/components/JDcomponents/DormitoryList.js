@@ -5,7 +5,7 @@ import Axios from 'axios'
 const DormitoryList = (props) => {
 
     const [dormitoryList,setdormitoryList] = useState([]);
-    Axios.get("http://localhost:3001/dormitory",{
+    Axios.get("http://localhost:3001/domitories",{
 
     }).then((response) => {
         setdormitoryList(response.data);
@@ -15,7 +15,13 @@ const DormitoryList = (props) => {
         <>
             {dormitoryList.map(dormitory => (
                 <div className={"dormitory-list"}>
-                    <div>{dormitory.dormitory_name}</div>
+                    <div>
+                        <button>
+                            <a href = {'/admin/dormitoryEdit/' + dormitory.dormitory_num+'|'+dormitory.dormitory_num}>
+                                {dormitory.dormitory_name}
+                            </a>
+                        </button>
+                    </div>
                 </div>
             ))}
 
