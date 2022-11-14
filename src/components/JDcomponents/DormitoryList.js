@@ -7,7 +7,6 @@ const DormitoryList = (props) => {
     const [dormitoryList,setdormitoryList] = useState([]);
     Axios.get("http://localhost:3001/domitories",{
 
-
     }).then((response) => {
         setdormitoryList(response.data);
     });
