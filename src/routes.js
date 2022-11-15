@@ -23,6 +23,7 @@ import UserView from "./views/userView";
 import Reservation from "./views/examples/Reservation";
 import DormitoryEdit from "./views/examples/DormitoryEdit";
 import Login from "./views/examples/Login";
+import Terms from "./views/examples/Terms";
 
 let routes = [
   {
@@ -73,6 +74,13 @@ let routes = [
     name: "DormitoryEdit",
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryEdit,
+    layout: "/admin"
+  },
+  {
+    path: "/terms",
+    name: "이용수칙",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: Terms,
     layout: "/admin"
   }
 ];

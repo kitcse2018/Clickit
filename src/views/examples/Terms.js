@@ -47,16 +47,26 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
+import "../../assets/css/Terms.css";
 
 const Terms = (props) => {
     return (
         <>
             <Header />
-            <Container className={"terms-container"}>
+            <div className={"terms-container"}>
                 <div className={"terms-contents"}>
-
+                    <div className={"terms-top"}>
+                        <Button className={"terms-create"} color={"primary"}>추가</Button>
+                    </div>
+                    <div className={"terms-list"}>
+                        
+                    </div>
+                    <div className={"terms-paging"}>
+                        <Button className={"terms-prev"} color={"primary"}>이전</Button>
+                        <Button className={"terms-next"} color={"primary"}>다음</Button>
+                    </div>
                 </div>
-            </Container>
+            </div>
         </>
     );
 };
