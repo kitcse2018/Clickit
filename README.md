@@ -58,6 +58,16 @@ README.md 개요
 
 <br>
 
+**Branch merge 방법**
+1. 원격 브랜치의 origin/master를 checkout
+2. master에 example branch를 merge 선택
+
+![image](https://user-images.githubusercontent.com/67218734/202200670-7cda909d-f80a-41b4-8399-6a17ca4b4479.png)
+
+
+![image](https://user-images.githubusercontent.com/67218734/202200543-2b1c0bd3-c3d6-4ec5-adb8-5da1fdad5bbf.png)
+
+
 ---
 
 ## **3. git clone 한 다음 프로젝트에서 파일이 안 보일 경우**
