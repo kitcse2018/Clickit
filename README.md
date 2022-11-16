@@ -60,7 +60,8 @@ README.md 개요
 
 **Branch merge 방법**
 1. 원격 브랜치의 origin/master를 checkout
-2. master에 example branch를 merge 선택
+2. master에 example branch를 병합 선택
+3. 브랜치가 서로 병합된 상태에서 push
 
 ![image](https://user-images.githubusercontent.com/67218734/202200670-7cda909d-f80a-41b4-8399-6a17ca4b4479.png)
 
