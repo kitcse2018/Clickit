@@ -43,3 +43,14 @@
     width: 100%;
     background-color: rosybrown;
 }
+
+.termsEdit-element-header-input{
+    width: 20%;
+    resize: none;
+}
+
+.termsEdit-element-body-input{
+    width: 90%;
+    height: 30%;
+    resize: none;
+}

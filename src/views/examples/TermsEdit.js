@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { useState } from "react";
+import {useCallback, useState} from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -35,7 +35,7 @@ import {
     Table,
     Container,
     Row,
-    Col
+    Col, Form, Input
 } from "reactstrap";
 
 // core components
@@ -57,6 +57,12 @@ const TermsEdit = (props) => {
 
     const items = location.state;
 
+    const[value, setValue] = useState('');
+
+    const onChange = useCallback(e => {
+        setValue(e.target.value);
+    }, []);
+
     return (
         <>
             <Header />
@@ -67,14 +73,20 @@ const TermsEdit = (props) => {
                     </div>
                     <div className={"termsEdit-elements"}>
                         <div className={"termsEdit-element-header"}>
-                            <div className={"termsEdit-element-header-title"}>
-                                {items.terms_title}
-                            </div>
+                            <Form>
+                                <Input className={"termsEdit-element-header-input"}
+                                       placeholder={""} type={"textarea"} rows={"1"}
+                                       onChange = {onChange} defaultValue={items.terms_title}>
+                                </Input>
+                            </Form>
                         </div>
                         <div className={"termsEdit-element-body"}>
-                            <div className={"termsEdit-element-body-contents"}>
-                                {items.terms_contents}
-                            </div>
+                            <Form>
+                                <Input className={"termsEdit-element-body-input"}
+                                       placeholder={""} type={"textarea"} rows={"10"}
+                                       onChange = {onChange} defaultValue={items.terms_contents}>
+                                </Input>
+                            </Form>
                         </div>
                         <div className={"termsEdit-element-footer"}>
 
