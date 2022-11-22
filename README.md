@@ -6,7 +6,7 @@ README.md 개요
 2. branch 사용법
 3. git clone 파일이 안 보일 경우 해결 방법
 4. npm install 오류 해결 코드
-5. cookie 설치 
+5. cookie 설치 및 import 방법
 
 <br>
 
@@ -93,8 +93,14 @@ npm install react-paypal-express-checkout --save --legacy-peer-deps
 
 ---
 
-## **5. cookie 설치 코드**
+## **5. cookie 설치 및 import**
+
+설치
 ```
 npm install --save react-cookie --force
+```
+import
+```
+import { useCookies } from 'react-cookie';
 ```
 <br>
