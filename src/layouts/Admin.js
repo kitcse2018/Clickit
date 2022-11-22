@@ -62,7 +62,7 @@ const Admin = (props) => {
       <>
         <Sidebar
             {...props}
-            routes={routes}
+            routes={routes[0]}
             logo={{
               innerLink: "/admin/user-profile",
               imgSrc: require("../assets/img/brand/clickit.png"),

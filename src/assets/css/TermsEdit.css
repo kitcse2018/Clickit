@@ -1,0 +1,45 @@
+.termsEdit-container{
+    /*width: 100%;*/
+    /*height: 100%;*/
+    position: relative;
+    width: 100%;
+    height: 1000px;
+    margin-top: -10rem;
+    background-color: #f4f5f7;
+}
+
+.termsEdit-contents{
+    width: 100%;
+    height: 100%;
+    border: 2px solid #172b4d;
+}
+/*background-color: #172b4d;*/
+.termsEdit-top{
+    float: right;
+    margin : 15px;
+}
+
+.termsEdit-elements{
+    width: 100%;
+    height: 80%;
+    background-color: orangered;
+    overflow: auto;
+}
+
+.termsEdit-elements>.termsEdit-element-header{
+    height: 10%;
+    width: 100%;
+    background-color: skyblue;
+}
+
+.termsEdit-elements>.termsEdit-element-body{
+    height: 80%;
+    width : 100%;
+    background-color: yellowgreen;
+}
+
+.termsEdit-elements>.termsEdit-element-footer{
+    height: 10%;
+    width: 100%;
+    background-color: rosybrown;
+}

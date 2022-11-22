@@ -15,11 +15,22 @@
 }
 /*background-color: #172b4d;*/
 .terms-top{
-
+    float: right;
+    margin : 15px;
 }
 
 .terms-list{
     width: 100%;
     height: 80%;
     background-color: orangered;
+    overflow: auto;
+}
+
+.terms-paging{
+    display: flex;
+    width: 12%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding-top : 10px;
 }

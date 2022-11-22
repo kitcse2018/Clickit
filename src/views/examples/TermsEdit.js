@@ -47,34 +47,38 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
-import "../../assets/css/Terms.css";
-import Axios from "axios";
+import "../../assets/css/TermsEdit.css";
 import TermsListMap from "../../components/listmap/TermsListMap";
-import {useCookies} from "react-cookie";
+import {useLocation} from "react-router-dom";
 
-const Terms = (props) => {
+const TermsEdit = (props) => {
 
-    const [termsList, setTermsList] = useState([]);
-    Axios.get("http://localhost:3001/terms").then((response) => {
-       setTermsList(response.data);
-    });
+    const location = useLocation();
+
+    const items = location.state;
 
     return (
         <>
             <Header />
-            <div className={"terms-container"}>
-                <div className={"terms-contents"}>
-                    <div className={"terms-top"}>
-                        <Button className={"terms-create"} color={"primary"}>추가</Button>
+            <div className={"termsEdit-container"}>
+                <div className={"termsEdit-contents"}>
+                    <div className={"termsEdit-top"}>
+                        <Button className={"termsEdit-save"} color={"primary"}>저장</Button>
                     </div>
-                    <div className={"terms-list"}>
-                        {termsList.map((terms)=>(
-                            <TermsListMap terms={terms}/>
-                        ))}
-                    </div>
-                    <div className={"terms-paging"}>
-                        <Button className={"terms-prev"} color={"primary"}>이전</Button>
-                        <Button className={"terms-next"} color={"primary"}>다음</Button>
+                    <div className={"termsEdit-elements"}>
+                        <div className={"termsEdit-element-header"}>
+                            <div className={"termsEdit-element-header-title"}>
+                                {items.terms_title}
+                            </div>
+                        </div>
+                        <div className={"termsEdit-element-body"}>
+                            <div className={"termsEdit-element-body-contents"}>
+                                {items.terms_contents}
+                            </div>
+                        </div>
+                        <div className={"termsEdit-element-footer"}>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,4 +86,4 @@ const Terms = (props) => {
     );
 };
 
-export default Terms;
+export default TermsEdit;

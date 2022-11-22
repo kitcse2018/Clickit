@@ -1,0 +1,13 @@
+.terms-list-li{
+    width: 60%;
+    height: 10%;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.terms-list-li>.terms-list-title{
+    width: 20%;
+}

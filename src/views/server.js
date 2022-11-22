@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '1234',
+        password: '910su147!A',
         database: 'ccd'
     }
 );
@@ -143,6 +143,19 @@ app.get('/inner_facility',async(req,res) => {
         }
     );
 });
+
+app.get('/terms', async(req, res)=>{
+    db.query(
+        "SELECT * FROM terms",
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+})
 
 
 

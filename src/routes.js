@@ -24,8 +24,60 @@ import Reservation from "./views/examples/Reservation";
 import DormitoryEdit from "./views/examples/DormitoryEdit";
 import Login from "./views/examples/Login";
 import Terms from "./views/examples/Terms";
+import TermsEdit from "./views/examples/TermsEdit";
 
 let routes = [
+    [{
+      path: "/user-profile",
+      name: "User Profile",
+      icon: "ni ni-single-02 text-yellow",
+      component: Profile,
+      layout: "/admin"
+    },
+      {
+        path: "/Student",
+        name: "Student",
+        icon: "ni ni-user-run",
+        component: Third,
+        layout: "/admin"
+      },
+      {
+        path: "/Template",
+        name: "Template",
+        icon: "ni ni-user-run",
+        component: Template,
+        layout: "/admin"
+      },
+      {
+        path: "/reservation/:facility_num",
+        name: "Reservation",
+        icon: "ni ni-bullet-list-67 text-blue",
+        component: Reservation,
+        layout: "/admin"
+      },
+      {
+        path: "/dormitoryEdit",
+        name: "DormitoryEdit",
+        icon: "ni ni-bullet-list-67 text-blue",
+        component: DormitoryEdit,
+        layout: "/admin"
+      },
+      {
+        path: "/terms",
+        name: "이용수칙",
+        icon: "ni ni-bullet-list-67 text-blue",
+        component: Terms,
+        layout: "/admin"
+      }],
+    [
+      {
+        path: "/login",
+        name: "Login",
+        icon: "ni ni-key-25 text-info",
+        component: Login,
+        layout: "/auth"
+      },
+    ],
   {
     path: "/user-profile",
     name: "User Profile",
@@ -81,6 +133,13 @@ let routes = [
     name: "이용수칙",
     icon: "ni ni-bullet-list-67 text-blue",
     component: Terms,
+    layout: "/admin"
+  },
+  {
+    path: "/termsEdit",
+    name: "이용수칙 수정",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: TermsEdit,
     layout: "/admin"
   }
 ];
