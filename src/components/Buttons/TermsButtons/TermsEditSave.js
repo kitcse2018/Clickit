@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Button} from "reactstrap";
+import redirect from "react-router-dom/es/Redirect";
 
 const TermsEditSave = (props) => {
     const [state, setState] = useState();
@@ -31,6 +32,7 @@ const TermsEditSave = (props) => {
                     }
                 );
             });
+        redirect("/admin/terms");
     };
     return (
         <Button className={"terms-edit-save"} onClick={onClick}>저장</Button>
