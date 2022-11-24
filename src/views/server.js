@@ -146,7 +146,7 @@ app.get('/inner_facility',async(req,res) => {
 
 app.get('/terms', async(req, res)=>{
     db.query(
-        "SELECT * FROM terms",
+        "SELECT terms_num, terms_title, terms_contents, terms_inner_facility_num, inner_facility_name FROM ccd.terms LEFT JOIN ccd.inner_facility ON terms.terms_inner_facility_num = inner_facility.inner_facility_num;",
         (err, result)=>{
             if(err){
                 console.log(err)
