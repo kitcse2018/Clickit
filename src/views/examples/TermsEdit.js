@@ -50,6 +50,7 @@ import Header from "components/Headers/Header.js";
 import "../../assets/css/TermsEdit.css";
 import TermsListMap from "../../components/listmap/TermsListMap";
 import {useLocation} from "react-router-dom";
+import SelectBox from "../../components/SelectBox/SelectBox";
 
 const TermsEdit = (props) => {
 
@@ -58,6 +59,7 @@ const TermsEdit = (props) => {
     const items = location.state;
 
     const[value, setValue] = useState('');
+    const [optionValue,setOptionValue] = useState([]);
 
     const onChange = useCallback(e => {
         setValue(e.target.value);
@@ -79,6 +81,7 @@ const TermsEdit = (props) => {
                                        onChange = {onChange} defaultValue={items.terms_title}>
                                 </Input>
                             </Form>
+                            <SelectBox>setOptionValue={setOptionValue}</SelectBox>
                         </div>
                         <div className={"termsEdit-element-body"}>
                             <Form>
