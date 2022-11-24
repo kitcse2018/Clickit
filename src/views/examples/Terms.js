@@ -59,6 +59,8 @@ const Terms = (props) => {
        setTermsList(response.data);
     });
 
+    console.log(termsList); // remove this line
+
     return (
         <>
             <Header />

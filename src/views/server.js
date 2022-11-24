@@ -157,7 +157,7 @@ app.get('/terms', async(req, res)=>{
     );
 })
 
-.app.post('/termsEditSave', async (req, res)=>{
+app.post('/termsEditSave', async (req, res)=>{
     const postTerms = req.body.postTerms; // 수정할 내용
     db.query(
         "INSERT INTO terms (terms_title, terms_contents) VALUES (?, ?)" +
