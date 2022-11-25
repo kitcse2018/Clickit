@@ -9,6 +9,8 @@ function TermsListMap(props){
 
     const history = useHistory();
 
+    console.log(props);
+
     return (
         <>
             <li className="terms-list-li">
@@ -16,6 +18,9 @@ function TermsListMap(props){
                     <h1>
                         {props.terms.terms_num}
                     </h1>
+                </div>
+                <div className="terms-list-inner-facility-name">
+                    {props.terms.inner_facility_name}
                 </div>
                 <div className="terms-list-title">
                     {props.terms.terms_title}

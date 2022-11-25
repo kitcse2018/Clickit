@@ -16,7 +16,7 @@ const TermsEditSave = (props) => {
             postTermsContents : state.termsContents,
         };
 
-        fetch("http://localhost:3001/Terms", {
+        fetch("http://localhost:3001/TermsEditSave", {
             method : "post",
             headers : {
                 "content-type" : "application/json",
