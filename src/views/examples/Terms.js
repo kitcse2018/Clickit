@@ -49,7 +49,7 @@ import {
 import Header from "components/Headers/Header.js";
 import "../../assets/css/Terms.css";
 import Axios from "axios";
-import TermsListMap from "../../components/listmap/TermsListMap";
+import TermsListMap from "../../components/Listmap/TermsListMap";
 import {useCookies} from "react-cookie";
 
 const Terms = (props) => {
