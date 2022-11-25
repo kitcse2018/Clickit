@@ -27,7 +27,9 @@ button {
 .input_area {
     margin-left: 10px;
 }
+.student_ul {
 
+}
 .Search {
     display: flex;
     width: 100%;
@@ -68,13 +70,14 @@ button {
 }
 .studentList{
     margin-top: 5px;
- display: inline-block;
+    display: inline-block;
     background-color: #c6eeda;
     margin-bottom: 10px;
     padding-right: 5px;
     padding-left: 5px;
     height: fit-content;
     white-space: nowrap;
+    width: fit-content;
 }
 .input_area input {
     width: 400px;

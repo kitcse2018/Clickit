@@ -12,8 +12,8 @@ app.use(cors());
 const db = mysql.createConnection(
     {
         user: 'root',
-        host: 'localhost',
-        password: 'ql!@#$%qjs12',
+        host:'localhost',
+        password: 'cym0523200!',
         database: 'ccd'
     }
 );
@@ -33,23 +33,7 @@ app.get('/students',(req,res) => {
     );
 });
 
-app.post('/login',async (req,res) =>{
-    const{id,password}=req.body;
-    db.query("SELECT * FROM student WHERE STUDENT_ID = '${id}'",
-        (err,rows,fileds)=>{
-            if(rows != undefined){
-                if(rows[0]==undefined){
-                    res.send(null);
-                }else {
-                    if(password==rows[0].student_password){
-                        res.send(rows[0])
-                    }else{
-                        res.send('실패')
-                    }
-                }
-            }}
-    )
-});
+
 
 app.post("/idplz", (req,res)=>{
     const postDormitoryName = req.body.postDormitoryName;
@@ -68,20 +52,100 @@ app.post("/idplz", (req,res)=>{
         });
 });
 
-app.get("/searchStudents", async (req,res)=>{
-    const postStudentId = req.query.postStudentId;
+app.post("/addStudent", (req,res)=>{
+    const postStudentId = req.body.studentId;
+    const postStudentDormitory = req.body.studentDormitory;
+    const postStudentPassword = req.body.studentPwd;
 
     db.query(
-        "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)"
-        ,['%'+postStudentId+'%'],
-        function(err,result){
+        "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?)"
+        ,[postStudentId,postStudentDormitory,postStudentPassword],
+        function(err){
             if(err){
                 console.log(err)
+                throw err;
             }else{
-                console.log(result);
-                res.send(result);
-            }
+                console.log("성공");
+
+            };
         });
+});
+
+
+app.post("/deleteStudent", (req,res)=>{
+    const postStudentId = req.body.postStudentId;
+
+    db.query(
+        " delete  from student where student_num = (?)"
+        ,[postStudentId],
+        function(err,rows,fields){
+            if(err){
+                console.log("실패");
+
+            }else{
+                console.log("성공");
+
+            };
+        });
+});
+
+app.get("/searchStudents", async (req,res)=>{
+    const postStudentId = req.query.postStudentId;
+    const postOptionValue = (req.query.postOptionValue==null)? 0 : req.query.postOptionValue;
+    console.log(req.query.postStudentId)
+    console.log(req.query.postOptionValue)
+    if(req.query.postStudentId==undefined&&req.query.postOptionValue==undefined){
+        db.query(
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory "
+            ,['%'+postStudentId+'%'],
+            function(err,result){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                    res.send(result);
+                }
+            });
+    }
+    else if(req.query.postStudentId==undefined){
+        db.query(
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?)"
+            ,[postOptionValue],
+            function(err,result){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                    res.send(result);
+                }
+            });
+    }
+    else if(postOptionValue == 0){
+        db.query(
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?) "
+            ,['%'+postStudentId+'%'],
+            function(err,result){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                    res.send(result);
+                }
+            });}
+
+    else{
+        db.query(
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)  where dormitory.dormitory_num = (?)"
+            ,['%'+postStudentId+'%',postOptionValue],
+            function(err,result){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                    res.send(result);
+                }
+            });}
+
 });
 
 
@@ -113,37 +177,6 @@ app.get("/signIn", async (req,res)=>{
             }
         });
 });
-
-app.get('/facility',(req,res) => {
-    db.query(
-        "SELECT * FROM facility",
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
-
-
-app.get('/inner_facility',async(req,res) => {
-    let inner_facility_num = req.query.facilityNum;
-    db.query(
-        "SELECT * FROM inner_facility AS inf INNER JOIN facility_seat AS fs ON inf.inner_facility_num = fs.inner_facility_num " +
-        "INNER JOIN seat_availability AS sa ON fs.facility_seat_num = sa.facility_seat_num WHERE inf.facility_num = ?",[inner_facility_num],
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
 
 
 app.listen(PORT,()=>{
