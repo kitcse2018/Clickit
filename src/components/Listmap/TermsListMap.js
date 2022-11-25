@@ -37,7 +37,8 @@ function TermsListMap(props){
                             terms_num: props.terms.terms_num,
                             terms_title: props.terms.terms_title,
                             terms_contents: props.terms.terms_contents,
-                            terms_innerFacilityNum : props.terms_innerFacilityNum,
+                            terms_inner_facility_num : props.terms_inner_facility_num,
+                            inner_facility_name : props.inner_facility_name,
                         }
                     })}}>삭제</Button>
                 </div>
