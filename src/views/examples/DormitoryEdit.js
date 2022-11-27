@@ -96,4 +96,5 @@ const DormitoryEdit = (props) => {
         </>
     );
 };
+
 export default DormitoryEdit;
