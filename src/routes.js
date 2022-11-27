@@ -25,6 +25,7 @@ import DormitoryEdit from "./views/examples/DormitoryEdit";
 import Login from "./views/examples/Login";
 import Terms from "./views/examples/Terms";
 import TermsEdit from "./views/examples/TermsEdit";
+import Notice from "./views/examples/Notice";
 
 let routes = [
     [{
@@ -68,7 +69,15 @@ let routes = [
         icon: "ni ni-bullet-list-67 text-blue",
         component: Terms,
         layout: "/admin"
-      }],
+      },
+      {
+        path: "/notice",
+        name: "공지사항",
+        icon: "ni ni-bullet-list-67 text-blue",
+        component: Notice,
+        layout: "/admin"
+      }
+      ],
     [
       {
         path: "/login",
@@ -141,6 +150,16 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: TermsEdit,
     layout: "/admin"
+  },
+  {
+    path: "/notice",
+    name: "공지사항",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: Notice,
+    layout: "/admin"
+  },
+  {
+    path: "/noticeE"
   }
 ];
 export default routes;

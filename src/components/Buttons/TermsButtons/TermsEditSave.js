@@ -11,12 +11,14 @@ const TermsEditSave = (props) => {
     };
 
     const onClick = () =>{
+        console.log(props);
         const post ={
-            postTermsTitle : state.termsTitle,
-            postTermsContents : state.termsContents,
+            postTermsTitle : props.terms_title,
+            postTermsContents : props.terms_contents,
+            postTermsInnerFacilityNum : props.terms_facility_num,
         };
 
-        fetch("http://localhost:3001/TermsEditSave", {
+        fetch("http://localhost:3001/termsEditSave", {
             method : "post",
             headers : {
                 "content-type" : "application/json",
@@ -27,12 +29,13 @@ const TermsEditSave = (props) => {
             .then((json)=>{
                 setState(
                     {
-                        termsTitle : json.text,
-                        termsContents : json.text,
+                        terms_title : json.text,
+                        terms_contents : json.text,
+                        terms_inner_facility_num : json.text,
                     }
                 );
             });
-        redirect("/admin/terms");
+        window.location.replace("/admin/terms");
     };
     return (
         <Button className={"terms-edit-save"} onClick={onClick}>저장</Button>

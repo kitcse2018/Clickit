@@ -127,8 +127,6 @@ app.get('/facility',(req,res) => {
     );
 });
 
-
-
 app.get('/inner_facility',async(req,res) => {
     let inner_facility_num = req.query.facilityNum;
     db.query(
@@ -144,9 +142,22 @@ app.get('/inner_facility',async(req,res) => {
     );
 });
 
+app.get('/innerFacilityNumName',async(req,res) => {
+    db.query(
+        "SELECT inner_facility_num, inner_facility_name FROM inner_facility;",
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.get('/terms', async(req, res)=>{
     db.query(
-        "SELECT terms_num, terms_title, terms_contents, terms_inner_facility_num, inner_facility_name FROM ccd.terms LEFT JOIN ccd.inner_facility ON terms.terms_inner_facility_num = inner_facility.inner_facility_num;",
+        "SELECT terms_num, terms_title, terms_contents, terms_inner_facility_num, inner_facility_name, inner_facility_locate_name FROM ccd.terms LEFT JOIN ccd.inner_facility ON terms.terms_inner_facility_num = inner_facility.inner_facility_num;",
         (err, result)=>{
             if(err){
                 console.log(err)
@@ -155,13 +166,28 @@ app.get('/terms', async(req, res)=>{
             }
         }
     );
-})
+});
 
 app.post('/termsEditSave', async (req, res)=>{
-    const postTerms = req.body.postTerms; // 수정할 내용
+    const termsData = req.body.termsData;
+    console.log(termsData);
     db.query(
-        "INSERT INTO terms (terms_title, terms_contents) VALUES (?, ?)" +
-        "ON DUPLICATE KEY UPDATE terms_title = VALUES(terms_title), terms_contents = VALUES(terms_contents)",
+        "INSERT INTO terms (terms_title, terms_contents, terms_inner_facility_num) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE terms_title = VALUES(terms_title), terms_contents = VALUES(terms_contents), terms_inner_facility_num = VALUES(terms_inner_facility_num);",
+        [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.delete('/termsDelete', async (req, res)=>{
+    const postTerms = req.body.terms_num;
+    db.query(
+        "DELETE FROM terms WHERE terms_num = ?;",
         [postTerms],
         (err, result)=>{
             if(err){
@@ -171,9 +197,51 @@ app.post('/termsEditSave', async (req, res)=>{
             }
         }
     );
+});
+
+app.get('/notice', async(req, res)=>{
+    db.query(
+        "SELECT * FROM notice;",
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.delete('/noticeDelete', async(req, res)=>{
+    const postNoticeNum = req.query.notice_num;
+    db.query(
+        "DELETE FROM notice WHERE notice_num = ?;",
+        [postNoticeNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/noticeEditSave', async (req, res)=>{
+    const noticeData = req.body.noticeData;
+    console.log(noticeData);
+    db.query(
+        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
+        [noticeData.noticeTitle, noticeData.noticeContents],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
 })
-
-
 
 app.listen(PORT,()=>{
     console.log(`yes,your server is running on port ${PORT}!`);

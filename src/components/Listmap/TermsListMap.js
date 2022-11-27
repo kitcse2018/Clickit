@@ -2,14 +2,12 @@ import React from "react";
 import { useState } from "react";
 import {Button} from "reactstrap";
 import "../../assets/css/TermsListMap.css";
-import {TermsMethods, testing, test} from "../../methods/TermsMethods.js";
+import {TermsMethods, testing, test, termsDelete} from "../../methods/TermsMethods.js";
 import {useHistory} from "react-router-dom";
 
 function TermsListMap(props){
 
     const history = useHistory();
-
-    console.log(props);
 
     return (
         <>
@@ -18,6 +16,9 @@ function TermsListMap(props){
                     <h1>
                         {props.terms.terms_num}
                     </h1>
+                </div>
+                <div className="terms-list-inner-facility-location">
+                    {props.terms.inner_facility_locate_name}
                 </div>
                 <div className="terms-list-inner-facility-name">
                     {props.terms.inner_facility_name}
@@ -29,18 +30,19 @@ function TermsListMap(props){
                 {/*    {props.terms.terms_contents}*/}
                 {/*</div>*/}
                 <div className="terms-list-btn">
-                    <Button className="terms-list-edit" color="primary" onClick={e=>TermsMethods()}>수정</Button>
                     {/*<Button className="terms-list-delete" color="primary" onClick={e=>test(props)}>삭제</Button>*/}
-                    <Button className="terms-list-delete" color="primary" onClick={()=>{history.push({
+                    <Button className="terms-list-edit" color="primary" onClick={()=>{history.push({
                         pathname: "/admin/termsEdit",
                         state: {
                             terms_num: props.terms.terms_num,
                             terms_title: props.terms.terms_title,
                             terms_contents: props.terms.terms_contents,
-                            terms_inner_facility_num : props.terms_inner_facility_num,
-                            inner_facility_name : props.inner_facility_name,
+                            terms_inner_facility_num : props.terms.terms_inner_facility_num,
+                            inner_facility_name : props.terms.inner_facility_name,
+                            inner_facility_locate_name : props.terms.inner_facility_locate_name,
                         }
-                    })}}>삭제</Button>
+                    })}}>수정</Button>
+                    <Button className="terms-list-delete" color="danger" onClick={()=>termsDelete(props)}>삭제</Button>
                 </div>
             </li>
         </>

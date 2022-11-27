@@ -53,7 +53,10 @@ const Login = () => {
       }
     }).then((response) => {
       if(response.data[0]==null){alert("Failed to login")}
-      else setUser(response.data[0])
+      else {
+        sessionStorage.setItem("isLogin", "true");
+        setUser(response.data[0])
+      }
     });
   }
 
@@ -61,8 +64,14 @@ const Login = () => {
   const admin_type = user == null ? null : user.admin_type;
   const logout = () => setUser(null);
 
-  if (admin_type==="푸름관리자") return <Redirect to="/admin/index"/>;
-  if (admin_type==="오름관리자") return <Redirect to="/admin/user-profile"/>;
+  // if (admin_type==="푸름관리자") return <Redirect to="/admin/index"/>;
+  if (admin_type==="푸름관리자"){
+    window.location.replace("/admin/index");
+  }
+  // if (admin_type==="오름관리자") return <Redirect to="/admin/user-profile"/>;
+  if (admin_type==="오름관리자") {
+    window.location.replace("/admin/user-profile");
+  }
 
   return (
       <>
