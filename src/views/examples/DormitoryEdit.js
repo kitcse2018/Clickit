@@ -34,12 +34,6 @@ import Header from "components/Headers/Header.js";
 import "../../assets/css/dormitory-edit.css";
 import Axios from "axios";
 
-// You must read here
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change const "Template" name!!!
-// !!!ex) Template -> fileName    !!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 const DormitoryEdit = (props) => {
 
     //img name variable
@@ -102,10 +96,4 @@ const DormitoryEdit = (props) => {
         </>
     );
 };
-
-// you must read here
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change "Template" name      !!!
-// !!!ex) Template -> fileName    !!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 export default DormitoryEdit;

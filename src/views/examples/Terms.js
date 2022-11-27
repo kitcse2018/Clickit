@@ -47,16 +47,55 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
+import "../../assets/css/Terms.css";
+import Axios from "axios";
+import TermsListMap from "../../components/Listmap/TermsListMap";
+import {useCookies} from "react-cookie";
+import {useHistory} from "react-router-dom";
+import redirect from "react-router-dom/es/Redirect";
 
 const Terms = (props) => {
+
+    // if(sessionStorage.getItem("isLogin")===null){
+    //     alert("로그인이 필요한 서비스입니다.");
+    //     window.location.replace("/auth/login");
+    // }
+
+    const [termsList, setTermsList] = useState([]);
+    Axios.get("http://localhost:3001/terms").then((response) => {
+       setTermsList(response.data);
+    });
+
+    const history = useHistory();
+
     return (
         <>
             <Header />
-            <Container className={"terms-container"}>
+            <div className={"terms-container"}>
                 <div className={"terms-contents"}>
-
+                    <div className={"terms-top"}>
+                        <Button className={"terms-create"} color={"primary"} onClick={()=>{history.push({
+                            pathname : "/admin/termsEdit",
+                            state : {
+                                terms_num : "",
+                                terms_title : "",
+                                terms_contents : "",
+                                terms_inner_facility_num : "",
+                                inner_facility_name : "",
+                            }
+                        })}}>추가</Button>
+                    </div>
+                    <div className={"terms-list"}>
+                        {termsList.map((terms)=>(
+                            <TermsListMap terms={terms}/>
+                        ))}
+                    </div>
+                    <div className={"terms-paging"}>
+                        <Button className={"terms-prev"} color={"primary"}>이전</Button>
+                        <Button className={"terms-next"} color={"primary"}>다음</Button>
+                    </div>
                 </div>
-            </Container>
+            </div>
         </>
     );
 };
