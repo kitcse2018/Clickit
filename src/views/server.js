@@ -145,11 +145,30 @@ app.get('/inner_facility',async(req,res) => {
     );
 });
 
-//관리자 전용
+//관리자 전용 select
 app.get('/dormitoryEdit',(req,res) => {
     let dormitory_num = req.query.dormitory_num;
     db.query(
         "SELECT * FROM dormitory AS dorm WHERE dorm.dormitory_num = ?",[dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+//생성 혹은 업데이트
+app.post('/dormitoryUpdate',async(req,res) => {
+    //let dormitoryPic = req.query.dormitory_pic
+    let termsData = req.body.termsData;
+    console.log(termsData);
+
+    db.query(
+        //나중에 사진도 추가
+        "UPDATE dormitory AS dor SET dor.dormitory_name = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_num],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -242,6 +261,8 @@ app.get('/notice', async(req, res)=>{
         }
     );
 });
+
+
 
 app.delete('/noticeDelete', async(req, res)=>{
     const postNoticeNum = req.query.notice_num;

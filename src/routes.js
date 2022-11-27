@@ -51,17 +51,17 @@ let routes = [
         layout: "/admin"
       },
       {
-        path: "/reservation/:facility_num",
-        name: "Reservation",
-        icon: "ni ni-bullet-list-67 text-blue",
-        component: Reservation,
+        path: "/userView",
+        name: "UserView",
+        icon: "ni ni-key-25 text-info",
+        component: UserView,
         layout: "/admin"
       },
       {
-        path: "/dormitoryEdit",
-        name: "DormitoryEdit",
+        path: "/dormitoryManager",
+        name: "DormitoryManager",
         icon: "ni ni-bullet-list-67 text-blue",
-        component: DormitoryEdit,
+        component: DormitoryManager,
         layout: "/admin"
       },
       {
@@ -132,7 +132,7 @@ let routes = [
     layout: "/auth"
   },
   {
-    path: "/dormitoryEdit/:dormitory_num",
+    path: "/dormitoryEdit/",
     name: "DormitoryEdit",
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryEdit,
@@ -168,6 +168,6 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryManager,
     layout: "/admin"
-  }
+  },
 ];
 export default routes;
