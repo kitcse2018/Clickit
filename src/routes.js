@@ -54,10 +54,10 @@ let routes = [
       },
         // 삭제해야 됨
       {
-        path: "/reservation/:facility_num",
-        name: "Reservation",
-        icon: "ni ni-bullet-list-67 text-blue",
-        component: Reservation,
+        path: "/userView",
+        name: "UserView",
+        icon: "ni ni-key-25 text-info",
+        component: UserView,
         layout: "/admin"
       },
         // 삭제해야 됨
