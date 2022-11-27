@@ -26,6 +26,7 @@ import Login from "./views/examples/Login";
 import Terms from "./views/examples/Terms";
 import TermsEdit from "./views/examples/TermsEdit";
 import Notice from "./views/examples/Notice";
+import NoticeEdit from "./views/examples/NoticeEdit";
 
 let routes = [
     [{
@@ -159,7 +160,11 @@ let routes = [
     layout: "/admin"
   },
   {
-    path: "/noticeE"
+    path: "/noticeEdit",
+    name: "공지사항 수정",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: NoticeEdit,
+    layout: "/admin"
   }
 ];
 export default routes;

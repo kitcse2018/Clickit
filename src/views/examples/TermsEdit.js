@@ -75,7 +75,7 @@ const TermsEdit = (props) => {
     }, []);
 
     function termsSave(){
-        if(optionValue.valueOf()==0){
+        if(optionValue.valueOf()===0){
             Axios.post("http://localhost:3001/termsEditSave", {
                 termsData:{
                     termsTitle: termsTitle,
@@ -113,7 +113,7 @@ const TermsEdit = (props) => {
             <div className={"termsEdit-container"}>
                 <div className={"termsEdit-contents"}>
                     <div className={"termsEdit-top"}>
-                        <Button className={"terms-edit-save"} onClick={()=>termsSave()}>저장</Button>
+                        <Button className={"termsEdit-save"} onClick={()=>termsSave()}>저장</Button>
                         {/*<TermsEditSave props={
                             {
                                 terms_title : document.getElementsByClassName("termsEdit-element-header-input").item(0).value,
