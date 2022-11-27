@@ -1,9 +1,11 @@
 const express = require('express');
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const app = express();
 const bodyParser = require("body-parser");
 const mysql = require('mysql');
 const cors = require('cors')
+const cookieParser = require('cookie-parser');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -84,7 +86,6 @@ app.get("/searchStudents", async (req,res)=>{
         });
 });
 
-
 app.get('/dormitories',(req,res) => {
     db.query(
         "SELECT * FROM dormitory",
@@ -114,6 +115,7 @@ app.get("/signIn", async (req,res)=>{
         });
 });
 
+//사용자
 app.get('/facility',(req,res) => {
     db.query(
         "SELECT * FROM facility",
@@ -127,8 +129,7 @@ app.get('/facility',(req,res) => {
     );
 });
 
-
-
+//사용자
 app.get('/inner_facility',async(req,res) => {
     let inner_facility_num = req.query.facilityNum;
     db.query(
@@ -144,7 +145,34 @@ app.get('/inner_facility',async(req,res) => {
     );
 });
 
+//관리자 전용
+app.get('/dormitoryEdit',(req,res) => {
+    let dormitory_num = req.query.dormitory_num;
+    db.query(
+        "SELECT * FROM dormitory AS dorm WHERE dorm.dormitory_num = ?",[dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 
+app.get('/adminfacility',(req,res) => {
+    let dormitory_num = req.query.dormitory_num;
+    db.query(
+        "SELECT * FROM facility AS fac WHERE fac.dormitory_num = ?",[dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 
 app.listen(PORT,()=>{
     console.log(`yes,your server is running on port ${PORT}!`);
