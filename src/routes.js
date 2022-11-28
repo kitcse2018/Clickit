@@ -50,6 +50,7 @@ let routes = [
         component: Template,
         layout: "/admin"
       },
+        // 삭제해야 됨
       {
         path: "/reservation/:facility_num",
         name: "Reservation",
@@ -57,6 +58,7 @@ let routes = [
         component: Reservation,
         layout: "/admin"
       },
+        // 삭제해야 됨
       {
         path: "/dormitoryEdit",
         name: "DormitoryEdit",
@@ -85,6 +87,13 @@ let routes = [
         name: "Login",
         icon: "ni ni-key-25 text-info",
         component: Login,
+        layout: "/auth"
+      },
+      {
+        path: "/reservation/:facility_num",
+        name: "Reservation",
+        icon: "ni ni-bullet-list-67 text-blue",
+        component: Reservation,
         layout: "/auth"
       },
     ],
