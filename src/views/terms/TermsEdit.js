@@ -47,7 +47,7 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
-import "../../assets/css/TermsEdit.css";
+import "../../assets/css/terms/TermsEdit.css";
 import TermsListMap from "../../components/Listmap/TermsListMap";
 import {useLocation} from "react-router-dom";
 import SelectBox from "../../components/SelectBox/SelectBox";

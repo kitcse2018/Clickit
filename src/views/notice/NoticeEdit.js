@@ -2,7 +2,7 @@ import React, { useCallback, useState} from "react";
 import {Button, Form, Input} from "reactstrap";
 
 import Header from "../../components/Headers/Header";
-import "../../assets/css/NoticeEdit.css";
+import "../../assets/css/notice/NoticeEdit.css";
 import {useLocation} from "react-router-dom";
 import Axios from "axios";
 

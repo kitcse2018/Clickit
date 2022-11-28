@@ -22,7 +22,7 @@ import {
 } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
-import "../../assets/css/Notice.css";
+import "../../assets/css/notice/Notice.css";
 import Axios from "axios";
 import {useHistory} from "react-router-dom";
 import NoticeListMap from "../../components/Listmap/NoticeListMap";

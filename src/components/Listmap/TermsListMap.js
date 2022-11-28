@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import {Button} from "reactstrap";
-import "../../assets/css/TermsListMap.css";
-import {TermsMethods, testing, test, termsDelete} from "../../methods/TermsMethods.js";
+import "../../assets/css/terms/TermsListMap.css";
+import {TermsMethods, testing, test, termsDelete} from "../../methods/terms/TermsMethods.js";
 import {useHistory} from "react-router-dom";
 
 function TermsListMap(props){
