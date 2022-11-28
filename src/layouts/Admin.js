@@ -31,6 +31,10 @@ const Admin = (props) => {
   }, [location]);
 
   const getRoutes = (routes) => {
+      if (sessionStorage.getItem("isLogin") === null) {
+            alert("로그인이 필요한 서비스입니다.");
+            return <Redirect to="/auth/login"/>;
+      }
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
@@ -62,7 +66,7 @@ const Admin = (props) => {
       <>
         <Sidebar
             {...props}
-            routes={routes}
+            routes={routes[0]}
             logo={{
               innerLink: "/admin/user-profile",
               imgSrc: require("../assets/img/brand/clickit.png"),
