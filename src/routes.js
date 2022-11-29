@@ -28,6 +28,7 @@ import TermsEdit from "./views/terms/TermsEdit";
 import Notice from "./views/notice/Notice";
 import NoticeEdit from "./views/notice/NoticeEdit";
 import DormitoryManager from "./views/dormitory_facility/DormitoryManager";
+import AddFacility from "./views/dormitory_facility/AddFacility"
 
 let routes = [
     [{
@@ -178,6 +179,14 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: NoticeEdit,
     layout: "/admin"
+  },
+  {
+    path: "/addFacility",
+    name: "AddFacility",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: AddFacility,
+    layout: "/admin"
   }
+
 ];
 export default routes;

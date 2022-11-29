@@ -98,11 +98,20 @@ const DormitoryEdit = (props) => {
                                         })
                                     document.location.replace( "/admin/dormitoryEdit");
                                     }
-
                                 } >
                                     저장
                                 </Button>
-                                <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"}>시설물 추가</Button>
+                                <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
+                                        pathname : "/admin/addFacility",
+                                        state : {
+                                            facility_num : "",
+                                            facility_name : "",
+                                            facility_limit_people : "",
+                                            facility_pic : "",
+                                        }
+                                }
+
+                                )}}>시설물 추가</Button>
                             </div>
                         ))}
                     <div className={"dormitory-edit-content-body"}>
@@ -123,7 +132,17 @@ const DormitoryEdit = (props) => {
                                                     <li className="dp1">
                                                         <h3>이용 가능 시간 00:00 ~ 23:59</h3>
                                                     </li>
-                                                    <button> 수정</button>
+                                                    <button className={"dormitory-update-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
+                                                            pathname : "/admin/addFacility",
+                                                            state : {
+                                                                facility_num : adminfacility.facility_num,
+                                                                facility_name : adminfacility.facility_name,
+                                                                facility_limit_people : adminfacility.facility_limit_people,
+                                                                facility_pic : adminfacility.facility_pic,
+                                                            }
+                                                        }
+
+                                                    )}}> 수정</button>
 
                                                     <button onClick={() =>{
                                                         if(window.confirm("정말 삭제하시겠습니까?")) {
@@ -141,7 +160,6 @@ const DormitoryEdit = (props) => {
                                                             alert("취소합니다.")
                                                         }
                                                     }
-
                                                     }> 삭제</button>
                                                 </ul>
 

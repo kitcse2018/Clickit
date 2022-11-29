@@ -279,6 +279,7 @@ app.post('/deleteFacility',async(req,res) => {
     );
 });
 
+
 app.get('/adminfacility',(req,res) => {
     let dormitory_num = req.query.dormitory_num;
     db.query(
@@ -292,6 +293,54 @@ app.get('/adminfacility',(req,res) => {
         }
     );
 });
+
+app.get('/facilityEdit',(req,res) => {
+    let facility_num = req.query.facility_num;
+    db.query(
+        "SELECT * FROM facility AS fac WHERE fac.facility_num = ?",[facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/adminfacilitySeat',(req,res) => {
+    let facility_num = req.query.facility_num;
+    db.query(
+        "SELECT * FROM facility_seat AS facs WHERE facs.facility_num = ?",[facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+//생성 혹은 업데이트
+app.post('/facilityUpdate',async(req,res) => {
+    //let dormitoryPic = req.query.dormitory_pic
+    let termsData = req.body.termsData;
+    console.log(termsData);
+
+    db.query(
+        //나중에 사진도 추가
+        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ? WHERE fac.facility_num = ?",[termsData.facility_name,termsData.facility_limit_people,termsData.facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.get('/innerFacilityNumName',async(req,res) => {
     db.query(
         "SELECT inner_facility_num, inner_facility_name FROM inner_facility;",
