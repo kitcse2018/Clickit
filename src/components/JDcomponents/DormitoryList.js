@@ -12,6 +12,7 @@ const DormitoryList = (props) => {
         setdormitoryList(response.data);
     });
 
+
     const history = useHistory();
 
     return (

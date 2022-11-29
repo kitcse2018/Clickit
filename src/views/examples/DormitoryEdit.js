@@ -64,6 +64,28 @@ const DormitoryEdit = (props) => {
         setadminfacilityList(response.data);
     });
 
+    const deleteById = (e)=>{
+        if(window.confirm("정말 삭제하시겠습니까?")){
+            const post ={
+                postFacilityId : e,
+            };
+
+            fetch("http://localhost:3001/deleteFacility", {
+                method : "post",
+                headers : {
+                    "content-type" : "application/json",
+                },
+                body : JSON.stringify(post),
+            })
+                .then((res)=>res.json());
+            alert("삭제되었습니다.");
+        }
+
+        else{
+            alert("취소합니다.")
+        }
+    };
+
 
     const history = useHistory();
 
@@ -111,8 +133,35 @@ const DormitoryEdit = (props) => {
                                 <ul className={"dormitory-innerFacility-list-ul"}>
                                     {adminfacilityList.map(adminfacility => (
                                         <li className={"dormitory-innerFacility-list-li"}>
-                                            {/*이름 이용가능인원 이용가능시간 사진 편집버튼*/}
-                                            {adminfacility.facility_name}
+                                            <div className="gnb_menu">
+                                                <ul className="dormitory-innerFacility-li">
+                                                    {/*사진가져오기*/}
+                                                    <li className="dp1">
+                                                        <h1>{adminfacility.facility_name}</h1>
+                                                    </li>
+                                                    <li className="dp1">
+                                                        <h3>이용 가능 인원[{adminfacility.facility_limit_people}]</h3>
+                                                    </li>
+                                                    <li className="dp1">
+                                                        <h3>이용 가능 시간 00:00 ~ 23:59</h3>
+                                                    </li>
+                                                    <button> 수정</button>
+                                                    <button onClick={()=> {deleteById(adminfacility.facility_num);}}>삭제</button>
+
+                                                    {/*<button onClick={() =>{
+                                                        Axios.post("http://localhost:3001/deleteFacility",{
+                                                            termsData: {facility_num: adminfacility.facility_num,
+                                                            }
+                                                        }).then(e => {
+                                                            console.log(e);
+                                                        })
+                                                        document.location.replace( "/admin/dormitoryEdit");
+                                                    }
+
+                                                    }> 삭제</button>*/}
+                                                </ul>
+
+                                            </div>
                                         </li>
                                     ))}
                                 </ul>
