@@ -347,7 +347,7 @@ app.get('/notice', async(req, res)=>{
 
 
 app.delete('/noticeDelete', async(req, res)=>{
-    const postNoticeNum = req.query.notice_num;
+    const postNoticeNum = req.body.notice_num;
     db.query(
         "DELETE FROM notice WHERE notice_num = ?;",
         [postNoticeNum],
@@ -365,7 +365,7 @@ app.post('/noticeEditSave', async (req, res)=>{
     const noticeData = req.body.noticeData;
     console.log(noticeData);
     db.query(
-        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
+        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
         [noticeData.noticeTitle, noticeData.noticeContents],
         (err, result)=>{
             if(err){

@@ -33,11 +33,6 @@ import {
 
 import Header from "components/Headers/Header.js";
 import InnerFacilityReservation from "components/JDcomponents/InnerFacilityReservation.js"
-// You must read here
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change const "Template" name!!!
-// !!!ex) Template -> fileName    !!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 const Reservation = (props) => {
 
@@ -105,12 +100,4 @@ const Reservation = (props) => {
     );
 }
 
-
-
-
-// you must read here
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change "Template" name      !!!
-// !!!ex) Template -> fileName    !!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 export default Reservation;

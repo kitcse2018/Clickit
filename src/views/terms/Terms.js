@@ -47,7 +47,7 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
-import "../../assets/css/Terms.css";
+import "../../assets/css/terms/Terms.css";
 import Axios from "axios";
 import TermsListMap from "../../components/Listmap/TermsListMap";
 import {useCookies} from "react-cookie";

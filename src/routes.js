@@ -23,9 +23,10 @@ import UserView from "./views/userView";
 import Reservation from "./views/examples/Reservation";
 import DormitoryEdit from "./views/examples/DormitoryEdit";
 import Login from "./views/examples/Login";
-import Terms from "./views/examples/Terms";
-import TermsEdit from "./views/examples/TermsEdit";
-import Notice from "./views/examples/Notice";
+import Terms from "./views/terms/Terms";
+import TermsEdit from "./views/terms/TermsEdit";
+import Notice from "./views/notice/Notice";
+import NoticeEdit from "./views/notice/NoticeEdit";
 import DormitoryManager from "./views/examples/DormitoryManager";
 
 let routes = [
@@ -50,11 +51,12 @@ let routes = [
         component: Template,
         layout: "/admin"
       },
+        // 삭제해야 됨
       {
-        path: "/userView",
-        name: "UserView",
-        icon: "ni ni-key-25 text-info",
-        component: UserView,
+        path: "/reservation/:facility_num",
+        name: "Reservation",
+        icon: "ni ni-bullet-list-67 text-blue",
+        component: Reservation,
         layout: "/admin"
       },
       {
@@ -64,6 +66,7 @@ let routes = [
         component: DormitoryManager,
         layout: "/admin"
       },
+
       {
         path: "/terms",
         name: "이용수칙",
@@ -132,7 +135,7 @@ let routes = [
     layout: "/auth"
   },
   {
-    path: "/dormitoryEdit/",
+    path: "/dormitoryEdit",
     name: "DormitoryEdit",
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryEdit,
@@ -169,5 +172,12 @@ let routes = [
     component: DormitoryManager,
     layout: "/admin"
   },
+  {
+    path: "/noticeEdit",
+    name: "공지사항 수정",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: NoticeEdit,
+    layout: "/admin"
+  }
 ];
 export default routes;
