@@ -71,9 +71,7 @@ const DormitoryEdit = (props) => {
         <>
             <Header />
             <Container className={"dormitoryEdit-container"}>
-
                 {/* =============== start dormitory edit content =============== */}
-
                 <div className={"dormitory-edit-content"}>
 
                         {dormitoryEdit.map(dormitory => (
@@ -87,7 +85,7 @@ const DormitoryEdit = (props) => {
                                 </div>
                                 <Button className={"dormitory-img-edit"} type={"button"} color={"primary"} size={"sm"}>이미지 수정</Button>
                                 {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
-                                <input type={"text"} className={"dormitory-name-input"} placeholder={dormitory.dormitory_name} onChange = {onNameChange}/>
+                                <input type={"text"} className={"dormitory-name-input"} defaultValue={dormitory.dormitory_name} onChange = {onNameChange}/>
                                 <Button className={"dormitory-edit-save"} type={"button"} color={"primary"} onClick={() =>{
                                         Axios.post("http://localhost:3001/dormitoryUpdate",{
                                             termsData: {dormitory_num: items.dormitory_num,
@@ -96,7 +94,7 @@ const DormitoryEdit = (props) => {
                                         }).then(e => {
                                             console.log(e);
                                         })
-                                    document.location.replace( "/admin/dormitoryEdit");
+                                    window.location.href = "/admin/dormitoryManager";
                                     }
                                 } >
                                     저장
@@ -108,6 +106,8 @@ const DormitoryEdit = (props) => {
                                             facility_name : "",
                                             facility_limit_people : "",
                                             facility_pic : "",
+                                            dormitory_num : items.dormitory_num,
+                                            dormitory_name : items.dormitory_name,
                                         }
                                 }
 
@@ -139,6 +139,8 @@ const DormitoryEdit = (props) => {
                                                                 facility_name : adminfacility.facility_name,
                                                                 facility_limit_people : adminfacility.facility_limit_people,
                                                                 facility_pic : adminfacility.facility_pic,
+                                                                dormitory_num : items.dormitory_num,
+                                                                dormitory_name : items.dormitory_name
                                                             }
                                                         }
 
@@ -154,7 +156,7 @@ const DormitoryEdit = (props) => {
                                                                 console.log(e);
                                                             })
                                                             alert("삭제 되었습니다.");
-                                                            document.location.replace("/admin/dormitoryEdit");
+                                                            window.location.replace("/admin/dormitoryEdit");
                                                         }
                                                         else {
                                                             alert("취소합니다.")

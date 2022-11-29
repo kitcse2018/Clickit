@@ -341,6 +341,24 @@ app.post('/facilityUpdate',async(req,res) => {
     );
 });
 
+app.post('/facilityInsert',async(req,res) => {
+    //let dormitoryPic = req.query.dormitory_pic
+    let termsData = req.body.termsData;
+    console.log(termsData);
+
+    db.query(
+        //나중에 사진도 추가
+        "INSERT INTO facility(facility_name,facility_limit_people,dormitory_num) VALUES(?,?,?)" ,[termsData.facility_name,termsData.facility_limit_people,termsData.dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.get('/innerFacilityNumName',async(req,res) => {
     db.query(
         "SELECT inner_facility_num, inner_facility_name FROM inner_facility;",

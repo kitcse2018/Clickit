@@ -33,63 +33,81 @@ const AddFacility = (props) => {
 
     let img_name = "clickit.png";
 
-    const [facilityName, setfacilityName] = useState(items.facility_name);
+    const [facilityName, setFacilityName] = useState(items.facility_name);
     const onNameChange = (e) => {
-        setfacilityName(e.target.value);
+        setFacilityName(e.target.value);
     }
-    const [facilityLimit, setfacilityLimit] = useState(items.facility_limit_people);
+    const [facilityLimit, setFacilityLimit] = useState(items.facility_limit_people);
     const onLimitChange = (e) => {
-        setfacilityLimit(e.target.value);
+        setFacilityLimit(e.target.value);
     }
 
-    const [facilityEdit,setfacilityEdit] = useState([]);
+    const [facilityEdit,setFacilityEdit] = useState([]);
     Axios.get("http://localhost:3001/facilityEdit",{params:{
             facility_num : items.facility_num,
         }}).then((response) => {
-        setfacilityEdit(response.data);
+        setFacilityEdit(response.data);
     });
 
-    const [adminfacilitySeatList,setadminfacilitySeatList] = useState([]);
+    const [adminFacilitySeatList,setAdminFacilitySeatList] = useState([]);
     Axios.get("http://localhost:3001/adminfacilitySeat",{params:{
             facility_num : items.facility_num,
         }}).then((response) => {
-        setadminfacilitySeatList(response.data);
+        setAdminFacilitySeatList(response.data);
     });
 
     const history = useHistory();
-
 
     return (
         <>
             <Header />
             <Container className="addFacility-container">
                 <div className = {"facility-add-content"}>
-                    {facilityEdit.map(facility => (
-                        <div className={"facility-add-content-header"}>
-                            <div className={"dormitory-name"}>
-                                <h1>{facility.facility_name}</h1>
+
+                    <div className={"facility-add-content-header"}>
+                        <div className={"dormitory-name"}>
+                            <h1>{items.facility_name}</h1>
+                        </div>
+                        <div className={"facility-edit"}>
+                            <div className={"facility-edit-picture"}>
+                                <div className={"dormitory-img"}>
+                                    {/*이미지 나중에 가져와서 변경해주기*/}
+                                    <img src={require('../../assets/img/dormitory/' + img_name)}/>
+                                </div>
+                                <Button className={"dormitory-img-edit"} type={"button"} color={"primary"} size={"sm"}>이미지 수정</Button>
+                                {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
                             </div>
-                            <div className={"facility-edit"}>
-                                <div classNAme={"facility-edit-picture"}>
-                                    <div className={"dormitory-img"}>
-                                        {/*이미지 나중에 가져와서 변경해주기*/}
-                                        <img src={require('../../assets/img/dormitory/' + img_name)}/>
-                                    </div>
-                                    <Button className={"dormitory-img-edit"} type={"button"} color={"primary"} size={"sm"}>이미지 수정</Button>
-                                    {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
+                            <div className={"facility-edit-content"}>
+                                <div className={"facility-edit-content-name"}>
+                                    <h3>명칭</h3>
+                                    <input type={"text"} className={"facility-name-input"} defaultValue={items.facility_name} onChange = {onNameChange}/>
                                 </div>
-                                <div className={"facility-edit-content"}>
-                                    <div className={"facility-edit-content-name"}>
-                                        <h3>명칭</h3>
-                                        <input type={"text"} className={"facility-name-input"} placeholder={facility.facility_name} onChange = {onNameChange}/>
-                                    </div>
-                                    <div className={"facility-edit-content-limit"}>
-                                        <h3>사용 가능 인원</h3>
-                                        <input type={"text"} className={"facility-limit-input"} placeholder={facility.facility_limit_people} onChange = {onLimitChange}/>
-                                    </div>
+                                <div className={"facility-edit-content-limit"}>
+                                    <h3>사용 가능 인원</h3>
+                                    <input type={"text"} className={"facility-limit-input"} defaultValue={items.facility_limit_people} onChange = {onLimitChange}/>
                                 </div>
-                                {/*사진도 같이 보내줘야함 사진 주소나 bob*/}
-                                <Button className={"facility-edit-save"} type={"button"} color={"primary"} onClick={() =>{
+                            </div>
+                            {/*사진도 같이 보내줘야함 사진 주소나 bob*/}
+                            <Button className={"facility-edit-save"} type={"button"} color={"primary"} onClick={() =>{
+                                if(items.facility_num ==""){
+                                    Axios.post("http://localhost:3001/facilityInsert",{
+                                        termsData: {
+                                            facility_name : facilityName,
+                                            facility_limit_people : facilityLimit,
+                                            dormitory_num : items.dormitory_num,
+                                        }
+                                    }).then(e => {
+                                        console.log(e);
+                                    })
+                                    history.push({
+                                            pathname : "/admin/dormitoryEdit",
+                                            state : {
+                                                dormitory_num : items.dormitory_num,
+                                                dormitory_name : items.dormitory_name
+                                            }
+                                        }
+                                    )
+                                }else{
                                     Axios.post("http://localhost:3001/facilityUpdate",{
                                         termsData: {facility_num: items.facility_num,
                                             facility_name : facilityName,
@@ -98,14 +116,26 @@ const AddFacility = (props) => {
                                     }).then(e => {
                                         console.log(e);
                                     })
-                                    document.location.replace( "/admin/addFacility");
+                                    history.push({
+                                            pathname : "/admin/dormitoryEdit",
+                                            state : {
+                                                dormitory_num : items.dormitory_num,
+                                                dormitory_name : items.dormitory_name
+                                            }
+                                        }
+                                    )
                                 }
-                                } >
-                                    저장
-                                </Button>
-                            </div>
+                            }
+                            } >
+                                저장
+                            </Button>
                         </div>
-                    ))}
+                    </div>
+                    <div className={"facility-seat-content"}>
+
+
+                    </div>
+
                 </div>
             </Container>
         </>

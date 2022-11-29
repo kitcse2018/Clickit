@@ -15,8 +15,8 @@ const AddStudent = (props) => {
         setPassword(e.target.value);
     };
 
-    function addStudent ()  {
-
+    const addStudent = async () => {
+        let data = "";
         if(optionValue==0||id.at(0)==null||password.at(0) == null){
             alert("필수 항목을 입력해주세요.");}
         else{
@@ -25,9 +25,19 @@ const AddStudent = (props) => {
                 studentPwd : password,
                 studentDormitory :  optionValue,
             }
-            Axios.post("http://localhost:3001/addStudent",student).then((response)=>{
-                }
-            )
+            await Axios.get("http://localhost:3001/duplicateStudent",{params:{studentId : student.studentId}}).then((response)=>
+            {
+                data = response.data;
+            });
+            if(data.at(0)==null){
+                Axios.post("http://localhost:3001/addStudent",student).then((response)=>{
+                    }
+                )
+                alert("추가되었습니다.")
+                window.location.replace("/admin/Student")
+            }else{
+                alert("중복된 학번입니다.")
+            }
         }
     }
 
