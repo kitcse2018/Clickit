@@ -16,6 +16,8 @@ const StudentSearch = (props) => {
             }}).then((response) => {
             props.setStudentList(response.data);
         });
+        props.setVisibleSelect(true);
+        props.setVisibleAdd(false);
     }
 
     return(

@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 import "../../assets/css/mycss/StudnetList.css"
+import moment from 'moment';
+import Axios from "axios";
+import BanButton from "./BanButton";
+
 function Student({ student, onRemove }) {
 
 
     const deleteById = (e)=>{
-        if(window.confirm("정말 삭제하시겠습니까?")){
+        if(window.confirm(e.student_id +"님을 삭제하시겠습니까?")){
             onRemove(e);
             const post ={
-                postStudentId : e,
+                postStudentNum : e.student_num,
             };
 
             fetch("http://localhost:3001/deleteStudent", {
@@ -19,12 +23,14 @@ function Student({ student, onRemove }) {
             })
                 .then((res)=>res.json());
             alert("삭제되었습니다.");
+            window.location.replace("/admin/Student")
         }
 
         else{
             alert("취소합니다.")
         }
     };
+
     return (
         <div className="studentList">
             <div className="gnb_menu">
@@ -41,8 +47,9 @@ function Student({ student, onRemove }) {
                     </li>
                 </ul>
                 <button onClick={() => onRemove(student.student_num) }>수정</button>
-                <button onClick={() => {deleteById(student.student_num);}}>삭제</button>
-                <button id="stop" onClick={() => onRemove(student.student_num)}>정지</button>
+                <button onClick={() => {deleteById(student);}}>삭제</button>
+                <BanButton student={student}></BanButton>
+                {/*<button id = "banButton" onClick={() => {banStudent(student);}}>정지</button>*/}
             </div>
 
         </div>

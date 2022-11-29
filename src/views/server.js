@@ -14,7 +14,8 @@ const db = mysql.createConnection(
         user: 'root',
         host:'localhost',
         password: 'cym0523200!',
-        database: 'ccd'
+        database: 'ccd',
+        dateStrings: 'date'
     }
 );
 
@@ -71,13 +72,31 @@ app.post("/addStudent", (req,res)=>{
         });
 });
 
+app.post("/banStudent", (req,res)=>{
+    const startDate = req.body.postStartDate;
+    const endDate = req.body.postEndDate;
+    const banStudentNum = req.body.banStudentNum;
+
+    db.query(
+        "INSERT INTO blacklist (student_num,start_date,end_date) values (?,?,?)"
+        ,[banStudentNum,startDate,endDate],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
+
+            };
+        });
+});
 
 app.post("/deleteStudent", (req,res)=>{
-    const postStudentId = req.body.postStudentId;
+    const postStudentNum = req.body.postStudentNum;
 
     db.query(
         " delete  from student where student_num = (?)"
-        ,[postStudentId],
+        ,[postStudentNum],
         function(err,rows,fields){
             if(err){
                 console.log("실패");
@@ -89,12 +108,27 @@ app.post("/deleteStudent", (req,res)=>{
         });
 });
 
+app.get("/duplicateStudent",async(req,res)=>{
+    const studentId = req.query.studentId;
+    db.query(
+        "SELECT student.student_id FROM student where student_id = (?)"
+        ,[studentId],
+        function(err,result){
+            if(err){
+                console.log(err)
+            }else{
+                console.log(result);
+                res.send(result);
+            }
+        });
+})
+
 app.get("/searchStudents", async (req,res)=>{
     const postStudentId = req.query.postStudentId;
     const postOptionValue = (req.query.postOptionValue==null)? 0 : req.query.postOptionValue;
     console.log(req.query.postStudentId)
     console.log(req.query.postOptionValue)
-    if(req.query.postStudentId==undefined&&req.query.postOptionValue==undefined){
+    if(req.query.postStudentId==undefined&&(req.query.postOptionValue==0||req.query.postOptionValue==undefined)){
         db.query(
             "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory "
             ,['%'+postStudentId+'%'],
@@ -120,7 +154,7 @@ app.get("/searchStudents", async (req,res)=>{
                 }
             });
     }
-    else if(postOptionValue == 0){
+    else if((req.query.postOptionValue==0||req.query.postOptionValue==undefined)){
         db.query(
             "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?) "
             ,['%'+postStudentId+'%'],
