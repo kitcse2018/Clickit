@@ -19,7 +19,7 @@ import Index from "views/Index.js";
 import Profile from "views/examples/Profile.js";
 import Third from "./views/Third";
 import Template from "./views/Template";
-import UserView from "./views/userView";
+import Facility from "./views/Facility";
 import Reservation from "./views/examples/Reservation";
 import DormitoryEdit from "./views/examples/DormitoryEdit";
 import Login from "./views/examples/Login";
@@ -29,13 +29,7 @@ import Notice from "./views/notice/Notice";
 import NoticeEdit from "./views/notice/NoticeEdit";
 
 let routes = [
-    [{
-      path: "/user-profile",
-      name: "User Profile",
-      icon: "ni ni-single-02 text-yellow",
-      component: Profile,
-      layout: "/admin"
-    },
+    [ // admin
       {
         path: "/Student",
         name: "Student",
@@ -80,8 +74,8 @@ let routes = [
         component: Notice,
         layout: "/admin"
       }
-      ],
-    [
+      ], // end of admin
+    [ // auth
       {
         path: "/login",
         name: "Login",
@@ -89,14 +83,24 @@ let routes = [
         component: Login,
         layout: "/auth"
       },
+    ], // end of auth
+    [ // student
       {
-        path: "/reservation/:facility_num",
+        path: "/reservation",
         name: "Reservation",
         icon: "ni ni-bullet-list-67 text-blue",
         component: Reservation,
-        layout: "/auth"
+        layout: "/student"
       },
-    ],
+      {
+        path: "/facility",
+        name: "UserView",
+        icon: "ni ni-key-25 text-info",
+        component: Facility,
+        layout: "/student"
+      },
+    ], // end of student
+    // every single views
   {
     path: "/user-profile",
     name: "User Profile",
@@ -105,11 +109,11 @@ let routes = [
     layout: "/admin"
   },
   {
-    path: "/userView",
-    name: "UserView",
+    path: "/facility",
+    name: "Facility",
     icon: "ni ni-key-25 text-info",
-    component: UserView,
-    layout: "/admin"
+    component: Facility,
+    layout: "/student"
   },
   {
     path: "/Student",
@@ -130,7 +134,7 @@ let routes = [
     name: "Reservation",
     icon: "ni ni-bullet-list-67 text-blue",
     component: Reservation,
-    layout: "/admin"
+    layout: "/student"
   },
     //login page path
   {

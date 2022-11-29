@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Axios from "axios";
 // node.js library that concatenates classes (strings)
@@ -33,12 +32,15 @@ import {
 
 import Header from "components/Headers/Header.js";
 import InnerFacilityReservation from "components/JDcomponents/InnerFacilityReservation.js"
+import {useLocation} from "react-router-dom";
 
 const Reservation = (props) => {
 
     let innerFacility_img = 'argon-react.png';
     let img_name = innerFacility_img.substring(0, innerFacility_img.indexOf('.'));
     const findFacilityNum = props.match.params.facility_num
+
+    const location = useLocation();
 
     const [innerFacilityList,setinnerFacilityList] = useState([]);
     Axios.get("http://localhost:3001/inner_facility",{params:{
@@ -92,10 +94,7 @@ const Reservation = (props) => {
                         <Button color={"secondary"} outline type={"button"} size="lg" className={"innerFacility-next"}>next</Button>
                     </Container>
                 ))}
-
             </div>
-
-
         </>
     );
 }

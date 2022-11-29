@@ -14,8 +14,8 @@ export function test(props){
 
 export function termsDelete(props){
     if(window.confirm(props.terms.terms_title+"\n"
-        +props.terms.inner_facility_locate_name+"\n"
-        +props.terms.inner_facility_name+"\n\n"+"정말 삭제하시겠습니까?")){
+        +props.terms.dormitory_name+"\n"
+        +props.terms.facility_name+"\n\n"+"정말 삭제하시겠습니까?")){
         Axios.delete("http://localhost:3001/termsDelete", {
             data: {
                 terms_num: props.terms.terms_num,

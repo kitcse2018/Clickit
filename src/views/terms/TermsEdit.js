@@ -75,12 +75,12 @@ const TermsEdit = (props) => {
     }, []);
 
     function termsSave(){
-        if(optionValue.valueOf()===0){
+        if(optionValue.valueOf()==0){
             Axios.post("http://localhost:3001/termsEditSave", {
                 termsData:{
                     termsTitle: termsTitle,
                     termsContents: termsContents,
-                    termsFacility: items.terms_inner_facility_num,
+                    termsFacility: items.terms_facility_num,
                 }
             }).then(r => {
                 console.log(r);
