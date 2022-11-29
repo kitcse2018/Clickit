@@ -21,13 +21,13 @@ import Third from "./views/Third";
 import Template from "./views/Template";
 import UserView from "./views/userView";
 import Reservation from "./views/examples/Reservation";
-import DormitoryEdit from "./views/examples/DormitoryEdit";
+import DormitoryEdit from "./views/dormitory_facility/DormitoryEdit";
 import Login from "./views/examples/Login";
 import Terms from "./views/terms/Terms";
 import TermsEdit from "./views/terms/TermsEdit";
 import Notice from "./views/notice/Notice";
 import NoticeEdit from "./views/notice/NoticeEdit";
-import DormitoryManager from "./views/examples/DormitoryManager";
+import DormitoryManager from "./views/dormitory_facility/DormitoryManager";
 
 let routes = [
     [{

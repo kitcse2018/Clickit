@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: 'ql!@#$%qjs12',
+        password: '1234',
         database: 'ccd'
     }
 );
@@ -251,6 +251,24 @@ app.post('/dormitoryUpdate',async(req,res) => {
     db.query(
         //나중에 사진도 추가
         "UPDATE dormitory AS dor SET dor.dormitory_name = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/deleteFacility',async(req,res) => {
+    //let dormitoryPic = req.query.dormitory_pic
+    let termsData = req.body.termsData;
+    console.log(termsData);
+
+    db.query(
+        //나중에 사진도 추가
+        "DELETE FROM facility WHERE facility.facility_num = ?",[termsData.facility_num],
         (err,result) => {
             if(err){
                 console.log(err)

@@ -64,28 +64,6 @@ const DormitoryEdit = (props) => {
         setadminfacilityList(response.data);
     });
 
-    const deleteById = (e)=>{
-        if(window.confirm("정말 삭제하시겠습니까?")){
-            const post ={
-                postFacilityId : e,
-            };
-
-            fetch("http://localhost:3001/deleteFacility", {
-                method : "post",
-                headers : {
-                    "content-type" : "application/json",
-                },
-                body : JSON.stringify(post),
-            })
-                .then((res)=>res.json());
-            alert("삭제되었습니다.");
-        }
-
-        else{
-            alert("취소합니다.")
-        }
-    };
-
 
     const history = useHistory();
 
@@ -146,19 +124,25 @@ const DormitoryEdit = (props) => {
                                                         <h3>이용 가능 시간 00:00 ~ 23:59</h3>
                                                     </li>
                                                     <button> 수정</button>
-                                                    <button onClick={()=> {deleteById(adminfacility.facility_num);}}>삭제</button>
 
-                                                    {/*<button onClick={() =>{
-                                                        Axios.post("http://localhost:3001/deleteFacility",{
-                                                            termsData: {facility_num: adminfacility.facility_num,
-                                                            }
-                                                        }).then(e => {
-                                                            console.log(e);
-                                                        })
-                                                        document.location.replace( "/admin/dormitoryEdit");
+                                                    <button onClick={() =>{
+                                                        if(window.confirm("정말 삭제하시겠습니까?")) {
+                                                            Axios.post("http://localhost:3001/deleteFacility", {
+                                                                termsData: {
+                                                                    facility_num: adminfacility.facility_num,
+                                                                }
+                                                            }).then(e => {
+                                                                console.log(e);
+                                                            })
+                                                            alert("삭제 되었습니다.");
+                                                            document.location.replace("/admin/dormitoryEdit");
+                                                        }
+                                                        else {
+                                                            alert("취소합니다.")
+                                                        }
                                                     }
 
-                                                    }> 삭제</button>*/}
+                                                    }> 삭제</button>
                                                 </ul>
 
                                             </div>
