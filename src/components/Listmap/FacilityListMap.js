@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Axios from "axios";
 import {Link, useHistory} from 'react-router-dom'
 import {Button, Container} from "reactstrap";
-
+import {timeFormat} from "../../methods/facility/FacilityMethod";
 
 const FacilityListMap = (props) => {
 
@@ -30,7 +30,7 @@ const FacilityListMap = (props) => {
                                 제한 인원 - {props.facility.facility_limit_people}
                             </li>
                             <li className={"fac-content-detail-time"}>
-                                이용 가능 시간 - 00:00 ~ 23:59
+                                이용 가능 시간 - {timeFormat(props.facility.facility_start_time, props.facility.facility_end_time)}
                             </li>
                         </ul>
                     </div>
@@ -48,16 +48,6 @@ const FacilityListMap = (props) => {
                         }}>
                             예약하기
                         </Button>
-                        {/*<button className={"fac-reserve-button"} onClick={async () =>{*/}
-                        {/*    let response = await Axios.get("http://localhost:3001/inner_facility",{*/}
-                        {/*        params : {Facility_Num : 1},*/}
-                        {/*    });*/}
-                        {/*    console.log(response.data)*/}
-                        {/*}} >*/}
-                        {/*    <a href = {'/student/reservation/' + props.facility.facility_num}>*/}
-                        {/*        예약하기*/}
-                        {/*    </a>*/}
-                        {/*</button>*/}
                     </div>
                 </div>
             </div>

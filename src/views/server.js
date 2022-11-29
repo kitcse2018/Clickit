@@ -15,6 +15,7 @@ const db = mysql.createConnection(
         host: 'localhost',
         password: '910su147!A',
         database: 'ccd'
+
     }
 );
 

@@ -1,18 +1,3 @@
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col
-} from "reactstrap";
-
 import "../../assets/css/loginView.css";
 //import {useUserContext} from "../../methods/loginMethods";
 //import {useHistory} from "react-router-dom";

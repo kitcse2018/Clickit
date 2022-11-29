@@ -1,4 +1,4 @@
-import Axios from "axios";
+/*import Axios from "axios";
 import {useHistory} from "react-router-dom";
 
 function toReservation(facilityNum){
@@ -16,4 +16,11 @@ function toReservation(facilityNum){
             }
         });
     });
+}*/
+
+export function timeFormat(start_time, end_time){
+    const s_time = start_time.slice(0,5);
+    const e_time = end_time.slice(0,5);
+
+    return s_time + " ~ " + e_time;
 }

@@ -14,7 +14,6 @@ import Reservation from "../views/examples/Reservation";
 const Student = (props) => {
     const mainContent = React.useRef(null);
     const location = useLocation();
-    const history = useHistory();
 
     React.useEffect(() => {
         document.documentElement.scrollTop = 0;
@@ -62,8 +61,9 @@ const Student = (props) => {
                     brandText={getBrandText(props.location.pathname)} // 기숙사 이름으로 바꾸기
                 />
                 <Switch>
-                    {getRoutes(routes)}
-                    <Redirect from="*" to="/student/facilityList"/>
+                    {getRoutes(routes[2])}
+                    {/*문제 되면 여기 routes[2] routes로 바꿔주기*/}
+                    <Redirect from="*" to="/student/facility"/>
                 </Switch>
                 <Container fluid>
                     <AdminFooter />
