@@ -4,7 +4,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const mysql = require('mysql');
 const cors = require('cors')
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -14,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '1234',
+        password: 'ql!@#$%qjs12',
         database: 'ccd'
     }
 );
@@ -33,6 +32,8 @@ app.get('/students',(req,res) => {
         }
     );
 });
+
+
 
 app.post('/login',async (req,res) =>{
     const{id,password}=req.body;
@@ -69,22 +70,101 @@ app.post("/idplz", (req,res)=>{
         });
 });
 
-app.get("/searchStudents", async (req,res)=>{
-    const postStudentId = req.query.postStudentId;
+app.post("/addStudent", (req,res)=>{
+    const postStudentId = req.body.studentId;
+    const postStudentDormitory = req.body.studentDormitory;
+    const postStudentPassword = req.body.studentPwd;
 
     db.query(
-        "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)"
-        ,['%'+postStudentId+'%'],
-        function(err,result){
+        "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?)"
+        ,[postStudentId,postStudentDormitory,postStudentPassword],
+        function(err){
             if(err){
                 console.log(err)
+                throw err;
             }else{
-                console.log(result);
-                res.send(result);
-            }
+                console.log("성공");
+
+            };
         });
 });
 
+
+app.post("/deleteStudent", (req,res)=>{
+    const postStudentId = req.body.postStudentId;
+
+    db.query(
+        " delete  from student where student_num = (?)"
+        ,[postStudentId],
+        function(err,rows,fields){
+            if(err){
+                console.log("실패");
+
+            }else{
+                console.log("성공");
+
+            };
+        });
+});
+
+app.get("/searchStudents", async (req,res)=>{
+    const postStudentId = req.query.postStudentId;
+    const postOptionValue = (req.query.postOptionValue==null)? 0 : req.query.postOptionValue;
+    console.log(req.query.postStudentId)
+    console.log(req.query.postOptionValue)
+    if(req.query.postStudentId==undefined&&req.query.postOptionValue==undefined){
+        db.query(
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory "
+            ,['%'+postStudentId+'%'],
+            function(err,result){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                    res.send(result);
+                }
+            });
+    }
+    else if(req.query.postStudentId==undefined){
+        db.query(
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?)"
+            ,[postOptionValue],
+            function(err,result){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                    res.send(result);
+                }
+            });
+    }
+    else if(postOptionValue == 0){
+        db.query(
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?) "
+            ,['%'+postStudentId+'%'],
+            function(err,result){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                    res.send(result);
+                }
+            });}
+
+    else{
+        db.query(
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)  where dormitory.dormitory_num = (?)"
+            ,['%'+postStudentId+'%',postOptionValue],
+            function(err,result){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                    res.send(result);
+                }
+            });}
+
+});
 
 app.get('/dormitories',(req,res) => {
     db.query(
@@ -127,6 +207,8 @@ app.get('/facility',(req,res) => {
         }
     );
 });
+
+
 
 
 
