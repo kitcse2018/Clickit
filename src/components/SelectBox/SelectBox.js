@@ -15,9 +15,9 @@ const SelectBox = (props) => {
 
         <div className="input_area">
             <select onChange={handleSelect} id="class">
-                <option value="0" >생활관 선택</option>
+                <option key = "{dormitory}" value="0" >생활관 선택</option>
                 {dormitoryList.map( dormitory => (
-                    <option value={dormitory.dormitory_num}>{dormitory.dormitory_name}</option>
+                    <option key={dormitory.dormitory_num} value={dormitory.dormitory_num}>{dormitory.dormitory_name}</option>
                 ))}
             </select>
         </div>

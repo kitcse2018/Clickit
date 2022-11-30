@@ -28,6 +28,7 @@ const AddStudent = (props) => {
            await Axios.get("http://localhost:3001/duplicateStudent",{params:{studentId : student.studentId}}).then((response)=>
             {
                  data = response.data;
+
             });
 
             if(data.at(0)==null){
@@ -50,12 +51,12 @@ const AddStudent = (props) => {
                 </li>
 
                 <li className="dp1">
-                    <input className="inputOrshow" type="text" name="id"
-                           value={id} onChange={onChangeId} placeholder={"학번"}/>
+                    <input className="addInput" type="text" name="id"
+                           value={id} onChange={onChangeId} placeholder={"학번"} />
                 </li>
 
                 <li className="dp1">
-                    <input className="inputOrshow" type="text" name="password"
+                    <input className="addInput" type="text" name="password"
                            value={password}     onChange = {onChangePassword}
                            placeholder={"비밀번호"}/>
                 </li>

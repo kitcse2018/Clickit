@@ -34,8 +34,6 @@ app.get('/students',(req,res) => {
     );
 });
 
-
-
 app.post("/idplz", (req,res)=>{
     const postDormitoryName = req.body.postDormitoryName;
 
@@ -72,6 +70,25 @@ app.post("/addStudent", (req,res)=>{
         });
 });
 
+app.post("/UpdateStudent", (req,res)=>{
+    const postStudentId = req.body.studentId;
+    const postStudentDormitory = req.body.studentDormitory;
+    const postStudentPassword = req.body.studentPwd;
+    const postStudentNum = req.body.studentNum;
+    db.query(
+        "UPDATE student SET student_id = (?), dormitory = (?),student_password = (?) where student_num = (?)  "
+        ,[postStudentId,postStudentDormitory,postStudentPassword,postStudentNum],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
+
+            };
+        });
+});
+
 app.post("/banStudent", (req,res)=>{
     const startDate = req.body.postStartDate;
     const endDate = req.body.postEndDate;
@@ -87,6 +104,22 @@ app.post("/banStudent", (req,res)=>{
             }else{
                 console.log("성공");
 
+            };
+        });
+});
+
+app.post("/banClear", (req,res)=>{
+    const banClearStudentNum = req.body.banStudentNum;
+
+    db.query(
+        "DELETE FROM blacklist where blacklist_num = (?) "
+        ,[banClearStudentNum],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
             };
         });
 });
@@ -130,7 +163,7 @@ app.get("/searchStudents", async (req,res)=>{
     console.log(req.query.postOptionValue)
     if(req.query.postStudentId==undefined&&(req.query.postOptionValue==0||req.query.postOptionValue==undefined)){
         db.query(
-            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory "
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory order by student_id asc  "
             ,['%'+postStudentId+'%'],
             function(err,result){
                 if(err){
@@ -143,7 +176,7 @@ app.get("/searchStudents", async (req,res)=>{
     }
     else if(req.query.postStudentId==undefined){
         db.query(
-            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?)"
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?) order by student_id asc"
             ,[postOptionValue],
             function(err,result){
                 if(err){
@@ -156,7 +189,7 @@ app.get("/searchStudents", async (req,res)=>{
     }
     else if((req.query.postOptionValue==0||req.query.postOptionValue==undefined)){
         db.query(
-            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?) "
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?) order by student_id asc "
             ,['%'+postStudentId+'%'],
             function(err,result){
                 if(err){
@@ -169,7 +202,7 @@ app.get("/searchStudents", async (req,res)=>{
 
     else{
         db.query(
-            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)  where dormitory.dormitory_num = (?)"
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)  where dormitory.dormitory_num = (?) order by student_id asc"
             ,['%'+postStudentId+'%',postOptionValue],
             function(err,result){
                 if(err){
