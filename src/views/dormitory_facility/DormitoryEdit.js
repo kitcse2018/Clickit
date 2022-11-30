@@ -106,6 +106,8 @@ const DormitoryEdit = (props) => {
                                             facility_name : "",
                                             facility_limit_people : "",
                                             facility_pic : "",
+                                            facility_start_time : "",
+                                            facility_end_time : "",
                                             dormitory_num : items.dormitory_num,
                                             dormitory_name : items.dormitory_name,
                                         }
@@ -130,7 +132,7 @@ const DormitoryEdit = (props) => {
                                                         <h3>이용 가능 인원[{adminfacility.facility_limit_people}]</h3>
                                                     </li>
                                                     <li className="dp1">
-                                                        <h3>이용 가능 시간 00:00 ~ 23:59</h3>
+                                                        <h3>이용 가능 시간 {adminfacility.facility_start_time} ~ {adminfacility.facility_end_time}</h3>
                                                     </li>
                                                     <button className={"dormitory-update-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
                                                             pathname : "/admin/addFacility",
@@ -139,6 +141,8 @@ const DormitoryEdit = (props) => {
                                                                 facility_name : adminfacility.facility_name,
                                                                 facility_limit_people : adminfacility.facility_limit_people,
                                                                 facility_pic : adminfacility.facility_pic,
+                                                                facility_start_time : adminfacility.facility_start_time,
+                                                                facility_end_time : adminfacility.facility_end_time,
                                                                 dormitory_num : items.dormitory_num,
                                                                 dormitory_name : items.dormitory_name
                                                             }

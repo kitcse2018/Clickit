@@ -283,7 +283,7 @@ app.post('/deleteFacility',async(req,res) => {
 app.get('/adminfacility',(req,res) => {
     let dormitory_num = req.query.dormitory_num;
     db.query(
-        "SELECT * FROM facility AS fac WHERE fac.dormitory_num = ?",[dormitory_num],
+        "SELECT * FROM facility AS fac WHERE fac.dormitory_num = ? ORDER BY fac.facility_name",[dormitory_num],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -297,7 +297,7 @@ app.get('/adminfacility',(req,res) => {
 app.get('/facilityEdit',(req,res) => {
     let facility_num = req.query.facility_num;
     db.query(
-        "SELECT * FROM facility AS fac WHERE fac.facility_num = ?",[facility_num],
+        "SELECT * FROM facility AS fac WHERE fac.facility_num = ? ORDER BY fac.facility_name",[facility_num],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -311,7 +311,7 @@ app.get('/facilityEdit',(req,res) => {
 app.get('/adminfacilitySeat',(req,res) => {
     let facility_num = req.query.facility_num;
     db.query(
-        "SELECT * FROM facility_seat AS facs WHERE facs.facility_num = ?",[facility_num],
+        "SELECT * FROM facility_seat AS facs WHERE facs.facility_num = ? GROUP BY facs.facility_seat_name ORDER BY facs.facility_seat_name",[facility_num],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -330,7 +330,7 @@ app.post('/facilityUpdate',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ? WHERE fac.facility_num = ?",[termsData.facility_name,termsData.facility_limit_people,termsData.facility_num],
+        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_num],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -348,7 +348,7 @@ app.post('/facilityInsert',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "INSERT INTO facility(facility_name,facility_limit_people,dormitory_num) VALUES(?,?,?)" ,[termsData.facility_name,termsData.facility_limit_people,termsData.dormitory_num],
+        "INSERT INTO facility(facility_name,facility_limit_people,facility_start_time,facility_end_time,dormitory_num) VALUES(?,?,?,?,?)" ,[termsData.facility_name,termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.dormitory_num],
         (err,result) => {
             if(err){
                 console.log(err)
