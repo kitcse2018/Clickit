@@ -15,6 +15,7 @@ const db = mysql.createConnection(
         host: 'localhost',
         password: '1234',
         database: 'ccd'
+
     }
 );
 
@@ -32,8 +33,6 @@ app.get('/students',(req,res) => {
         }
     );
 });
-
-
 
 app.post('/login',async (req,res) =>{
     const{id,password}=req.body;
@@ -179,6 +178,21 @@ app.get('/dormitories',(req,res) => {
     );
 });
 
+app.get('/facilityWithDormitory',(req,res) => {
+    const dormitoryNum = req.query.dormitoryNum;
+    db.query(
+        "SELECT * FROM facility where dormitory_num = (?)",
+        [dormitoryNum],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.get("/signIn", async (req,res)=>{
     const postAuthId = req.query.postAuthId;
     const postAuthPassword = req.query.postAuthPassword;
@@ -196,8 +210,11 @@ app.get("/signIn", async (req,res)=>{
 });
 
 app.get('/facility',(req,res) => {
+    const dormitory_num = req.query.dormitory_num;
     db.query(
-        "SELECT * FROM facility",
+        "SELECT * FROM facility where dormitory_num = (?)",
+        // "SELECT * FROM facility",
+        [dormitory_num],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -208,6 +225,24 @@ app.get('/facility',(req,res) => {
     );
 });
 
+app.get('/facilitySeatTime', (req,res) => { // 일단 킵
+    const facilityNum = req.query.facilityNum;
+    db.query(
+
+    )
+});
+
+app.get('/reservation', (req,res) => {
+    const facility_num = req.query.facility_num;
+    const start_time = req.query.start_time;
+    const end_time = req.query.end_time;
+    db.query(
+
+    )
+});
+
+app.get('/inner_facility',async(req,res) => {
+    let inner_facility_num = req.query.facilityNum;
 
 //관리자 전용 select
 app.get('/dormitoryEdit',(req,res) => {
@@ -426,9 +461,9 @@ app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
     );
 });
 
-app.get('/innerFacilityNumName',async(req,res) => {
+app.get('/facilityNumName',async(req,res) => {
     db.query(
-        "SELECT inner_facility_num, inner_facility_name FROM inner_facility;",
+        "SELECT facility_num, facility_name, dormitory_name FROM facility left join dormitory on facility.dormitory_num = dormitory.dormitory_num;",
         (err,result) => {
             if(err){
                 console.log(err)
@@ -441,7 +476,7 @@ app.get('/innerFacilityNumName',async(req,res) => {
 
 app.get('/terms', async(req, res)=>{
     db.query(
-        "SELECT terms_num, terms_title, terms_contents, terms_inner_facility_num, inner_facility_name, inner_facility_locate_name FROM ccd.terms LEFT JOIN ccd.inner_facility ON terms.terms_inner_facility_num = inner_facility.inner_facility_num;",
+        "SELECT terms_num, terms_title, terms_contents, terms_facility_num, facility_name , dormitory_name FROM ccd.terms LEFT JOIN ccd.facility ON terms.terms_facility_num = facility.facility_num LEFT JOIN ccd.dormitory on facility.dormitory_num = dormitory.dormitory_num;",
         (err, result)=>{
             if(err){
                 console.log(err)
@@ -456,7 +491,7 @@ app.post('/termsEditSave', async (req, res)=>{
     const termsData = req.body.termsData;
     console.log(termsData);
     db.query(
-        "INSERT INTO terms (terms_title, terms_contents, terms_inner_facility_num) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE terms_title = VALUES(terms_title), terms_contents = VALUES(terms_contents), terms_inner_facility_num = VALUES(terms_inner_facility_num);",
+        "INSERT INTO terms (terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE terms_title = VALUES(terms_title), terms_contents = VALUES(terms_contents), terms_facility_num = VALUES(terms_facility_num);",
         [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
         (err, result)=>{
             if(err){

@@ -44,7 +44,7 @@ const Auth = (props) => {
   return (
     <>
       <div className="main-content" ref={mainContent}>
-        <AuthNavbar />
+        <AuthNavbar/>
         <div className="header bg-gradient-info py-7 py-lg-8">
           <Container>
             <div className="header-body text-center mb-7">

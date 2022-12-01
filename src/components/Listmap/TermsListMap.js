@@ -18,10 +18,10 @@ function TermsListMap(props){
                     </h1>
                 </div>
                 <div className="terms-list-inner-facility-location">
-                    {props.terms.inner_facility_locate_name}
+                    {props.terms.dormitory_name}
                 </div>
                 <div className="terms-list-inner-facility-name">
-                    {props.terms.inner_facility_name}
+                    {props.terms.facility_name}
                 </div>
                 <div className="terms-list-title">
                     {props.terms.terms_title}
@@ -37,9 +37,9 @@ function TermsListMap(props){
                             terms_num: props.terms.terms_num,
                             terms_title: props.terms.terms_title,
                             terms_contents: props.terms.terms_contents,
-                            terms_inner_facility_num : props.terms.terms_inner_facility_num,
-                            inner_facility_name : props.terms.inner_facility_name,
-                            inner_facility_locate_name : props.terms.inner_facility_locate_name,
+                            terms_facility_num : props.terms.terms_facility_num,
+                            facility_name : props.terms.facility_name,
+                            dormitory_name : props.terms.dormitory_name,
                         }
                     })}}>수정</Button>
                     <Button className="terms-list-delete" color="danger" onClick={()=>termsDelete(props)}>삭제</Button>

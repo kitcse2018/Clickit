@@ -3,7 +3,7 @@ import Axios from "axios";
 
 const TermsFacilitySelectBox = (props) => {
     const [termsFacilityList, setTermsFacilityList] = useState([]);
-    Axios.get("http://localhost:3001/innerFacilityNumName").then((response) => {
+    Axios.get("http://localhost:3001/facilityNumName").then((response) => {
         setTermsFacilityList(response.data);
     });
 
@@ -18,7 +18,7 @@ const TermsFacilitySelectBox = (props) => {
                 <select onChange={handleSelect} id="class">
                     <option value="0">시설 선택</option>
                     {termsFacilityList.map((t) => (
-                        <option value={t.inner_facility_num}>{t.inner_facility_name}</option>
+                        <option value={t.facility_num}>{t.facility_name}</option>
                     ))}
                 </select>
             </div>
