@@ -3,9 +3,8 @@ import "../../assets/css/mycss/StudnetList.css"
 import moment from 'moment';
 import Axios from "axios";
 import UpdateStudent from "../../views/examples/UpdateStudent";
-import AddStudent from "../../views/examples/AddStudent";
 
-function Student({ student, onRemove }) {
+const Student = ({ student, onRemove }) => {
 
     const [visibleUpdate,setVisibleUpdate] = useState(false);
     const [visibleSelect,setVisibleSelect] = useState(true);
@@ -72,8 +71,8 @@ function Student({ student, onRemove }) {
 
 
     return (
-
         <div className="studentList">
+
             {visibleUpdate && <UpdateStudent setVisibleUpdate={setVisibleUpdate} setVisibleSelect ={setVisibleSelect} student = {student}/>}
             {visibleSelect && <div className="gnb_menu">
                 <ul className="student_ul">

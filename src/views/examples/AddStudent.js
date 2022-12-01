@@ -27,6 +27,7 @@ const AddStudent = (props) => {
             }
            await Axios.get("http://localhost:3001/duplicateStudent",{params:{studentId : student.studentId}}).then((response)=>
             {
+
                  data = response.data;
 
             });

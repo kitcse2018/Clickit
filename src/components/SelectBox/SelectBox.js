@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Axios from "axios";
 
 const SelectBox = (props) => {
     const [dormitoryList,setdormitoryList] = useState([]);
-    Axios.get("http://localhost:3001/dormitories").then((response) => {
+    useEffect(()=> { Axios.get("http://localhost:3001/dormitories")
+        .then((response) => {
         setdormitoryList(response.data);
     });
+    },[]);
 
     const handleSelect = (e) => {
         props.setOptionValue(e.target.value);
