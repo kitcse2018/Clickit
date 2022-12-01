@@ -64,6 +64,13 @@ const DormitoryEdit = (props) => {
         setadminfacilityList(response.data);
     });
 
+    function timeFormat(start_time, end_time){
+        const s_time = start_time.slice(0,5);
+        const e_time = end_time.slice(0,5);
+
+        return s_time + " ~ " + e_time;
+    }
+
 
     const history = useHistory();
 
@@ -132,9 +139,9 @@ const DormitoryEdit = (props) => {
                                                         <h3>이용 가능 인원[{adminfacility.facility_limit_people}]</h3>
                                                     </li>
                                                     <li className="dp1">
-                                                        <h3>이용 가능 시간 {adminfacility.facility_start_time} ~ {adminfacility.facility_end_time}</h3>
+                                                        <h3>이용 가능 시간 {timeFormat(adminfacility.facility_start_time,adminfacility.facility_end_time)}</h3>
                                                     </li>
-                                                    <button className={"dormitory-update-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
+                                                    <Button color = "primary" className={"dormitory-update-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
                                                             pathname : "/admin/addFacility",
                                                             state : {
                                                                 facility_num : adminfacility.facility_num,
@@ -148,9 +155,9 @@ const DormitoryEdit = (props) => {
                                                             }
                                                         }
 
-                                                    )}}> 수정</button>
+                                                    )}}> 수정</Button>
 
-                                                    <button onClick={() =>{
+                                                    <Button color="danger" onClick={() =>{
                                                         if(window.confirm("정말 삭제하시겠습니까?")) {
                                                             Axios.post("http://localhost:3001/deleteFacility", {
                                                                 termsData: {
@@ -166,7 +173,19 @@ const DormitoryEdit = (props) => {
                                                             alert("취소합니다.")
                                                         }
                                                     }
-                                                    }> 삭제</button>
+                                                    }> 삭제</Button>
+
+                                                    <Button color = "success" onClick={() => {history.push({
+                                                            pathname : "/admin/facilitySeat",
+                                                            state : {
+                                                                facility_num : adminfacility.facility_num,
+                                                                facility_name : adminfacility.facility_name,
+                                                                facility_start_time : adminfacility.facility_start_time,
+                                                                facility_end_time : adminfacility.facility_end_time,
+                                                            }
+                                                        }
+
+                                                    )}}> 자리 수정</Button>
                                                 </ul>
 
                                             </div>

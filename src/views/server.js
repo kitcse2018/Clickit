@@ -209,24 +209,6 @@ app.get('/facility',(req,res) => {
 });
 
 
-
-
-
-app.get('/inner_facility',async(req,res) => {
-    let inner_facility_num = req.query.facilityNum;
-    db.query(
-        "SELECT * FROM inner_facility AS inf INNER JOIN facility_seat AS fs ON inf.inner_facility_num = fs.inner_facility_num " +
-        "INNER JOIN seat_availability AS sa ON fs.facility_seat_num = sa.facility_seat_num WHERE inf.facility_num = ?",[inner_facility_num],
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
 //관리자 전용 select
 app.get('/dormitoryEdit',(req,res) => {
     let dormitory_num = req.query.dormitory_num;
@@ -349,6 +331,91 @@ app.post('/facilityInsert',async(req,res) => {
     db.query(
         //나중에 사진도 추가
         "INSERT INTO facility(facility_name,facility_limit_people,facility_start_time,facility_end_time,dormitory_num) VALUES(?,?,?,?,?)" ,[termsData.facility_name,termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/facilitySeatUpdate',async(req,res) => {
+    let termsData = req.body.termsData;
+
+    db.query(
+        //나중에 사진도 추가
+        "UPDATE facility_seat AS facs SET facs.facility_seat_name = ?, facs.facility_seat_status = ?" +
+        " WHERE facs.facility_seat_num = ?",[termsData.facility_seat_name, termsData.facility_seat_status, termsData.facility_seat_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.delete('/facilitySeatDelete', async(req, res)=>{
+    const facility_seat_num = req.body.facility_seat_num;
+    db.query(
+        "DELETE FROM facility_seat WHERE facility_seat_num = ?",
+        [facility_seat_num],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/getFacilitySeatNum',async(req,res) => {
+    let facility_seat_name = req.query.facility_seat_name;
+    let facility_num = req.query.facility_num;
+
+    db.query(
+        "SELECT facs.facility_seat_num FROM facility_seat AS facs WHERE facs.facility_seat_name = ? AND facs.facility_num = ?",[facility_seat_name,facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/facilitySeatInsert',async(req,res) => {
+
+    let termsData = req.body.termsData;
+    let seatnum = "";
+
+    db.query(
+        //나중에 사진도 추가
+        "INSERT INTO facility_seat(facility_seat_name,facility_num,facility_seat_status) VALUES(?,?,?)" ,[termsData.facility_seat_name, termsData.facility_num, termsData.facility_seat_status],
+        function (err,result) {
+            if (err) {
+                // handle error
+            }else{
+                // Your row is inserted you can view
+                console.log(result.insertId);
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
+
+    let termsData = req.body.termsData;
+
+    db.query(
+        //나중에 사진도 추가
+        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num],
         (err,result) => {
             if(err){
                 console.log(err)

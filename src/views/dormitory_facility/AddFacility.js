@@ -20,7 +20,6 @@ import {
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
-import "../../assets/css/mycss/AddFacility.css";
 import {useHistory} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import React, {useState} from "react";
@@ -51,7 +50,6 @@ const AddFacility = (props) => {
     }
 
 
-
     const [facilityEdit,setFacilityEdit] = useState([]);
     Axios.get("http://localhost:3001/facilityEdit",{params:{
             facility_num : items.facility_num,
@@ -66,16 +64,21 @@ const AddFacility = (props) => {
         setAdminFacilitySeatList(response.data);
     });
 
-    const [facilitySeat, setFacilitySeat] = useState(adminFacilitySeatList.facility_seat_name);
-    const onSeatNameChange = (e) => {
-        setFacilitySeat(e.target.value);
+
+
+    function timeFormat(time){
+        const c_time = time.slice(0,5);
+
+        return c_time;
     }
 
-    const onSeatAdd = (e) => {
 
-    }
 
     const history = useHistory();
+
+    //시간 계산
+
+
 
     return (
         <>
@@ -106,11 +109,11 @@ const AddFacility = (props) => {
                                 </div>
                                 <div className={"facility-edit-content-start"}>
                                     <h3>시작 시간</h3>
-                                    <input type={"text"} className={"facility-start-input"} placeholder={"00:00"} defaultValue={items.facility_start_time} onChange = {onStartTimeChange}/>
+                                    <input type={"text"} className={"facility-start-input"} placeholder={"00:00"} defaultValue = {timeFormat(items.facility_start_time)} onChange = {onStartTimeChange}/>
                                 </div>
                                 <div className={"facility-edit-content-end"}>
                                     <h3>종료 시간</h3>
-                                    <input type={"text"} className={"facility-end-input"} placeholder={"00:00"} defaultValue={items.facility_end_time} onChange = {onEndTimeChange}/>
+                                    <input type={"text"} className={"facility-end-input"} placeholder={"00:00"} defaultValue={timeFormat(items.facility_end_time)} onChange = {onEndTimeChange}/>
                                 </div>
                             </div>
                             {/*사진도 같이 보내줘야함 사진 주소나 bob*/}
@@ -162,37 +165,11 @@ const AddFacility = (props) => {
                                             }
                                         )
                                     }
-
                                 }
                             }
                             } >
                                 저장
                             </Button>
-                        </div>
-                    </div>
-                    <div className={"facility-seat-content-body"}>
-                        <h2>자리</h2>
-
-                        <div className={"facility-seat-add-body"}>
-                            <input type={"text"} className={"facility-seat-name-input"} placeholder={"자리명"} onChange = {onSeatAdd}/>
-                            <Button className={"facility-seat-add"}>추가</Button>
-                        </div>
-                        <div className={"facility-seat-list"}>
-                            <ul className={"facility-seat-list-ul"}>
-                                {adminFacilitySeatList.map(adminFacilitySeat =>(
-                                    <li className={"facility-seat-list-li"}>
-                                        <div className={"gnb_menu"}>
-                                            <ul className={"facility-seat-ul"}>
-                                                <li className={"dp1"}>
-                                                    <input type={"text"} className={"facility-name-input"} defaultValue={adminFacilitySeat.facility_seat_name} onChange = {onSeatNameChange}/>
-                                                </li>
-                                                <Button className={"facility-seat-save"}>저장</Button>
-                                                <Button className={"facility-seat-delete"}>삭제</Button>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
                         </div>
                     </div>
                 </div>
