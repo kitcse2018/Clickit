@@ -63,7 +63,7 @@ const Seat = ({adminFacilitySeat,adminFacility}) => {
                         }
 
                     }}>저장</Button>
-                    <Button className={"facility-seat-delete"} onClick={() =>{
+                    <Button color= "danger" className={"facility-seat-delete"} onClick={() =>{
                         if(window.confirm("정말 삭제하시겠습니까?")) {
                             Axios.delete("http://localhost:3001/facilitySeatDelete",{
                                 data: {

@@ -67,7 +67,7 @@ const AdminNavbar = (props) => {
                     <span className="mb-0 text-sm font-weight-bold">
                       Jessica Jones
                     </span>
-                      <button onClick={}>log out</button>
+                      <button>log out</button>
                     </Media>
                   </Media>
                 </DropdownToggle>

@@ -12,6 +12,7 @@ import Notice from "./views/notice/Notice";
 import NoticeEdit from "./views/notice/NoticeEdit";
 import DormitoryManager from "./views/dormitory_facility/DormitoryManager";
 import AddFacility from "./views/dormitory_facility/AddFacility"
+import FacilitySeat from "./views/dormitory_facility/FacilitySeat"
 
 let routes = [
     [ // admin

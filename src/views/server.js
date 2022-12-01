@@ -52,7 +52,6 @@ app.post('/login',async (req,res) =>{
     )
 });
 
-
 app.post("/idplz", (req,res)=>{
     const postDormitoryName = req.body.postDormitoryName;
 
@@ -69,20 +68,6 @@ app.post("/idplz", (req,res)=>{
             };
         });
 });
-app.get("/duplicateStudent",async(req,res)=>{
-    const studentId = req.query.studentId;
-    db.query(
-        "SELECT student.student_id FROM student where student_id = (?)"
-        ,[studentId],
-        function(err,result){
-            if(err){
-                console.log(err)
-            }else{
-                console.log(result);
-                res.send(result);
-            }
-        });
-})
 
 app.post("/addStudent", (req,res)=>{
     const postStudentId = req.body.studentId;
@@ -126,9 +111,9 @@ app.get("/searchStudents", async (req,res)=>{
     const postOptionValue = (req.query.postOptionValue==null)? 0 : req.query.postOptionValue;
     console.log(req.query.postStudentId)
     console.log(req.query.postOptionValue)
-    if(req.query.postStudentId==undefined&&(req.query.postOptionValue==0||req.query.postOptionValue==undefined)){
+    if(req.query.postStudentId==undefined&&req.query.postOptionValue==undefined){
         db.query(
-            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory order by student_id asc  "
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory "
             ,['%'+postStudentId+'%'],
             function(err,result){
                 if(err){
@@ -141,7 +126,7 @@ app.get("/searchStudents", async (req,res)=>{
     }
     else if(req.query.postStudentId==undefined){
         db.query(
-            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?) order by student_id asc"
+            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?)"
             ,[postOptionValue],
             function(err,result){
                 if(err){
@@ -333,32 +318,6 @@ app.get('/getSeatsByTimes', (req,res) => {
     )
 });
 
-app.get('/inner_facility',async(req,res) => {
-    let inner_facility_num = req.query.facilityNum;
-    db.query(
-        "SELECT * FROM inner_facility AS inf INNER JOIN facility_seat AS fs ON inf.inner_facility_num = fs.inner_facility_num " +
-        "INNER JOIN seat_availability AS sa ON fs.facility_seat_num = sa.facility_seat_num WHERE inf.facility_num = ?",[inner_facility_num],
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-app.get('/facilityNumName',async(req,res) => {
-    db.query(
-        "SELECT facility_num, facility_name, dormitory_name FROM facility left join dormitory on facility.dormitory_num = dormitory.dormitory_num;",
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
 //관리자 전용 select
 app.get('/dormitoryEdit',(req,res) => {
     let dormitory_num = req.query.dormitory_num;
@@ -648,6 +607,7 @@ app.get('/notice', async(req, res)=>{
 
 
 
+
 app.delete('/noticeDelete', async(req, res)=>{
     const postNoticeNum = req.body.notice_num;
     db.query(
@@ -677,7 +637,7 @@ app.post('/noticeEditSave', async (req, res)=>{
             }
         }
     );
-})
+});
 
 app.listen(PORT,()=>{
     console.log(`yes,your server is running on port ${PORT}!`);
