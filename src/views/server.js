@@ -52,6 +52,7 @@ app.post('/login',async (req,res) =>{
     )
 });
 
+
 app.post("/idplz", (req,res)=>{
     const postDormitoryName = req.body.postDormitoryName;
 
@@ -68,6 +69,20 @@ app.post("/idplz", (req,res)=>{
             };
         });
 });
+app.get("/duplicateStudent",async(req,res)=>{
+    const studentId = req.query.studentId;
+    db.query(
+        "SELECT student.student_id FROM student where student_id = (?)"
+        ,[studentId],
+        function(err,result){
+            if(err){
+                console.log(err)
+            }else{
+                console.log(result);
+                res.send(result);
+            }
+        });
+})
 
 app.post("/addStudent", (req,res)=>{
     const postStudentId = req.body.studentId;
@@ -111,9 +126,9 @@ app.get("/searchStudents", async (req,res)=>{
     const postOptionValue = (req.query.postOptionValue==null)? 0 : req.query.postOptionValue;
     console.log(req.query.postStudentId)
     console.log(req.query.postOptionValue)
-    if(req.query.postStudentId==undefined&&req.query.postOptionValue==undefined){
+    if(req.query.postStudentId==undefined&&(req.query.postOptionValue==0||req.query.postOptionValue==undefined)){
         db.query(
-            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory "
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory order by student_id asc  "
             ,['%'+postStudentId+'%'],
             function(err,result){
                 if(err){
@@ -126,7 +141,7 @@ app.get("/searchStudents", async (req,res)=>{
     }
     else if(req.query.postStudentId==undefined){
         db.query(
-            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?)"
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?) order by student_id asc"
             ,[postOptionValue],
             function(err,result){
                 if(err){
@@ -137,9 +152,9 @@ app.get("/searchStudents", async (req,res)=>{
                 }
             });
     }
-    else if(postOptionValue == 0){
+    else if((req.query.postOptionValue==0||req.query.postOptionValue==undefined)){
         db.query(
-            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?) "
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?) order by student_id asc "
             ,['%'+postStudentId+'%'],
             function(err,result){
                 if(err){
@@ -149,10 +164,9 @@ app.get("/searchStudents", async (req,res)=>{
                     res.send(result);
                 }
             });}
-
     else{
         db.query(
-            "SELECT student.*,dormitory_name FROM student join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)  where dormitory.dormitory_num = (?)"
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)  where dormitory.dormitory_num = (?) order by student_id asc"
             ,['%'+postStudentId+'%',postOptionValue],
             function(err,result){
                 if(err){
@@ -164,7 +178,6 @@ app.get("/searchStudents", async (req,res)=>{
             });}
 
 });
-
 app.get('/dormitories',(req,res) => {
     db.query(
         "SELECT * FROM dormitory",
@@ -193,11 +206,27 @@ app.get('/facilityWithDormitory',(req,res) => {
     );
 });
 
-app.get("/signIn", async (req,res)=>{
-    const postAuthId = req.query.postAuthId;
-    const postAuthPassword = req.query.postAuthPassword;
+app.get("/signInByAdmin", async (req,res)=>{
+    const postAuthId = req.query.postAdminId;
+    const postAuthPassword = req.query.postAdminPassword;
     db.query(
         "SELECT * FROM admin where admin_id=(?) and admin_password=(?) ;"
+        ,[postAuthId,postAuthPassword],
+        function(err,result){
+            if(err){
+                console.log(err)
+            }else{
+                console.log(result);
+                res.send(result);
+            }
+        });
+});
+
+app.get("/signInByStudent", async (req,res)=>{
+    const postAuthId = req.query.postStudentId;
+    const postAuthPassword = req.query.postStudentPassword;
+    db.query(
+        "SELECT * FROM student where student_id=(?) and student_password=(?) ;"
         ,[postAuthId,postAuthPassword],
         function(err,result){
             if(err){
@@ -286,28 +315,50 @@ app.get('/facilitySeatList', (req,res) => {
             }
    )
 });
-
 app.get('/getSeatsByTimes', (req,res) => {
-   const  startTime = req.query.startTime;
-   const endTime = req.query.endTime;
-   const facilityNum = req.query.facilityNum;
-   db.query(
-       "SELECT seat_availability_num, seat_availability_start_time, seat_availability_end_time, seat_availability_status, facility_seat_name FROM ccd.seat_availability as sa left join facility_seat as fs on sa.facility_seat_num = fs.facility_seat_num left join facility as f on fs.facility_num = f.facility_num where f.facility_num = (?) and sa.seat_availability_start_time = (?) and sa.seat_availability_end_time = (?)",
-       [facilityNum,startTime,endTime],
-            (err,result) => {
-                if(err){
-                    console.log(err)
-                }else{
-                    console.log(result);
+    const  startTime = req.query.startTime;
+    const endTime = req.query.endTime;
+    const facilityNum = req.query.facilityNum;
+    db.query(
+        "SELECT seat_availability_num, seat_availability_start_time, seat_availability_end_time, seat_availability_status, facility_seat_name FROM ccd.seat_availability as sa left join facility_seat as fs on sa.facility_seat_num = fs.facility_seat_num left join facility as f on fs.facility_num = f.facility_num where f.facility_num = (?) and sa.seat_availability_start_time = (?) and sa.seat_availability_end_time = (?)",
+        [facilityNum,startTime,endTime],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                console.log(result);
                 res.send(result);
-                }
             }
-   )
+        }
+    )
 });
 
 app.get('/inner_facility',async(req,res) => {
     let inner_facility_num = req.query.facilityNum;
-
+    db.query(
+        "SELECT * FROM inner_facility AS inf INNER JOIN facility_seat AS fs ON inf.inner_facility_num = fs.inner_facility_num " +
+        "INNER JOIN seat_availability AS sa ON fs.facility_seat_num = sa.facility_seat_num WHERE inf.facility_num = ?",[inner_facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+app.get('/facilityNumName',async(req,res) => {
+    db.query(
+        "SELECT facility_num, facility_name, dormitory_name FROM facility left join dormitory on facility.dormitory_num = dormitory.dormitory_num;",
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 //관리자 전용 select
 app.get('/dormitoryEdit',(req,res) => {
     let dormitory_num = req.query.dormitory_num;

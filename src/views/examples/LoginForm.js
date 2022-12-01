@@ -36,7 +36,7 @@ import "../../assets/css/loginView.css";
 import {useState} from "react";
 import { Redirect } from "react-router-dom";
 
-const LoginForm = ({admin_type, login}) => {
+const LoginForm = ({ login}) => {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
 

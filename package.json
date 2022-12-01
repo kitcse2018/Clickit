@@ -62,6 +62,8 @@
     "react-copy-to-clipboard": "5.1.0",
     "react-datetime": "3.1.1",
     "react-dom": "^18.2.0",
+    "react-dom": ">=16.0.0",
+    "react-js-pagination": "^3.0.3",
     "react-paypal-express-checkout": "^1.0.5",
     "react-router-dom": "5.2.0",
     "react-scripts": "5.0.1",
@@ -72,6 +74,10 @@
   "devDependencies": {
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.9"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
   },
   "optionalDependencies": {
     "eslint-plugin-flowtype": "8.0.3",

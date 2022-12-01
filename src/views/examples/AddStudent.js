@@ -29,6 +29,7 @@ const AddStudent = (props) => {
             {
                 data = response.data;
             });
+
             if(data.at(0)==null){
                 Axios.post("http://localhost:3001/addStudent",student).then((response)=>{
                     }
@@ -40,7 +41,6 @@ const AddStudent = (props) => {
             }
         }
     }
-
     return (
         <>
             <ul className="student_ul">
