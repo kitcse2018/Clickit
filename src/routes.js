@@ -23,6 +23,7 @@ import UserView from "./views/userView";
 import Reservation from "./views/examples/Reservation";
 import DormitoryEdit from "./views/examples/DormitoryEdit";
 import Login from "./views/examples/Login";
+import AddFacility from "./views/examples/AddFacility"
 
 let routes = [
   {
@@ -73,6 +74,13 @@ let routes = [
     name: "DormitoryEdit",
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryEdit,
+    layout: "/admin"
+  },
+  {
+    path: "/AddFacility",
+    name: "AddFacility",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: AddFacility,
     layout: "/admin"
   }
 ];
