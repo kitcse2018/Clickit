@@ -52,6 +52,7 @@ const Notice = (props) => {
                             }
                         })}>공지사항 추가</Button>
                     </div>
+
                     <div className={"notice-list"}>
                         {noticeList.map((noticeList)=>(
                             <NoticeListMap notice={noticeList}/>

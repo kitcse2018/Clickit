@@ -15,7 +15,7 @@ const AddStudent = (props) => {
         setPassword(e.target.value);
     };
 
-   const addStudent = async () => {
+    const addStudent = async () => {
         let data = "";
         if(optionValue==0||id.at(0)==null||password.at(0) == null){
             alert("필수 항목을 입력해주세요.");}
@@ -25,39 +25,38 @@ const AddStudent = (props) => {
                 studentPwd : password,
                 studentDormitory :  optionValue,
             }
-           await Axios.get("http://localhost:3001/duplicateStudent",{params:{studentId : student.studentId}}).then((response)=>
+            await Axios.get("http://localhost:3001/duplicateStudent",{params:{studentId : student.studentId}}).then((response)=>
             {
 
-                 data = response.data;
+                data = response.data;
 
             });
 
             if(data.at(0)==null){
-            Axios.post("http://localhost:3001/addStudent",student).then((response)=>{
-                 }
-             )
+                Axios.post("http://localhost:3001/addStudent",student).then((response)=>{
+                    }
+                )
                 alert("추가되었습니다.")
-            window.location.replace("/admin/Student")
+                window.location.replace("/admin/Student")
             }else{
                 alert("중복된 학번입니다.")
             }
         }
     }
-
     return (
-        <div className="addStudentBox">
+        <>
             <ul className="student_ul">
                 <li className="dp1">
                     <SelectBox  setOptionValue={setOptionValue}></SelectBox>
                 </li>
 
                 <li className="dp1">
-                    <input className="addInput" type="text" name="id"
-                           value={id} onChange={onChangeId} placeholder={"학번"} />
+                    <input className="inputOrshow" type="text" name="id"
+                           value={id} onChange={onChangeId} placeholder={"학번"}/>
                 </li>
 
                 <li className="dp1">
-                    <input className="addInput" type="text" name="password"
+                    <input className="inputOrshow" type="text" name="password"
                            value={password}     onChange = {onChangePassword}
                            placeholder={"비밀번호"}/>
                 </li>
@@ -66,7 +65,7 @@ const AddStudent = (props) => {
                 </li>
             </ul>
 
-        </div>
+        </>
     );
 }
 export default AddStudent;

@@ -76,7 +76,6 @@ const Student = ({ student, onRemove }) => {
             {visibleUpdate && <UpdateStudent setVisibleUpdate={setVisibleUpdate} setVisibleSelect ={setVisibleSelect} student = {student}/>}
             {visibleSelect && <div className="gnb_menu">
                 <ul className="student_ul">
-
                     <li className="dp1">
                         <input className="inputOrshow" type="text" name="department" placeholder={student.student_id}/>
                     </li>

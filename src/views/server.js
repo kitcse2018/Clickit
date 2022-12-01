@@ -12,8 +12,9 @@ app.use(cors());
 const db = mysql.createConnection(
     {
         user: 'root',
+        host:'localhost',
+        password: 'cym0523200!',
         host: 'localhost',
-        password: 'ql!@#$%qjs12',
         database: 'ccd'
     }
 );
@@ -83,6 +84,42 @@ app.get("/duplicateStudent",async(req,res)=>{
         });
 })
 
+app.post("/addStudent", (req,res)=>{
+    const postStudentId = req.body.studentId;
+    const postStudentDormitory = req.body.studentDormitory;
+    const postStudentPassword = req.body.studentPwd;
+
+    db.query(
+        "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?)"
+        ,[postStudentId,postStudentDormitory,postStudentPassword],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
+
+            };
+        });
+});
+
+
+app.post("/deleteStudent", (req,res)=>{
+    const postStudentId = req.body.postStudentId;
+
+    db.query(
+        " delete  from student where student_num = (?)"
+        ,[postStudentId],
+        function(err,rows,fields){
+            if(err){
+                console.log("실패");
+
+            }else{
+                console.log("성공");
+
+            };
+        });
+});
 
 app.get("/searchStudents", async (req,res)=>{
     const postStudentId = req.query.postStudentId;
@@ -141,6 +178,7 @@ app.get("/searchStudents", async (req,res)=>{
             });}
 
 });
+
 app.get('/dormitories',(req,res) => {
     db.query(
         "SELECT * FROM dormitory",
@@ -185,7 +223,6 @@ app.get("/signIn", async (req,res)=>{
         });
 });
 
-
 app.get('/facility',(req,res) => {
     const dormitory_num = req.query.dormitory_num;
     db.query(
@@ -201,6 +238,7 @@ app.get('/facility',(req,res) => {
         }
     );
 });
+
 app.get('/facilitySeatTime', (req,res) => { // 일단 킵
     const facilityNum = req.query.facilityNum;
     db.query(
@@ -217,7 +255,6 @@ app.get('/reservation', (req,res) => {
     )
 });
 
-
 app.get('/inner_facility',async(req,res) => {
     let inner_facility_num = req.query.facilityNum;
     db.query(
@@ -232,9 +269,10 @@ app.get('/inner_facility',async(req,res) => {
         }
     );
 });
-app.get('/facilityNumName',async(req,res) => {
+
+app.get('/innerFacilityNumName',async(req,res) => {
     db.query(
-        "SELECT facility_num, facility_name, dormitory_name FROM facility left join dormitory on facility.dormitory_num = dormitory.dormitory_num;",
+        "SELECT inner_facility_num, inner_facility_name FROM inner_facility;",
         (err,result) => {
             if(err){
                 console.log(err)
@@ -244,6 +282,7 @@ app.get('/facilityNumName',async(req,res) => {
         }
     );
 });
+
 
 app.get('/terms', async(req, res)=>{
     db.query(
@@ -258,11 +297,12 @@ app.get('/terms', async(req, res)=>{
     );
 });
 
+
 app.post('/termsEditSave', async (req, res)=>{
     const termsData = req.body.termsData;
     console.log(termsData);
     db.query(
-        "INSERT INTO terms (terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE terms_title = VALUES(terms_title), terms_contents = VALUES(terms_contents), terms_facility_num = VALUES(terms_facility_num);",
+        "INSERT INTO terms (terms_title, terms_contents, terms_inner_facility_num) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE terms_title = VALUES(terms_title), terms_contents = VALUES(terms_contents), terms_inner_facility_num = VALUES(terms_inner_facility_num);",
         [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
         (err, result)=>{
             if(err){
@@ -332,6 +372,137 @@ app.post('/noticeEditSave', async (req, res)=>{
         }
     );
 })
+//관리자 전용 select
+app.get('/dormitoryEdit',(req,res) => {
+    let dormitory_num = req.query.dormitory_num;
+    db.query(
+        "SELECT * FROM dormitory AS dorm WHERE dorm.dormitory_num = ?",[dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+//생성 혹은 업데이트
+app.post('/dormitoryUpdate',async(req,res) => {
+    //let dormitoryPic = req.query.dormitory_pic
+    let termsData = req.body.termsData;
+    console.log(termsData);
+
+    db.query(
+        //나중에 사진도 추가
+        "UPDATE dormitory AS dor SET dor.dormitory_name = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/deleteFacility',async(req,res) => {
+    //let dormitoryPic = req.query.dormitory_pic
+    let termsData = req.body.termsData;
+    console.log(termsData);
+
+    db.query(
+        //나중에 사진도 추가
+        "DELETE FROM facility WHERE facility.facility_num = ?",[termsData.facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+
+app.get('/adminfacility',(req,res) => {
+    let dormitory_num = req.query.dormitory_num;
+    db.query(
+        "SELECT * FROM facility AS fac WHERE fac.dormitory_num = ? ORDER BY fac.facility_name",[dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/facilityEdit',(req,res) => {
+    let facility_num = req.query.facility_num;
+    db.query(
+        "SELECT * FROM facility AS fac WHERE fac.facility_num = ? ORDER BY fac.facility_name",[facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/adminfacilitySeat',(req,res) => {
+    let facility_num = req.query.facility_num;
+    db.query(
+        "SELECT * FROM facility_seat AS facs WHERE facs.facility_num = ? GROUP BY facs.facility_seat_name ORDER BY facs.facility_seat_name",[facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+//생성 혹은 업데이트
+app.post('/facilityUpdate',async(req,res) => {
+    //let dormitoryPic = req.query.dormitory_pic
+    let termsData = req.body.termsData;
+    console.log(termsData);
+
+    db.query(
+        //나중에 사진도 추가
+        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/facilityInsert',async(req,res) => {
+    //let dormitoryPic = req.query.dormitory_pic
+    let termsData = req.body.termsData;
+    console.log(termsData);
+
+    db.query(
+        //나중에 사진도 추가
+        "INSERT INTO facility(facility_name,facility_limit_people,facility_start_time,facility_end_time,dormitory_num) VALUES(?,?,?,?,?)" ,[termsData.facility_name,termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.dormitory_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 
 
 app.listen(PORT,()=>{
