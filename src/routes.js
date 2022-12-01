@@ -19,7 +19,7 @@ import Index from "views/Index.js";
 import Profile from "views/examples/Profile.js";
 import Third from "./views/Third";
 import Template from "./views/Template";
-import UserView from "./views/userView";
+
 import Reservation from "./views/examples/Reservation";
 import DormitoryEdit from "./views/dormitory_facility/DormitoryEdit";
 import Login from "./views/examples/Login";
@@ -105,13 +105,6 @@ let routes = [
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
-    layout: "/admin"
-  },
-  {
-    path: "/userView",
-    name: "UserView",
-    icon: "ni ni-key-25 text-info",
-    component: UserView,
     layout: "/admin"
   },
   {

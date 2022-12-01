@@ -40,6 +40,7 @@ const Login = () => {
     window.location.replace("/admin/user-profile");
   }
 
+
   return (
       <>
         <LoginForm login={login} admin_type={admin_type}></LoginForm>

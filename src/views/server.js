@@ -14,8 +14,8 @@ const db = mysql.createConnection(
         user: 'root',
         host:'localhost',
         password: 'cym0523200!',
-        host: 'localhost',
-        database: 'ccd'
+        database: 'ccd',
+        dateStrings: 'date'
     }
 );
 
@@ -178,7 +178,6 @@ app.get("/searchStudents", async (req,res)=>{
             });}
 
 });
-
 app.get('/dormitories',(req,res) => {
     db.query(
         "SELECT * FROM dormitory",
@@ -223,6 +222,7 @@ app.get("/signIn", async (req,res)=>{
         });
 });
 
+
 app.get('/facility',(req,res) => {
     const dormitory_num = req.query.dormitory_num;
     db.query(
@@ -238,7 +238,6 @@ app.get('/facility',(req,res) => {
         }
     );
 });
-
 app.get('/facilitySeatTime', (req,res) => { // 일단 킵
     const facilityNum = req.query.facilityNum;
     db.query(
@@ -255,6 +254,7 @@ app.get('/reservation', (req,res) => {
     )
 });
 
+
 app.get('/inner_facility',async(req,res) => {
     let inner_facility_num = req.query.facilityNum;
     db.query(
@@ -269,10 +269,9 @@ app.get('/inner_facility',async(req,res) => {
         }
     );
 });
-
-app.get('/innerFacilityNumName',async(req,res) => {
+app.get('/facilityNumName',async(req,res) => {
     db.query(
-        "SELECT inner_facility_num, inner_facility_name FROM inner_facility;",
+        "SELECT facility_num, facility_name, dormitory_name FROM facility left join dormitory on facility.dormitory_num = dormitory.dormitory_num;",
         (err,result) => {
             if(err){
                 console.log(err)
@@ -282,7 +281,6 @@ app.get('/innerFacilityNumName',async(req,res) => {
         }
     );
 });
-
 
 app.get('/terms', async(req, res)=>{
     db.query(
@@ -297,12 +295,11 @@ app.get('/terms', async(req, res)=>{
     );
 });
 
-
 app.post('/termsEditSave', async (req, res)=>{
     const termsData = req.body.termsData;
     console.log(termsData);
     db.query(
-        "INSERT INTO terms (terms_title, terms_contents, terms_inner_facility_num) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE terms_title = VALUES(terms_title), terms_contents = VALUES(terms_contents), terms_inner_facility_num = VALUES(terms_inner_facility_num);",
+        "INSERT INTO terms (terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE terms_title = VALUES(terms_title), terms_contents = VALUES(terms_contents), terms_facility_num = VALUES(terms_facility_num);",
         [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
         (err, result)=>{
             if(err){
