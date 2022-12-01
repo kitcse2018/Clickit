@@ -6,6 +6,7 @@ README.md 개요
 2. branch 사용법
 3. git clone 파일이 안 보일 경우 해결 방법
 4. npm install 오류 해결 코드
+5. cookie 설치 및 import 방법
 
 <br>
 
@@ -58,6 +59,17 @@ README.md 개요
 
 <br>
 
+**Branch merge 방법**
+1. 원격 브랜치의 origin/master를 checkout
+2. master에 example branch를 병합 선택
+3. 브랜치가 서로 병합된 상태에서 push
+
+![image](https://user-images.githubusercontent.com/67218734/202200670-7cda909d-f80a-41b4-8399-6a17ca4b4479.png)
+
+
+![image](https://user-images.githubusercontent.com/67218734/202200543-2b1c0bd3-c3d6-4ec5-adb8-5da1fdad5bbf.png)
+
+
 ---
 
 ## **3. git clone 한 다음 프로젝트에서 파일이 안 보일 경우**
@@ -76,5 +88,19 @@ README.md 개요
 ## **4. npm install 오류 해결 코드**
 ```
 npm install react-paypal-express-checkout --save --legacy-peer-deps
+```
+<br>
+
+---
+
+## **5. cookie 설치 및 import**
+
+설치
+```
+npm install --save react-cookie --force
+```
+import
+```
+import { useCookies } from 'react-cookie';
 ```
 <br>
