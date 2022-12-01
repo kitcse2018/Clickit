@@ -56,6 +56,17 @@
     position: relative;
 }
 
+.reservation-time-select{
+    list-style: none;
+    padding-left: 0;
+}
+
+.reservation-time-select:hover{
+    background-color: red;
+    transition: all ease 1s 0s;
+}
+
+/*
 .innerFacility-seat-time-list:before{
     content: '';
     position: absolute;
@@ -69,7 +80,7 @@
     opacity: 0.2;
     z-index: -1;
     transition: ease-in-out 0.6s, all;
-/*    ?? */
+!*    ?? *!
 }
 
 .innerFacility-seat-time-list:hover.innerFacility-seat-time-list:before{
@@ -91,7 +102,7 @@
     font-size: 18px;
     font-weight: 500;
     letter-spacing: 0.5px;
-/*    0.8px? .5rem? */
+!*    0.8px? .5rem? *!
     color: #52616b;
     transition: ease-in-out 0.2s, all;
     cursor: pointer;
@@ -121,7 +132,7 @@
 
 .reservation-time-title:after{
     background-image: linear-gradient(90deg, #52616b, #c9d6df);
-    /* you should change color*/
+    !* you should change color*!
     width: 0%;
 }
 
@@ -183,6 +194,11 @@
 
 .reservation-accIcon.anime.reservation-accIcon:before {
     transform: rotate(90deg);
+}
+
+.reservation-seat-select{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .reservation-time-select .reservation-seat-select .reservation-seat{
@@ -261,4 +277,4 @@ li.reservation-seat-select{
 
     width: 80%;
     margin: 0 auto;
-}
+}*/

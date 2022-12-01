@@ -234,11 +234,75 @@ app.get('/facilitySeatTime', (req,res) => { // 일단 킵
 
 app.get('/reservation', (req,res) => {
     const facility_num = req.query.facility_num;
-    const start_time = req.query.start_time;
-    const end_time = req.query.end_time;
     db.query(
-
+        "SELECT "+
+        "facility.facility_num, facility_seat.facility_seat_name, seat_availability.seat_availability_num, seat_availability_start_time, seat_availability_end_time, seat_availability_status "+
+        "FROM ccd.facility "+
+        "LEFT JOIN "+
+        "facility_seat ON ccd.facility.facility_num = facility_seat.facility_num "+
+        "LEFT JOIN "+
+        "seat_availability ON facility_seat.facility_seat_num = seat_availability.facility_seat_num "+
+        "WHERE "+
+        "ccd.facility.facility_num = (?)",
+        [facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
     )
+});
+
+app.get('/facilityTimeList', (req,res) => {
+    const facilityNum = req.query.facilityNum;
+    db.query(
+        "SELECT seat_availability_start_time, seat_availability_end_time FROM ccd.seat_availability left join facility_seat on seat_availability.facility_seat_num = facility_seat.facility_seat_num left join facility on facility.facility_num = facility_seat.facility_num where facility.facility_num = (?) GROUP BY seat_availability_start_time, seat_availability_end_time;",
+        [facilityNum],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                console.log(result);
+                res.send(result);
+            }
+        }
+    )
+});
+
+app.get('/facilitySeatList', (req,res) => {
+    const facilityNum = req.query.facilityNum;
+    db.query(
+        "SELECT seat_availability_num, seat_availability_start_time, seat_availability_end_time, facility_seat_status, fs.facility_seat_num, fs.facility_seat_name, fs.facility_num FROM ccd.seat_availability as sa left join facility_seat as fs on fs.facility_seat_num = sa.facility_seat_num where fs.facility_num = (?)",
+        [facilityNum],
+            (err,result) => {
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                    res.send(result);
+                }
+            }
+   )
+});
+
+app.get('/getSeatsByTimes', (req,res) => {
+   const  startTime = req.query.startTime;
+   const endTime = req.query.endTime;
+   const facilityNum = req.query.facilityNum;
+   db.query(
+       "SELECT seat_availability_num, seat_availability_start_time, seat_availability_end_time, seat_availability_status, facility_seat_name FROM ccd.seat_availability as sa left join facility_seat as fs on sa.facility_seat_num = fs.facility_seat_num left join facility as f on fs.facility_num = f.facility_num where f.facility_num = (?) and sa.seat_availability_start_time = (?) and sa.seat_availability_end_time = (?)",
+       [facilityNum,startTime,endTime],
+            (err,result) => {
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result);
+                res.send(result);
+                }
+            }
+   )
 });
 
 app.get('/inner_facility',async(req,res) => {
