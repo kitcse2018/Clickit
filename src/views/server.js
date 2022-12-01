@@ -206,9 +206,9 @@ app.get('/facilityWithDormitory',(req,res) => {
     );
 });
 
-app.get("/signIn", async (req,res)=>{
-    const postAuthId = req.query.postAuthId;
-    const postAuthPassword = req.query.postAuthPassword;
+app.get("/signInByAdmin", async (req,res)=>{
+    const postAuthId = req.query.postAdminId;
+    const postAuthPassword = req.query.postAdminPassword;
     db.query(
         "SELECT * FROM admin where admin_id=(?) and admin_password=(?) ;"
         ,[postAuthId,postAuthPassword],
@@ -222,6 +222,21 @@ app.get("/signIn", async (req,res)=>{
         });
 });
 
+app.get("/signInByStudent", async (req,res)=>{
+    const postAuthId = req.query.postStudentId;
+    const postAuthPassword = req.query.postStudentPassword;
+    db.query(
+        "SELECT * FROM student where student_id=(?) and student_password=(?) ;"
+        ,[postAuthId,postAuthPassword],
+        function(err,result){
+            if(err){
+                console.log(err)
+            }else{
+                console.log(result);
+                res.send(result);
+            }
+        });
+});
 
 app.get('/facility',(req,res) => {
     const dormitory_num = req.query.dormitory_num;

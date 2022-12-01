@@ -93,11 +93,11 @@ let routes = [
         layout: "/auth"
       },
       {
-        path: "/reservation/:facility_num",
+        path: "/reservation",
         name: "Reservation",
         icon: "ni ni-bullet-list-67 text-blue",
         component: Reservation,
-        layout: "/auth"
+        layout: "/student"
       },
     ],
   {

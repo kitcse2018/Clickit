@@ -28,6 +28,8 @@ import {
   Media
 } from "reactstrap";
 
+
+
 const AdminNavbar = (props) => {
   return (
       <>
@@ -65,6 +67,7 @@ const AdminNavbar = (props) => {
                     <span className="mb-0 text-sm font-weight-bold">
                       Jessica Jones
                     </span>
+                      <button onClick={}>log out</button>
                     </Media>
                   </Media>
                 </DropdownToggle>

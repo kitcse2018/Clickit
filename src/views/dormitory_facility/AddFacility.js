@@ -20,7 +20,6 @@ import {
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
-import "../../assets/css/mycss/AddFacility.css";
 import {useHistory} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import React, {useState} from "react";
