@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -38,14 +38,16 @@ const Facility = (props) => {
 
     const [facilityList,setFacilityList] = useState([]);
 
-    Axios.get("http://localhost:3001/facility" , {
-        params : {
-        // dormitory_num : sessionStorage.getItem("dormitoryNum"),
-            dormitory_num : 1, // 수정해야 됨
-        }
-    }).then((response) => {
-        setFacilityList(response.data);
-    });
+    useEffect(()=>{
+        Axios.get("http://localhost:3001/facility" , {
+            params : {
+                // dormitory_num : sessionStorage.getItem("dormitoryNum"),
+                dormitory_num : 1, // 수정해야 됨
+            }
+        }).then((response) => {
+            setFacilityList(response.data);
+        });
+    },[]);
 
     return (
         <>

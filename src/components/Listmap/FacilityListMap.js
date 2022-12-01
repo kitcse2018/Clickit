@@ -43,6 +43,8 @@ const FacilityListMap = (props) => {
                                 pathname: "/student/reservation",
                                 state: {
                                     facilityNum: props.facility.facility_num,
+                                    // facilityImg: props.facility.facility_img,
+                                    facilityName: props.facility.facility_name,
                                 }
                             })
                         }}>
