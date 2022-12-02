@@ -80,7 +80,7 @@ const DormitoryEdit = (props) => {
                                     <h1>{dormitory.dormitory_name}</h1>
                                 </div>
                                 <div className={"dormitory-img"}>
-                                    <input type={"file"} accept ="image/gif, image/jpeg, image/png"/>
+
                                     {/*이미지 나중에 가져와서 변경해주기*/}
                                     <img src={require('../../assets/img/dormitory/' + img_name)}/>
                                 </div>

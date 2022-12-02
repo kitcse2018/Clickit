@@ -348,7 +348,51 @@ app.get('/reservation', (req,res) => {
                 res.send(result);
             }
         }
-    )
+    );
+});
+
+app.get('/notice', async(req, res)=>{
+    db.query(
+        "SELECT * FROM notice;",
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.delete('/noticeDelete', async(req, res)=>{
+    const postNoticeNum = req.body.notice_num;
+    db.query(
+        "DELETE FROM notice WHERE notice_num = ?;",
+        [postNoticeNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/noticeEditSave', async (req, res)=>{
+    const noticeData = req.body.noticeData;
+    console.log(noticeData);
+    db.query(
+        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
+        [noticeData.noticeTitle, noticeData.noticeContents],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
 });
 
 app.get('/facilityTimeList', (req,res) => {
@@ -485,7 +529,86 @@ app.get('/notice', async(req, res)=>{
         }
     );
 });
+app.post('/facilitySeatUpdate',async(req,res) => {
+    let termsData = req.body.termsData;
 
+    db.query(
+        //나중에 사진도 추가
+        "UPDATE facility_seat AS facs SET facs.facility_seat_name = ?, facs.facility_seat_status = ?" +
+        " WHERE facs.facility_seat_num = ?",[termsData.facility_seat_name, termsData.facility_seat_status, termsData.facility_seat_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+app.delete('/facilitySeatDelete', async(req, res)=>{
+    const facility_seat_num = req.body.facility_seat_num;
+    db.query(
+        "DELETE FROM facility_seat WHERE facility_seat_num = ?",
+        [facility_seat_num],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+app.get('/getFacilitySeatNum',async(req,res) => {
+    let facility_seat_name = req.query.facility_seat_name;
+    let facility_num = req.query.facility_num;
+
+    db.query(
+        "SELECT facs.facility_seat_num FROM facility_seat AS facs WHERE facs.facility_seat_name = ? AND facs.facility_num = ?",[facility_seat_name,facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+app.post('/facilitySeatInsert',async(req,res) => {
+
+    let termsData = req.body.termsData;
+    let seatnum = "";
+
+    db.query(
+        //나중에 사진도 추가
+        "INSERT INTO facility_seat(facility_seat_name,facility_num,facility_seat_status) VALUES(?,?,?)" ,[termsData.facility_seat_name, termsData.facility_num, termsData.facility_seat_status],
+        function (err,result) {
+            if (err) {
+                // handle error
+            }else{
+                // Your row is inserted you can view
+                console.log(result.insertId);
+                res.send(result);
+            }
+        }
+    );
+});
+app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
+
+    let termsData = req.body.termsData;
+
+    db.query(
+        //나중에 사진도 추가
+        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 app.delete('/noticeDelete', async(req, res)=>{
     const postNoticeNum = req.body.notice_num;
     db.query(
