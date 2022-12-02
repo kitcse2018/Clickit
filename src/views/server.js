@@ -34,41 +34,6 @@ app.get('/students',(req,res) => {
     );
 });
 
-app.post('/login',async (req,res) =>{
-    const{id,password}=req.body;
-    db.query("SELECT * FROM student WHERE STUDENT_ID = '${id}'",
-        (err,rows,fileds)=>{
-            if(rows != undefined){
-                if(rows[0]==undefined){
-                    res.send(null);
-                }else {
-                    if(password==rows[0].student_password){
-                        res.send(rows[0])
-                    }else{
-                        res.send('실패')
-                    }
-                }
-            }}
-    )
-});
-
-
-app.post("/idplz", (req,res)=>{
-    const postDormitoryName = req.body.postDormitoryName;
-
-    db.query(
-        "INSERT INTO dormitory (name) values (?)"
-        ,[postDormitoryName],
-        function(err,rows,fields){
-            if(err){
-                console.log("실패");
-
-            }else{
-                console.log("성공");
-
-            };
-        });
-});
 app.get("/duplicateStudent",async(req,res)=>{
     const studentId = req.query.studentId;
     db.query(
@@ -102,7 +67,59 @@ app.post("/addStudent", (req,res)=>{
             };
         });
 });
+app.post("/UpdateStudent", (req,res)=>{
+    const postStudentId = req.body.studentId;
+    const postStudentDormitory = req.body.studentDormitory;
+    const postStudentPassword = req.body.studentPwd;
+    const postStudentNum = req.body.studentNum;
+    db.query(
+        "UPDATE student SET student_id = (?), dormitory = (?),student_password = (?) where student_num = (?)  "
+        ,[postStudentId,postStudentDormitory,postStudentPassword,postStudentNum],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
 
+            };
+        });
+});
+
+app.post("/banStudent", (req,res)=>{
+    const startDate = req.body.postStartDate;
+    const endDate = req.body.postEndDate;
+    const banStudentNum = req.body.banStudentNum;
+
+    db.query(
+        "INSERT INTO blacklist (student_num,start_date,end_date) values (?,?,?)"
+        ,[banStudentNum,startDate,endDate],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
+
+            };
+        });
+});
+
+app.post("/banClear", (req,res)=>{
+    const banClearStudentNum = req.body.banStudentNum;
+
+    db.query(
+        "DELETE FROM blacklist where blacklist_num = (?) "
+        ,[banClearStudentNum],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
+            };
+        });
+});
 
 app.post("/deleteStudent", (req,res)=>{
     const postStudentId = req.body.postStudentId;
@@ -248,6 +265,7 @@ app.get('/facility',(req,res) => {
             if(err){
                 console.log(err)
             }else{
+
                 res.send(result);
             }
         }
@@ -269,33 +287,6 @@ app.get('/reservation', (req,res) => {
     )
 });
 
-
-app.get('/inner_facility',async(req,res) => {
-    let inner_facility_num = req.query.facilityNum;
-    db.query(
-        "SELECT * FROM inner_facility AS inf INNER JOIN facility_seat AS fs ON inf.inner_facility_num = fs.inner_facility_num " +
-        "INNER JOIN seat_availability AS sa ON fs.facility_seat_num = sa.facility_seat_num WHERE inf.facility_num = ?",[inner_facility_num],
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-app.get('/facilityNumName',async(req,res) => {
-    db.query(
-        "SELECT facility_num, facility_name, dormitory_name FROM facility left join dormitory on facility.dormitory_num = dormitory.dormitory_num;",
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
 
 app.get('/terms', async(req, res)=>{
     db.query(

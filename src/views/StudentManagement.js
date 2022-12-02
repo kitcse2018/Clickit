@@ -5,7 +5,8 @@ import StudentSearch from "./examples/StudentSearch";
 import AddStudent from "./examples/AddStudent"
 import "../assets/css/mycss/Third.css";
 import React, {useState} from "react";
-import {Container} from "reactstrap";
+import {Button, Container} from "reactstrap";
+import "../assets/css/btn.css"
 import {   BrowserRouter, Route } from "react-router-dom";
 // you must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -14,7 +15,7 @@ import {   BrowserRouter, Route } from "react-router-dom";
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-const Third = (props) => {
+const StudentManagement = (props) => {
 
     const [studentList,setStudentList] = useState([]);
     const [optionValue,setOptionValue] = useState([]);
@@ -38,11 +39,11 @@ const Third = (props) => {
                     <SelectBox setOptionValue={setOptionValue} ></SelectBox>
                     <StudentSearch setStudentList={setStudentList} optionValue={optionValue} setVisibleSelect={setVisibleSelect} setVisibleAdd={setVisibleAdd} ></StudentSearch>
                     <div>
-                        <button  onClick={()=>{
+                        <Button  className={"basicBig-btn"} onClick={()=>{
                             setVisibleAdd(!visibleAdd);
                             setVisibleSelect(!visibleSelect);
-                        }} > {visibleAdd?"추가 종료":"학생 추가"} </button>
-                        <button  > upload </button>
+                        }} > {visibleAdd?"추가 종료":"학생 추가"} </Button>
+                        <Button className={"basicBig-btn"}  > upload </Button>
                     </div>
                 </div>
                 <div className="studentBoard">
@@ -58,4 +59,4 @@ const Third = (props) => {
     );
 };
 
-export default Third;
+export default StudentManagement;
