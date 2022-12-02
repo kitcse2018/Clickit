@@ -12,8 +12,8 @@ app.use(cors());
 const db = mysql.createConnection(
     {
         user: 'root',
-        host:'localhost',
-        password: '1234',
+        host: 'localhost',
+        password: '910su147!',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -34,41 +34,6 @@ app.get('/students',(req,res) => {
     );
 });
 
-app.post('/login',async (req,res) =>{
-    const{id,password}=req.body;
-    db.query("SELECT * FROM student WHERE STUDENT_ID = '${id}'",
-        (err,rows,fileds)=>{
-            if(rows != undefined){
-                if(rows[0]==undefined){
-                    res.send(null);
-                }else {
-                    if(password==rows[0].student_password){
-                        res.send(rows[0])
-                    }else{
-                        res.send('실패')
-                    }
-                }
-            }}
-    )
-});
-
-
-app.post("/idplz", (req,res)=>{
-    const postDormitoryName = req.body.postDormitoryName;
-
-    db.query(
-        "INSERT INTO dormitory (name) values (?)"
-        ,[postDormitoryName],
-        function(err,rows,fields){
-            if(err){
-                console.log("실패");
-
-            }else{
-                console.log("성공");
-
-            };
-        });
-});
 app.get("/duplicateStudent",async(req,res)=>{
     const studentId = req.query.studentId;
     db.query(
@@ -349,51 +314,7 @@ app.get('/reservation', (req,res) => {
                 res.send(result);
             }
         }
-    );
-});
-
-app.get('/notice', async(req, res)=>{
-    db.query(
-        "SELECT * FROM notice;",
-        (err, result)=>{
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
-app.delete('/noticeDelete', async(req, res)=>{
-    const postNoticeNum = req.body.notice_num;
-    db.query(
-        "DELETE FROM notice WHERE notice_num = ?;",
-        [postNoticeNum],
-        (err, result)=>{
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
-app.post('/noticeEditSave', async (req, res)=>{
-    const noticeData = req.body.noticeData;
-    console.log(noticeData);
-    db.query(
-        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
-        [noticeData.noticeTitle, noticeData.noticeContents],
-        (err, result)=>{
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
+    )
 });
 
 app.get('/facilityTimeList', (req,res) => {

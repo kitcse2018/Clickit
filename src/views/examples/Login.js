@@ -30,7 +30,6 @@ const Login = () => {
             setUser(res1.data[0])
           } else if (res1.data[0] == null && res2.data[0] != null) {
               sessionStorage.setItem("dormitoryNum", res2.data[0].dormitory);
-              alert(res2.data[0].dormitory)
             sessionStorage.setItem("type", "student");
             sessionStorage.setItem("isLogin", "true");
             res2.data[0].type = "student";
