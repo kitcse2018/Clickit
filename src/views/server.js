@@ -485,6 +485,21 @@ app.delete('/termsDelete', async (req, res)=>{
     );
 });
 
+app.get('/getTermsByFacilityNum', async (req, res)=>{
+    const facilityNum = req.query.facilityNum;
+    db.query(
+        "SELECT * FROM terms WHERE terms_facility_num = (?);",
+        [facilityNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+                console.log(result);
+            }
+        })
+});
+
 app.get('/notice', async(req, res)=>{
     db.query(
         "SELECT * FROM notice;",
