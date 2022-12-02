@@ -328,6 +328,7 @@ app.get('/facilitySeatTime', (req,res) => { // 일단 킵
     )
 });
 
+
 app.get('/reservation', (req,res) => {
     const facility_num = req.query.facility_num;
     db.query(
@@ -472,6 +473,7 @@ app.get('/facilityNumName',async(req,res) => {
         }
     );
 });
+
 
 app.get('/terms', async(req, res)=>{
     db.query(

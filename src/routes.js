@@ -54,7 +54,6 @@ let routes = [
         component: DormitoryManager,
         layout: "/admin"
       },
-
       {
         path: "/terms",
         name: "이용수칙",
