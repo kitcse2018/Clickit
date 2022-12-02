@@ -37,7 +37,7 @@ import ReservationTimeListMap from "../../components/Listmap/ReservationTimeList
 
 const Reservation = (props) => {
 
-    let innerFacility_img = 'argon-react.png';
+    let innerFacility_img = '오름 1동 휴게실.png';
     let img_name = innerFacility_img.substring(0, innerFacility_img.indexOf('.'));
 
     const location = useLocation();

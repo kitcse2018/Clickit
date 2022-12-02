@@ -59,12 +59,46 @@
 .reservation-time-select{
     list-style: none;
     padding-left: 0;
+    border-bottom : 1px solid #172b4d;
 }
 
 .reservation-time-select:hover{
-    background-color: red;
+    background-color: #CDFCF6;
     transition: all ease 1s 0s;
 }
+
+.reservation-time-select:nth-child(even)>.opened{
+    background-color: #98A8F8;
+}
+
+.reservation-time-select:nth-child(odd)>.opened{
+    background-color: #BCCEF8;
+}
+
+.reservation-time-select>.opened>.opened{
+    padding-bottom: 2%;
+}
+
+.reservation-seat{
+    display: flex;
+    margin: 0 auto;
+    margin-top: 4%;
+    justify-content: center;
+}
+
+.reservation-btn{
+    margin-left: 2rem;
+}
+
+/*.reservation-seat-select>.opened{*/
+/*    background-color: #BCCEF8;*/
+/*    transition: all ease 1s 0s;*/
+/*}*/
+
+/*.reservation-seat-select>.closed{*/
+/*    background-color: #CDFCF6;*/
+/*    transition: all ease 1s 0s;*/
+/*}*/
 
 /*
 .innerFacility-seat-time-list:before{
