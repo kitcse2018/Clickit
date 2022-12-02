@@ -10,7 +10,8 @@ import {
     InputGroupText,
     Modal
 } from "reactstrap";
-import React from "react";
+import React, {useEffect} from "react";
+import Axios from "axios";
 
 const ReservationSeatsListMap= (props) => {
 
@@ -18,11 +19,23 @@ const ReservationSeatsListMap= (props) => {
         modal: false,
     });
 
+    const [terms, setTerms] = React.useState([]);
+
+    useEffect(()=>{
+        Axios.get('http://localhost:3001/getTermsByFacilityNum', {
+            params: {
+                facilityNum: props.facilityNum,
+            }
+        }).then((response) => {
+            setTerms(response.data);
+        })
+    },[]);
+
     const toggleModal = () => {
         setState({
             modal: !state.modal,
         });
-    }
+     }
 
     return(
         <>
@@ -33,81 +46,24 @@ const ReservationSeatsListMap= (props) => {
                 <Button className={"reservation-btn"} type={"button"} color={"primary"}
                         onClick={()=>toggleModal()}>예약하기
                 </Button>
-                <Modal className={"reservation-modal"} size={"sm"} isOpen={state.modal}>
+                <Modal className={"reservation-modal"} size={"lg"} isOpen={state.modal}>
                     <div className={"reservation-modal-body"}>
                         <Card className="bg-secondary shadow border-0">
                             <CardHeader className="bg-transparent pb-5">
                                 <div className="text-muted text-center mt-2 mb-3">
-                                    <small>Sign in with</small>
+                                    <small>체온 입력</small>
                                 </div>
                                 <div className="btn-wrapper text-center">
-                                    <Button
-                                        className="btn-neutral btn-icon"
-                                        color="default"
-                                        href="#pablo"
-                                        onClick={e => e.preventDefault()}
-                                    >
-                        <span className="btn-inner--icon">
-                          <img
-                              alt="..."
-                              src={require("assets/img/icons/common/github.svg").default}
-                          />
-                        </span>
-                                        <span className="btn-inner--text">Github</span>
-                                    </Button>
-                                    <Button
-                                        className="btn-neutral btn-icon"
-                                        color="default"
-                                        href="#pablo"
-                                        onClick={e => e.preventDefault()}
-                                    >
-                        <span className="btn-inner--icon">
-                          <img
-                              alt="..."
-                              src={require("assets/img/icons/common/google.svg").default}
-                          />
-                        </span>
-                                        <span className="btn-inner--text">Google</span>
-                                    </Button>
+                                    <Input placeholder={"예시 : 36.5"}></Input>
                                 </div>
                             </CardHeader>
                             <CardBody className="px-lg-5 py-lg-5">
                                 <div className="text-center text-muted mb-4">
-                                    <small>Or sign in with credentials</small>
+                                    <small>이용 수칙 안내</small>
                                 </div>
                                 <Form role="form">
-                                    <FormGroup className="mb-3">
-                                        <InputGroup className="input-group-alternative">
-                                            <InputGroupAddon addonType="prepend">
-                                                <InputGroupText>
-                                                    <i className="ni ni-email-83" />
-                                                </InputGroupText>
-                                            </InputGroupAddon>
-                                            <Input placeholder="Email" type="email" />
-                                        </InputGroup>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <InputGroup className="input-group-alternative">
-                                            <InputGroupAddon addonType="prepend">
-                                                <InputGroupText>
-                                                    <i className="ni ni-lock-circle-open" />
-                                                </InputGroupText>
-                                            </InputGroupAddon>
-                                            <Input placeholder="Password" type="password" />
-                                        </InputGroup>
-                                    </FormGroup>
-                                    <div className="custom-control custom-control-alternative custom-checkbox">
-                                        <input
-                                            className="custom-control-input"
-                                            id=" customCheckLogin"
-                                            type="checkbox"
-                                        />
-                                        <label
-                                            className="custom-control-label"
-                                            htmlFor=" customCheckLogin"
-                                        >
-                                            <span className="text-muted">Remember me</span>
-                                        </label>
+                                    <div className="reservation-terms">
+                                        {terms[0].terms_contents}
                                     </div>
                                     <div className="text-center">
                                         <Button

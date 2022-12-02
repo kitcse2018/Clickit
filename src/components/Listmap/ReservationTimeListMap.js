@@ -17,21 +17,20 @@ const ReservationTimeListMap = (props) =>{
             }
         }).then((response) => {
             setSeatsList(response.data);
-            console.log("useEffect 내부 Axios.get");
         });
     },[]);
 
 
-    const [state, setState] = React.useState({
+    const [moreInfoState, setMoreInfoState] = React.useState({
        moreInfoOpen: false,
     });
 
     const [seatsList,setSeatsList] = useState([]);
 
-    const {moreInfoOpen} = state;
+    const {moreInfoOpen} = moreInfoState;
 
      const toggleMoreInfo = () => {
-        setState({
+         setMoreInfoState({
             moreInfoOpen: !moreInfoOpen,
         });
         //한 박자 느림
@@ -49,6 +48,7 @@ const ReservationTimeListMap = (props) =>{
                 console.log("toggleMoreInfo 내부 Axios.get");
             });
         }
+        console.log(props);
     }
 
     return (
@@ -63,26 +63,15 @@ const ReservationTimeListMap = (props) =>{
                     <Collapse isOpen={moreInfoOpen} className={moreInfoOpen? "opened" : "closed"}>
                         {seatsList.map((seat) => {
                             return(
-                                <ReservationSeatsListMap props={seat}></ReservationSeatsListMap>
+                                <ReservationSeatsListMap props={seat} facilityNum = {props.facilityNum}></ReservationSeatsListMap>
                             )
                             })
                         }
-                        {/* 여기를 map 해야 됨 */}
-                        {/*<div className={"reservation-seat"}>*/}
-                        {/*    <h1>reservation-seat</h1>*/}
-                        {/*    /!*해당 시간의 자리 개수만큼 가져오기*!/*/}
-                        {/*    <div className={"seat-name"}>*/}
-                        {/*        /!*    해당 자리 이름 가져오기*!/*/}
-                        {/*        <h1>seat-name</h1>*/}
-                        {/*    </div>*/}
-                        {/*    <Button>reservation-request-button</Button>*/}
-                        {/*</div>*/}
                     </Collapse>
                 </li>
             </ul>
         </>
-    )
-    console.log(props);
+    );
 };
 
 export default ReservationTimeListMap;

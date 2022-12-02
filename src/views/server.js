@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host:'localhost',
-        password: '1234',
+        password: '910su147!',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -515,6 +515,22 @@ app.delete('/termsDelete', async (req, res)=>{
                 console.log(err)
             }else{
                 res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/getTermsByFacilityNum', async (req, res)=>{
+    const facilityNum = req.query.facilityNum;
+    db.query(
+        "SELECT * FROM terms WHERE terms_facility_num = (?);",
+        [facilityNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+                console.log(result);
             }
         }
     );
