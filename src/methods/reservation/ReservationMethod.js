@@ -1,4 +1,21 @@
-function reservation(){
+import Axios from "axios";
+import {useState} from "react";
+
+export function getSeatsByTimes(startTime, endTime, facilityNum){
+    Axios.get('http://localhost:3001/getSeatsByTimes',{
+        params: {
+            startTime : startTime,
+            endTime : endTime,
+            facilityNum : facilityNum,
+        }
+    }).then((response) => {
+        return response.data;
+        // console.log(seatList);
+    });
+}
+
+/*
+export function reservationAcc(){
     let accordionBtn = document.querySelectorAll('.reservation-time-title');
     let allTexts = document.querySelectorAll('.reservation-seat');
     let accIcon = document.querySelectorAll('.reservation-accIcon');
@@ -43,4 +60,4 @@ function reservation(){
             targetAccIcon.classList.add('anime');
         }
     }
-}
+}*/
