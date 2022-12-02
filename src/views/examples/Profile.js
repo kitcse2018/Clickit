@@ -52,21 +52,15 @@ const Profile = () => {
                 </div>
               </Row>
               <div className="text-center">
-                <h3>
-                  김금오
-                </h3>
-                <div className="h5 font-weight-300">
-                  <i className="ni location_pin mr-2" />
-                  푸름 1동, 410호
-                </div>
                 <div className="h5 mt-4">
-                  <i className="ni business_briefcase-24 mr-2" />
-                  학번 - 20180000
+                  <h1>학번 - 20180000</h1>
+                </div>
+                <div className="h5 font-weight-300">
+                  푸름 1동, 410호
                 </div>
               </div>
             </Card>
           </div>
-          <div className="blank"></div>
           <div className="percent">
             <Card className="card-profile shadow">
               <div className="progress-wrapper">
@@ -94,8 +88,6 @@ const Profile = () => {
             </Card>
           </div>
         </Container>
-
-
       </>
   );
 };
