@@ -117,11 +117,20 @@ const AddFacility = (props) => {
                                 </div>
                             </div>
                             {/*사진도 같이 보내줘야함 사진 주소나 bob*/}
-                            <Button className={"facility-edit-save"} type={"button"} color={"primary"} onClick={() =>{
+                            <Button className={"facility-edit-save"} type={"button"} color={"primary"} onClick={async () =>{
+                                await Axios.get("http://localhost:3001/duplicateSeatName",{params:{facility_seat_name :facilityName , facility_num : items.facility_num,
+
+                                }}).then((response)=>
+                                {
+                                    data = response.data;
+                                });
+
                                 if(items.facility_num ==""){
                                     if(facilityName==""||facilityLimit==""||facilityStartTime==""||facilityEndTime==""){
                                         alert("필수 항목을 입력해주세요");
-                                    }else{
+                                    }else if(data.at(0) != null){
+                                        alert("자리 이름이 중복됩니다")
+                                    } else{
                                         Axios.post("http://localhost:3001/facilityInsert",{
                                             termsData: {
                                                 facility_name : facilityName,

@@ -82,7 +82,23 @@ app.get("/duplicateStudent",async(req,res)=>{
                 res.send(result);
             }
         });
-})
+});
+
+app.get("/duplicateSeatName",async(req,res)=>{
+    const facility_seat_name = req.query.facility_seat_name;
+    const facility_num = req.query.facility_num;
+    db.query(
+        "SELECT facility_seat_name FROM facility_seat where facility_seat_name = (?) AND facility_num =(?)"
+        ,[facility_seat_name,facility_num],
+        function(err,result){
+            if(err){
+                console.log(err)
+            }else{
+                console.log(result);
+                res.send(result);
+            }
+        });
+});
 
 app.post("/addStudent", (req,res)=>{
     const postStudentId = req.body.studentId;
@@ -580,7 +596,7 @@ app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num],
+        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
         (err,result) => {
             if(err){
                 console.log(err)

@@ -70,7 +70,7 @@ const FacilitySeat = (props) => {
                         <h2>자리</h2>
                         <div className={"facility-seat-add-body"}>
                             <input type={"text"} className={"facility-seat-name-input"} placeholder={"자리명"} onChange = {onSeatAdd}/>
-                            <Button className={"facility-seat-add"} onClick={async (e) =>{
+                            <Button color="primary" className={"facility-seat-add"} onClick={async (e) =>{
                                 let seatNum = "";
                                 if(addFacilitySeatName == ""){
                                     alert("필수 항목을 입력해주세요");
@@ -94,6 +94,7 @@ const FacilitySeat = (props) => {
                                                     facility_start_time : currentStartTime,
                                                     facility_end_time : items.facility_end_time,
                                                     facility_seat_num : seatNum,
+                                                    seat_availability_status : "사용 가능",
                                                 }
                                             }).then(e => {
                                                 console.log(e);
@@ -104,6 +105,7 @@ const FacilitySeat = (props) => {
                                                     facility_start_time : currentStartTime,
                                                     facility_end_time : currentEndTime,
                                                     facility_seat_num : seatNum,
+                                                    seat_availability_status : "사용 가능",
 
                                                 }
                                             }).then(e => {

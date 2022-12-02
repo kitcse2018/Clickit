@@ -47,7 +47,8 @@ const Seat = ({adminFacilitySeat,adminFacility}) => {
                             }
                         }} >{adminFacilitySeat.facility_seat_status}</Button>
                     </li>
-                    <Button className={"facility-seat-save"} onClick={() =>{
+                    <Button color="primary" className={"facility-seat-save"} onClick={() =>{
+
                         if(adminFacilitySeat.facility_name ==""){
                             alert("필수 항목을 입력해주세요");
                         }else{
