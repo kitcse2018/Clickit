@@ -1,6 +1,8 @@
 
 import React, {useState} from 'react'
 import Axios from "axios";
+import "../../assets/css/btn.css"
+import {Button} from "reactstrap";
 const StudentSearch = (props) => {
 
     const [state, setState] = useState("blank");
@@ -32,7 +34,7 @@ const StudentSearch = (props) => {
                    type="number" name = "studentId"
                    onChange={handleChange}
             />
-            <button  onClick={()=>{submitGetStudents();}}>조회</button>
+            <Button className={"basicBig-btn"}  onClick={()=>{submitGetStudents();}}>조회</Button>
         </div>
     )
 }

@@ -21,7 +21,7 @@ const Admin = (props) => {
 
   const getRoutes = (routes) => {
       if (sessionStorage.getItem("isLogin") === null) {
-            alert("로그인이 필요한 서비스입니다.");
+            // alert("로그인이 필요한 서비스입니다.");
             return <Redirect to="/auth/login"/>;
       }
     return routes.map((prop, key) => {

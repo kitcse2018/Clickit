@@ -1,0 +1,27 @@
+.delete-btn{
+    background-color: red;
+    color : white;
+    font-weight: bold;
+}
+.basic-btn{
+    color : white;
+    font-weight: bold;
+    background-color: #1E90FF;
+}
+.basicBig-btn{
+    color : white;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #1E90FF;
+
+}
+.ban-btn{
+    color : white;
+    font-weight: bold;
+    background-color: #FFAB4C;
+}
+.clear-btn{
+    color : white;
+    font-weight: bold;
+    background-color: #2dce89;
+}

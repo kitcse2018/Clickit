@@ -1,6 +1,6 @@
 import Index from "views/Index.js";
 import Profile from "views/examples/Profile.js";
-import Third from "./views/Third";
+import StudentManagement from "./views/StudentManagement";
 import Template from "./views/Template";
 import Facility from "./views/Facility";
 import Reservation from "./views/examples/Reservation";
@@ -20,7 +20,7 @@ let routes = [
         path: "/Student",
         name: "Student",
         icon: "ni ni-user-run",
-        component: Third,
+        component: StudentManagement,
         layout: "/admin"
       },
       {
@@ -97,7 +97,7 @@ let routes = [
     path: "/Student",
     name: "Student",
     icon: "ni ni-user-run",
-    component: Third,
+    component: StudentManagement,
     layout: "/admin"
   },
   {

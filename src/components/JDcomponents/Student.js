@@ -2,7 +2,9 @@ import React, {useRef, useState} from 'react';
 import "../../assets/css/mycss/StudnetList.css"
 import moment from 'moment';
 import Axios from "axios";
+import "../../assets/css/btn.css"
 import UpdateStudent from "../../views/examples/UpdateStudent";
+import {Button} from "reactstrap";
 
 const Student = ({ student, onRemove }) => {
 
@@ -88,15 +90,17 @@ const Student = ({ student, onRemove }) => {
                                placeholder={student.student_password}/>
                     </li>
                 </ul>
-                <button onClick={() => {
+                <div className="UDSbutton">
+                <Button  className="basic-btn"  onClick={() => {
                     setVisibleUpdate(!visibleUpdate);
-                    setVisibleSelect(!visibleSelect);}}>수정</button>
-                <button onClick={() => {deleteById(student);}}>삭제</button>
+                    setVisibleSelect(!visibleSelect);}}>수정</Button>
+                <Button className="delete-btn" onClick={() => {deleteById(student);}}>삭제</Button>
                 {
                     student.blacklist_num == null ?
-                        <button className={"ban"} onClick={() => banStudent(student)}>정지</button> :
-                        <button onClick={() => banClear(student)}>해제</button>
+                        <Button className={"ban-btn"} onClick={() => banStudent(student)}>정지</Button> :
+                        <Button className={"clear-btn"} onClick={() => banClear(student)}>해제</Button>
                 }
+                </div>
             </div>
             }
         </div>
