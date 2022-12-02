@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host:'localhost',
-        password: 'cym0523200!',
+        password: '1234',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -88,7 +88,7 @@ app.get("/duplicateSeatName",async(req,res)=>{
     const facility_seat_name = req.query.facility_seat_name;
     const facility_num = req.query.facility_num;
     db.query(
-        "SELECT facility_seat_name FROM facility_seat where facility_seat_name = (?) AND facility_num =(?)"
+        "SELECT facility_seat.facility_seat_name FROM facility_seat where facility_seat_name = (?) AND facility_num =(?)"
         ,[facility_seat_name,facility_num],
         function(err,result){
             if(err){
