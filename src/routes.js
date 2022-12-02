@@ -19,7 +19,7 @@ import Index from "views/Index.js";
 import Profile from "views/examples/Profile.js";
 import StudentManagement from "./views/StudentManagement";
 import Template from "./views/Template";
-
+import Facility from "./views/Facility";
 import Reservation from "./views/examples/Reservation";
 import DormitoryEdit from "./views/dormitory_facility/DormitoryEdit";
 import Login from "./views/examples/Login";
@@ -29,15 +29,10 @@ import Notice from "./views/notice/Notice";
 import NoticeEdit from "./views/notice/NoticeEdit";
 import DormitoryManager from "./views/dormitory_facility/DormitoryManager";
 import AddFacility from "./views/dormitory_facility/AddFacility"
+import FacilitySeat from "./views/dormitory_facility/FacilitySeat"
 
 let routes = [
-    [{
-      path: "/user-profile",
-      name: "User Profile",
-      icon: "ni ni-single-02 text-yellow",
-      component: Profile,
-      layout: "/admin"
-    },
+    [ // admin
       {
         path: "/Student",
         name: "Student",
@@ -52,15 +47,6 @@ let routes = [
         component: Template,
         layout: "/admin"
       },
-        // 삭제해야 됨
-      {
-        path: "/userView",
-        name: "UserView",
-        icon: "ni ni-key-25 text-info",
-        component: UserView,
-        layout: "/admin"
-      },
-        // 삭제해야 됨
       {
         path: "/dormitoryManager",
         name: "DormitoryManager",
@@ -83,8 +69,8 @@ let routes = [
         component: Notice,
         layout: "/admin"
       }
-      ],
-    [
+      ], // end of admin
+    [ // auth
       {
         path: "/login",
         name: "Login",
@@ -92,6 +78,8 @@ let routes = [
         component: Login,
         layout: "/auth"
       },
+    ], // end of auth
+    [ // student
       {
         path: "/reservation",
         name: "Reservation",
@@ -99,13 +87,28 @@ let routes = [
         component: Reservation,
         layout: "/student"
       },
-    ],
+      {
+        path: "/facility",
+        name: "UserView",
+        icon: "ni ni-key-25 text-info",
+        component: Facility,
+        layout: "/student"
+      },
+    ], // end of student
+    // every single views
   {
     path: "/user-profile",
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
     layout: "/admin"
+  },
+  {
+    path: "/facility",
+    name: "Facility",
+    icon: "ni ni-key-25 text-info",
+    component: Facility,
+    layout: "/student"
   },
   {
     path: "/Student",
@@ -126,7 +129,7 @@ let routes = [
     name: "Reservation",
     icon: "ni ni-bullet-list-67 text-blue",
     component: Reservation,
-    layout: "/admin"
+    layout: "/student"
   },
     //login page path
   {
@@ -163,25 +166,36 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: Notice,
     layout: "/admin"
-  },{
+  },
+  {
     path: "/noticeE"
-  },{
+  },
+  {
     path: "/dormitoryManager",
     name: "DormitoryManager",
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryManager,
-    layout: "/admin" },
+    layout: "/admin"
+  },
   {
     path: "/noticeEdit",
     name: "공지사항 수정",
     icon: "ni ni-bullet-list-67 text-blue",
     component: NoticeEdit,
     layout: "/admin"
-  },{
+  },
+  {
     path: "/addFacility",
     name: "AddFacility",
     icon: "ni ni-bullet-list-67 text-blue",
     component: AddFacility,
+    layout: "/admin"
+  },
+  {
+    path: "/facilitySeat",
+    name: "FacilitySeat",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: FacilitySeat,
     layout: "/admin"
   }
 ];
