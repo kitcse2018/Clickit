@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '910su147!',
+        password: '910su147!A',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -294,24 +294,36 @@ app.get('/facilitySeatTime', (req,res) => { // 일단 킵
 });
 
 
-app.get('/reservation', (req,res) => {
-    const facility_num = req.query.facility_num;
+app.post('/reservation', (req,res) => {
+    const postData = req.body.params;
+    console.log(postData);
     db.query(
-        "SELECT "+
-        "facility.facility_num, facility_seat.facility_seat_name, seat_availability.seat_availability_num, seat_availability_start_time, seat_availability_end_time, seat_availability_status "+
-        "FROM ccd.facility "+
-        "LEFT JOIN "+
-        "facility_seat ON ccd.facility.facility_num = facility_seat.facility_num "+
-        "LEFT JOIN "+
-        "seat_availability ON facility_seat.facility_seat_num = seat_availability.facility_seat_num "+
-        "WHERE "+
-        "ccd.facility.facility_num = (?)",
-        [facility_num],
-        (err,result) => {
+        "INSERT INTO reservation(student_num, start_time, end_time, record_time, reservation_status, seat_availability_num, student_temperature) VALUES (?,?,?,?,?,?,?)",
+        [postData.studentNum, postData.startTime, postData.endTime, postData.recordTime, postData.reservationStatus, postData.seatAvailabilityNum, postData.temp],
+        function (err, result) {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log("성공");
+            }
+        }
+    );
+});
+
+app.get('/hasReservation', (req,res) => {
+    const studentNum = req.query.studentNum;
+    const startTime = req.query.startTime;
+    const endTime = req.query.endTime;
+    const seatAvailabilityNum = req.query.seatAvailabilityNum;
+    db.query(
+        "SELECT count(*) FROM ccd.reservation where date_format(record_time, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\")  and student_num = (?) and start_time = (?) and end_time = (?) and seat_availability_num = (?)"
+        ,[studentNum, startTime, endTime, seatAvailabilityNum],
+        function (err, result) {
             if(err){
                 console.log(err)
             }else{
                 res.send(result);
+                // res.send(parseInt(result[0]['count(*)']));
             }
         }
     );
@@ -370,7 +382,6 @@ app.get('/facilityTimeList', (req,res) => {
             if(err){
                 console.log(err)
             }else{
-                console.log(result);
                 res.send(result);
             }
         }
@@ -386,7 +397,6 @@ app.get('/facilitySeatList', (req,res) => {
             if(err){
                 console.log(err)
             }else{
-                console.log(result);
                 res.send(result);
             }
         }
@@ -404,7 +414,6 @@ app.get('/getSeatsByTimes', (req,res) => {
             if(err){
                 console.log(err)
             }else{
-                console.log(result);
                 res.send(result);
             }
         }
@@ -495,7 +504,6 @@ app.get('/getTermsByFacilityNum', async (req, res)=>{
                 console.log(err)
             }else{
                 res.send(result);
-                console.log(result);
             }
         })
 });
