@@ -9,7 +9,7 @@ const ReservationSeatsListMap= (props) => {
                 <div className={"seat-name"}>
                     <h1>{props.props.facility_seat_name}</h1>
                 </div>
-                <Button>reservation-request-button</Button>
+                <Button className={"reservation-btn"} type={"button"} color={"primary"}>예약하기</Button>
             </div>
         </>
     )

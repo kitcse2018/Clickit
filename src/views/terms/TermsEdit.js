@@ -75,7 +75,7 @@ const TermsEdit = (props) => {
     }, []);
 
     function termsSave(){
-        if(optionValue.valueOf()==0){
+        if(optionValue.valueOf()===0){
             Axios.post("http://localhost:3001/termsEditSave", {
                 termsData:{
                     termsTitle: termsTitle,

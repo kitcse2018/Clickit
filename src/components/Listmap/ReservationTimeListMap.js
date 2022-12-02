@@ -54,13 +54,13 @@ const ReservationTimeListMap = (props) =>{
     return (
         <>
             <ul className={"reservation-time-select"} onClick={toggleMoreInfo}>
-                <li className={"reservation-seat-select"}>
+                <li className={"reservation-seat-select"} className={moreInfoOpen ? "opened" : "closed" }>
                     {/*디비에 시간 개수만큼 가져오기*/}
                     <h1 className={"display-3 reservation-time-title"}>
                         {timeFormat(props.props.seat_availability_start_time,props.props.seat_availability_end_time)}
                     </h1>
                     <span className={"reservation-accIcon"}/>
-                    <Collapse isOpen={moreInfoOpen}>
+                    <Collapse isOpen={moreInfoOpen} className={moreInfoOpen? "opened" : "closed"}>
                         {seatsList.map((seat) => {
                             return(
                                 <ReservationSeatsListMap props={seat}></ReservationSeatsListMap>
