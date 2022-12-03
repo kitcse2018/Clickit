@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '910su147!A',
+        password: '1234',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -656,6 +656,7 @@ app.post('/noticeEditSave', async (req, res)=>{
         }
     );
 })
+
 //관리자 전용 select
 app.get('/dormitoryEdit',(req,res) => {
     let dormitory_num = req.query.dormitory_num;

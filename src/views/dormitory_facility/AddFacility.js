@@ -168,7 +168,7 @@ const AddFacility = (props) => {
                                             let reg = /[^,0-9]/g;
                                             let input = data.replace(reg,"");
                                             let dataArr = input.split(",");
-                                            alert(dataArr[0])
+
 
                                             for(let i = 0 ; i < dataArr.length; i++){
                                                 await Axios.delete("http://localhost:3001/facilitySeatAvailabilityDelete",{
