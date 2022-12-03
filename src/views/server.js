@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '910su147!',
+        password: '910su147!A',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -382,7 +382,6 @@ app.get('/facilityTimeList', (req,res) => {
             if(err){
                 console.log(err)
             }else{
-                console.log(result);
                 res.send(result);
             }
         }
@@ -398,7 +397,6 @@ app.get('/facilitySeatList', (req,res) => {
             if(err){
                 console.log(err)
             }else{
-                console.log(result);
                 res.send(result);
             }
         }
@@ -416,7 +414,6 @@ app.get('/getSeatsByTimes', (req,res) => {
             if(err){
                 console.log(err)
             }else{
-                console.log(result);
                 res.send(result);
             }
         }
@@ -594,6 +591,34 @@ app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
     db.query(
         //나중에 사진도 추가
         "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
+    let termsData = req.body.termsData;
+    db.query(
+        //나중에 사진도 추가
+        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+app.delete('/facilitySeatAvailabilityDelete',async(req,res) => {
+    let facility_seat_num = req.body.facility_seat_num;
+    db.query(
+        //나중에 사진도 추가
+        "DELETE FROM seat_availability WHERE facility_seat_num = ?",[facility_seat_num],
         (err,result) => {
             if(err){
                 console.log(err)

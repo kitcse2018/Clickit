@@ -79,7 +79,6 @@ const AddFacility = (props) => {
     //시간 계산
 
 
-
     return (
         <>
             <Header />
@@ -118,7 +117,6 @@ const AddFacility = (props) => {
                             </div>
                             {/*사진도 같이 보내줘야함 사진 주소나 bob*/}
                             <Button className={"facility-edit-save"} type={"button"} color={"primary"} onClick={async () =>{
-
                                 if(items.facility_num ==""){
                                     if(facilityName==""||facilityLimit==""||facilityStartTime==""||facilityEndTime==""){
                                         alert("필수 항목을 입력해주세요");
@@ -157,6 +155,74 @@ const AddFacility = (props) => {
                                         }).then(e => {
                                             console.log(e);
                                         })
+                                        //자리 삭제후 다시 insert
+                                        if(facilityStartTime !=items.facility_start_time || facilityEndTime != items.facility_end_time){
+
+                                            let data = ""; //facility_seat_num 여러개 가져오기
+
+                                            //해당 시설물 넘버에 자리넘버 가져오기
+                                            await Axios.get("http://localhost:3001/getFacilitySeatNumList",{params:{facility_num : items.facility_num},responseType : 'text'}).then((response)=>
+                                            {
+                                                data = response.data;
+                                            });
+                                            let reg = /[^,0-9]/g;
+                                            let input = data.replace(reg,"");
+                                            let dataArr = input.split(",");
+
+
+                                            for(let i = 0 ; i < dataArr.length; i++){
+                                                await Axios.delete("http://localhost:3001/facilitySeatAvailabilityDelete",{
+                                                   data : {
+                                                       facility_seat_num : dataArr[i],
+                                                   }
+                                                }).then(e => {
+                                                    console.log(e);
+                                                })
+
+                                                //여기서 부터 하면됨
+                                                let startTime = facilityStartTime.slice(0,2);
+                                                let endTime = facilityEndTime.slice(0,2);
+
+                                                let startMTime = facilityStartTime.slice(3,5);
+                                                let endMTime = facilityEndTime.slice(3,5);
+                                                let count = endTime - startTime;
+
+                                                if(startMTime - endMTime > 0)
+                                                    count = endTime - startTime + 1;
+
+                                                let addStart = facilityStartTime.slice(0,2);
+
+                                                for(let j = 0; j < count-1; j++){
+                                                    let currentStartTime = addStart + ":" +  startMTime;
+                                                    let addEnd = ++addStart;
+                                                    let currentEndTime = addEnd + ":" + endMTime;
+                                                    if(i == (count-1)){
+                                                        await Axios.post("http://localhost:3001/facilitySeatAvailabilityInsert",{
+                                                            termsData: {
+                                                                facility_start_time : currentStartTime,
+                                                                facility_end_time : facilityEndTime,
+                                                                facility_seat_num: dataArr[i],
+                                                                seat_availability_status : "사용 가능",
+
+                                                            }
+                                                        }).then(e => {
+                                                            console.log(e);
+                                                        })
+                                                    }else{
+                                                        await Axios.post("http://localhost:3001/facilitySeatAvailabilityInsert",{
+                                                            termsData: {
+                                                                facility_seat_num: dataArr[i],
+                                                                seat_availability_status : "사용 가능",
+                                                                facility_start_time : currentStartTime,
+                                                                facility_end_time : currentEndTime,
+                                                            }
+                                                        }).then(e => {
+                                                            console.log(e);
+                                                        })
+                                                    }
+                                                }
+                                            }
+                                        }
                                         history.push({
                                                 pathname : "/admin/dormitoryEdit",
                                                 state : {
