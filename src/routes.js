@@ -30,6 +30,7 @@ import NoticeEdit from "./views/notice/NoticeEdit";
 import DormitoryManager from "./views/dormitory_facility/DormitoryManager";
 import AddFacility from "./views/dormitory_facility/AddFacility"
 import FacilitySeat from "./views/dormitory_facility/FacilitySeat"
+import CheckReservation from "./views/examples/CheckReservation";
 
 let routes = [
   [ // admin
@@ -67,7 +68,15 @@ let routes = [
       icon: "ni ni-bullet-list-67 text-blue",
       component: Notice,
       layout: "/admin"
+    },
+    {
+      path: "/CheckReservation",
+      name: "예약자 확인 및 다운로드",
+      icon: "ni ni-bullet-list-67 text-blue",
+      component: CheckReservation,
+      layout: "/admin"
     }
+
   ], // end of admin
   [ // auth
     {
@@ -143,6 +152,12 @@ let routes = [
     name: "DormitoryEdit",
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryEdit,
+    layout: "/admin"
+  },{
+    path: "/CheckReservation",
+    name: "예약자 현황 확인 및 다운로드",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: CheckReservation,
     layout: "/admin"
   }
 ];

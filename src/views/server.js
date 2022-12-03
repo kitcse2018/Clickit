@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '1234',
+        password: 'ql!@#$%qjs12',
         database: 'ccd',
         dateStrings: 'date'
     }
