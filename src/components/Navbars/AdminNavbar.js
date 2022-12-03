@@ -28,14 +28,23 @@ import {
   Media
 } from "reactstrap";
 
+
+
 const AdminNavbar = (props) => {
+  const Logout = () => {
+    window.location.replace("/auth/login")
+    sessionStorage.removeItem("isLogin");
+
+  };
+
+
   return (
       <>
         <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
           <Container fluid>
             <Link
                 className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-                to="/"
+                // to={props.location.pathname}
             >
               {props.brandText}
             </Link>
@@ -63,8 +72,9 @@ const AdminNavbar = (props) => {
                   </span>
                     <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Jessica Jones
+                      20180596
                     </span>
+
                     </Media>
                   </Media>
                 </DropdownToggle>
@@ -80,7 +90,7 @@ const AdminNavbar = (props) => {
                     <i className="ni ni-settings-gear-65" />
                     <span>Settings</span>
                   </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
+                  <DropdownItem >
                     <i className="ni ni-calendar-grid-58" />
                     <span>Activity</span>
                   </DropdownItem>
@@ -89,7 +99,7 @@ const AdminNavbar = (props) => {
                     <span>Support</span>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                  <DropdownItem href="#pablo" onClick={Logout}>
                     <i className="ni ni-user-run" />
                     <span>Logout</span>
                   </DropdownItem>

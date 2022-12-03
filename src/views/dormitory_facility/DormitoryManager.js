@@ -22,13 +22,8 @@ const DormitoryManager = (props) => {
                     <div className={"domitory-table"}>
                         <DormitoryList></DormitoryList>
                     </div>
-
                 </div>
-
-
-
             </Container>
-
         </>
     );
 };

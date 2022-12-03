@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 
 import "../../assets/css/ReservationView.css";
-import "../../methods/innerFacility.js";
+import "../../methods/reservation/ReservationMethod.js";
 import Axios from "axios";
 
 const InnerFacilityReservation = () => {

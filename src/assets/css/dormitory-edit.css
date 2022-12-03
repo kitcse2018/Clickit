@@ -1,3 +1,6 @@
+li{
+    list-style-type : none;
+}
 .dormitoryEdit-container {
     display: flex;
     flex-direction: column;
@@ -64,14 +67,31 @@
 
 .dormitory-innerFacility-list-ul{
     width: 95%;
-    /*margin-left : -2.5rem;*/
+    margin-left : -2.5rem;
 }
 
 .dormitory-innerFacility-list-li:nth-child(odd){
-    background-color: orangered;
+    background-color: #BCCEF8;
+}
+.dormitory-innerFacility-list-li:nth-child(even){
+    background-color: #CDFCF6;
 }
 
 .dormitory-innerFacility-list-li{
     height: 6rem;
     margin-top: 1rem;
+}
+.dormitory-innerFacility-li{
+    margin-top : 1rem;
+}
+.dp1{
+    margin-right : 0.5rem;
+}
+.dormitory-innerFacility-button{
+    margin : 1rem;
+    float :right;
+}
+.dormitory-innerFacility-content{
+    margin-top : -0.8rem;
+    float : left;
 }

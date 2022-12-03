@@ -43,7 +43,7 @@ const Facility = () => {
                         <div className={"fac-reserve"}>
                                 <button className={"fac-reserve-button"} onClick={async () =>{
                                     let response = await Axios.get("http://localhost:3001/inner_facility",{
-                                        params : {Facility_Num : 1},
+                                        params : {Facility_Num : facility.facility_num},
                                     });
                                     console.log(response.data)
                                 }} >

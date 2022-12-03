@@ -36,17 +36,22 @@ import "../../assets/css/loginView.css";
 import {useState} from "react";
 import { Redirect } from "react-router-dom";
 
-const LoginForm = ({admin_type, login}) => {
+const LoginForm = ({ login}) => {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
 
     const handleClick = () => {
-        try {
+        if(id===""||password===""){
+            alert("로그인 정보를 입력해주세요.")
+        }
+        else{
+            try {
             login({ id, password });
         } catch (e) {
             alert("Failed to login");
             setId("");
             setPassword("");
+        }
         }
     };
     const password_design = "비밀번호 구성\n원스톱 이메일 앞 3자리 + 전화번호 뒷 4자리";

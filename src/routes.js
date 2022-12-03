@@ -17,15 +17,84 @@
 */
 import Index from "views/Index.js";
 import Profile from "views/examples/Profile.js";
-import Third from "./views/Third";
+import StudentManagement from "./views/StudentManagement";
 import Template from "./views/Template";
-import UserView from "./views/userView";
+import Facility from "./views/Facility";
 import Reservation from "./views/examples/Reservation";
-import DormitoryEdit from "./views/examples/DormitoryEdit";
+import DormitoryEdit from "./views/dormitory_facility/DormitoryEdit";
 import Login from "./views/examples/Login";
-import AddFacility from "./views/examples/AddFacility"
+import Terms from "./views/terms/Terms";
+import TermsEdit from "./views/terms/TermsEdit";
+import Notice from "./views/notice/Notice";
+import NoticeEdit from "./views/notice/NoticeEdit";
+import DormitoryManager from "./views/dormitory_facility/DormitoryManager";
+import AddFacility from "./views/dormitory_facility/AddFacility"
+import FacilitySeat from "./views/dormitory_facility/FacilitySeat"
 
 let routes = [
+  [ // admin
+    {
+      path: "/Student",
+      name: "Student",
+      icon: "ni ni-user-run",
+      component: StudentManagement,
+      layout: "/admin"
+    },
+    {
+      path: "/Template",
+      name: "Template",
+      icon: "ni ni-user-run",
+      component: Template,
+      layout: "/admin"
+    },
+    {
+      path: "/dormitoryManager",
+      name: "DormitoryManager",
+      icon: "ni ni-bullet-list-67 text-blue",
+      component: DormitoryManager,
+      layout: "/admin"
+    },
+    {
+      path: "/terms",
+      name: "이용수칙",
+      icon: "ni ni-bullet-list-67 text-blue",
+      component: Terms,
+      layout: "/admin"
+    },
+    {
+      path: "/notice",
+      name: "공지사항",
+      icon: "ni ni-bullet-list-67 text-blue",
+      component: Notice,
+      layout: "/admin"
+    }
+  ], // end of admin
+  [ // auth
+    {
+      path: "/login",
+      name: "Login",
+      icon: "ni ni-key-25 text-info",
+      component: Login,
+      layout: "/auth"
+    },
+  ], // end of auth
+  [ // student
+    {
+      path: "/reservation",
+      name: "Reservation",
+      icon: "ni ni-bullet-list-67 text-blue",
+      component: Reservation,
+      layout: "/student"
+    },
+    {
+      path: "/facility",
+      name: "UserView",
+      icon: "ni ni-key-25 text-info",
+      component: Facility,
+      layout: "/student"
+    },
+  ], // end of student
+  // every single views
   {
     path: "/user-profile",
     name: "User Profile",
@@ -34,17 +103,17 @@ let routes = [
     layout: "/admin"
   },
   {
-    path: "/userView",
-    name: "UserView",
+    path: "/facility",
+    name: "Facility",
     icon: "ni ni-key-25 text-info",
-    component: UserView,
-    layout: "/admin"
+    component: Facility,
+    layout: "/student"
   },
   {
     path: "/Student",
     name: "Student",
     icon: "ni ni-user-run",
-    component: Third,
+    component: StudentManagement,
     layout: "/admin"
   },
   {
@@ -59,9 +128,9 @@ let routes = [
     name: "Reservation",
     icon: "ni ni-bullet-list-67 text-blue",
     component: Reservation,
-    layout: "/admin"
+    layout: "/student"
   },
-    //login page path
+  //login page path
   {
     path: "/login",
     name: "Login",
@@ -74,13 +143,6 @@ let routes = [
     name: "DormitoryEdit",
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryEdit,
-    layout: "/admin"
-  },
-  {
-    path: "/AddFacility",
-    name: "AddFacility",
-    icon: "ni ni-bullet-list-67 text-blue",
-    component: AddFacility,
     layout: "/admin"
   }
 ];
