@@ -14,8 +14,6 @@ const Terms = (props) => {
        setTermsList(response.data);
     });
 
-    console.log(termsList);
-
     const history = useHistory();
 
     return (

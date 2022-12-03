@@ -45,6 +45,7 @@ const Reservation = (props) => {
 
     const [facilityTimeList,setFacilityTimeList] = useState([]);
     const [facilitySeatList,setFacilitySeatList] = useState([]);
+    const [terms, setTerms] = useState([]);
 
     // !!!!!!!!!!!! 모든 쿼리문에 변수 (?) 인지 확인하고
     // !!!!!!!!!!!! server.js 에서 값 넣어줘야 함
@@ -83,9 +84,7 @@ const Reservation = (props) => {
         })])
             .then(Axios.spread((res1, res2) => {
                 setFacilityTimeList(res1.data);
-                console.log(res1.data);
                 setFacilitySeatList(res2.data);
-                console.log(res2.data);
             })).catch(err => {
             console.log(err);
         })
@@ -123,29 +122,7 @@ const Reservation = (props) => {
                                         );
                                     })
                                 }
-                                {/*<ul className={"reservation-time-select"}>*/}
-                                {/*    <li className={"reservation-seat-select"}>*/}
-                                {/*        /!*디비에 시간 개수만큼 가져오기*!/*/}
-                                {/*        <p className={"reservation-time-title"}>*/}
-                                {/*            시간*/}
-                                {/*            /!*시작시간 끝시간 뜨기*!/*/}
-                                {/*            <span className={"reservation-accIcon"}/>*/}
-                                {/*        </p>*/}
-                                {/*        <div className={"reservation-seat"}>*/}
-                                {/*            /!*해당 시간의 자리 개수만큼 가져오기*!/*/}
-                                {/*            <div className={"seat-name"}>*/}
-                                {/*                /!*    해당 자리 이름 가져오기*!/*/}
-                                {/*            </div>*/}
-                                {/*            <Button>reservation-request-button</Button>*/}
-                                {/*        </div>*/}
-                                {/*    </li>*/}
-                                {/*    /!*  end test li tag *!/*/}
-                                {/*</ul>*/}
                             </div>
-                            {/*<div className={"innerFacility-select"}>*/}
-                            {/*    /!* innerFacility change part *!/*/}
-                            {/*    <Paginations/>*/}
-                            {/*</div>*/}
                         </div>
                     </div>
                 </Container>
