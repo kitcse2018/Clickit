@@ -18,8 +18,6 @@ const Terms = (props) => {
 
 
 
-    console.log(termsList);
-
     const history = useHistory();
 
     return (
