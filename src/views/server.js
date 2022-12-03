@@ -577,6 +577,20 @@ app.get('/getFacilitySeatNum',async(req,res) => {
         }
     );
 });
+app.get('/getFacilitySeatNumList',async(req,res) => {
+    let facility_num = req.query.facility_num;
+
+    db.query(
+        "SELECT facs.facility_seat_num FROM facility_seat AS facs WHERE facs.facility_num = ?",[facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 app.post('/facilitySeatInsert',async(req,res) => {
 
     let termsData = req.body.termsData;
@@ -597,12 +611,24 @@ app.post('/facilitySeatInsert',async(req,res) => {
     );
 });
 app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
-
     let termsData = req.body.termsData;
-
     db.query(
         //나중에 사진도 추가
-        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
+        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+app.delete('/facilitySeatAvailabilityDelete',async(req,res) => {
+    let facility_seat_num = req.body.facility_seat_num;
+    db.query(
+        //나중에 사진도 추가
+        "DELETE FROM seat_availability WHERE facility_seat_num = ?",[facility_seat_num],
         (err,result) => {
             if(err){
                 console.log(err)
