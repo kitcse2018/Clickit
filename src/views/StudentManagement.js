@@ -36,7 +36,9 @@ const StudentManagement = (props) => {
 
                 <h1 > &nbsp; 생활관생 관리</h1>
                 <div className="Search">
+                    <div id={"selectBoxSize"}>
                     <SelectBox setOptionValue={setOptionValue} ></SelectBox>
+                    </div>
                     <StudentSearch setStudentList={setStudentList} optionValue={optionValue} setVisibleSelect={setVisibleSelect} setVisibleAdd={setVisibleAdd} ></StudentSearch>
                     <div>
                         <Button  className={"basicBig-btn"} onClick={()=>{

@@ -11,6 +11,8 @@ const SelectBox = (props) => {
 
     const handleSelect = (e) => {
         props.setOptionValue(e.target.value);
+        let index = e.target.selectedIndex
+        props.setDormitoryName(e.target[index].text)
     };
 
     return (
@@ -19,7 +21,7 @@ const SelectBox = (props) => {
             <select onChange={handleSelect} id="class">
                 <option key = "{dormitory}" value="0" >생활관 선택</option>
                 {dormitoryList.map( dormitory => (
-                    <option key={dormitory.dormitory_num} value={dormitory.dormitory_num}>{dormitory.dormitory_name}</option>
+                    <option key={dormitory.dormitory_num} value={dormitory.dormitory_num} name={dormitory.dormitory_name} >{dormitory.dormitory_name}</option>
                 ))}
             </select>
         </div>

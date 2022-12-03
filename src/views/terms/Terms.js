@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {Button} from "reactstrap";
 
 import Header from "components/Headers/Header.js";
@@ -10,9 +10,13 @@ import {useHistory} from "react-router-dom";
 const Terms = (props) => {
 
     const [termsList, setTermsList] = useState([]);
-    Axios.get("http://localhost:3001/terms").then((response) => {
-       setTermsList(response.data);
+
+    useEffect(()=> { Axios.get("http://localhost:3001/terms").then((response) => {
+        setTermsList(response.data);
     });
+    },[]);
+
+
 
     console.log(termsList);
 
