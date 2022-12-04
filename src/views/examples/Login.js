@@ -31,12 +31,14 @@ const Login = () => {
           } else if (res1.data[0] != null && res2.data[0] == null) {
             sessionStorage.setItem("type", "admin");
               sessionStorage.setItem("isLogin", "true");
+              sessionStorage.setItem("name", res1.data[0].admin_type);
 
               res1.data[0].type = "admin";
             setUser(res1.data[0])
           } else if (res1.data[0] == null && res2.data[0] != null) {
               sessionStorage.setItem("studentNum", res2.data[0].student_num);
               sessionStorage.setItem("dormitoryNum", res2.data[0].dormitory);
+              sessionStorage.setItem("name", res2.data[0].student_id);
             sessionStorage.setItem("type", "student");
             sessionStorage.setItem("isLogin", "true");
             res2.data[0].type = "student";

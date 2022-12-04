@@ -3,7 +3,7 @@ import {useLocation, Route, Switch, Redirect, useHistory} from "react-router-dom
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import StudentNavbar from "components/Navbars/StudentNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
@@ -60,7 +60,7 @@ const Student = (props) => {
     return (
         <>
             <div className="main-content" ref={mainContent}>
-                <AdminNavbar
+                <StudentNavbar
                     {...props}
                     brandText={getBrandText(props.location.pathname)} // 기숙사 이름으로 바꾸기
                 />

@@ -22,6 +22,21 @@ const db = mysql.createConnection(
 
 db.connect();
 
+app.get('/studentDormitoryName',(req,res) => {
+    const dormitoryNum = req.query.dormitoryNum;
+    db.query(
+        "SELECT dormitory_name FROM dormitory WHERE dormitory_num = ?",
+        [dormitoryNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    )
+})
+
 app.get("/duplicateStudent",async(req,res)=>{
     const studentId = req.query.studentId;
     db.query(
