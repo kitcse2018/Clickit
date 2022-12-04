@@ -42,6 +42,9 @@ const Login = () => {
             res2.data[0].type = "student";
             setUser(res2.data[0])
           }
+          else{
+              alert("해당 정보가 없습니다.")
+          }
         })).catch((err) => console.log(err))
   }
 

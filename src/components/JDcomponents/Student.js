@@ -6,6 +6,7 @@ import "../../assets/css/btn.css"
 
 import {Button} from "reactstrap";
 import StudentUpdateBtn from "../Buttons/StudentUpdateButton/StudentUpdateBtn";
+import Datepicker from "../DatePicker/DatePicker";
 
 
 const Student = ({ student, onRemove }) => {
@@ -32,13 +33,10 @@ const Student = ({ student, onRemove }) => {
         }
     }
     const banClear = (e)=>{
-
         if(window.confirm(e.student_id +"님을 해제하시겠습니까?")){
             Axios.post("http://localhost:3001/banClear", {banStudentNum : e.blacklist_num}).then((response)=>{
-
                 }
             )
-
             alert("해제되었습니다.");
             window.location.replace("/admin/Student")
         }
@@ -92,7 +90,7 @@ const Student = ({ student, onRemove }) => {
                 <Button className="delete-btn" onClick={() => {deleteById(student);}}>삭제</Button>
                 {
                     student.blacklist_num == null ?
-                        <Button className={"ban-btn"} onClick={() => banStudent(student)}>정지</Button> :
+                        <Datepicker student={student}/>:
                         <Button className={"clear-btn"} onClick={() => banClear(student)}>해제</Button>
                 }
                 </div>

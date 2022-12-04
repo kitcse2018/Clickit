@@ -22,19 +22,6 @@ const db = mysql.createConnection(
 
 db.connect();
 
-app.get('/students',(req,res) => {
-    db.query(
-        "SELECT * FROM student",
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
 app.get("/duplicateStudent",async(req,res)=>{
     const studentId = req.query.studentId;
     db.query(
@@ -127,6 +114,22 @@ app.post("/banClear", (req,res)=>{
     db.query(
         "DELETE FROM blacklist where blacklist_num = (?) "
         ,[banClearStudentNum],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
+            };
+        });
+});
+
+app.post("/autoBanClear", (req,res)=>{
+    const postEndDate = req.body.postEndDate;
+
+    db.query(
+        "DELETE FROM blacklist where end_date = (?) "
+        ,[postEndDate],
         function(err){
             if(err){
                 console.log(err)

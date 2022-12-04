@@ -8,6 +8,12 @@ import React, {useState} from "react";
 import {Button, Container} from "reactstrap";
 import "../assets/css/btn.css"
 import {   BrowserRouter, Route } from "react-router-dom";
+import DateRangePick from "../components/DatePicker/DateRangePick";
+// you must read here
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// !!!Change "Template" name      !!!
+// !!!ex) Template -> fileName    !!!
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 const StudentManagement = (props) => {
