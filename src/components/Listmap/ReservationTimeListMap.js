@@ -7,6 +7,25 @@ import ReservationSeatsListMap from "./ReservationSeatsListMap";
 
 const ReservationTimeListMap = (props) =>{
 
+    let [timeActivate, setTimeActivate] = useState(false);
+
+    const calCurTime =() =>{
+        let curTime = new Date();
+        let curHour = curTime.getHours();
+        let curMinute = curTime.getMinutes();
+        let curTimeStr = curHour + ":" + curMinute;
+        console.log(curTimeStr);
+        if(curTimeStr < props.props.seat_availability_end_time){
+            setTimeActivate(true);
+        }else{
+            setTimeActivate(false);
+        }
+    }
+
+    const doNothing = () => {
+        //nothing
+    }
+
     // 밑에처럼 해야 빠름
     useEffect(()=>{
         // Axios.all([Axios.get('http://localhost:3001/getSeatsByTimes',{
@@ -35,17 +54,8 @@ const ReservationTimeListMap = (props) =>{
         }).then((response) => {
             setSeatsList(response.data);
         });
+        calCurTime();
     },[]);
-
-    // useEffect(()=>{
-    //     Axios.get('http://localhost:3001/getTermsByFacilityNum', {
-    //         params: {
-    //             facilityNum: props.facilityNum,
-    //         }
-    //     }).then((response) => {
-    //         setTerms(response.data);
-    //     })
-    // },[]);
 
 
     const [moreInfoState, setMoreInfoState] = React.useState({
@@ -78,11 +88,16 @@ const ReservationTimeListMap = (props) =>{
 
     return (
         <>
-            <ul className={"reservation-time-select"} onClick={(e)=>{ e.stopPropagation(); toggleMoreInfo();}}>
+            <ul className={timeActivate?"reservation-time-select":"reservation-time-select disabled"} onClick={timeActivate?(e)=>{ e.stopPropagation(); toggleMoreInfo();} : doNothing}>
                 <li className={"reservation-seat-select"} className={moreInfoOpen ? "opened" : "closed" }>
                     {/*디비에 시간 개수만큼 가져오기*/}
                     <h1 className={"display-3 reservation-time-title"}>
-                        {timeFormat(props.props.seat_availability_start_time,props.props.seat_availability_end_time)}
+                        {timeActivate?
+                            timeFormat(props.props.seat_availability_start_time,props.props.seat_availability_end_time):
+                            <s>
+                                {timeFormat(props.props.seat_availability_start_time,props.props.seat_availability_end_time)}
+                            </s>
+                        }
                     </h1>
                     <span className={"reservation-accIcon"}/>
                     <Collapse isOpen={moreInfoOpen} className={moreInfoOpen? "opened" : "closed"}>

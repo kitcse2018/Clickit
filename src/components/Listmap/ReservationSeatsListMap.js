@@ -51,9 +51,14 @@ const ReservationSeatsListMap= (props) => {
                 <div className={"seat-name"}>
                     <h1>{props.seat.facility_seat_name}</h1>
                 </div>
-                <Button className={"reservation-btn"} type={"button"} color={"primary"}
-                        onClick={()=>toggleModal()}>예약하기
-                </Button>
+                {props.seat.seat_availability_status === "사용 가능" ?
+                    <Button className={"reservation-btn"} type={"button"} color={"primary"}
+                            onClick={()=>toggleModal()}>예약하기
+                    </Button> :
+                    <Button className={"reservation-btn"} type={"button"} disabled color={"secondary"}>
+                        사용중
+                    </Button>
+                }
                 <Modal className={"reservation-modal"} size={"lg"} isOpen={state.modal}>
                     <ReservationModal terms={terms} onModalDisplay={onModalDisplay} seat={props.seat} facilityNum={props.props.facilityNum}></ReservationModal>
                 </Modal>

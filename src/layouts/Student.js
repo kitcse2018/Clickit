@@ -26,6 +26,10 @@ const Student = (props) => {
             // alert("로그인이 필요한 서비스입니다.");
             return <Redirect to="/auth/login"/>;
         }
+        if(sessionStorage.getItem("type") === "admin"){
+            alert("관리자는 관리자 페이지로 이동합니다.");
+            return <Redirect to="/admin/Student"/>;
+        }
         return routes.map((prop, key) => {
             if (prop.layout === "/student") {
                 return (

@@ -34,7 +34,11 @@ const AdminNavbar = (props) => {
   const Logout = () => {
     window.location.replace("/auth/login")
     sessionStorage.removeItem("isLogin");
-
+    if(sessionStorage.getItem("type") === "student"){
+      sessionStorage.removeItem("dormitoryNum");
+      sessionStorage.removeItem("studentNum");
+    }
+    sessionStorage.removeItem("type");
   };
 
 

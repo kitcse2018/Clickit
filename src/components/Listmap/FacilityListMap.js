@@ -8,7 +8,19 @@ const FacilityListMap = (props) => {
 
     const history = useHistory();
 
+    const [population, setPopulation] = useState(0);
+
     console.log(props.pic);
+
+    console.log(props.facility);
+
+    Axios.get("http://localhost:3001/facilityPopulation",{
+        params: {
+            facilityNum : props.facility.facility_num,
+        }
+    }).then((response) => {
+        setPopulation(response.data[0]['count(*)']);
+    });
 
     return (
         <div>
@@ -44,7 +56,7 @@ const FacilityListMap = (props) => {
                         </div>
                     </div>
                     <div className={"fac-status"}>
-                        <h2>예약 현황 2/4 </h2>
+                        <h2>예약 현황 {population}/{props.facility.facility_limit_people} </h2>
                     </div>
                     <div className={"fac-reserve"}>
                         <Button className={"fac-reserve-btn"} color="primary" size={"lg"} onClick={() => {

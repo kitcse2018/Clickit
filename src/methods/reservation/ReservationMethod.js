@@ -12,6 +12,43 @@ export function getSeatsByTimes(startTime, endTime, facilityNum){
         return response.data;
         // console.log(seatList);
     });
+};
+
+export function getCurrentDate(){
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2);
+
+    const hour = ('0' + today.getHours()).slice(-2);
+    const minute = ('0' + today.getMinutes()).slice(-2);
+    const second = ('0' + today.getSeconds()).slice(-2);
+
+    const timeString = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+
+    return timeString;
+};
+
+export function getBlacklistEndDate(studentNum){
+    Axios.get('http://localhost:3001/getBlacklistEndDate',{
+        params: {
+            studentNum : studentNum,
+        }
+    }).then((response) => {
+        return response.data;
+    })
+};
+
+export function updateSeatAvailabilityStatus(seatAvailabilityNum){
+    Axios.post('http://localhost:3001/updateSeatAvailabilityStatus',{
+        params: {
+            seatAvailabilityNum : seatAvailabilityNum,
+            seatAvailabilityStatus : "사용중",
+        },
+    }).then((response) => {
+        console.log(response);
+    });
 }
 
 /*
