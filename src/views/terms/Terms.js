@@ -31,7 +31,7 @@ const Terms = (props) => {
                                 terms_facility_num : "",
                                 dormitory_name : "",
                             }
-                        })}}>추가</Button>
+                        })}}>이용수칙 추가</Button>
                     </div>
                     <div className={"terms-list"}>
                         {termsList.map((terms)=>(

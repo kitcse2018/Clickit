@@ -3,7 +3,8 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const bodyParser = require("body-parser");
 const mysql = require('mysql');
-const cors = require('cors')
+const cors = require('cors');
+const multer = require('multer');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -13,7 +14,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '1234',
+        password: '910su147!A',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -286,11 +287,20 @@ app.get('/facility',(req,res) => {
         }
     );
 });
-app.get('/facilitySeatTime', (req,res) => { // 일단 킵
+
+app.get('/facilityPopulation',(req,res) => {
     const facilityNum = req.query.facilityNum;
     db.query(
-
-    )
+        "SELECT count(*) FROM ccd.reservation where res_facility_num = ? and date_format(record_time, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and start_time < curtime() and end_time > curtime()",
+        [facilityNum],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
 });
 
 
@@ -298,13 +308,13 @@ app.post('/reservation', (req,res) => {
     const postData = req.body.params;
     console.log(postData);
     db.query(
-        "INSERT INTO reservation(student_num, start_time, end_time, record_time, reservation_status, seat_availability_num, student_temperature) VALUES (?,?,?,?,?,?,?)",
-        [postData.studentNum, postData.startTime, postData.endTime, postData.recordTime, postData.reservationStatus, postData.seatAvailabilityNum, postData.temp],
+        "INSERT INTO reservation(student_num, start_time, end_time, record_time, reservation_status, seat_availability_num, student_temperature, res_facility_num) VALUES (?,?,?,?,?,?,?,?)",
+        [postData.studentNum, postData.startTime, postData.endTime, postData.recordTime, postData.reservationStatus, postData.seatAvailabilityNum, postData.temp, postData.facilityNum],
         function (err, result) {
             if (err) {
                 console.log(err)
             } else {
-                console.log("성공");
+                res.send(result);
             }
         }
     );
@@ -314,16 +324,62 @@ app.get('/hasReservation', (req,res) => {
     const studentNum = req.query.studentNum;
     const startTime = req.query.startTime;
     const endTime = req.query.endTime;
-    const seatAvailabilityNum = req.query.seatAvailabilityNum;
+    // const seatAvailabilityNum = req.query.seatAvailabilityNum;
     db.query(
-        "SELECT count(*) FROM ccd.reservation where date_format(record_time, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\")  and student_num = (?) and start_time = (?) and end_time = (?) and seat_availability_num = (?)"
-        ,[studentNum, startTime, endTime, seatAvailabilityNum],
+        "SELECT count(*) FROM ccd.reservation where date_format(record_time, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\")  and student_num = (?) and start_time = (?) and end_time = (?)"
+        ,[studentNum, startTime, endTime],
         function (err, result) {
             if(err){
                 console.log(err)
             }else{
                 res.send(result);
                 // res.send(parseInt(result[0]['count(*)']));
+            }
+        }
+    );
+});
+
+app.get('/isBlacked', (req,res) => {
+    const studentNum = req.query.studentNum;
+    const currentDate = req.query.currentDate;
+    db.query(
+        "SELECT count(*) FROM ccd.blacklist where student_num = (?) and end_date > (?)",
+        [studentNum, currentDate],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/getBlacklistEndDate', (req,res) => {
+    const studentNum = req.query.studentNum;
+    db.query(
+        "SELECT end_date FROM ccd.blacklist where student_num = (?)",
+        [studentNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/updateSeatAvailabilityStatus', (req,res) => {
+    const postData = req.body.params;
+    db.query(
+      "UPDATE seat_availability SET seat_availability_status = (?) WHERE seat_availability_num = (?)",
+        [postData.seatAvailabilityStatus, postData.seatAvailabilityNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
             }
         }
     );

@@ -8,11 +8,6 @@ import React, {useState} from "react";
 import {Button, Container} from "reactstrap";
 import "../assets/css/btn.css"
 import {   BrowserRouter, Route } from "react-router-dom";
-// you must read here
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change "Template" name      !!!
-// !!!ex) Template -> fileName    !!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 const StudentManagement = (props) => {
@@ -29,9 +24,6 @@ const StudentManagement = (props) => {
     return (
         <>
             <Header />
-            {/* Page content */}
-            {/* You must read here */}
-            {/* Change main-container className */}
             <Container className={"third-container"}>
 
                 <h1 > &nbsp; 생활관생 관리</h1>

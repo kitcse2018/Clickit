@@ -41,13 +41,6 @@ let routes = [
       layout: "/admin"
     },
     {
-      path: "/Template",
-      name: "Template",
-      icon: "ni ni-user-run",
-      component: Template,
-      layout: "/admin"
-    },
-    {
       path: "/dormitoryManager",
       name: "DormitoryManager",
       icon: "ni ni-bullet-list-67 text-blue",
@@ -165,9 +158,6 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: Notice,
     layout: "/admin"
-  },
-  {
-    path: "/noticeE"
   },
   {
     path: "/dormitoryManager",
