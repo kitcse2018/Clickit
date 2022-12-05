@@ -136,57 +136,54 @@ const DormitoryEdit = (props) => {
                                                             <h3>이용 가능 시간 {timeFormat(adminfacility.facility_start_time,adminfacility.facility_end_time)}</h3>
                                                         </li>
                                                     </div>
-
-                                                    <div className={"dormitory-innerFacility-button"}>
-                                                        <Button color = "primary" className={"dormitory-update-innerFacility basic-btn"} type={"button"}  onClick={() => {history.push({
-                                                                pathname : "/admin/addFacility",
-                                                                state : {
-                                                                    facility_num : adminfacility.facility_num,
-                                                                    facility_name : adminfacility.facility_name,
-                                                                    facility_limit_people : adminfacility.facility_limit_people,
-                                                                    facility_pic : adminfacility.facility_pic,
-                                                                    facility_start_time : adminfacility.facility_start_time,
-                                                                    facility_end_time : adminfacility.facility_end_time,
-                                                                    dormitory_num : items.dormitory_num,
-                                                                    dormitory_name : items.dormitory_name
-                                                                }
-                                                            }
-
-                                                        )}}> 수정</Button>
-
-                                                        <Button color="danger" onClick={() =>{
-                                                            if(window.confirm("정말 삭제하시겠습니까?")) {
-                                                                Axios.post("http://localhost:3001/deleteFacility", {
-                                                                    termsData: {
-                                                                        facility_num: adminfacility.facility_num,
-                                                                    }
-                                                                }).then(e => {
-                                                                    console.log(e);
-                                                                })
-                                                                alert("삭제 되었습니다.");
-                                                                window.location.replace("/admin/dormitoryEdit");
-                                                            }
-                                                            else {
-                                                                alert("취소합니다.")
+                                                </ul>
+                                                <div className={"dormitory-innerFacility-button"}>
+                                                    <Button color = "primary" className={"dormitory-update-innerFacility basic-btn"} type={"button"}  onClick={() => {history.push({
+                                                            pathname : "/admin/addFacility",
+                                                            state : {
+                                                                facility_num : adminfacility.facility_num,
+                                                                facility_name : adminfacility.facility_name,
+                                                                facility_limit_people : adminfacility.facility_limit_people,
+                                                                facility_pic : adminfacility.facility_pic,
+                                                                facility_start_time : adminfacility.facility_start_time,
+                                                                facility_end_time : adminfacility.facility_end_time,
+                                                                dormitory_num : items.dormitory_num,
+                                                                dormitory_name : items.dormitory_name
                                                             }
                                                         }
-                                                        }> 삭제</Button>
 
-                                                        <Button color = "success" onClick={() => {history.push({
-                                                                pathname : "/admin/facilitySeat",
-                                                                state : {
-                                                                    facility_num : adminfacility.facility_num,
-                                                                    facility_name : adminfacility.facility_name,
-                                                                    facility_start_time : adminfacility.facility_start_time,
-                                                                    facility_end_time : adminfacility.facility_end_time,
+                                                    )}}> 수정</Button>
+
+                                                    <Button color="danger" onClick={() =>{
+                                                        if(window.confirm("정말 삭제하시겠습니까?")) {
+                                                            Axios.post("http://localhost:3001/deleteFacility", {
+                                                                termsData: {
+                                                                    facility_num: adminfacility.facility_num,
                                                                 }
+                                                            }).then(e => {
+                                                                console.log(e);
+                                                            })
+                                                            alert("삭제 되었습니다.");
+                                                            window.location.replace("/admin/dormitoryEdit");
+                                                        }
+                                                        else {
+                                                            alert("취소합니다.")
+                                                        }
+                                                    }
+                                                    }> 삭제</Button>
+
+                                                    <Button color = "success" onClick={() => {history.push({
+                                                            pathname : "/admin/facilitySeat",
+                                                            state : {
+                                                                facility_num : adminfacility.facility_num,
+                                                                facility_name : adminfacility.facility_name,
+                                                                facility_start_time : adminfacility.facility_start_time,
+                                                                facility_end_time : adminfacility.facility_end_time,
                                                             }
+                                                        }
 
-                                                        )}}> 자리 수정</Button>
-                                                    </div>
-
-                                                </ul>
-
+                                                    )}}> 자리 수정</Button>
+                                                </div>
                                             </div>
                                         </li>
                                     ))}

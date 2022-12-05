@@ -28,12 +28,13 @@ import {
   Row,
   Col
 } from "reactstrap";
+import "../../assets/css/mycss/AuthNavbar.css";
 
 const AdminNavbar = () => {
   return (
     <>
       <Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
-        <Container className="px-4">
+        <Container className="px-4 navbar-container">
           <NavbarBrand to="/" tag={Link}>
             <img
               alt="..."
