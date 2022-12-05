@@ -42,3 +42,39 @@
     margin-top : -6rem;
     position:relative;
 }
+@media(max-width:400px){
+    .facility-list-container{
+        background-color : #f4f5f7;
+        width: 280px;
+        margin-top : -25%;
+        position:relative;
+    }
+    .facility-list-container{
+        width: 300px;
+    }
+    .fac-img-detail{
+        width: 250px;
+    }
+    .fac-img{
+        width: 400px;
+    }
+    .fac-left{
+        margin: 0px;
+        width: 300px;
+    }
+    .fac-box{
+        display: inline-block;
+        margin : 10px auto;
+        padding : 15px;
+    }
+    .fac-right{
+        width: 100%;
+        padding: 0%;
+    }
+    .media-h1{
+        font-size: xx-large;
+    }
+    .fac-reserve-btn{
+        width: 250px;
+    }
+}

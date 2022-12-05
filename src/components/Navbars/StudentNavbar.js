@@ -27,7 +27,7 @@ import {
     Container,
     Media
 } from "reactstrap";
-
+import "../../assets/css/StudentNavbar.css";
 
 
 const StudentNavbar = (props) => {
@@ -45,7 +45,7 @@ const StudentNavbar = (props) => {
 
     return (
         <>
-            <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
+            <Navbar className="navbar-top navbar-dark media-student-navbar" expand="md" id="navbar-main">
                 <Container fluid>
                     <Link
                         className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"

@@ -110,42 +110,45 @@ const TermsEdit = (props) => {
     return (
         <>
             <Header />
-            <div className={"termsEdit-container"}>
-                <div className={"termsEdit-contents"}>
-                    <div className={"termsEdit-top"}>
-                        <Button className={"termsEdit-save"} onClick={()=>termsSave()}>저장</Button>
-                        {/*<TermsEditSave props={
+            <Container>
+                <div className={"termsEdit-container"}>
+                    <div className={"termsEdit-contents"}>
+                        <div className={"termsEdit-top"}>
+                            <Button className={"termsEdit-save"} color={"primary"} onClick={()=>termsSave()}>저장</Button>
+                            {/*<TermsEditSave props={
                             {
                                 terms_title : document.getElementsByClassName("termsEdit-element-header-input").item(0).value,
                                 terms_contents : document.getElementsByClassName("termsEdit-element-body-input").item(0).value,
                                 terms_facility_num : document.getElementsByClassName("input_area").item(0).children.item(0).value,
                             }
                         }></TermsEditSave>*/}
-                    </div>
-                    <div className={"termsEdit-elements"}>
-                        <div className={"termsEdit-element-header"}>
-                            <Form>
+                        </div>
+                        <div className={"termsEdit-elements"}>
+                            <div className={"termsEdit-element-header"}>
+                                {/*<Form className="termsEdit-formBox">*/}
                                 <Input className={"termsEdit-element-header-input"}
                                        placeholder={""} type={"textarea"} rows={"1"}
                                        onChange = {onTitleChange} defaultValue={items.terms_title}>
                                 </Input>
-                            </Form>
-                            <TermsFacilitySelectBox setOptionValue={setOptionValue}></TermsFacilitySelectBox>
-                        </div>
-                        <div className={"termsEdit-element-body"}>
-                            <Form>
-                                <Input className={"termsEdit-element-body-input"}
-                                       placeholder={""} type={"textarea"} rows={"10"}
-                                       onChange = {onContentsChange} defaultValue={items.terms_contents}>
-                                </Input>
-                            </Form>
-                        </div>
-                        <div className={"termsEdit-element-footer"}>
+                                <TermsFacilitySelectBox setOptionValue={setOptionValue}></TermsFacilitySelectBox>
 
+                                {/*</Form>*/}
+                            </div>
+                            <div className={"termsEdit-element-body"}>
+                                <Form>
+                                    <Input className={"termsEdit-element-body-input"}
+                                           placeholder={""} type={"textarea"} rows={"10"}
+                                           onChange = {onContentsChange} defaultValue={items.terms_contents}>
+                                    </Input>
+                                </Form>
+                            </div>
+                            <div className={"termsEdit-element-footer"}>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Container>
         </>
     );
 };

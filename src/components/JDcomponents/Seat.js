@@ -1,24 +1,10 @@
 import {
-    Badge,
-    Card,
-    CardHeader,
-    CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Progress,
-    Table,
-    Container,
-    Row,
-    UncontrolledTooltip, Button
+    Input,
+    Button
 } from "reactstrap";
 import React, {useState} from "react";
 import Axios from "axios";
+import "../../assets/css/mycss/FacilitySeat.css";
 
 const Seat = ({adminFacilitySeat,adminFacility}) => {
 
@@ -31,10 +17,10 @@ const Seat = ({adminFacilitySeat,adminFacility}) => {
 
     return (
         <>
-            <div className={"gnb_menu"}>
+            <div className={"gnb_menu seat-container"}>
                 <ul className={"facility-seat-ul"}>
                     <li className={"dp1"}>
-                        <input type={"text"} className={"facility-name-input"} defaultValue={adminFacilitySeat.facility_seat_name} onChange={onSeatNameChange}/>
+                        <Input type={"text"} className={"facility-name-input"} defaultValue={adminFacilitySeat.facility_seat_name} onChange={onSeatNameChange}/>
                     </li>
                     <li className={"dp1"}>
                         <Button className={"facility-seat-status"} id={"btn"} color ="warning" onClick={(e) =>{

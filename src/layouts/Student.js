@@ -10,10 +10,12 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import routes from "routes.js";
 import Axios from "axios";
 import Reservation from "../views/examples/Reservation";
+import {useMediaQuery} from "react-responsive";
 
 const Student = (props) => {
     const mainContent = React.useRef(null);
     const location = useLocation();
+    const isDesktopOrMobile = useMediaQuery({query: '(max-width:400px)'});
 
     React.useEffect(() => {
         document.documentElement.scrollTop = 0;
@@ -69,10 +71,18 @@ const Student = (props) => {
                     {/*문제 되면 여기 routes[2] routes로 바꿔주기*/}
                     <Redirect from="*" to="/student/facility"/>
                 </Switch>
-                <Container fluid>
-                    <AdminFooter />
-                </Container>
+                {isDesktopOrMobile !== true ?
+                    <Container fluid>
+                        <AdminFooter />
+                    </Container>
+                : <></>}
             </div>
+            {/*<div>*/}
+            {/*    <div style={{border:"1px solid #DBDBDB", width:"100%"}}>*/}
+            {/*        <h1>{isDesktopOrMobile !== true ? "웹 화면 입니다." : "모바일 화면입니다."}</h1>*/}
+            {/*        <h2>줄어들기 전 입니다.</h2>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </>
     );
 };

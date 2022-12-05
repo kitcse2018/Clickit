@@ -3,7 +3,6 @@ import "../../assets/css/mycss/StudnetList.css"
 import moment from 'moment';
 import Axios from "axios";
 import "../../assets/css/btn.css"
-
 import {Button} from "reactstrap";
 import StudentUpdateBtn from "../Buttons/StudentUpdateButton/StudentUpdateBtn";
 import Datepicker from "../DatePicker/DatePicker";

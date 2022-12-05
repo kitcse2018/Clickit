@@ -28,7 +28,7 @@ import {
     chartExample1,
     chartExample2
 } from "variables/charts.js";
-
+import {useMediaQuery} from "react-responsive";
 import Header from "components/Headers/Header.js";
 import "../assets/css/FacilityList.css";
 import FacilityListMap from "components/Listmap/FacilityListMap.js";
@@ -38,6 +38,7 @@ const Facility = (props) => {
 
     const [facilityList,setFacilityList] = useState([]);
     const picList = ["오름 1동 휴게실", "오름 1동 체단실"]
+    const isDeskTop = useMediaQuery({query:'(max-width:400px)'});
 
     useEffect(()=>{
         Axios.get("http://localhost:3001/facility" , {

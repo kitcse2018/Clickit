@@ -136,6 +136,12 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: Reservation,
     layout: "/student"
+  },{
+    path: "/CheckReservation",
+    name: "예약자 확인 및 다운로드",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: CheckReservation,
+    layout: "/admin"
   },
   //login page path
   {

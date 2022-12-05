@@ -1,29 +1,15 @@
 
 import {
-    Badge,
-    Card,
-    CardHeader,
-    CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Progress,
-    Table,
     Container,
-    Row,
-    UncontrolledTooltip,
     Button,
     FormGroup,
     Form,
     Input,
     InputGroupAddon,
     InputGroupText,
-    InputGroup
+    InputGroup,
+    Row,
+    Col
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -110,30 +96,30 @@ const AddFacility = (props) => {
                                 <div className={"facility-edit-content-name"}>
                                     <h3>명칭</h3>
                                     <FormGroup>
-                                        <input type={"text"} className={"facility-name-input form-control-alternative"} defaultValue={items.facility_name} onChange = {onNameChange}/>
+                                        <Input type={"text"} className={"facility-name-input form-control-alternative"} defaultValue={items.facility_name} onChange = {onNameChange}/>
                                     </FormGroup>
                                 </div>
                                 <div className={"facility-edit-content-limit"}>
                                     <h3>사용 가능 인원</h3>
                                     <FormGroup>
-                                        <input type={"text"} className={"facility-limit-input form-control-alternative"} defaultValue={items.facility_limit_people} onChange = {onLimitChange}/>
+                                        <Input type={"text"} className={"facility-limit-input form-control-alternative"} defaultValue={items.facility_limit_people} onChange = {onLimitChange}/>
                                     </FormGroup>
                                 </div>
                                 <div className={"facility-edit-content-start"}>
                                     <h3>시작 시간</h3>
                                     <FormGroup>
-                                        <input type={"text"} className={"facility-start-input form-control-alternative"} placeholder={"00:00"} defaultValue = {timeFormat(items.facility_start_time)} onChange = {onStartTimeChange}/>
+                                        <Input type={"text"} className={"facility-start-input form-control-alternative"} placeholder={"00:00"} defaultValue = {timeFormat(items.facility_start_time)} onChange = {onStartTimeChange}/>
                                     </FormGroup>
                                 </div>
                                 <div className={"facility-edit-content-end"}>
                                     <h3>종료 시간</h3>
                                     <FormGroup>
-                                        <input type={"text"} className={"facility-end-input form-control-alternative"} placeholder={"00:00"} defaultValue={timeFormat(items.facility_end_time)} onChange = {onEndTimeChange}/>
+                                        <Input type={"text"} className={"facility-end-input form-control-alternative"} placeholder={"00:00"} defaultValue={timeFormat(items.facility_end_time)} onChange = {onEndTimeChange}/>
                                     </FormGroup>
                                 </div>
                             </div>
                             {/*사진도 같이 보내줘야함 사진 주소나 bob*/}
-                            <Button className={"facility-edit-save check"} type={"button"} color={"primary"} onClick={async () =>{
+                            <Button className={"facility-edit-save"} type={"button"} color={"primary"} onClick={async () =>{
                                 if(items.facility_num ==""){
                                     if(facilityName==""||facilityLimit==""||facilityStartTime==""||facilityEndTime==""){
                                         alert("필수 항목을 입력해주세요");

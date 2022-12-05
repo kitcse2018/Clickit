@@ -3,7 +3,7 @@ import Student from "components/JDcomponents/Student.js"
 import SelectBox from "../components/SelectBox/SelectBox";
 import StudentSearch from "./examples/StudentSearch";
 import AddStudent from "./examples/AddStudent"
-import "../assets/css/mycss/Third.css";
+import "../assets/css/SelectBox.css";
 import React, {useState} from "react";
 import {Button, Container} from "reactstrap";
 import "../assets/css/btn.css"

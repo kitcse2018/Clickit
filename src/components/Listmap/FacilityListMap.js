@@ -3,12 +3,16 @@ import Axios from "axios";
 import {Link, useHistory} from 'react-router-dom'
 import {Button, Container} from "reactstrap";
 import {timeFormat} from "../../methods/facility/FacilityMethod";
+import "../../assets/css/FacilityList.css";
+import {useMediaQuery} from "react-responsive";
 
 const FacilityListMap = (props) => {
 
     const history = useHistory();
 
     const [population, setPopulation] = useState(0);
+
+    const isDeskTop = useMediaQuery({query:'(max-width:800px)'});
 
     console.log(props.pic);
 
@@ -38,7 +42,7 @@ const FacilityListMap = (props) => {
                 <div className={"fac-right"}>
                     <div className={"fac-body"}>
                         <div className={"fac-name"}>
-                            <h1 className={"display-1"}>{props.facility.facility_name}</h1>
+                            <h1 className={"display-1 media-h1"}>{props.facility.facility_name}</h1>
                         </div>
                         <div className={"fac-content"}>
                             <ul className={"fac-content-detail"}>
@@ -49,7 +53,9 @@ const FacilityListMap = (props) => {
                                 </li>
                                 <li className={"fac-content-detail-time"}>
                                     <h2>
-                                        이용 가능 시간 - {timeFormat(props.facility.facility_start_time, props.facility.facility_end_time)}
+                                        이용 가능 시간
+                                        { isDeskTop !== true ? " - " : <br/>}
+                                        {timeFormat(props.facility.facility_start_time, props.facility.facility_end_time)}
                                     </h2>
                                 </li>
                             </ul>
@@ -75,6 +81,7 @@ const FacilityListMap = (props) => {
                 </div>
             </div>
         </div>
+
     );
 }
 export default FacilityListMap;

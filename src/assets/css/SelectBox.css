@@ -11,12 +11,13 @@
     height: 550px;
     width: 1420px;
 }
-/*.input_area {*/
-/*    margin-right: 5%;*/
-/*    width: 30%;*/
-/*    float: right;*/
-/*    margin-bottom: 1%;*/
-/*}*/
+
+.selectBox-input {
+    margin-left: 10px;
+}
+.student_ul {
+
+}
 .modal-content{
     width: fit-content;
 }
@@ -104,21 +105,16 @@ select {
     height: 40px;
     font-size: 20px;
 }
-#selectBoxSize2{
-        margin-right: 5%;
-        width: 30%;
-        float: right;
-        margin-bottom: 1%;
+
+.studentBoard{
+    padding-top: 1%;
+    background-color: #efebeb;
+    border: 1px solid black;
+    width: 100%;
+    height: 440px;
+    text-align: center;
+    overflow: auto;
 }
-/*.studentBoard{*/
-/*    padding-top: 1%;*/
-/*    background-color: #efebeb;*/
-/*    border: 1px solid black;*/
-/*    width: 100%;*/
-/*    height: 440px;*/
-/*    text-align: center;*/
-/*    overflow: auto;*/
-/*}*/
 .addStudentBox{
     border: 1px solid black;
     margin-top: 5px;

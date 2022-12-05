@@ -1,19 +1,6 @@
 
 import {
-    Badge,
-    Card,
-    CardHeader,
-    CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Progress,
-    Table,
+    Input,
     Container,
     Row,
     UncontrolledTooltip, Button
@@ -69,67 +56,67 @@ const FacilitySeat = (props) => {
                         <h2>{items.facility_name}</h2>
                     </div>
                     <h2>자리</h2>
-                    <div className={"facility-seat-add-body"}>
-                        <input type={"text"} className={"facility-seat-name-input facility-seat-name-input-css"} placeholder={"자리명"} onChange = {onSeatAdd}/>
-                        <Button color="primary" className={"facility-seat-add"} onClick={async (e) =>{
-                            let data="";
-                            await Axios.get("http://localhost:3001/duplicateSeatName",{params:{facility_seat_name :addFacilitySeatName , facility_num : items.facility_num,
+                    <Button color="primary" className={"facility-seat-add"} onClick={async (e) =>{
+                        let data="";
+                        await Axios.get("http://localhost:3001/duplicateSeatName",{params:{facility_seat_name :addFacilitySeatName , facility_num : items.facility_num,
 
-                                }}).then((response)=>
-                            {
-                                data = response.data;
-                            });
-                            if(data.at(0) == null){
-                                let seatNum = "";
-                                if(addFacilitySeatName == ""){
-                                    alert("필수 항목을 입력해주세요");
-                                }else{
-                                    await Axios.post("http://localhost:3001/facilitySeatInsert",{
-                                        termsData: {
-                                            facility_seat_name : addFacilitySeatName,
-                                            facility_num : items.facility_num,
-                                            facility_seat_status : "사용 가능",
-                                        }
-                                    }).then(response => {
-                                        seatNum = response.data.insertId;
-                                    })
-                                    for(let i = 0; i < count-1; i++){
-                                        let currentStartTime = addStart + ":" +  startMTime;
-                                        let addEnd = ++addStart;
-                                        let currentEndTime = addEnd + ":" + endMTime;
-                                        if(i == (count-1)){
-                                            await Axios.post("http://localhost:3001/facilitySeatAvailabilityInsert",{
-                                                termsData: {
-                                                    facility_start_time : currentStartTime,
-                                                    facility_end_time : items.facility_end_time,
-                                                    facility_seat_num : seatNum,
-                                                    seat_availability_status : "사용 가능",
-                                                }
-                                            }).then(e => {
-                                                console.log(e);
-                                            })
-                                        }else{
-                                            await Axios.post("http://localhost:3001/facilitySeatAvailabilityInsert",{
-                                                termsData: {
-                                                    facility_start_time : currentStartTime,
-                                                    facility_end_time : currentEndTime,
-                                                    facility_seat_num : seatNum,
-                                                    seat_availability_status : "사용 가능",
-
-                                                }
-                                            }).then(e => {
-                                                console.log(e);
-                                            })
-                                        }
-
+                            }}).then((response)=>
+                        {
+                            data = response.data;
+                        });
+                        if(data.at(0) == null){
+                            let seatNum = "";
+                            if(addFacilitySeatName == ""){
+                                alert("필수 항목을 입력해주세요");
+                            }else{
+                                await Axios.post("http://localhost:3001/facilitySeatInsert",{
+                                    termsData: {
+                                        facility_seat_name : addFacilitySeatName,
+                                        facility_num : items.facility_num,
+                                        facility_seat_status : "사용 가능",
                                     }
-                                }
-                                window.location.replace("/admin/facilitySeat")
-                            }else {
-                                alert("중복된 자리명입니다.")
-                            }
+                                }).then(response => {
+                                    seatNum = response.data.insertId;
+                                })
+                                for(let i = 0; i < count-1; i++){
+                                    let currentStartTime = addStart + ":" +  startMTime;
+                                    let addEnd = ++addStart;
+                                    let currentEndTime = addEnd + ":" + endMTime;
+                                    if(i == (count-1)){
+                                        await Axios.post("http://localhost:3001/facilitySeatAvailabilityInsert",{
+                                            termsData: {
+                                                facility_start_time : currentStartTime,
+                                                facility_end_time : items.facility_end_time,
+                                                facility_seat_num : seatNum,
+                                                seat_availability_status : "사용 가능",
+                                            }
+                                        }).then(e => {
+                                            console.log(e);
+                                        })
+                                    }else{
+                                        await Axios.post("http://localhost:3001/facilitySeatAvailabilityInsert",{
+                                            termsData: {
+                                                facility_start_time : currentStartTime,
+                                                facility_end_time : currentEndTime,
+                                                facility_seat_num : seatNum,
+                                                seat_availability_status : "사용 가능",
 
-                        }}>추가</Button>
+                                            }
+                                        }).then(e => {
+                                            console.log(e);
+                                        })
+                                    }
+
+                                }
+                            }
+                            window.location.replace("/admin/facilitySeat")
+                        }else {
+                            alert("중복된 자리명입니다.")
+                        }
+
+                    }}>추가</Button>
+                    <div className={"facility-seat-add-body"}>
+                        <Input type={"text"} className={"facility-seat-name-input facility-seat-name-input-css"} placeholder={"자리명"} onChange = {onSeatAdd}/>
                     </div>
                     <div className={"facility-seat-list"}>
                         <ul className={"facility-seat-list-ul"}>

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Axios from "axios";
+import "../../assets/css/mycss/Third.css";
 
 const TermsFacilitySelectBox = (props) => {
     const [termsFacilityList, setTermsFacilityList] = useState([]);
@@ -13,7 +14,8 @@ const TermsFacilitySelectBox = (props) => {
     }
 
     return (
-        <form>
+        // <form>
+        <div id={"selectBoxSize2"}>
             <div className="input_area">
                 <select onChange={handleSelect} id="class">
                     <option value="0">시설 선택</option>
@@ -22,7 +24,8 @@ const TermsFacilitySelectBox = (props) => {
                     ))}
                 </select>
             </div>
-        </form>
+        </div>
+        // </form>
     );
 }
 

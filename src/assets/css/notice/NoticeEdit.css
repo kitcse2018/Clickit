@@ -1,19 +1,16 @@
 .noticeEdit-container{
-    border: 0px solid white;
-    /*width: 100%;*/
-    /*height: 100%;*/
+    border: 2px solid #172b4d;
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 700px;
     margin-top: -10rem;
-    background-color: #f4f5f7;
+    background-color: #FAF7F0;
 }
 
 .noticeEdit-contents{
-    background-color: white;
     width: 100%;
     height: auto;
-    border: 2px solid #172b4d;
+    background-color: #FAF7F0;
 }
 /*background-color: #172b4d;*/
 .noticeEdit-top{
@@ -24,36 +21,38 @@
 .noticeEdit-elements{
     width: 100%;
     height: 100%;
-    background-color: white;
+    background-color: #FAF7F0;
     overflow: auto;
 }
 
 .noticeEdit-elements>.noticeEdit-element-header{
     height: 10%;
     width: 100%;
-    background-color: white;
+    margin-bottom: 5%;
+    background-color: #FAF7F0;
 }
 
 .noticeEdit-elements>.noticeEdit-element-body{
     height: 50%;
     width : 100%;
-    background-color: white;
+    background-color: #FAF7F0;
 }
 
 .noticeEdit-elements>.noticeEdit-element-footer{
     height: 10%;
     width: 100%;
-    background-color: white;
+    background-color: #FAF7F0;
 }
 
 .noticeEdit-element-header-input{
-    border: 0px solid white;
+    border: 1px solid black;
     width: 50%;
     resize: none;
     font-weight: bold;
-    font-size: xxx-large;
+    font-size: xx-large;
     color: black;
     margin-left: 5%;
+    margin-bottom: 1%;
 }
 
 .noticeEdit-element-body-input{
@@ -61,10 +60,7 @@
     width: 90%;
     height: 50%;
     /**/resize: none;
-    background-color: skyblue;
+    background-color: #DFD3C3;
     margin-left: 5%;
     margin-bottom: 5%;
-}
-.noticeEdit-element-form{
-    height: 100px;
 }

@@ -1,5 +1,5 @@
 import React, { useCallback, useState} from "react";
-import {Button, Form, Input} from "reactstrap";
+import {Button, Form, Input, Container} from "reactstrap";
 
 import Header from "../../components/Headers/Header";
 import "../../assets/css/notice/NoticeEdit.css";
@@ -45,30 +45,32 @@ const NoticeEdit = () => {
     return (
         <>
             <Header />
-            <div className={"noticeEdit-container"}>
-                <div className={"noticeEdit-contents"}>
-                    <div className={"noticeEdit-top"}>
-                        <Button className={"noticeEdit-save"} color={"primary"} onClick={()=>noticeSave()}>저장</Button>
-                    </div>
-                    <div className={"noticeEdit-elements"}>
-                        <div className={"noticeEdit-element-header"}>
-                            <Form className="noticeEdit-element-form">
-                                <Input className={"noticeEdit-element-header-input"} type={"textarea"} placeholder={"제목"} defaultValue={items.notice_title} onChange={onTitleChange}>
-                                </Input>
-                            </Form>
+            <Container>
+                <div className={"noticeEdit-container"}>
+                    <div className={"noticeEdit-contents"}>
+                        <div className={"noticeEdit-top"}>
+                            <Button className={"noticeEdit-save"} color={"primary"} onClick={()=>noticeSave()}>저장</Button>
                         </div>
-                        <div className={"noticeEdit-element-body"}>
-                            <Form>
-                                <Input className={"noticeEdit-element-body-input"}  type={"textarea"} placeholder={"내용"} rows={"10"} defaultValue={items.notice_contents} onChange={onContentsChange}>
-                                </Input>
-                            </Form>
-                        </div>
-                        <div className={"noticeEdit-element-footer"}>
+                        <div className={"noticeEdit-elements"}>
+                            <div className={"noticeEdit-element-header"}>
+                                <Form className="noticeEdit-element-form">
+                                    <Input className={"noticeEdit-element-header-input"} type={"textarea"} placeholder={"제목"} defaultValue={items.notice_title} onChange={onTitleChange}>
+                                    </Input>
+                                </Form>
+                            </div>
+                            <div className={"noticeEdit-element-body"}>
+                                <Form>
+                                    <Input className={"noticeEdit-element-body-input"}  type={"textarea"} placeholder={"내용"} rows={"10"} defaultValue={items.notice_contents} onChange={onContentsChange}>
+                                    </Input>
+                                </Form>
+                            </div>
+                            <div className={"noticeEdit-element-footer"}>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Container>
         </>
     )
 

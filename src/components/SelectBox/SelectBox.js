@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Axios from "axios";
+import "../../assets/css/SelectBox.css";
 
 const SelectBox = (props) => {
     const [dormitoryList,setdormitoryList] = useState([]);
