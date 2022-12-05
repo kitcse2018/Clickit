@@ -16,6 +16,7 @@ const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
     },[]);
 
     const isBlacked = () =>{
+        console.log("isBlacked function");
         Axios.get('http://localhost:3001/isBlacked',{
             params:{
                 studentNum : parseInt(sessionStorage.getItem("studentNum")),
@@ -35,6 +36,7 @@ const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
     };
 
     const hasReservation = () => {
+        console.log("hasReservation function");
         if(temperature.length > 10 || temperature.length < 1){
             alert("올바른 온도를 입력해주세요.");
         }else{
@@ -56,6 +58,7 @@ const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
     }
 
     const reservation =()=>{
+        console.log("reservation function");
         Axios.post('http://localhost:3001/reservation',{
             params: {
                 studentNum : parseInt(sessionStorage.getItem("studentNum")),

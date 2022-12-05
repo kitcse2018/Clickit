@@ -3,6 +3,10 @@
     /*width: auto;*/
 }
 
+/*.scroll-div{*/
+/*    scroll-behavior: smooth;*/
+/*}*/
+
 .progress-wrapper{
     padding-left: 8%;
     padding-right: 8%;
@@ -19,6 +23,12 @@
 
 .percent{
     margin-bottom: 3%;
+}
+
+.profile-current-reservation{
+    margin: 0 auto;
+    width: 88%;
+    height: 90%;
 }
 
 .profile-reservation-list{

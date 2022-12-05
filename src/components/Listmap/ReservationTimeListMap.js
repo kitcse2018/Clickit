@@ -13,9 +13,9 @@ const ReservationTimeListMap = (props) =>{
         let curTime = new Date();
         let curHour = curTime.getHours();
         let curMinute = curTime.getMinutes();
-        let curTimeStr = curHour + ":" + curMinute;
-        console.log(curTimeStr);
-        if(curTimeStr < props.props.seat_availability_end_time){
+        let curSecond = curTime.getSeconds();
+        let curTimeStr = curHour + ":" + curMinute + ":" + curSecond;
+        if(curHour < props.props.seat_availability_end_time.slice(0,2)){
             setTimeActivate(true);
         }else{
             setTimeActivate(false);
@@ -44,6 +44,7 @@ const ReservationTimeListMap = (props) =>{
         // })).catch((error) => {
         //     console.log(error);
         // });
+        calCurTime();
 
         Axios.get('http://localhost:3001/getSeatsByTimes',{
             params: {
@@ -54,9 +55,7 @@ const ReservationTimeListMap = (props) =>{
         }).then((response) => {
             setSeatsList(response.data);
         });
-        calCurTime();
     },[]);
-
 
     const [moreInfoState, setMoreInfoState] = React.useState({
        moreInfoOpen: false,
@@ -88,7 +87,7 @@ const ReservationTimeListMap = (props) =>{
 
     return (
         <>
-            <ul className={timeActivate?"reservation-time-select":"reservation-time-select disabled"} onClick={timeActivate?(e)=>{ e.stopPropagation(); toggleMoreInfo();} : doNothing}>
+            <ul className={timeActivate?"reservation-time-select":"reservation-time-select disabled"} onClick={timeActivate?(e)=>{toggleMoreInfo();} : doNothing}>
                 <li className={"reservation-seat-select"} className={moreInfoOpen ? "opened" : "closed" }>
                     {/*디비에 시간 개수만큼 가져오기*/}
                     <h1 className={"display-3 reservation-time-title"}>

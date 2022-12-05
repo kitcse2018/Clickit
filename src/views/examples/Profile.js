@@ -17,25 +17,53 @@ import UserHeader from "components/Headers/UserHeader.js";
 import "../../assets/css/mycss/profile.css";
 import Axios from "axios";
 import ProfileDormitoryName from "./ProfileDormitoryName";
+import ProfileReservationListMap from "../../components/Listmap/ProfileReservationListMap";
+import ProfileCurrentReservation from "./ProfileCurrentReservation";
+import ProfileBlacklist from "../../components/ProfileProgress/ProfileBlacklist";
 
 const Profile = () => {
 
   const [dormitoryName, setDormitoryName] = useState("");
+  const [myCurReservation, setMyCurReservation] = useState([]);
+  const [myReservationList, setMyReservationList] = useState([]);
+  const [blackEndDate, setBlackEndDate] = useState("");
+
+  const studentNum = sessionStorage.getItem("studentNum");
 
   useEffect(()=>{
-    Axios.get('http://localhost:3001/studentDormitoryName',{
+    Axios.all([Axios.get('http://localhost:3001/studentDormitoryName', {
       params:{
         dormitoryNum: sessionStorage.getItem("dormitoryNum"),
       }
-    }).then((response)=>{
-      setDormitoryName(response.data[0].dormitory_name);
-    })
+    }), Axios.get('http://localhost:3001/getMyCurReservation',{
+        params:{
+            studentNum: studentNum,
+        }
+    }), Axios.get('http://localhost:3001/getMyReservationList',{
+        params:{
+            studentNum: studentNum,
+        }
+    }), Axios.get('http://localhost:3001/getBlacklistEndDate',{
+        params:{
+            studentNum: studentNum,
+        }
+    })]).then(Axios.spread((res1, res2, res3, res4) => {
+      setDormitoryName(res1.data[0].dormitory_name);
+      setMyCurReservation(res2.data);
+      setMyReservationList(res3.data);
+      setBlackEndDate(res4.data);
+    }));
   },[]);
 
 
   const clickMe = () =>{
     document.location.href = "MyStop.js";
   }
+
+  const toResList = () =>{
+    window.location.href="#res-list";
+  }
+
   return (
       <>
         <UserHeader />
@@ -58,8 +86,7 @@ const Profile = () => {
                     <Button
                         className="float-right"
                         color="default"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
+                        href={"#res-list"}
                         size="sm"
                     >
                       내 예약 현황
@@ -77,17 +104,7 @@ const Profile = () => {
           </div>
           <div className="percent">
             <Card className="card-profile shadow">
-              <div className="progress-wrapper">
-                <div className="progress-info">
-                  <div className="progress-label">
-                    <span>정지 여부 확인</span>
-                  </div>
-                  <div className="progress-percentage">
-                    <span>100%</span>
-                  </div>
-                </div>
-                <Progress max="100" value="100" color="danger" />
-              </div>
+              <ProfileBlacklist blacklistDate={blackEndDate}></ProfileBlacklist>
               <div className="progress-wrapper">
                 <div className="progress-info">
                   <div className="progress-label">
@@ -101,51 +118,23 @@ const Profile = () => {
               </div>
             </Card>
           </div>
-          <div className={"profile-reservation-list"}>
+          {/**/}
+          {/*<div className={"profile-current-reservation"}>
+            <Card className="shadow res-list-card">
+              <div>
+                <ProfileCurrentReservation curRes={myCurReservation}></ProfileCurrentReservation>
+              </div>
+            </Card>
+          </div>*/}
+          {/**/}
+          <div className={"profile-reservation-list"} id={"res-list"}>
             <Card className={"shadow res-list-card"}>
               <div className={"res-list-container"}>
-                <li className={"res-li"}>
-                  <div className={"res-li-contents"}>
-                    <div className={"res-li-fac-name"}>
-                      <span>오름 1동 휴게실</span>
-                    </div>
-                    <div className={"res-li-time"}>
-                      <span>2021-05-01 12:00 ~ 2021-05-01 13:00</span>
-                    </div>
-                    <div className={"res-li-seat-name"}>
-                      <span>좌석 1</span>
-                    </div>
-                    <Button className={"res-cancel-btn"} color={"danger"}>예약 취소</Button>
-                  </div>
-                </li>
-                <li className={"res-li"}>
-                  <div className={"res-li-contents"}>
-                    <div className={"res-li-fac-name"}>
-                      <span>오름 1동 휴게실</span>
-                    </div>
-                    <div className={"res-li-time"}>
-                      <span>2021-05-01 12:00 ~ 2021-05-01 13:00</span>
-                    </div>
-                    <div className={"res-li-seat-name"}>
-                        <span>좌석 1</span>
-                    </div>
-                    <Button className={"res-cancel-btn"} color={"danger"}>예약 취소</Button>
-                  </div>
-                </li>
-                <li className={"res-li"}>
-                  <div className={"res-li-contents"}>
-                    <div className={"res-li-fac-name"}>
-                      <span>오름 1동 휴게실</span>
-                    </div>
-                    <div className={"res-li-time"}>
-                      <span>2021-05-01 12:00 ~ 2021-05-01 13:00</span>
-                    </div>
-                    <div className={"res-li-seat-name"}>
-                      <span>좌석 1</span>
-                    </div>
-                    <Button className={"res-cancel-btn"} color={"danger"}>예약 취소</Button>
-                  </div>
-                </li>
+                {myReservationList.map((resList, key) => {
+                  return(
+                      <ProfileReservationListMap resList={resList}></ProfileReservationListMap>
+                      )
+                })}
               </div>
             </Card>
           </div>

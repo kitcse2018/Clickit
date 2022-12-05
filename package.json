@@ -1,7 +1,7 @@
 {
   "name": "Clickit",
   "version": "1.2.2",
-  "description": "Clickit",
+  "description": "금오공대 기숙사 시설물 관리 시스템",
   "main": "index.js",
   "repository": {
     "type": "git",
