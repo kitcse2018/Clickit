@@ -17,7 +17,7 @@ const ProfileReservationListMap = (resList) =>{
                 params:{
                     reservationNum: resList.resList.reservation_num,
                 }
-            }), Axios.post('http://localhost:3001/updateSeatAvailabilityStatus',{
+            }), Axios.post('http://localhost:3001/updateSeatAvailabilityStatusAble',{
                 params:{
                     seatAvailabilityNum: resList.resList.seat_availability_num,
                 }

@@ -562,7 +562,7 @@ app.post('/cancelReservation', (req,res) => {
     )
 });
 
-app.post('/updateSeatAvailabilityStatus', (req,res) => {
+app.post('/updateSeatAvailabilityStatusAble', (req,res) => {
     const postData = req.body.params;
     db.query(
         "UPDATE seat_availability SET seat_availability_status = \"사용 가능\" WHERE seat_availability_num = ?",
@@ -591,7 +591,7 @@ app.get('/getBlacklistEndDate', (req,res) => {
     );
 });
 
-app.post('/updateSeatAvailabilityStatus', (req,res) => {
+app.post('/updateSeatAvailabilityStatusDisable', (req,res) => {
     const postData = req.body.params;
     db.query(
       "UPDATE seat_availability SET seat_availability_status = (?) WHERE seat_availability_num = (?)",
@@ -888,22 +888,7 @@ app.post('/facilitySeatInsert',async(req,res) => {
         }
     );
 });
-app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
 
-    let termsData = req.body.termsData;
-
-    db.query(
-        //나중에 사진도 추가
-        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
 app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
     let termsData = req.body.termsData;
     db.query(

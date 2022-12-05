@@ -4,7 +4,7 @@ import Axios from "axios";
 import {
     getBlacklistEndDate,
     getCurrentDate,
-    updateSeatAvailabilityStatus
+    updateSeatAvailabilityStatusDisable
 } from "../../methods/reservation/ReservationMethod";
 import * as config from '../../config';
 const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
@@ -72,7 +72,7 @@ const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
             }
         }).then((response) => {
             console.log(response);
-            updateSeatAvailabilityStatus(seat.seat_availability_num);
+            updateSeatAvailabilityStatusDisable(seat.seat_availability_num);
             onModalDisplay();
             alert("예약이 완료되었습니다.");
             window.location.reload();

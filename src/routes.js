@@ -37,35 +37,35 @@ let routes = [
   [ // admin
     {
       path: "/Student",
-      name: "Student",
-      icon: "ni ni-user-run",
+      name: "학생 관리",
+      icon: "ni ni-single-02",
       component: StudentManagement,
       layout: "/admin"
     },
     {
       path: "/dormitoryManager",
-      name: "DormitoryManager",
-      icon: "ni ni-bullet-list-67 text-blue",
+      name: "기숙사 관리",
+      icon: "ni ni-building",
       component: DormitoryManager,
       layout: "/admin"
     },
     {
       path: "/terms",
       name: "이용수칙",
-      icon: "ni ni-bullet-list-67 text-blue",
+      icon: "ni ni-single-copy-04",
       component: Terms,
       layout: "/admin"
     },
     {
       path: "/notice",
       name: "공지사항",
-      icon: "ni ni-bullet-list-67 text-blue",
+      icon: "ni ni-book-bookmark",
       component: Notice,
       layout: "/admin"
     },{
     path: "/CheckReservation",
     name: "예약자 확인 및 다운로드",
-    icon: "ni ni-bullet-list-67 text-blue",
+    icon: "ni ni-cloud-download-95",
     component: CheckReservation,
     layout: "/admin"
   }

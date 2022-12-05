@@ -17,7 +17,7 @@ const ProfileCurrentReservation = (curRes) =>{
                 params:{
                     reservationNum: curRes.curRes[0].reservation_num,
                 }
-            }), Axios.post('http://localhost:3001/updateSeatAvailabilityStatus',{
+            }), Axios.post('http://localhost:3001/updateSeatAvailabilityStatusAble',{
                 params:{
                     seatAvailabilityNum: curRes.curRes[0].seat_availability_num,
                 }

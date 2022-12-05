@@ -40,8 +40,8 @@ export function getBlacklistEndDate(studentNum){
     })
 };
 
-export function updateSeatAvailabilityStatus(seatAvailabilityNum){
-    Axios.post("http://"+config.HOST.toString()+"/updateSeatAvailabilityStatus",{
+export function updateSeatAvailabilityStatusDisable(seatAvailabilityNum){
+    Axios.post("http://"+config.HOST.toString()+"/updateSeatAvailabilityStatusDisable",{
         params: {
             seatAvailabilityNum : seatAvailabilityNum,
             seatAvailabilityStatus : "사용중",
