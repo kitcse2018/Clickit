@@ -37,37 +37,37 @@ let routes = [
   [ // admin
     {
       path: "/Student",
-      name: "학생 관리",
+      name: "Student",
       icon: "ni ni-user-run",
       component: StudentManagement,
       layout: "/admin"
     },
     {
       path: "/dormitoryManager",
-      name: "기숙사 관리",
-      icon: "ni ni-building",
+      name: "DormitoryManager",
+      icon: "ni ni-bullet-list-67 text-blue",
       component: DormitoryManager,
       layout: "/admin"
     },
     {
       path: "/terms",
       name: "이용수칙",
-      icon: "ni ni-check-bold",
+      icon: "ni ni-bullet-list-67 text-blue",
       component: Terms,
       layout: "/admin"
     },
     {
       path: "/notice",
       name: "공지사항",
-      icon: "ni ni-single-copy-04",
+      icon: "ni ni-bullet-list-67 text-blue",
       component: Notice,
       layout: "/admin"
     },{
-      path: "/CheckReservation",
-      name: "예약자 확인 및 다운로드",
-      icon: "ni ni-archive-2",
-      component: CheckReservation,
-      layout: "/admin"
+    path: "/CheckReservation",
+    name: "예약자 확인 및 다운로드",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: CheckReservation,
+    layout: "/admin"
   }
   ], // end of admin
   [ // auth
@@ -144,6 +144,12 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: Reservation,
     layout: "/student"
+  },{
+    path: "/CheckReservation",
+    name: "예약자 확인 및 다운로드",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: CheckReservation,
+    layout: "/admin"
   },
   //login page path
   {
@@ -223,6 +229,5 @@ let routes = [
     component: StudentNotice,
     layout: "/student"
   }
-
 ];
 export default routes;

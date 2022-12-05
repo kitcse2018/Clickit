@@ -3,7 +3,8 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const bodyParser = require("body-parser");
 const mysql = require('mysql');
-const cors = require('cors')
+const cors = require('cors');
+const multer = require('multer');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -13,7 +14,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '910su147!',
+        password: '1234',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -502,6 +503,24 @@ app.get('/getMyReservationList', (req,res) => {
         }
     )
 });
+app.get('/selectReservationStudentList',(req,res)=>{
+    const termsData = req.body.termsData;
+    db.query(
+        "select st.student_id, res.start_time, res.end_time, res.record_time, " +
+        "res.reservation_status, fs.facility_seat_name, fa.facility_name, res.student_temperature " +
+        "from reservation as res left join seat_availability as sa on res.seat_availability_num = sa.seat_availability_num " +
+        "left join facility_seat as fs on sa.facility_seat_num = fs.facility_seat_num " +
+        "left join student as st on res.student_num = st.student_num left join facility as fa on fs.facility_num = fa.facility_num " +
+        "where res.record_time >= ? and res.record_time <=?",[termsData.startDate,termsData.endDate],
+        function (err, result) {
+            if(err){
+                console.log(err);
+            }else{
+                res.send(result);
+            }
+        }
+    )
+});
 
 app.post('/cancelReservation', (req,res) => {
     const postData = req.body.params;
@@ -844,7 +863,22 @@ app.post('/facilitySeatInsert',async(req,res) => {
         }
     );
 });
+app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
 
+    let termsData = req.body.termsData;
+
+    db.query(
+        //나중에 사진도 추가
+        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
     let termsData = req.body.termsData;
     db.query(
@@ -927,7 +961,7 @@ app.post('/dormitoryUpdate',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "UPDATE dormitory AS dor SET dor.dormitory_name = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_num],
+        "UPDATE dormitory AS dor SET dor.dormitory_name = ?,dor.dormitory_pic = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_pic,termsData.dormitory_num],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -1035,6 +1069,7 @@ app.post('/facilityInsert',async(req,res) => {
         }
     );
 });
+
 
 
 app.listen(PORT,()=>{
