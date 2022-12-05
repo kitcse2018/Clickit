@@ -71,7 +71,7 @@ function FileUpload() {
             setColDefs([])
         }
 
-        /*window.location.replace("/admin/Student")*/
+        window.location.replace("/admin/Student")
     }
     useEffect(()=>{
         {data.map(student => (

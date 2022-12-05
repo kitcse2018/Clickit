@@ -16,7 +16,7 @@ import {
     Table,
     Container,
     Row,
-    UncontrolledTooltip, Button
+    UncontrolledTooltip, Button, Input
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -71,7 +71,7 @@ const FacilitySeat = (props) => {
                     </div>
                     <h2>자리</h2>
                     <div className={"facility-seat-add-body"}>
-                        <input type={"text"} className={"facility-seat-name-input facility-seat-name-input-css"} placeholder={"자리명"} onChange = {onSeatAdd}/>
+                        <Input type={"text"} className={"facility-seat-name-input facility-seat-name-input-css"} placeholder={"자리명"} onChange = {onSeatAdd}/>
                         <Button color="primary" className={"facility-seat-add"} onClick={async (e) =>{
                             let data="";
                             await Axios.get("http://"+config.HOST.toString()+"/duplicateSeatName",{params:{facility_seat_name :addFacilitySeatName , facility_num : items.facility_num,

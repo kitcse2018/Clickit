@@ -1,9 +1,16 @@
 .addFacility-container{
-    border: 1px solid blue;
-    background-color: skyblue;
+    border: 1px solid white;
+    background-color: #FAF7F0;
     padding: 5%;
+    position: relative;
+    margin-top: -7%;
 }
 
-.check{
+.facility-edit-save{
     margin-top: 1%;
+    float: right;
+}
+
+.dormitory-img-edit{
+    margin-bottom: 3%;
 }

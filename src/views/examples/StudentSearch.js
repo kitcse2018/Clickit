@@ -27,7 +27,7 @@ const StudentSearch = (props) => {
     }
 
     return(
-        <div className="SeachBox">
+        <div className="SearchBox">
             <div className="icon">
                 <i className="fas fa-search"></i>
             </div>

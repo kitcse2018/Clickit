@@ -29,6 +29,7 @@ import Axios from "axios";
 import {useHistory} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import * as config from '../../config';
+import ImgUploadForm from "../../components/imgUpload/ImgUploadForm";
 const DormitoryEdit = (props) => {
     const location = useLocation();
 
@@ -79,18 +80,9 @@ const DormitoryEdit = (props) => {
                             <h1>{items.dormitory_name}</h1>
                         </div>
                         <div className={"dormitory-img"}>
-                            <form action="/upload" method="post" encType="multipart/form-data">
-                                <input type="file" name="imgFile"/>
-                                <input type="submit" value="S3에 보내기"/>
-                            </form>
-                            {/*   <input type={"file"} id={"fileInput"} onChange={(e)=>{
-                                setDormitoryPicName(e.target.files[0].name);
-
-                            }}/>*/}
-                            {/*이미지 나중에 가져와서 변경해주기*/}
                             <img src={require('../../assets/img/dormitory/' + img_name)}/>
                         </div>
-                        <Button className={"dormitory-img-edit basic-btn"} type={"button"}  size={"sm"}>이미지 수정</Button>
+                        <ImgUploadForm></ImgUploadForm>
                         {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
                         <input type={"text"} className={"dormitory-name-input"} defaultValue={items.dormitory_name} onChange = {onNameChange}/>
                         <Button className={"dormitory-edit-save basic-btn"} type={"button"}  onClick={() =>{

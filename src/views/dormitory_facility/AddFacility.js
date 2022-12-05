@@ -33,6 +33,7 @@ import React, {useState} from "react";
 import Axios from "axios";
 import * as config from '../../config';
 import "../../assets/css/mycss/AddFacility.css";
+import ImgUploadForm from "../../components/imgUpload/ImgUploadForm";
 
 const AddFacility = (props) => {
     const location = useLocation();
@@ -102,33 +103,33 @@ const AddFacility = (props) => {
                                 <div className={"dormitory-img"}>
                                     {/*이미지 나중에 가져와서 변경해주기*/}
                                     <img src={require('../../assets/img/dormitory/' + img_name)}/>
+                                    <ImgUploadForm></ImgUploadForm>
                                 </div>
-                                <Button className={"dormitory-img-edit"} type={"button"} color={"primary"} size={"sm"}>이미지 수정</Button>
-                                {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
+
                             </div>
                             <div className={"facility-edit-content"}>
                                 <div className={"facility-edit-content-name"}>
                                     <h3>명칭</h3>
                                     <FormGroup>
-                                        <input type={"text"} className={"facility-name-input form-control-alternative"} defaultValue={items.facility_name} onChange = {onNameChange}/>
+                                        <Input type={"text"} className={"facility-name-input form-control-alternative"} defaultValue={items.facility_name} onChange = {onNameChange}/>
                                     </FormGroup>
                                 </div>
                                 <div className={"facility-edit-content-limit"}>
                                     <h3>사용 가능 인원</h3>
                                     <FormGroup>
-                                        <input type={"text"} className={"facility-limit-input form-control-alternative"} defaultValue={items.facility_limit_people} onChange = {onLimitChange}/>
+                                        <Input type={"text"} className={"facility-limit-input form-control-alternative"} defaultValue={items.facility_limit_people} onChange = {onLimitChange}/>
                                     </FormGroup>
                                 </div>
                                 <div className={"facility-edit-content-start"}>
                                     <h3>시작 시간</h3>
                                     <FormGroup>
-                                        <input type={"text"} className={"facility-start-input form-control-alternative"} placeholder={"00:00"} defaultValue = {timeFormat(items.facility_start_time)} onChange = {onStartTimeChange}/>
+                                        <Input type={"text"} className={"facility-start-input form-control-alternative"} placeholder={"00:00"} defaultValue = {timeFormat(items.facility_start_time)} onChange = {onStartTimeChange}/>
                                     </FormGroup>
                                 </div>
                                 <div className={"facility-edit-content-end"}>
                                     <h3>종료 시간</h3>
                                     <FormGroup>
-                                        <input type={"text"} className={"facility-end-input form-control-alternative"} placeholder={"00:00"} defaultValue={timeFormat(items.facility_end_time)} onChange = {onEndTimeChange}/>
+                                        <Input type={"text"} className={"facility-end-input form-control-alternative"} placeholder={"00:00"} defaultValue={timeFormat(items.facility_end_time)} onChange = {onEndTimeChange}/>
                                     </FormGroup>
                                 </div>
                             </div>
@@ -189,9 +190,9 @@ const AddFacility = (props) => {
 
                                             for(let i = 0 ; i < dataArr.length; i++){
                                                 await Axios.delete("http://"+config.HOST.toString()+"/facilitySeatAvailabilityDelete",{
-                                                   data : {
-                                                       facility_seat_num : dataArr[i],
-                                                   }
+                                                    data : {
+                                                        facility_seat_num : dataArr[i],
+                                                    }
                                                 }).then(e => {
                                                     console.log(e);
                                                 })
@@ -213,7 +214,7 @@ const AddFacility = (props) => {
                                                     let currentStartTime = addStart + ":" +  startMTime;
                                                     let addEnd = ++addStart;
                                                     let currentEndTime = addEnd + ":" + endMTime;
-                                                    if(i == (count-1)){
+                                                    if(j == (count-1)){
                                                         await Axios.post("http://"+config.HOST.toString()+"/facilitySeatAvailabilityInsert",{
                                                             termsData: {
                                                                 facility_start_time : currentStartTime,

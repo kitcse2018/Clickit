@@ -2,7 +2,7 @@ import Header from "components/Headers/Header.js";
 import React, {useState} from "react";
 import Axios from "axios";
 
-const Template = (props) => {
+const ImgUploadForm = (props) => {
 
     const [content, setContent] = useState("");
     const [uploadedImg, setUploadedImg] = useState({
@@ -40,7 +40,6 @@ const Template = (props) => {
 
     return (
         <>
-            <Header/>
             <form onSubmit={onSubmit}>
                 <div onClick={fileAdd} id="uploadDiv">
                     <input
@@ -54,4 +53,4 @@ const Template = (props) => {
         </>
     );
 };
-export default Template;
+export default ImgUploadForm;

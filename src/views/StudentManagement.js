@@ -12,8 +12,8 @@ import FileUpload from "../modules/FileUpload"
 
 // you must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change "Template" name      !!!
-// !!!ex) Template -> fileName    !!!
+// !!!Change "ImgUploadForm" name      !!!
+// !!!ex) ImgUploadForm -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 

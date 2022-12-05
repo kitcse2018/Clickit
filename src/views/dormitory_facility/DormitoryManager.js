@@ -6,8 +6,8 @@ import "../../assets/css/DormitoryList.css";
 
 // you must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change "Template" name      !!!
-// !!!ex) Template -> fileName    !!!
+// !!!Change "ImgUploadForm" name      !!!
+// !!!ex) ImgUploadForm -> fileName    !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 const DormitoryManager = (props) => {
