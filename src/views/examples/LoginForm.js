@@ -110,7 +110,7 @@ const LoginForm = ({ login}) => {
                             </div>
                             <div className="text-center">
                                 <Button className="my-4" color="primary" type="button" onClick={handleClick}>
-                                    Sign in
+                                    Login
                                 </Button>
                             </div>
                         </Form>

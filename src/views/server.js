@@ -136,6 +136,22 @@ app.post("/banClear", (req,res)=>{
         });
 });
 
+app.post("/autoBanClear", (req,res)=>{
+    const postEndDate = req.body.postEndDate;
+
+    db.query(
+        "DELETE FROM blacklist where end_date = (?) "
+        ,[postEndDate],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
+            };
+        });
+});
+
 app.post("/deleteStudent", (req,res)=>{
     const postStudentId = req.body.postStudentId;
 
@@ -324,6 +340,52 @@ app.get('/hasReservation', (req,res) => {
             }else{
                 res.send(result);
                 // res.send(parseInt(result[0]['count(*)']));
+            }
+        }
+    );
+});
+
+app.get('/isBlacked', (req,res) => {
+    const studentNum = req.query.studentNum;
+    const currentDate = req.query.currentDate;
+    db.query(
+        "SELECT count(*) FROM ccd.blacklist where student_num = (?) and end_date > (?)",
+        [studentNum, currentDate],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/getBlacklistEndDate', (req,res) => {
+    const studentNum = req.query.studentNum;
+    db.query(
+        "SELECT end_date FROM ccd.blacklist where student_num = (?)",
+        [studentNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/updateSeatAvailabilityStatus', (req,res) => {
+    const postData = req.body.params;
+    db.query(
+      "UPDATE seat_availability SET seat_availability_status = (?) WHERE seat_availability_num = (?)",
+        [postData.seatAvailabilityStatus, postData.seatAvailabilityNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
             }
         }
     );
@@ -680,7 +742,7 @@ app.post('/dormitoryUpdate',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "UPDATE dormitory AS dor SET dor.dormitory_name = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_num],
+        "UPDATE dormitory AS dor SET dor.dormitory_name = ?,dor.dormitory_pic = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_pic,termsData.dormitory_num],
         (err,result) => {
             if(err){
                 console.log(err)

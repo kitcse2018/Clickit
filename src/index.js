@@ -9,10 +9,13 @@ import "assets/scss/argon-dashboard-react.scss";
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import StudentLayout from "layouts/Student.js";
+import Interval from "./components/JDcomponents/Interval";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+
 root.render(
+
   <BrowserRouter>
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
@@ -20,5 +23,7 @@ root.render(
       <Route path="/student" render={(props) => <StudentLayout {...props} />} />
       <Redirect from="/" to="/auth/login" />
     </Switch>
+      <Interval></Interval>
   </BrowserRouter>
+
 );

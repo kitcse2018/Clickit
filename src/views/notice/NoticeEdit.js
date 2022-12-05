@@ -52,14 +52,14 @@ const NoticeEdit = () => {
                     </div>
                     <div className={"noticeEdit-elements"}>
                         <div className={"noticeEdit-element-header"}>
-                            <Form>
+                            <Form className="noticeEdit-element-form">
                                 <Input className={"noticeEdit-element-header-input"} type={"textarea"} placeholder={"제목"} defaultValue={items.notice_title} onChange={onTitleChange}>
                                 </Input>
                             </Form>
                         </div>
                         <div className={"noticeEdit-element-body"}>
                             <Form>
-                                <Input className={"noticeEdit-element-body-input"} type={"textarea"} placeholder={"내용"} rows={"10"} defaultValue={items.notice_contents} onChange={onContentsChange}>
+                                <Input className={"noticeEdit-element-body-input"}  type={"textarea"} placeholder={"내용"} rows={"10"} defaultValue={items.notice_contents} onChange={onContentsChange}>
                                 </Input>
                             </Form>
                         </div>

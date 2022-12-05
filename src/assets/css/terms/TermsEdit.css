@@ -1,4 +1,5 @@
 .termsEdit-container{
+    border: 0px solid white;
     /*width: 100%;*/
     /*height: 100%;*/
     position: relative;
@@ -12,6 +13,7 @@
     width: 100%;
     height: 100%;
     border: 2px solid #172b4d;
+    background-color: white;
 }
 /*background-color: #172b4d;*/
 .termsEdit-top{
@@ -22,35 +24,45 @@
 .termsEdit-elements{
     width: 100%;
     height: 80%;
-    background-color: orangered;
+    background-color: white;
     overflow: auto;
 }
 
 .termsEdit-elements>.termsEdit-element-header{
     height: 10%;
     width: 100%;
-    background-color: skyblue;
+    background-color: white;
 }
 
 .termsEdit-elements>.termsEdit-element-body{
     height: 80%;
     width : 100%;
-    background-color: yellowgreen;
+    background-color: white;
+    margin-top: 10%;
 }
 
 .termsEdit-elements>.termsEdit-element-footer{
     height: 10%;
     width: 100%;
-    background-color: rosybrown;
+    background-color: white;
 }
 
 .termsEdit-element-header-input{
-    width: 20%;
+    border: 0px solid white;
+    width: 50%;
     resize: none;
+    font-weight: bold;
+    font-size: xxx-large;
+    color: black;
+    margin-left: 5%;
 }
 
 .termsEdit-element-body-input{
+    border: 1px solid black;
     width: 90%;
-    height: 30%;
-    resize: none;
+    height: 50%;
+    /**/resize: none;
+    background-color: skyblue;
+    margin-left: 5%;
+    margin-bottom: 5%;
 }

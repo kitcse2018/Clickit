@@ -8,6 +8,7 @@ import React, {useState} from "react";
 import {Button, Container} from "reactstrap";
 import "../assets/css/btn.css"
 import {   BrowserRouter, Route } from "react-router-dom";
+import DateRangePick from "../components/DatePicker/DateRangePick";
 // you must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!Change "Template" name      !!!
@@ -29,14 +30,13 @@ const StudentManagement = (props) => {
     return (
         <>
             <Header />
-            {/* Page content */}
-            {/* You must read here */}
-            {/* Change main-container className */}
             <Container className={"third-container"}>
 
                 <h1 > &nbsp; 생활관생 관리</h1>
                 <div className="Search">
+                    <div id={"selectBoxSize"}>
                     <SelectBox setOptionValue={setOptionValue} ></SelectBox>
+                    </div>
                     <StudentSearch setStudentList={setStudentList} optionValue={optionValue} setVisibleSelect={setVisibleSelect} setVisibleAdd={setVisibleAdd} ></StudentSearch>
                     <div>
                         <Button  className={"basicBig-btn"} onClick={()=>{

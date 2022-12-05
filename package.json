@@ -1,7 +1,7 @@
 {
-  "name": "argon-dashboard-react",
+  "name": "Clickit",
   "version": "1.2.2",
-  "description": "React version of Argon Dashboard by Creative Tim",
+  "description": "Clickit",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -44,6 +44,8 @@
   ],
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.3",
+    "@mui/material": "^5.10.16",
+    "@mui/x-date-pickers-pro": "^5.0.9",
     "@types/react-responsive": "^8.0.5",
     "axios": "^1.1.2",
     "body-parser": "^1.20.1",
@@ -54,12 +56,15 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "moment": "2.29.4",
+    "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "nouislider": "15.2.0",
     "react": ">=16.0.0",
     "react-chartjs-2": "2.11.1",
     "react-cookie": "^4.1.1",
     "react-copy-to-clipboard": "5.1.0",
+    "react-date-range": "^1.4.0",
+    "react-datepicker": "^4.8.0",
     "react-datetime": "3.1.1",
     "react-dom": ">=16.0.0",
     "react-js-pagination": "^3.0.3",
@@ -68,6 +73,7 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.4.0",
+    "react-use": "^17.4.0",
     "reactstrap": "^8.9.0",
     "sass": "1.54.5"
   },

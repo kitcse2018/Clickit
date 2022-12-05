@@ -3,7 +3,7 @@ import {useLocation, Route, Switch, Redirect, useHistory} from "react-router-dom
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import StudentNavbar from "components/Navbars/StudentNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
@@ -23,8 +23,12 @@ const Student = (props) => {
 
     const getRoutes = (routes) => {
         if (sessionStorage.getItem("isLogin") === null) {
-            alert("로그인이 필요한 서비스입니다.");
+            // alert("로그인이 필요한 서비스입니다.");
             return <Redirect to="/auth/login"/>;
+        }
+        if(sessionStorage.getItem("type") === "admin"){
+            alert("관리자는 관리자 페이지로 이동합니다.");
+            return <Redirect to="/admin/Student"/>;
         }
         return routes.map((prop, key) => {
             if (prop.layout === "/student") {
@@ -56,7 +60,7 @@ const Student = (props) => {
     return (
         <>
             <div className="main-content" ref={mainContent}>
-                <AdminNavbar
+                <StudentNavbar
                     {...props}
                     brandText={getBrandText(props.location.pathname)} // 기숙사 이름으로 바꾸기
                 />

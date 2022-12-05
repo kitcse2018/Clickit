@@ -1,8 +1,13 @@
 import {Button, Card, CardBody, CardHeader, Form, Input} from "reactstrap";
 import React, {useCallback, useEffect} from "react";
 import Axios from "axios";
+import {
+    getBlacklistEndDate,
+    getCurrentDate,
+    updateSeatAvailabilityStatus
+} from "../../methods/reservation/ReservationMethod";
 
-const ReservationModal = ({terms, onModalDisplay, seat}) =>{
+const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
 
     const [temperature, setTemperature] = React.useState(0);
 
@@ -10,8 +15,27 @@ const ReservationModal = ({terms, onModalDisplay, seat}) =>{
         setTemperature(e.target.value);
     },[]);
 
+    const isBlacked = () =>{
+        Axios.get('http://localhost:3001/isBlacked',{
+            params:{
+                studentNum : parseInt(sessionStorage.getItem("studentNum")),
+                currentDate : getCurrentDate(),
+            }
+        }).then((response)=>{
+            if(parseInt(response.data[0]['count(*)'])===0){
+                hasReservation();
+            }else{
+                alert("현재 예약이 불가능합니다.\n" +
+                    "사유 : 정지\n" +
+                    "정지 기간은 마이페이지에서 확인 가능합니다.\n" +
+                    "관련 내용은 기숙사에 문의 바랍니다.\n"
+                );
+            }
+        })
+    };
+
     const hasReservation = () => {
-        if(temperature.length > 10 || temperature.length <1){
+        if(temperature.length > 10 || temperature.length < 1){
             alert("올바른 온도를 입력해주세요.");
         }else{
             Axios.get('http://localhost:3001/hasReservation',{
@@ -19,7 +43,7 @@ const ReservationModal = ({terms, onModalDisplay, seat}) =>{
                     studentNum : parseInt(sessionStorage.getItem("studentNum")),
                     startTime : seat.seat_availability_start_time,
                     endTime : seat.seat_availability_end_time,
-                    seatAvailabilityNum : seat.seat_availability_num,
+                    // seatAvailabilityNum : seat.seat_availability_num,
                 }
             }).then((response) => {
                 if(parseInt(response.data[0]['count(*)']) === 0){
@@ -32,30 +56,23 @@ const ReservationModal = ({terms, onModalDisplay, seat}) =>{
     }
 
     const reservation =()=>{
-        const today = new Date();
-
-        const year = today.getFullYear();
-        const month = ('0' + (today.getMonth() + 1)).slice(-2);
-        const day = ('0' + today.getDate()).slice(-2);
-
-        const hour = ('0' + today.getHours()).slice(-2);
-        const minute = ('0' + today.getMinutes()).slice(-2);
-        const second = ('0' + today.getSeconds()).slice(-2);
-
-        const timeString = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
-
         Axios.post('http://localhost:3001/reservation',{
             params: {
                 studentNum : parseInt(sessionStorage.getItem("studentNum")),
                 startTime : seat.seat_availability_start_time,
                 endTime : seat.seat_availability_end_time,
-                recordTime : timeString,
+                recordTime : getCurrentDate(),
                 reservationStatus : "예약",
                 seatAvailabilityNum : seat.seat_availability_num,
                 temp : temperature,
+                facilityNum : facilityNum,
             }
         }).then((response) => {
             console.log(response);
+            updateSeatAvailabilityStatus(seat.seat_availability_num);
+            onModalDisplay();
+            alert("예약이 완료되었습니다.");
+            window.location.reload();
         });
     }
 
@@ -87,7 +104,7 @@ const ReservationModal = ({terms, onModalDisplay, seat}) =>{
                                     className="my-4"
                                     color="primary"
                                     type="button"
-                                    onClick={()=>hasReservation()}
+                                    onClick={()=>isBlacked()}
                                 >
                                     예약 신청
                                 </Button>

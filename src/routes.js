@@ -42,13 +42,6 @@ let routes = [
       layout: "/admin"
     },
     {
-      path: "/Template",
-      name: "Template",
-      icon: "ni ni-user-run",
-      component: Template,
-      layout: "/admin"
-    },
-    {
       path: "/dormitoryManager",
       name: "DormitoryManager",
       icon: "ni ni-bullet-list-67 text-blue",
@@ -88,30 +81,37 @@ let routes = [
   [ // student
     {
       path: "/reservation",
-      name: "Reservation",
+      name: "시설예약",
       icon: "ni ni-bullet-list-67 text-blue",
       component: Reservation,
       layout: "/student"
     },
     {
       path: "/facility",
-      name: "UserView",
+      name: "시설물",
       icon: "ni ni-key-25 text-info",
       component: Facility,
+      layout: "/student"
+    },
+    {
+      path: "/user-profile",
+      name: "내 프로필",
+      icon: "ni ni-single-02 text-yellow",
+      component: Profile,
       layout: "/student"
     },
   ], // end of student
   // every single views
   {
     path: "/user-profile",
-    name: "User Profile",
+    name: "내 프로필",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
-    layout: "/admin"
+    layout: "/student"
   },
   {
     path: "/facility",
-    name: "Facility",
+    name: "시설물",
     icon: "ni ni-key-25 text-info",
     component: Facility,
     layout: "/student"
@@ -132,7 +132,7 @@ let routes = [
   },
   {
     path: "/reservation/:facility_num",
-    name: "Reservation",
+    name: "시설물 예약",
     icon: "ni ni-bullet-list-67 text-blue",
     component: Reservation,
     layout: "/student"
@@ -172,9 +172,6 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: Notice,
     layout: "/admin"
-  },
-  {
-    path: "/noticeE"
   },
   {
     path: "/dormitoryManager",

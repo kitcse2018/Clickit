@@ -70,8 +70,6 @@ const Reservation = (props) => {
     // reservation_status : [예약, 취소], 신청 당시에는 예약
     // facility_seat_num : app.get 으로 받아온 데이터
 
-    console.log(items);
-
     useEffect(()=>{
         Axios.all([Axios.get('http://localhost:3001/facilityTimeList', {
             params: {

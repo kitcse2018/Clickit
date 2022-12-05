@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {Button} from "reactstrap";
 
 import Header from "components/Headers/Header.js";
@@ -10,9 +10,13 @@ import {useHistory} from "react-router-dom";
 const Terms = (props) => {
 
     const [termsList, setTermsList] = useState([]);
-    Axios.get("http://localhost:3001/terms").then((response) => {
-       setTermsList(response.data);
+
+    useEffect(()=> { Axios.get("http://localhost:3001/terms").then((response) => {
+        setTermsList(response.data);
     });
+    },[]);
+
+
 
     const history = useHistory();
 
@@ -31,7 +35,7 @@ const Terms = (props) => {
                                 terms_facility_num : "",
                                 dormitory_name : "",
                             }
-                        })}}>추가</Button>
+                        })}}>이용수칙 추가</Button>
                     </div>
                     <div className={"terms-list"}>
                         {termsList.map((terms)=>(
