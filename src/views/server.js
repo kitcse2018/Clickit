@@ -464,7 +464,7 @@ app.get('/isBlackedProfile', (req,res) => {
 app.get('/getBlacklistEndDate', (req,res) => {
     const studentNum = req.query.studentNum;
     db.query(
-        "SELECT end_date FROM ccd.blacklist where student_num = (?)",
+        "SELECT start_date, end_date FROM ccd.blacklist where student_num = (?)",
         [studentNum],
         function (err, result) {
             if(err){

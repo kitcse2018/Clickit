@@ -1,19 +1,30 @@
 import {Progress} from "reactstrap";
-import React from "react";
+import React, {useEffect} from "react";
+import {getCurrentDate} from "../../methods/reservation/ReservationMethod";
 
 const ProfileBlacklist = (blacklistDate) => {
 
-    console.log("blacklistDate Testing");
-    console.log(blacklistDate.blacklistDate.length);
-    console.log(blacklistDate.blacklistDate);
+        console.log(blacklistDate.blacklistDate);
 
-    let percentage;
-
-    const calcBlacklistDate = () => {
-        blacklistDate.blacklistDate.blacklistDate.length === 0 ?
-            percentage = 0
-            : percentage = 1; //false 일 때 부분 날짜 차이 계산으로 바꿔야 됨
-    }
+    // let blackPercents = 0;
+    //
+    // const calcBlacklistDate = () => {
+    //     const curDate = getCurrentDate();
+    //     const blackDate = blacklistDate.blacklistDate[0].end_date;
+    //
+    //     console.log(curDate);
+    //     console.log(blackDate);
+    //     console.log(blackDate > curDate);
+    //
+    //     if(blackDate > curDate){
+    //         const total = blacklistDate.blacklistDate[0].end_date - blacklistDate.blacklistDate[0].start_date;
+    //         const percentage = (blacklistDate.blacklistDate[0].end_date - curDate) / total * 100;
+    //         console.log(parseInt(percentage));
+    //         blackPercents = percentage;
+    //     }else{
+    //         blackPercents = blackPercents;
+    //     }
+    // }
 
     return(
         <div className="progress-wrapper">

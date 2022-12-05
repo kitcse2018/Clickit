@@ -63,7 +63,7 @@ const StudentNavbar = (props) => {
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                         alt="..."
-                        src={require("../../assets/img/theme/react.jpg")}
+                        src={require("../../assets/img/profile_pic.png")}
                     />
                   </span>
                                     <Media className="ml-2 d-none d-lg-block">
@@ -80,11 +80,15 @@ const StudentNavbar = (props) => {
                                 </DropdownItem>
                                 <DropdownItem to="/student/user-profile" tag={Link}>
                                     <i className="ni ni-single-02" />
-                                    <span>My profile</span>
+                                    <span>마이 페이지</span>
+                                </DropdownItem>
+                                <DropdownItem to="/student/facility" tag={Link}>
+                                    <i className="ni ni-building" />
+                                    <span>시설물 목록</span>
                                 </DropdownItem>
                                 <DropdownItem href="/auth/login" onClick={Logout}>
                                     <i className="ni ni-user-run" />
-                                    <span>Logout</span>
+                                    <span>로그아웃</span>
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
