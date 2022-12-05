@@ -24,14 +24,14 @@ import Seat from "components/JDcomponents/Seat.js"
 import {useLocation} from "react-router-dom";
 import React, {useState} from "react";
 import Axios from "axios";
-
+import * as config from '../../config';
 const FacilitySeat = (props) => {
     const location = useLocation();
 
     const items = location.state;
 
     const [adminFacilitySeatList,setAdminFacilitySeatList] = useState([]);
-    Axios.get("http://localhost:3001/adminfacilitySeat",{params:{
+    Axios.get("http://"+config.HOST.toString()+"/adminfacilitySeat",{params:{
             facility_num : items.facility_num,
         }}).then((response) => {
         setAdminFacilitySeatList(response.data);
@@ -72,7 +72,7 @@ const FacilitySeat = (props) => {
                         <input type={"text"} className={"facility-seat-name-input"} placeholder={"자리명"} onChange = {onSeatAdd}/>
                         <Button color="primary" className={"facility-seat-add"} onClick={async (e) =>{
                             let data="";
-                            await Axios.get("http://localhost:3001/duplicateSeatName",{params:{facility_seat_name :addFacilitySeatName , facility_num : items.facility_num,
+                            await Axios.get("http://"+config.HOST.toString()+"/duplicateSeatName",{params:{facility_seat_name :addFacilitySeatName , facility_num : items.facility_num,
 
                                 }}).then((response)=>
                             {
@@ -83,7 +83,7 @@ const FacilitySeat = (props) => {
                                 if(addFacilitySeatName == ""){
                                     alert("필수 항목을 입력해주세요");
                                 }else{
-                                    await Axios.post("http://localhost:3001/facilitySeatInsert",{
+                                    await Axios.post("http://"+config.HOST.toString()+"/facilitySeatInsert",{
                                         termsData: {
                                             facility_seat_name : addFacilitySeatName,
                                             facility_num : items.facility_num,
@@ -97,7 +97,7 @@ const FacilitySeat = (props) => {
                                         let addEnd = ++addStart;
                                         let currentEndTime = addEnd + ":" + endMTime;
                                         if(i == (count-1)){
-                                            await Axios.post("http://localhost:3001/facilitySeatAvailabilityInsert",{
+                                            await Axios.post("http://"+config.HOST.toString()+"/facilitySeatAvailabilityInsert",{
                                                 termsData: {
                                                     facility_start_time : currentStartTime,
                                                     facility_end_time : items.facility_end_time,
@@ -108,7 +108,7 @@ const FacilitySeat = (props) => {
                                                 console.log(e);
                                             })
                                         }else{
-                                            await Axios.post("http://localhost:3001/facilitySeatAvailabilityInsert",{
+                                            await Axios.post("http://"+config.HOST.toString()+"/facilitySeatAvailabilityInsert",{
                                                 termsData: {
                                                     facility_start_time : currentStartTime,
                                                     facility_end_time : currentEndTime,

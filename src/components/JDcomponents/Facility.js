@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import Axios from "axios";
 import {Link} from 'react-router-dom'
-
+import * as config from '../../config';
 
 const Facility = () => {
 
     const [facilityList,setfacilityList] = useState([]);
-    Axios.get("http://localhost:3001/facility").then((response) => {
+    Axios.get("http://"+config.HOST.toString()+"/facility").then((response) => {
         setfacilityList(response.data);
     });
 
@@ -42,7 +42,7 @@ const Facility = () => {
                         </div>
                         <div className={"fac-reserve"}>
                                 <button className={"fac-reserve-button"} onClick={async () =>{
-                                    let response = await Axios.get("http://localhost:3001/inner_facility",{
+                                    let response = await Axios.get("http://\"+config.HOST.toString()+\"/inner_facility",{
                                         params : {Facility_Num : facility.facility_num},
                                     });
                                     console.log(response.data)

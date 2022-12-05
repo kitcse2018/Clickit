@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import Axios from "axios";
-
+import * as config from '../../config';
 const SelectBox = (props) => {
     const [dormitoryList,setdormitoryList] = useState([]);
-    useEffect(()=> { Axios.get("http://localhost:3001/dormitories")
+    useEffect(()=> { Axios.get("http://"+config.HOST.toString()+"/dormitories")
         .then((response) => {
         setdormitoryList(response.data);
     });

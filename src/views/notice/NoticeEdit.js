@@ -5,7 +5,7 @@ import Header from "../../components/Headers/Header";
 import "../../assets/css/notice/NoticeEdit.css";
 import {useLocation} from "react-router-dom";
 import Axios from "axios";
-
+import * as config from '../../config';
 const NoticeEdit = () => {
 
     const location = useLocation();
@@ -26,7 +26,7 @@ const NoticeEdit = () => {
     }, []);
 
     function noticeSave(){
-        Axios.post("http://localhost:3001/noticeEditSave", {
+        Axios.post("http://"+config.HOST.toString()+"/noticeEditSave", {
             noticeData:{
                 noticeNum: items.notice_num,
                 noticeTitle: noticeTitle,

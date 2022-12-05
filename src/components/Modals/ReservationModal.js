@@ -6,7 +6,7 @@ import {
     getCurrentDate,
     updateSeatAvailabilityStatus
 } from "../../methods/reservation/ReservationMethod";
-
+import * as config from '../../config';
 const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
 
     const [temperature, setTemperature] = React.useState(0);
@@ -17,7 +17,7 @@ const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
 
     const isBlacked = () =>{
         console.log("isBlacked function");
-        Axios.get('http://localhost:3001/isBlacked',{
+        Axios.get("http://"+config.HOST.toString()+"/isBlacked",{
             params:{
                 studentNum : parseInt(sessionStorage.getItem("studentNum")),
                 currentDate : getCurrentDate(),
@@ -40,7 +40,7 @@ const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
         if(temperature.length > 10 || temperature.length < 1){
             alert("올바른 온도를 입력해주세요.");
         }else{
-            Axios.get('http://localhost:3001/hasReservation',{
+            Axios.get("http://"+config.HOST.toString()+"/hasReservation",{
                 params: {
                     studentNum : parseInt(sessionStorage.getItem("studentNum")),
                     startTime : seat.seat_availability_start_time,
@@ -59,7 +59,7 @@ const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
 
     const reservation =()=>{
         console.log("reservation function");
-        Axios.post('http://localhost:3001/reservation',{
+        Axios.post("http://"+config.HOST.toString()+"/reservation",{
             params: {
                 studentNum : parseInt(sessionStorage.getItem("studentNum")),
                 startTime : seat.seat_availability_start_time,

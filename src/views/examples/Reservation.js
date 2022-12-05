@@ -34,7 +34,7 @@ import Header from "components/Headers/Header.js";
 import {useLocation} from "react-router-dom";
 import "../../assets/css/ReservationView.css";
 import ReservationTimeListMap from "../../components/Listmap/ReservationTimeListMap";
-
+import * as config from '../../config';
 const Reservation = (props) => {
 
     let innerFacility_img = '오름 1동 휴게실.png';
@@ -71,11 +71,11 @@ const Reservation = (props) => {
     // facility_seat_num : app.get 으로 받아온 데이터
 
     useEffect(()=>{
-        Axios.all([Axios.get('http://localhost:3001/facilityTimeList', {
+        Axios.all([Axios.get("http://"+config.HOST.toString()+"/facilityTimeList", {
             params: {
                 facilityNum: items.facilityNum
             }
-        }), Axios.get('http://localhost:3001/facilitySeatList', {
+        }), Axios.get("http://"+config.HOST.toString()+"/facilitySeatList", {
             params: {
                 facilityNum: items.facilityNum
             }

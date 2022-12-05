@@ -13,7 +13,7 @@ const Ins = () => {
             postDormitoryName : state.dormitoryName,
         };
 
-        fetch("http://localhost:3001/idplz", {
+        fetch("http://\"+config.HOST.toString()+\"/idplz", {
             method : "post",
             headers : {
                 "content-type" : "application/json",

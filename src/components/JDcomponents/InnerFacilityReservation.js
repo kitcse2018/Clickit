@@ -17,14 +17,14 @@ import {
 import "../../assets/css/ReservationView.css";
 import "../../methods/reservation/ReservationMethod.js";
 import Axios from "axios";
-
+import * as config from '../../config';
 const InnerFacilityReservation = () => {
     // edit innerFacility_img
     let innerFacility_img = 'argon-react.png';
     let img_name = innerFacility_img.substring(0, innerFacility_img.indexOf('.'));
 
     const [innerFacilityList,setinnerFacilityList] = useState([]);
-    Axios.get("http://localhost:3001/inner_facility").then((response) => {
+    Axios.get("http://"+config.HOST.toString()+"/inner_facility").then((response) => {
         setinnerFacilityList(response.data);
     });
 

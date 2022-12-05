@@ -1,5 +1,5 @@
 import Axios from "axios";
-
+import * as config from '../../config';
 export function TermsMethods(){
     console.log("TermsMethods");
 }
@@ -16,7 +16,7 @@ export function termsDelete(props){
     if(window.confirm(props.terms.terms_title+"\n"
         +props.terms.dormitory_name+"\n"
         +props.terms.facility_name+"\n\n"+"정말 삭제하시겠습니까?")){
-        Axios.delete("http://localhost:3001/termsDelete", {
+        Axios.delete("http://"+config.HOST.toString()+"/termsDelete", {
             data: {
                 terms_num: props.terms.terms_num,
             },

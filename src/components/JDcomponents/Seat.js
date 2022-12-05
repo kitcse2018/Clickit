@@ -19,7 +19,7 @@ import {
 } from "reactstrap";
 import React, {useState} from "react";
 import Axios from "axios";
-
+import * as config from '../../config';
 const Seat = ({adminFacilitySeat,adminFacility}) => {
 
     const [facilitySeatName, setFacilitySeatName] = useState(adminFacilitySeat.facility_seat_name);
@@ -52,7 +52,7 @@ const Seat = ({adminFacilitySeat,adminFacility}) => {
                         if(adminFacilitySeat.facility_name ==""){
                             alert("필수 항목을 입력해주세요");
                         }else{
-                            Axios.post("http://localhost:3001/facilitySeatUpdate",{
+                            Axios.post("http://"+config.HOST.toString()+"/facilitySeatUpdate",{
                                 termsData: {
                                     facility_seat_num : adminFacilitySeat.facility_seat_num,
                                     facility_seat_name : facilitySeatName,
@@ -66,7 +66,7 @@ const Seat = ({adminFacilitySeat,adminFacility}) => {
                     }}>저장</Button>
                     <Button color= "danger" className={"facility-seat-delete"} onClick={() =>{
                         if(window.confirm("정말 삭제하시겠습니까?")) {
-                            Axios.delete("http://localhost:3001/facilitySeatDelete",{
+                            Axios.delete("http://"+config.HOST.toString()+"/facilitySeatDelete",{
                                 data: {
                                     facility_seat_num: adminFacilitySeat.facility_seat_num,
                                 },

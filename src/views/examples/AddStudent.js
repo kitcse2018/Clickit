@@ -3,7 +3,7 @@ import Axios from "axios";
 import SelectBox from "../../components/SelectBox/SelectBox";
 import {Redirect} from "react-router-dom";
 
-
+import * as config from '../../config';
 const AddStudent = (props) => {
     const[id,setId] = useState("");
     const[password,setPassword] = useState("");
@@ -25,13 +25,13 @@ const AddStudent = (props) => {
                 studentPwd : password,
                 studentDormitory :  optionValue,
             }
-            await Axios.get("http://localhost:3001/duplicateStudent",{params:{studentId : student.studentId}}).then((response)=>
+            await Axios.get("http://"+config.HOST.toString()+"/duplicateStudent",{params:{studentId : student.studentId}}).then((response)=>
             {
                 data = response.data;
             });
 
             if(data.at(0)==null){
-                Axios.post("http://localhost:3001/addStudent",student).then((response)=>{
+                Axios.post("http://"+config.HOST.toString()+"/addStudent",student).then((response)=>{
                     }
                 )
                 alert("추가되었습니다.")

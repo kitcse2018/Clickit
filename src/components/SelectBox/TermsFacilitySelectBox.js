@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import Axios from "axios";
-
+import * as config from '../../config';
 const TermsFacilitySelectBox = (props) => {
     const [termsFacilityList, setTermsFacilityList] = useState([]);
-    Axios.get("http://localhost:3001/facilityNumName").then((response) => {
+    Axios.get("http://"+config.HOST.toString()+"/facilityNumName").then((response) => {
         setTermsFacilityList(response.data);
     });
 

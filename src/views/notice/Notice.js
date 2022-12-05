@@ -26,12 +26,12 @@ import "../../assets/css/notice/Notice.css";
 import Axios from "axios";
 import {useHistory} from "react-router-dom";
 import NoticeListMap from "../../components/Listmap/NoticeListMap";
-
+import * as config from '../../config';
 
 const Notice = (props) => {
 
     const [noticeList, setNoticeList] = useState([]);
-    Axios.get("http://localhost:3001/notice").then((response) => {
+    Axios.get("http://"+config.HOST.toString()+"/notice").then((response) => {
         setNoticeList(response.data);
     });
 

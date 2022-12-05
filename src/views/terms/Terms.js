@@ -6,12 +6,12 @@ import "../../assets/css/terms/Terms.css";
 import Axios from "axios";
 import TermsListMap from "../../components/Listmap/TermsListMap";
 import {useHistory} from "react-router-dom";
-
+import * as config from '../../config';
 const Terms = (props) => {
 
     const [termsList, setTermsList] = useState([]);
 
-    useEffect(()=> { Axios.get("http://localhost:3001/terms").then((response) => {
+    useEffect(()=> { Axios.get("http://"+config.HOST.toString()+"/terms").then((response) => {
         setTermsList(response.data);
     });
     },[]);
