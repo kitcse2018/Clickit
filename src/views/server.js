@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '910su147!A',
+        password: '1234',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -87,6 +87,22 @@ app.post("/addStudent", (req,res)=>{
     db.query(
         "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?)"
         ,[postStudentId,postStudentDormitory,postStudentPassword],
+        function(err){
+            if(err){
+                console.log(err)
+                throw err;
+            }else{
+                console.log("성공");
+
+            };
+        });
+});
+app.post("/addExelStudent", (req,res)=>{
+    const termsData = req.body.termsData;
+
+    db.query(
+        "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?) ON DUPLICATE KEY UPDATE student_id = (?)"
+        ,[termsData.student_id,termsData.dormitory,termsData.student_password,termsData.student_id],
         function(err){
             if(err){
                 console.log(err)
@@ -1021,6 +1037,7 @@ app.post('/facilityInsert',async(req,res) => {
         }
     );
 });
+
 
 
 app.listen(PORT,()=>{

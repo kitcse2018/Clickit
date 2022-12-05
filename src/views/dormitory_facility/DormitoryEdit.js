@@ -74,46 +74,54 @@ const DormitoryEdit = (props) => {
             <Container className={"dormitoryEdit-container"}>
                 {/* =============== start dormitory edit content =============== */}
                 <div className={"dormitory-edit-content"}>
+                    <div className={"dormitory-edit-content-header"}>
+                        <div className={"dormitory-name"}>
+                            <h1>{items.dormitory_name}</h1>
+                        </div>
+                        <div className={"dormitory-img"}>
+                            <form action="/upload" method="post" encType="multipart/form-data">
+                                <input type="file" name="imgFile"/>
+                                <input type="submit" value="S3에 보내기"/>
+                            </form>
+                            {/*   <input type={"file"} id={"fileInput"} onChange={(e)=>{
+                                setDormitoryPicName(e.target.files[0].name);
 
-                        {dormitoryEdit.map(dormitory => (
-                            <div className={"dormitory-edit-content-header"}>
-                                <div className={"dormitory-name"}>
-                                    <h1>{dormitory.dormitory_name}</h1>
-                                </div>
-                                <div className={"dormitory-img"}>
-
-                                    {/*이미지 나중에 가져와서 변경해주기*/}
-                                    <img src={require('../../assets/img/dormitory/' + img_name)}/>
-                                </div>
-                                <Button className={"dormitory-img-edit basic-btn"} type={"button"}  size={"sm"}>이미지 수정</Button>
-                                {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
-                                <input type={"text"} className={"dormitory-name-input"} defaultValue={dormitory.dormitory_name} onChange = {onNameChange}/>
-                                <Button className={"dormitory-edit-save basic-btn"} type={"button"}  onClick={() =>{
-                                        Axios.post("http://"+config.HOST.toString()+"/dormitoryUpdate",{
-                                            termsData: {dormitory_num: items.dormitory_num,
-                                                    dormitory_name : dormitoryName,
-                                            }
-                                        }).then(e => {
-                                            console.log(e);
-                                        })
-                                    window.location.href = "/admin/dormitoryManager";
-                                    }
-                                } >
-                                    저장
-                                </Button>
-                                <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
-                                        pathname : "/admin/addFacility",
-                                        state : {
-                                            facility_num : "",
-                                            facility_name : "",
-                                            facility_limit_people : "",
-                                            facility_pic : "",
-                                            facility_start_time : "",
-                                            facility_end_time : "",
-                                            dormitory_num : items.dormitory_num,
-                                            dormitory_name : items.dormitory_name,
-                                        }
+                            }}/>*/}
+                            {/*이미지 나중에 가져와서 변경해주기*/}
+                            <img src={require('../../assets/img/dormitory/' + img_name)}/>
+                        </div>
+                        <Button className={"dormitory-img-edit basic-btn"} type={"button"}  size={"sm"}>이미지 수정</Button>
+                        {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
+                        <input type={"text"} className={"dormitory-name-input"} defaultValue={items.dormitory_name} onChange = {onNameChange}/>
+                        <Button className={"dormitory-edit-save basic-btn"} type={"button"}  onClick={() =>{
+                            alert(dormitoryPicName);
+                            Axios.post("http://"+config.HOST.toString()+"/dormitoryUpdate",{
+                                termsData: {
+                                    dormitory_pic : dormitoryPicName,
+                                    dormitory_num: items.dormitory_num,
+                                    dormitory_name : dormitoryName,
                                 }
+                            }).then(e => {
+                                console.log(e);
+                            })
+                            window.location.href = "/admin/dormitoryManager";
+                        }
+                        } >
+                            저장
+                        </Button>
+                        <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
+                                pathname : "/admin/addFacility",
+                                state : {
+                                    facility_num : "",
+                                    facility_name : "",
+                                    facility_limit_people : "",
+                                    facility_pic : "",
+                                    facility_start_time : "",
+                                    facility_end_time : "",
+                                    dormitory_num : items.dormitory_num,
+                                    dormitory_name : items.dormitory_name,
+                                }
+                            }
 
                         )}}>시설물 추가</Button>
                     </div>
@@ -171,23 +179,6 @@ const DormitoryEdit = (props) => {
                                                         }
                                                     }
                                                     }> 삭제</Button>
-                                                        <Button color="danger" onClick={() =>{
-                                                            if(window.confirm("정말 삭제하시겠습니까?")) {
-                                                                Axios.post("http://"+config.HOST.toString()+"/deleteFacility", {
-                                                                    termsData: {
-                                                                        facility_num: adminfacility.facility_num,
-                                                                    }
-                                                                }).then(e => {
-                                                                    console.log(e);
-                                                                })
-                                                                alert("삭제 되었습니다.");
-                                                                window.location.replace("/admin/dormitoryEdit");
-                                                            }
-                                                            else {
-                                                                alert("취소합니다.")
-                                                            }
-                                                        }
-                                                        }> 삭제</Button>
 
                                                     <Button color = "success" onClick={() => {history.push({
                                                             pathname : "/admin/facilitySeat",
