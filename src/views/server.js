@@ -4,6 +4,8 @@ const app = express();
 const bodyParser = require("body-parser");
 const mysql = require('mysql');
 const cors = require('cors');
+const multer = require("multer");
+const path = require("path");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -13,13 +15,32 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '1234',
+        password: '910su147!',
         database: 'ccd',
         dateStrings: 'date'
     }
 );
 
+const storage = multer.diskStorage({
+    destination: ".././assets/img/kumoh/",
+    filename: function(req, file, cb) {
+        cb(null, "imgfile" + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 1000000 }
+});
+
 db.connect();
+
+app.post("/upload", upload.single("img"), function(req, res, next) {
+    res.send({
+        fileName: req.file.filename,
+        filePath: req.file.filePath
+    });
+});
 
 app.get('/studentDormitoryName',(req,res) => {
     const dormitoryNum = req.query.dormitoryNum;

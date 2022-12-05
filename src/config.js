@@ -1,1 +1,1 @@
-export const HOST = 'localhost:3001';
+export const HOST = '192.168.212.100:3001';
