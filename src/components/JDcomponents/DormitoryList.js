@@ -2,12 +2,13 @@
 import React, {useState} from "react";
 import Axios from 'axios'
 import {useHistory} from "react-router-dom";
+import * as config from '../../config';
 import "../../assets/css/DormitoryList.css"
 
 const DormitoryList = (props) => {
 
     const [dormitoryList,setdormitoryList] = useState([]);
-    Axios.get("http://localhost:3001/dormitories",{
+    Axios.get("http://"+config.HOST.toString()+"/dormitories",{
 
     }).then((response) => {
         setdormitoryList(response.data);

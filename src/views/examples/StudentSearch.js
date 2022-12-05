@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import Axios from "axios";
 import "../../assets/css/btn.css"
 import {Button} from "reactstrap";
+import * as config from '../../config';
 const StudentSearch = (props) => {
 
     const [state, setState] = useState("blank");
@@ -14,7 +15,7 @@ const StudentSearch = (props) => {
 
     function submitGetStudents ()  {
 
-        Axios.get("http://localhost:3001/searchStudents",{params : {
+        Axios.get("http://"+config.HOST.toString()+"/searchStudents",{params : {
                 postStudentId : state.studentId, postOptionValue : props.optionValue
             }}).then((response) => {
             console.log(response.data)

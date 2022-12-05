@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 import SelectBox from "../../SelectBox/SelectBox";
 import Axios from "axios";
-
+import * as config from '../../../config';
 const Update = ({student}) => {
     const[toggleModal,setToggleModal] = useState(false);
     const[StudentId,setStudentId] = useState(student.student_id);
@@ -40,7 +40,7 @@ const Update = ({student}) => {
                     studentDormitory :  optionValue,
                     studentNum : studentNum ,
                 }
-                Axios.post("http://localhost:3001/UpdateStudent",student).then((response)=>{
+                Axios.post("http://"+config.HOST.toString()+"/UpdateStudent",student).then((response)=>{
                     }
                 )
                 alert("변경되었습니다.")

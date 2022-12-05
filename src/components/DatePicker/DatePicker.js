@@ -19,6 +19,7 @@ import DateRangePicker from "./DateRangePick";
 import moment from "moment/moment";
 import Axios from "axios";
 import {addDays} from "date-fns";
+import * as config from '../../config';
 
 const DatePicker = ({student}) => {
     const[toggleModal,setToggleModal] = useState(false);
@@ -37,7 +38,7 @@ const DatePicker = ({student}) => {
         }
 
         if(window.confirm(StudentId +"님을\n"+startDate2+" ~ "+unlockDate+"까지 정지하시겠습니까?")){
-            Axios.post("http://localhost:3001/banStudent",banInfo).then((response)=>{
+            Axios.post("http://"+config.HOST.toString()+"/banStudent",banInfo).then((response)=>{
                 }
             )
             alert("정지되었습니다.");

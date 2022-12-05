@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Button} from "reactstrap";
 import redirect from "react-router-dom/es/Redirect";
-
+import * as config from '../../../config';
 const TermsEditSave = (props) => {
     const [state, setState] = useState();
     const handleChange = (e) => {
@@ -18,7 +18,7 @@ const TermsEditSave = (props) => {
             postTermsInnerFacilityNum : props.terms_facility_num,
         };
 
-        fetch("http://localhost:3001/termsEditSave", {
+        fetch("http://"+config.HOST.toString()+"/termsEditSave", {
             method : "post",
             headers : {
                 "content-type" : "application/json",

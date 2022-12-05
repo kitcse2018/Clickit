@@ -33,7 +33,7 @@ import {
 import Header from "components/Headers/Header.js";
 import "../../assets/css/dormitory-edit.css";
 import Axios from "axios";
-
+import * as config from '../../config';
 const DormitoryEdit = (props) => {
 
     //img name variable
@@ -41,14 +41,14 @@ const DormitoryEdit = (props) => {
     const findDormitoryValue = props.match.params.dormitory_num
 
     const [dormitoryEdit,setdormitoryEdit] = useState([]);
-    Axios.get("http://localhost:3001/dormitoryEdit",{params:{
+    Axios.get("http://"+config.HOST.toString()+"/dormitoryEdit",{params:{
             dormitory_num : findDormitoryValue,
         }}).then((response) => {
         setdormitoryEdit(response.data);
     });
 
     const [adminfacilityList,setadminfacilityList] = useState([]);
-    Axios.get("http://localhost:3001/adminfacility",{params:{
+    Axios.get("http://"+config.HOST.toString()+"/adminfacility",{params:{
             dormitory_num : findDormitoryValue,
         }}).then((response) => {
         setadminfacilityList(response.data);

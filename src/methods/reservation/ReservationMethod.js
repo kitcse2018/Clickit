@@ -1,8 +1,8 @@
 import Axios from "axios";
 import {useState} from "react";
-
+import * as config from '../../config';
 export function getSeatsByTimes(startTime, endTime, facilityNum){
-    Axios.get('http://localhost:3001/getSeatsByTimes',{
+    Axios.get("http://"+config.HOST.toString()+"/getSeatsByTimes",{
         params: {
             startTime : startTime,
             endTime : endTime,
@@ -31,7 +31,7 @@ export function getCurrentDate(){
 };
 
 export function getBlacklistEndDate(studentNum){
-    Axios.get('http://localhost:3001/getBlacklistEndDate',{
+    Axios.get("http://"+config.HOST.toString()+"/getBlacklistEndDate",{
         params: {
             studentNum : studentNum,
         }
@@ -41,7 +41,7 @@ export function getBlacklistEndDate(studentNum){
 };
 
 export function updateSeatAvailabilityStatus(seatAvailabilityNum){
-    Axios.post('http://localhost:3001/updateSeatAvailabilityStatus',{
+    Axios.post("http://"+config.HOST.toString()+"/updateSeatAvailabilityStatus",{
         params: {
             seatAvailabilityNum : seatAvailabilityNum,
             seatAvailabilityStatus : "사용중",

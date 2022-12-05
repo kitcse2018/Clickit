@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '910su147!',
+        password: '910su147!A',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -443,7 +443,20 @@ app.get('/isBlacked', (req,res) => {
         }
     );
 });
-
+app.get('/getMyCurReservation', (req,res) => {
+    const studentNum = req.query.studentNum;
+    db.query(
+        "SELECT * FROM reservation where student_num = ? and date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and start_time < curtime() and end_time > curtime()",
+        [studentNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    )
+});
 app.get('/isBlackedProfile', (req,res) => {
     const studentNum = req.query.studentNum;
     const currentDate = req.query.currentDate;
@@ -458,6 +471,49 @@ app.get('/isBlackedProfile', (req,res) => {
             }
         }
     );
+});
+app.get('/getMyReservationList', (req,res) => {
+    const studentNum = req.query.studentNum;
+    db.query(
+        "SELECT * FROM reservation where student_num = ? and date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and end_time > curtime()",
+        [studentNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    )
+});
+
+app.post('/cancelReservation', (req,res) => {
+    const postData = req.body.params;
+    db.query(
+        "UPDATE reservation SET reservation_status = \"예약 취소\" WHERE reservation_num = ?",
+        [postData.reservationNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    )
+});
+
+app.post('/updateSeatAvailabilityStatus', (req,res) => {
+    const postData = req.body.params;
+    db.query(
+        "UPDATE seat_availability SET seat_availability_status = \"사용 가능\" WHERE seat_availability_num = ?",
+        [postData.seatAvailabilityNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        })
 });
 
 app.get('/getBlacklistEndDate', (req,res) => {

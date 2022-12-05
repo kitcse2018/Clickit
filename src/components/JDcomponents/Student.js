@@ -7,7 +7,7 @@ import "../../assets/css/btn.css"
 import {Button} from "reactstrap";
 import StudentUpdateBtn from "../Buttons/StudentUpdateButton/StudentUpdateBtn";
 import Datepicker from "../DatePicker/DatePicker";
-
+import * as config from '../../config';
 
 const Student = ({ student, onRemove }) => {
 
@@ -22,7 +22,7 @@ const Student = ({ student, onRemove }) => {
         }
 
         if(window.confirm(e.student_id +"님을 정지하시겠습니까?")){
-            Axios.post("http://localhost:3001/banStudent",banInfo).then((response)=>{
+            Axios.post("http://"+config.HOST.toString()+"/banStudent",banInfo).then((response)=>{
                 }
             )
             alert("정지되었습니다.");
@@ -34,7 +34,7 @@ const Student = ({ student, onRemove }) => {
     }
     const banClear = (e)=>{
         if(window.confirm(e.student_id +"님을 해제하시겠습니까?")){
-            Axios.post("http://localhost:3001/banClear", {banStudentNum : e.blacklist_num}).then((response)=>{
+            Axios.post("http://"+config.HOST.toString()+"/banClear", {banStudentNum : e.blacklist_num}).then((response)=>{
                 }
             )
             alert("해제되었습니다.");
@@ -51,7 +51,7 @@ const Student = ({ student, onRemove }) => {
                 postStudentNum : e.student_num,
             };
 
-            fetch("http://localhost:3001/deleteStudent", {
+            fetch("http://"+config.HOST.toString()+"/deleteStudent", {
                 method : "post",
                 headers : {
                     "content-type" : "application/json",

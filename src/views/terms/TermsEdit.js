@@ -54,6 +54,7 @@ import SelectBox from "../../components/SelectBox/SelectBox";
 import TermsFacilitySelectBox from "../../components/SelectBox/TermsFacilitySelectBox";
 import TermsEditSave from "../../components/Buttons/TermsButtons/TermsEditSave";
 import Axios from "axios";
+import * as config from '../../config';
 
 const TermsEdit = (props) => {
 
@@ -76,7 +77,7 @@ const TermsEdit = (props) => {
 
     function termsSave(){
         if(optionValue.valueOf()===0){
-            Axios.post("http://localhost:3001/termsEditSave", {
+            Axios.post("http://"+config.HOST.toString()+"/termsEditSave", {
                 termsData:{
                     termsTitle: termsTitle,
                     termsContents: termsContents,
@@ -90,7 +91,7 @@ const TermsEdit = (props) => {
                 console.log(r);
             })
         }else{
-            Axios.post("http://localhost:3001/termsEditSave", {
+            Axios.post("http://"+config.HOST.toString()+"/termsEditSave", {
                 termsData:{
                     termsTitle: termsTitle,
                     termsContents: termsContents,

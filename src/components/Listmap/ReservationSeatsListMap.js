@@ -13,7 +13,7 @@ import {
 import React, {useCallback, useEffect, useState} from "react";
 import Axios from "axios";
 import ReservationModal from "../Modals/ReservationModal";
-
+import * as config from '../../config';
 const ReservationSeatsListMap= (props) => {
 
     const [state, setState] = useState({
@@ -23,7 +23,7 @@ const ReservationSeatsListMap= (props) => {
     const [terms, setTerms] = useState([]);
 
     useEffect(()=>{
-        Axios.get('http://localhost:3001/getTermsByFacilityNum', {
+        Axios.get("http://"+config.HOST.toString()+"/getTermsByFacilityNum", {
             params: {
                 facilityNum: props.props.facilityNum,
             }

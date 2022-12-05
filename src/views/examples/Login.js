@@ -1,7 +1,6 @@
 import "../../assets/css/loginView.css";
-//import {useUserContext} from "../../methods/loginMethods";
-//import {useHistory} from "react-router-dom";
 
+import * as config from '../../config';
 import LoginForm from "./LoginForm";
 import {useEffect, useState} from "react";
 import Axios from "axios";
@@ -17,11 +16,11 @@ const Login = () => {
   }
 
   function SignIn({id, password}) {
-    Axios.all([Axios.get("http://localhost:3001/signInByAdmin", {
+    Axios.all([Axios.get("http://"+config.HOST.toString()+"/signInByAdmin", {
       params: {
         postAdminId: id, postAdminPassword: password
       }
-    }), Axios.get("http://localhost:3001/signInByStudent", {
+    }), Axios.get("http://"+config.HOST.toString()+"/signInByStudent", {
       params: {
         postStudentId: id, postStudentPassword: password
       }
@@ -60,11 +59,6 @@ const Login = () => {
   }
   else if (type==="admin") {
         window.location.replace("/admin/Student");
-      // if(user.admin_type === "오름관리자") {
-      //     window.location.replace("/admin/user-profile");
-      // }else if(user.admin_type === "푸름관리자"){
-      //     window.location.replace("/admin/terms");
-      // }
    }
 
 

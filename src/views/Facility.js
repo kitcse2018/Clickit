@@ -33,14 +33,14 @@ import Header from "components/Headers/Header.js";
 import "../assets/css/FacilityList.css";
 import FacilityListMap from "components/Listmap/FacilityListMap.js";
 import Axios from "axios";
-
+import * as config from '../config';
 const Facility = (props) => {
 
     const [facilityList,setFacilityList] = useState([]);
     const picList = ["오름 1동 휴게실", "오름 1동 체단실"]
 
     useEffect(()=>{
-        Axios.get("http://localhost:3001/facility" , {
+        Axios.get("http://"+config.HOST.toString()+"/facility" , {
             params : {
                 // dormitory_num : sessionStorage.getItem("dormitoryNum"),
                 dormitory_num : 1, // 수정해야 됨

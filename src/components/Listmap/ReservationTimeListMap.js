@@ -4,7 +4,7 @@ import {timeFormat} from "../../methods/facility/FacilityMethod";
 import {getSeatsByTimes} from "../../methods/reservation/ReservationMethod";
 import Axios from "axios";
 import ReservationSeatsListMap from "./ReservationSeatsListMap";
-
+import * as config from '../../config';
 const ReservationTimeListMap = (props) =>{
 
     let [timeActivate, setTimeActivate] = useState(false);
@@ -46,7 +46,7 @@ const ReservationTimeListMap = (props) =>{
         // });
         calCurTime();
 
-        Axios.get('http://localhost:3001/getSeatsByTimes',{
+        Axios.get("http://"+config.HOST.toString()+"/getSeatsByTimes",{
             params: {
                 startTime : props.props.seat_availability_start_time,
                 endTime : props.props.seat_availability_end_time,
@@ -73,7 +73,7 @@ const ReservationTimeListMap = (props) =>{
         //한 박자 느림
         if(!moreInfoOpen){
             // setSeatsList(getSeatsByTimes(props.props.seat_availability_start_time,props.props.seat_availability_end_time, props.facilityNum));
-            Axios.get('http://localhost:3001/getSeatsByTimes',{
+            Axios.get("http://"+config.HOST.toString()+"/getSeatsByTimes",{
                 params: {
                     startTime : props.props.seat_availability_start_time,
                     endTime : props.props.seat_availability_end_time,

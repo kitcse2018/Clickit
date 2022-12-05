@@ -3,7 +3,7 @@ import Axios from "axios";
 import {Link, useHistory} from 'react-router-dom'
 import {Button, Container} from "reactstrap";
 import {timeFormat} from "../../methods/facility/FacilityMethod";
-
+import * as config from '../../config';
 const FacilityListMap = (props) => {
 
     const history = useHistory();
@@ -14,7 +14,7 @@ const FacilityListMap = (props) => {
 
     console.log(props.facility);
 
-    Axios.get("http://localhost:3001/facilityPopulation",{
+    Axios.get("http://"+config.HOST.toString()+"/facilityPopulation",{
         params: {
             facilityNum : props.facility.facility_num,
         }

@@ -1,8 +1,8 @@
 import Axios from "axios";
-
+import * as config from '../../config';
 export function noticeDelete(props){
     if(window.confirm(props.notice.notice_title+"\n\n"+"정말 삭제하시겠습니까?")){
-        Axios.delete("http://localhost:3001/noticeDelete", {
+        Axios.delete("http://"+config.HOST.toString()+"/noticeDelete", {
             data: {
                 notice_num: props.notice.notice_num,
             },
