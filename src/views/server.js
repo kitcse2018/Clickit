@@ -3,8 +3,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const bodyParser = require("body-parser");
 const mysql = require('mysql');
-const cors = require('cors');
-const multer = require('multer');
+const cors = require('cors')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -14,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '910su147!A',
+        password: '1234',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -22,20 +21,18 @@ const db = mysql.createConnection(
 
 db.connect();
 
-app.get('/studentDormitoryName',(req,res) => {
-    const dormitoryNum = req.query.dormitoryNum;
+app.get('/students',(req,res) => {
     db.query(
-        "SELECT dormitory_name FROM dormitory WHERE dormitory_num = ?",
-        [dormitoryNum],
-        function (err, result) {
+        "SELECT * FROM student",
+        (err,result) => {
             if(err){
                 console.log(err)
             }else{
                 res.send(result);
             }
         }
-    )
-})
+    );
+});
 
 app.get("/duplicateStudent",async(req,res)=>{
     const studentId = req.query.studentId;
@@ -305,20 +302,11 @@ app.get('/facility',(req,res) => {
         }
     );
 });
-
-app.get('/facilityPopulation',(req,res) => {
+app.get('/facilitySeatTime', (req,res) => { // 일단 킵
     const facilityNum = req.query.facilityNum;
     db.query(
-        "SELECT count(*) FROM ccd.reservation where res_facility_num = ? and date_format(record_time, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and start_time < curtime() and end_time > curtime()",
-        [facilityNum],
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
+
+    )
 });
 
 
@@ -326,13 +314,13 @@ app.post('/reservation', (req,res) => {
     const postData = req.body.params;
     console.log(postData);
     db.query(
-        "INSERT INTO reservation(student_num, start_time, end_time, record_time, reservation_status, seat_availability_num, student_temperature, res_facility_num) VALUES (?,?,?,?,?,?,?,?)",
-        [postData.studentNum, postData.startTime, postData.endTime, postData.recordTime, postData.reservationStatus, postData.seatAvailabilityNum, postData.temp, postData.facilityNum],
+        "INSERT INTO reservation(student_num, start_time, end_time, record_time, reservation_status, seat_availability_num, student_temperature) VALUES (?,?,?,?,?,?,?)",
+        [postData.studentNum, postData.startTime, postData.endTime, postData.recordTime, postData.reservationStatus, postData.seatAvailabilityNum, postData.temp],
         function (err, result) {
             if (err) {
                 console.log(err)
             } else {
-                res.send(result);
+                console.log("성공");
             }
         }
     );
@@ -342,10 +330,10 @@ app.get('/hasReservation', (req,res) => {
     const studentNum = req.query.studentNum;
     const startTime = req.query.startTime;
     const endTime = req.query.endTime;
-    // const seatAvailabilityNum = req.query.seatAvailabilityNum;
+    const seatAvailabilityNum = req.query.seatAvailabilityNum;
     db.query(
-        "SELECT count(*) FROM ccd.reservation where date_format(record_time, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\")  and student_num = (?) and start_time = (?) and end_time = (?)"
-        ,[studentNum, startTime, endTime],
+        "SELECT count(*) FROM ccd.reservation where date_format(record_time, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\")  and student_num = (?) and start_time = (?) and end_time = (?) and seat_availability_num = (?)"
+        ,[studentNum, startTime, endTime, seatAvailabilityNum],
         function (err, result) {
             if(err){
                 console.log(err)
@@ -639,6 +627,20 @@ app.get('/getFacilitySeatNum',async(req,res) => {
         }
     );
 });
+app.get('/getFacilitySeatNumList',async(req,res) => {
+    let facility_num = req.query.facility_num;
+
+    db.query(
+        "SELECT facs.facility_seat_num FROM facility_seat AS facs WHERE facs.facility_num = ?",[facility_num],
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 app.post('/facilitySeatInsert',async(req,res) => {
 
     let termsData = req.body.termsData;
@@ -653,22 +655,6 @@ app.post('/facilitySeatInsert',async(req,res) => {
             }else{
                 // Your row is inserted you can view
                 console.log(result.insertId);
-                res.send(result);
-            }
-        }
-    );
-});
-app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
-
-    let termsData = req.body.termsData;
-
-    db.query(
-        //나중에 사진도 추가
-        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
                 res.send(result);
             }
         }
@@ -732,6 +718,7 @@ app.post('/noticeEditSave', async (req, res)=>{
         }
     );
 })
+
 //관리자 전용 select
 app.get('/dormitoryEdit',(req,res) => {
     let dormitory_num = req.query.dormitory_num;
@@ -755,7 +742,7 @@ app.post('/dormitoryUpdate',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "UPDATE dormitory AS dor SET dor.dormitory_name = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_num],
+        "UPDATE dormitory AS dor SET dor.dormitory_name = ?,dor.dormitory_pic = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_pic,termsData.dormitory_num],
         (err,result) => {
             if(err){
                 console.log(err)
