@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '1234',
+        password: '910su147!',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -606,6 +606,19 @@ app.post('/noticeEditSave', async (req, res)=>{
     );
 });
 
+app.get('/getLatestNotice', async (req, res)=>{
+    db.query(
+        "SELECT * FROM notice ORDER BY notice_num DESC LIMIT 1;",
+        function(err, result){
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.get('/facilityTimeList', (req,res) => {
     const facilityNum = req.query.facilityNum;
     db.query(
@@ -1037,7 +1050,6 @@ app.post('/facilityInsert',async(req,res) => {
         }
     );
 });
-
 
 
 app.listen(PORT,()=>{

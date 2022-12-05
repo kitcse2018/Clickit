@@ -47,29 +47,6 @@ const Reservation = (props) => {
     const [facilitySeatList,setFacilitySeatList] = useState([]);
     const [terms, setTerms] = useState([]);
 
-    // !!!!!!!!!!!! 모든 쿼리문에 변수 (?) 인지 확인하고
-    // !!!!!!!!!!!! server.js 에서 값 넣어줘야 함
-
-    // location 으로 가져올 요소 (변수 이름이 맞는 지는 모름)
-    // facility_num, facility_img 주소, facility_name
-
-    // app.get 으로 가져올 요소
-    // 시작 시간부터 끝 시간까지 1시간 단위로 나눠둔 거
-    // ->
-    // 시설물의 자리들
-    // 자리 사용 가능 여부
-    // facility_seat_num
-    // -> SELECT ccd.facility_seat.facility_seat_num, ccd.facility_seat.facility_seat_name, ccd.facility_seat.facility_seat_status FROM facility_seat WHERE facility_num = (?) GROUP BY facility_seat_name;
-    // 위에 퀴리문으로 3개 다 가져올 수 있음
-
-    // app.post 로 보낼 요소
-    // student_num : sessionStorage
-    // start_time : facility_seat_start_time 에서 가져온 값
-    // end_time : facility_seat_end_time 에서 가져온 값
-    // record_time : 현재 시간
-    // reservation_status : [예약, 취소], 신청 당시에는 예약
-    // facility_seat_num : app.get 으로 받아온 데이터
-
     useEffect(()=>{
         Axios.all([Axios.get("http://"+config.HOST.toString()+"/facilityTimeList", {
             params: {
@@ -95,9 +72,6 @@ const Reservation = (props) => {
         //     console.log(response.data);
         // });
     },[]);
-
-    console.log(facilityTimeList);
-    console.log(facilitySeatList);
 
     return (
         <>

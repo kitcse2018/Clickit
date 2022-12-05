@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
-import "../../assets/css/mycss/profile.css";
+import "../../assets/css/mycss/Profile.css";
 import Axios from "axios";
 import ProfileDormitoryName from "./ProfileDormitoryName";
 import ProfileReservationListMap from "../../components/Listmap/ProfileReservationListMap";
