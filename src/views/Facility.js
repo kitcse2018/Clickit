@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -18,7 +18,7 @@ import {
     Table,
     Container,
     Row,
-    Col
+    Col, Modal
 } from "reactstrap";
 
 // core components
@@ -34,21 +34,49 @@ import "../assets/css/FacilityList.css";
 import FacilityListMap from "components/Listmap/FacilityListMap.js";
 import Axios from "axios";
 import * as config from '../config';
+import NoticeModal from "./notice/NoticeModal";
 const Facility = (props) => {
 
     const [facilityList,setFacilityList] = useState([]);
     const picList = ["오름 1동 휴게실", "오름 1동 체단실"]
+    const [state, setState] = useState({
+        modal: true,
+    });
+    const [notice, setNotice] = useState([]);
 
     useEffect(()=>{
         Axios.get("http://"+config.HOST.toString()+"/facility" , {
             params : {
-                // dormitory_num : sessionStorage.getItem("dormitoryNum"),
-                dormitory_num : 1, // 수정해야 됨
+                dormitory_num : sessionStorage.getItem("dormitoryNum"),
+                // dormitory_num : 1, // 수정해야 됨
             }
         }).then((response) => {
             setFacilityList(response.data);
         });
+        getNotice().then();
+        console.log(notice);
     },[]);
+
+    async function getNotice(){
+        await console.log("testing");
+        await Axios.get("http://"+config.HOST.toString()+"/getLatestNotice")
+            .then((response) => {
+                setNotice(response.data);
+            });
+        await console.log("testing");
+    }
+
+    const toggleModal = () => {
+        setState({
+            modal: !state.modal,
+        })
+    };
+
+    const onModalDisplay = useCallback(()=>{
+        setState({
+            modal: !state.modal,
+        })
+    },[state.modal]);
 
     return (
         <>
@@ -58,6 +86,13 @@ const Facility = (props) => {
                     <FacilityListMap facility={facility} pic={picList[index]} key={index}/>
                 ))}
             </div>
+            {sessionStorage.getItem("preventNotice") === null ?
+                <Modal className={"notice-modal"} size={"lg"} isOpen={state.modal}>
+                    {notice.map((notice, index)=>(
+                        <NoticeModal notice = {notice} onModalDisplay={onModalDisplay}></NoticeModal>
+                    ))}
+                </Modal> : null
+            }
         </>
     );
 };

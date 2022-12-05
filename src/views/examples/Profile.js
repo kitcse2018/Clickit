@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
-import "../../assets/css/mycss/profile.css";
+import "../../assets/css/mycss/Profile.css";
 import Axios from "axios";
 import ProfileDormitoryName from "./ProfileDormitoryName";
 import ProfileReservationListMap from "../../components/Listmap/ProfileReservationListMap";
@@ -27,7 +27,7 @@ const Profile = () => {
   const [dormitoryName, setDormitoryName] = useState("");
   const [myCurReservation, setMyCurReservation] = useState([]);
   const [myReservationList, setMyReservationList] = useState([]);
-  const [blackDate, setBlackDate] = useState("");
+  const [blackDate, setBlackDate] = useState([]);
 
   const studentNum = sessionStorage.getItem("studentNum");
 
@@ -65,6 +65,8 @@ const Profile = () => {
     window.location.href="#res-list";
   }
 
+  console.log(myCurReservation);
+
   return (
       <>
         <UserHeader />
@@ -72,29 +74,29 @@ const Profile = () => {
         <Container className="mt--7 percent-container" fluid>
           <div className="percentTop">
             <Card className="card-profile shadow">
-              {/*<Row>*/}
-              {/*  <div className="col">*/}
-              {/*    <div className="card-profile-stats d-flex justify-content-center mt-md-5">*/}
-              {/*      /!*<Button*!/*/}
-              {/*      /!*    className="mr-4"*!/*/}
-              {/*      /!*    color="info"*!/*/}
-              {/*      /!*    href="#pablo"*!/*/}
-              {/*      /!*    onClick={()=>clickMe()}*!/*/}
-              {/*      /!*    size="sm"*!/*/}
-              {/*      /!*>*!/*/}
-              {/*      /!*  정지 여부 확인*!/*/}
-              {/*      /!*</Button>*!/*/}
-              {/*      /!*<Button*!/*/}
-              {/*      /!*    className="float-right"*!/*/}
-              {/*      /!*    color="default"*!/*/}
-              {/*      /!*    href={"#res-list"}*!/*/}
-              {/*      /!*    size="sm"*!/*/}
-              {/*      /!*>*!/*/}
-              {/*      /!*  내 예약 현황*!/*/}
-              {/*      /!*</Button>*!/*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*</Row>*/}
+              <Row>
+                <div className="col">
+                  <div className="card-profile-stats d-flex justify-content-center mt-md-5">
+                    <Button
+                        className="mr-4"
+                        color="info"
+                        href="#pablo"
+                        onClick={()=>clickMe()}
+                        size="sm"
+                    >
+                      정지 여부 확인
+                    </Button>
+                    <Button
+                        className="float-right"
+                        color="default"
+                        href={"#res-list"}
+                        size="sm"
+                    >
+                      내 예약 현황
+                    </Button>
+                  </div>
+                </div>
+              </Row>
               <div className="text-center">
                 <div className="h5 mt-4">
                   <h1 className={"display-2"}>학번 - {sessionStorage.getItem("name")}</h1>
@@ -103,13 +105,26 @@ const Profile = () => {
               </div>
             </Card>
           </div>
-          {/*<div className="percent">
+          <div className="percent">
             <Card className="card-profile shadow">
-              <ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>
-              <ProfileReservationPercent myCurReservation={myCurReservation}></ProfileReservationPercent>
+              <div>
+                {blackDate.map((blackDate, key) => {
+                  return(
+                      <ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>
+                  )
+                })}
+              </div>
+              <div>
+                {myCurReservation.map((myCurReservation, key) => {
+                  return(
+                      <ProfileReservationPercent myCurReservation={myCurReservation}></ProfileReservationPercent>
+                  )
+                })}
+              </div>
+              {/*<ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>*/}
+              {/*<ProfileReservationPercent myCurReservation={myCurReservation}></ProfileReservationPercent>*/}
             </Card>
-          </div>*/}
-          {/**/}
+          </div>
           <div className={"profile-current-reservation"}>
             <Card className="shadow res-list-card">
               <div>

@@ -38,6 +38,7 @@ const StudentNavbar = (props) => {
             sessionStorage.removeItem("dormitoryNum");
             sessionStorage.removeItem("studentNum");
             sessionStorage.removeItem("name");
+            sessionStorage.removeItem("preventNotice");
         }
         sessionStorage.removeItem("type");
     };
@@ -85,6 +86,10 @@ const StudentNavbar = (props) => {
                                 <DropdownItem to="/student/facility" tag={Link}>
                                     <i className="ni ni-building" />
                                     <span>시설물 목록</span>
+                                </DropdownItem>
+                                <DropdownItem to="/student/studentNotice" tag={Link}>
+                                    <i className="ni ni-check-bold" />
+                                    <span>공지사항</span>
                                 </DropdownItem>
                                 <DropdownItem href="/auth/login" onClick={Logout}>
                                     <i className="ni ni-user-run" />

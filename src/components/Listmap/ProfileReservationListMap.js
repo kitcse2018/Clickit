@@ -27,6 +27,7 @@ const ProfileReservationListMap = (resList) =>{
             })).catch((error) => {
                 console.log(error);
             });
+            window.location.replace("/student/user-profile");
         }else{
             alert("취소되었습니다.");
         }

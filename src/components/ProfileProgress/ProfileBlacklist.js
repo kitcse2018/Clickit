@@ -1,30 +1,30 @@
 import {Progress} from "reactstrap";
 import React, {useEffect} from "react";
 import {getCurrentDate} from "../../methods/reservation/ReservationMethod";
+import {stringToDate} from "../../methods/stringToDate";
 
 const ProfileBlacklist = (blacklistDate) => {
 
-        console.log(blacklistDate.blacklistDate);
+    let percentage = 0;
 
-    // let blackPercents = 0;
-    //
-    // const calcBlacklistDate = () => {
-    //     const curDate = getCurrentDate();
-    //     const blackDate = blacklistDate.blacklistDate[0].end_date;
-    //
-    //     console.log(curDate);
-    //     console.log(blackDate);
-    //     console.log(blackDate > curDate);
-    //
-    //     if(blackDate > curDate){
-    //         const total = blacklistDate.blacklistDate[0].end_date - blacklistDate.blacklistDate[0].start_date;
-    //         const percentage = (blacklistDate.blacklistDate[0].end_date - curDate) / total * 100;
-    //         console.log(parseInt(percentage));
-    //         blackPercents = percentage;
-    //     }else{
-    //         blackPercents = blackPercents;
-    //     }
-    // }
+    // useEffect(()=>{
+    //     calcBlacklistDate();
+    //     console.log(percentage.toString());
+    // },[]);
+
+    const calcBlacklistDate = () => {
+        const curDate = new Date(getCurrentDate().split(' ')[0]);
+        const blackEndDate = new Date(blacklistDate.blacklistDate.end_date.split(' ')[0]);
+        const blackStartDate = new Date(blacklistDate.blacklistDate.start_date.split(' ')[0]);
+
+        if(blackEndDate > curDate){
+            const total = blackEndDate - blackStartDate;
+            percentage = (curDate - blackStartDate) / total * 100;
+            return percentage.toString().slice(0,5);
+        }else{
+            return 0;
+        }
+    }
 
     return(
         <div className="progress-wrapper">
@@ -33,10 +33,10 @@ const ProfileBlacklist = (blacklistDate) => {
                     <span>정지 여부 확인</span>
                 </div>
                 <div className="progress-percentage">
-                    <span>100%</span>
+                    <span>{calcBlacklistDate()}%</span>
                 </div>
             </div>
-            <Progress max="100" value="100" color="danger" />
+            <Progress max="100" value={calcBlacklistDate()} color="danger" />
         </div>
     );
 };

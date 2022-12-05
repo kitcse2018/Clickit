@@ -13,7 +13,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '1234',
+        password: '910su147!',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -388,7 +388,7 @@ app.get('/hasReservation', (req,res) => {
 app.get('/getMyCurReservation', (req,res) => {
     const studentNum = req.query.studentNum;
     db.query(
-        "SELECT * FROM reservation where student_num = ? and date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and start_time < curtime() and end_time > curtime()",
+        "SELECT * FROM reservation where student_num = ? and date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and start_time < curtime() and end_time > curtime() and reservation_status = \"예약\"",
         [studentNum],
         function (err, result) {
             if(err){
@@ -597,6 +597,19 @@ app.post('/noticeEditSave', async (req, res)=>{
         "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
         [noticeData.noticeTitle, noticeData.noticeContents],
         (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/getLatestNotice', async (req, res)=>{
+    db.query(
+        "SELECT * FROM notice ORDER BY notice_num DESC LIMIT 1;",
+        function(err, result){
             if(err){
                 console.log(err)
             }else{
@@ -831,22 +844,7 @@ app.post('/facilitySeatInsert',async(req,res) => {
         }
     );
 });
-app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
 
-    let termsData = req.body.termsData;
-
-    db.query(
-        //나중에 사진도 추가
-        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
-        (err,result) => {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
 app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
     let termsData = req.body.termsData;
     db.query(
@@ -1037,7 +1035,6 @@ app.post('/facilityInsert',async(req,res) => {
         }
     );
 });
-
 
 
 app.listen(PORT,()=>{

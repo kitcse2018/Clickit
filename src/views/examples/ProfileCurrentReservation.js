@@ -7,8 +7,8 @@ const ProfileCurrentReservation = (curRes) =>{
     console.log("curRes");
     console.log(curRes.curRes[0]);
 
-    const resStartTime = curRes.curRes[0].start_time;
-    const resEndTime = curRes.curRes[0].end_time;
+    const resStartTime = new Date(curRes.curRes[0].start_time);
+    const resEndTime = new Date(curRes.curRes[0].end_time);
 
     const cancelReservation = () =>{
         console.log("cancel reservation");

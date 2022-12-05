@@ -1,9 +1,24 @@
 import {Progress} from "reactstrap";
 import React from "react";
+import {getCurrentDate} from "../../methods/reservation/ReservationMethod";
+import {stringToTime} from "../../methods/stringToDate";
 
 const ProfileReservationPercent = (myCurReservation) =>{
 
-    console.log(myCurReservation.myCurReservation.length);
+    console.log(myCurReservation);
+
+    let percentage = 0;
+
+    const calcReservationPercent = () => {
+        const curDate = getCurrentDate().split(' ')[1];
+        const startTime = (myCurReservation.myCurReservation.start_time);
+        const endTime = (myCurReservation.myCurReservation.end_time);
+        // const total = endTime - startTime;
+        const total = stringToTime(endTime,startTime);
+        // percentage = (curDate - startTime) / total * 100;
+        percentage = stringToTime(curDate,startTime) / total * 100;
+        return percentage.toString().slice(0,5);
+    }
 
     return(
         <div className="progress-wrapper">
@@ -12,10 +27,10 @@ const ProfileReservationPercent = (myCurReservation) =>{
                     <span>내 예약 현황</span>
                 </div>
                 <div className="progress-percentage">
-                    <span>60%</span>
+                    <span>{calcReservationPercent()}%</span>
                 </div>
             </div>
-            <Progress max="100" value="60" color="default" />
+            <Progress max="100" value={calcReservationPercent()} color="default" />
         </div>
     )
 };

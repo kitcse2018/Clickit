@@ -40,3 +40,7 @@
 .notice-list-btn{
     margin-right : 2rem;
 }
+
+.student-notice-list-li{
+    justify-content: space-around;
+}
