@@ -1,204 +1,265 @@
 
-import React, {useCallback, useState} from "react";
-// node.js library that concatenates classes (strings)
-import classnames from "classnames";
-// javascipt plugin for creating charts
-import Chart from "chart.js";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-// reactstrap components
 import {
-    Button,
+    Badge,
     Card,
     CardHeader,
-    CardBody,
-    NavItem,
-    NavLink,
-    Nav,
+    CardFooter,
+    DropdownMenu,
+    DropdownItem,
+    UncontrolledDropdown,
+    DropdownToggle,
+    Media,
+    Pagination,
+    PaginationItem,
+    PaginationLink,
     Progress,
     Table,
     Container,
     Row,
-    Col
+    UncontrolledTooltip,
+    Button,
+    FormGroup,
+    Form,
+    Input,
+    InputGroupAddon,
+    InputGroupText,
+    InputGroup
 } from "reactstrap";
-
+// core components
 import Header from "components/Headers/Header.js";
-import "../../assets/css/dormitory-edit.css";
-import "../../assets/css/btn.css"
-import Axios from "axios";
 import {useHistory} from "react-router-dom";
 import {useLocation} from "react-router-dom";
+import React, {useState} from "react";
+import Axios from "axios";
 import * as config from '../../config';
-import ImgUploadForm from "../../components/imgUpload/ImgUploadForm";
-const DormitoryEdit = (props) => {
+import "../../assets/css/mycss/AddFacility.css";
+
+const AddFacility = (props) => {
     const location = useLocation();
 
     const items = location.state;
 
-    //img name variable
     let img_name = "clickit.png";
-    //input text값 가져오기
 
-    const [dormitoryName, setDormitoryName] = useState(items.dormitory_name);
+    const [facilityName, setFacilityName] = useState(items.facility_name);
     const onNameChange = (e) => {
-        setDormitoryName(e.target.value);
+        setFacilityName(e.target.value);
+    }
+    const [facilityLimit, setFacilityLimit] = useState(items.facility_limit_people);
+    const onLimitChange = (e) => {
+        setFacilityLimit(e.target.value);
+    }
+    const [facilityStartTime, setFacilityStartTime] = useState(items.facility_start_time);
+    const onStartTimeChange = (e) => {
+        setFacilityStartTime(e.target.value);
+    }
+    const [facilityEndTime, setFacilityEndTime] = useState(items.facility_end_time);
+    const onEndTimeChange = (e) => {
+        setFacilityEndTime(e.target.value);
     }
 
-    const [dormitoryEdit,setdormitoryEdit] = useState([]);
-    Axios.get("http://"+config.HOST.toString()+"/dormitoryEdit",{params:{
-            dormitory_num : items.dormitory_num,
+
+    const [facilityEdit,setFacilityEdit] = useState([]);
+    Axios.get("http://"+config.HOST.toString()+"/facilityEdit",{params:{
+            facility_num : items.facility_num,
         }}).then((response) => {
-        setdormitoryEdit(response.data);
+        setFacilityEdit(response.data);
     });
 
-    const [adminfacilityList,setadminfacilityList] = useState([]);
-    Axios.get("http://"+config.HOST.toString()+"/adminfacility",{params:{
-            dormitory_num : items.dormitory_num,
+    const [adminFacilitySeatList,setAdminFacilitySeatList] = useState([]);
+    Axios.get("http://"+config.HOST.toString()+"/adminfacilitySeat",{params:{
+            facility_num : items.facility_num,
         }}).then((response) => {
-        setadminfacilityList(response.data);
+        setAdminFacilitySeatList(response.data);
     });
 
-    function timeFormat(start_time, end_time){
-        const s_time = start_time.slice(0,5);
-        const e_time = end_time.slice(0,5);
 
-        return s_time + " ~ " + e_time;
+
+    function timeFormat(time){
+        const c_time = time.slice(0,5);
+
+        return c_time;
     }
-    const [dormitoryPicName,setDormitoryPicName]= useState(items.dormitory_pic);
+
 
 
     const history = useHistory();
 
+    //시간 계산
+
+
     return (
         <>
             <Header />
-            <Container className={"dormitoryEdit-container"}>
-                {/* =============== start dormitory edit content =============== */}
-                <div className={"dormitory-edit-content"}>
-                    <div className={"dormitory-edit-content-header"}>
+            <Container className="addFacility-container addFacility-container">
+                <div className = {"facility-add-content"}>
+                    <div className={"facility-add-content-header"}>
                         <div className={"dormitory-name"}>
-                            <h1>{items.dormitory_name}</h1>
+                            <h1>{items.facility_name}</h1>
                         </div>
-                        <div className={"dormitory-img"}>
-                            <img src={require('../../assets/img/dormitory/' + img_name)}/>
-                        </div>
-                        <ImgUploadForm></ImgUploadForm>
-                        {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
-                        <input type={"text"} className={"dormitory-name-input"} defaultValue={items.dormitory_name} onChange = {onNameChange}/>
-                        <Button className={"dormitory-edit-save basic-btn"} type={"button"}  onClick={() =>{
-                            alert(dormitoryPicName);
-                            Axios.post("http://"+config.HOST.toString()+"/dormitoryUpdate",{
-                                termsData: {
-                                    dormitory_pic : dormitoryPicName,
-                                    dormitory_num: items.dormitory_num,
-                                    dormitory_name : dormitoryName,
-                                }
-                            }).then(e => {
-                                console.log(e);
-                            })
-                            window.location.href = "/admin/dormitoryManager";
-                        }
-                        } >
-                            저장
-                        </Button>
-                        <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
-                                pathname : "/admin/addFacility",
-                                state : {
-                                    facility_num : "",
-                                    facility_name : "",
-                                    facility_limit_people : "",
-                                    facility_pic : "",
-                                    facility_start_time : "",
-                                    facility_end_time : "",
-                                    dormitory_num : items.dormitory_num,
-                                    dormitory_name : items.dormitory_name,
+                        <div className={"facility-edit"}>
+                            <div className={"facility-edit-picture"}>
+                                <div className={"dormitory-img"}>
+                                    {/*이미지 나중에 가져와서 변경해주기*/}
+                                    <img src={require('../../assets/img/dormitory/' + img_name)}/>
+                                </div>
+                                <ImgUploadForm></ImgUploadForm>
+                            </div>
+                            <div className={"facility-edit-content"}>
+                                <div className={"facility-edit-content-name"}>
+                                    <h3>명칭</h3>
+                                    <FormGroup>
+                                        <input type={"text"} className={"facility-name-input form-control-alternative"} defaultValue={items.facility_name} onChange = {onNameChange}/>
+                                    </FormGroup>
+                                </div>
+                                <div className={"facility-edit-content-limit"}>
+                                    <h3>사용 가능 인원</h3>
+                                    <FormGroup>
+                                        <input type={"text"} className={"facility-limit-input form-control-alternative"} defaultValue={items.facility_limit_people} onChange = {onLimitChange}/>
+                                    </FormGroup>
+                                </div>
+                                <div className={"facility-edit-content-start"}>
+                                    <h3>시작 시간</h3>
+                                    <FormGroup>
+                                        <input type={"text"} className={"facility-start-input form-control-alternative"} placeholder={"00:00"} defaultValue = {timeFormat(items.facility_start_time)} onChange = {onStartTimeChange}/>
+                                    </FormGroup>
+                                </div>
+                                <div className={"facility-edit-content-end"}>
+                                    <h3>종료 시간</h3>
+                                    <FormGroup>
+                                        <input type={"text"} className={"facility-end-input form-control-alternative"} placeholder={"00:00"} defaultValue={timeFormat(items.facility_end_time)} onChange = {onEndTimeChange}/>
+                                    </FormGroup>
+                                </div>
+                            </div>
+                            {/*사진도 같이 보내줘야함 사진 주소나 bob*/}
+                            <Button className={"facility-edit-save check"} type={"button"} color={"primary"} onClick={async () =>{
+                                if(items.facility_num ==""){
+                                    if(facilityName==""||facilityLimit==""||facilityStartTime==""||facilityEndTime==""){
+                                        alert("필수 항목을 입력해주세요");
+                                    }else {
+                                        Axios.post("http://"+config.HOST.toString()+"/facilityInsert",{
+                                            termsData: {
+                                                facility_name : facilityName,
+                                                facility_limit_people : facilityLimit,
+                                                facility_start_time : facilityStartTime,
+                                                facility_end_time : facilityEndTime,
+                                                dormitory_num : items.dormitory_num,
+                                            }
+                                        }).then(e => {
+                                            console.log(e);
+                                        })
+                                        history.push({
+                                                pathname : "/admin/dormitoryEdit",
+                                                state : {
+                                                    dormitory_num : items.dormitory_num,
+                                                    dormitory_name : items.dormitory_name
+                                                }
+                                            }
+                                        )
+                                    }
+                                }else{
+                                    if(facilityName==""||facilityLimit==""||facilityStartTime==""||facilityEndTime==""){
+                                        alert("필수 항목을 입력해주세요");
+                                    }else{
+                                        Axios.post("http://"+config.HOST.toString()+"/facilityUpdate",{
+                                            termsData: {facility_num: items.facility_num,
+                                                facility_name : facilityName,
+                                                facility_limit_people : facilityLimit,
+                                                facility_start_time : facilityStartTime,
+                                                facility_end_time : facilityEndTime,
+                                            }
+                                        }).then(e => {
+                                            console.log(e);
+                                        })
+                                        //자리 삭제후 다시 insert
+                                        if(facilityStartTime !=items.facility_start_time || facilityEndTime != items.facility_end_time){
+
+                                            let data = ""; //facility_seat_num 여러개 가져오기
+
+                                            //해당 시설물 넘버에 자리넘버 가져오기
+                                            await Axios.get("http://"+config.HOST.toString()+"/getFacilitySeatNumList",{params:{facility_num : items.facility_num},responseType : 'text'}).then((response)=>
+                                            {
+                                                data = response.data;
+                                            });
+                                            let reg = /[^,0-9]/g;
+                                            let input = data.replace(reg,"");
+                                            let dataArr = input.split(",");
+
+
+                                            for(let i = 0 ; i < dataArr.length; i++){
+                                                await Axios.delete("http://"+config.HOST.toString()+"/facilitySeatAvailabilityDelete",{
+                                                    data : {
+                                                        facility_seat_num : dataArr[i],
+                                                    }
+                                                }).then(e => {
+                                                    console.log(e);
+                                                })
+
+                                                //여기서 부터 하면됨
+                                                let startTime = facilityStartTime.slice(0,2);
+                                                let endTime = facilityEndTime.slice(0,2);
+
+                                                let startMTime = facilityStartTime.slice(3,5);
+                                                let endMTime = facilityEndTime.slice(3,5);
+                                                let count = endTime - startTime +1;
+
+                                                if(startMTime - endMTime > 0)
+                                                    count = endTime - startTime;
+
+                                                let addStart = facilityStartTime.slice(0,2);
+                                                let j = 0;
+
+                                                for(j = 0; j < count; j++){
+                                                    let currentStartTime = addStart + ":" +  startMTime;
+                                                    let addEnd = ++addStart;
+                                                    let currentEndTime = addEnd + ":" + startMTime;
+                                                    if(j == (count-1)){
+                                                        await Axios.post("http://"+config.HOST.toString()+"/facilitySeatAvailabilityInsert",{
+                                                            termsData: {
+                                                                facility_start_time : currentStartTime,
+                                                                facility_end_time : facilityEndTime,
+                                                                facility_seat_num: dataArr[i],
+                                                                seat_availability_status : "사용 가능",
+
+                                                            }
+                                                        }).then(e => {
+                                                            console.log(e);
+                                                        })
+                                                    }else{
+                                                        await Axios.post("http://"+config.HOST.toString()+"/facilitySeatAvailabilityInsert",{
+                                                            termsData: {
+                                                                facility_seat_num: dataArr[i],
+                                                                seat_availability_status : "사용 가능",
+                                                                facility_start_time : currentStartTime,
+                                                                facility_end_time : currentEndTime,
+                                                            }
+                                                        }).then(e => {
+                                                            console.log(e);
+                                                        })
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        history.push({
+                                                pathname : "/admin/dormitoryEdit",
+                                                state : {
+                                                    dormitory_num : items.dormitory_num,
+                                                    dormitory_name : items.dormitory_name
+                                                }
+                                            }
+                                        )
+                                    }
                                 }
                             }
-
-                        )}}>시설물 추가</Button>
-                    </div>
-                    <div className={"dormitory-edit-content-body"}>
-                        {/*dormitoryEditList에 있는 facility name limit time 넣어주기*/}
-                        <div className={"dormitory-innerFacility-list"}>
-                            <ul className={"dormitory-innerFacility-list-ul"}>
-                                {adminfacilityList.map(adminfacility => (
-                                    <li className={"dormitory-innerFacility-list-li"}>
-                                        <div className="gnb_menu">
-                                            <ul className="dormitory-innerFacility-li">
-                                                <div className={"dormitory-innerFacility-content"}>
-                                                    <li className="dormitory-innerFacility-name">
-                                                        <h1>{adminfacility.facility_name}</h1>
-                                                    </li>
-                                                    <li className="dp1">
-                                                        <h3>이용 가능 인원[{adminfacility.facility_limit_people}]</h3>
-                                                    </li>
-                                                    <li className="dp1">
-                                                        <h3>이용 가능 시간 {timeFormat(adminfacility.facility_start_time,adminfacility.facility_end_time)}</h3>
-                                                    </li>
-                                                </div>
-
-                                                <div className={"dormitory-innerFacility-button"}>
-                                                    <Button color = "primary" className={"dormitory-update-innerFacility basic-btn"} type={"button"}  onClick={() => {history.push({
-                                                            pathname : "/admin/addFacility",
-                                                            state : {
-                                                                facility_num : adminfacility.facility_num,
-                                                                facility_name : adminfacility.facility_name,
-                                                                facility_limit_people : adminfacility.facility_limit_people,
-                                                                facility_pic : adminfacility.facility_pic,
-                                                                facility_start_time : adminfacility.facility_start_time,
-                                                                facility_end_time : adminfacility.facility_end_time,
-                                                                dormitory_num : items.dormitory_num,
-                                                                dormitory_name : items.dormitory_name
-                                                            }
-                                                        }
-
-                                                    )}}> 수정</Button>
-
-                                                    <Button color="danger" onClick={() =>{
-                                                        if(window.confirm("정말 삭제하시겠습니까?")) {
-                                                            Axios.post("http://"+config.HOST.toString()+"/deleteFacility", {
-                                                                termsData: {
-                                                                    facility_num: adminfacility.facility_num,
-                                                                }
-                                                            }).then(e => {
-                                                                console.log(e);
-                                                            })
-                                                            alert("삭제 되었습니다.");
-                                                            window.location.replace("/admin/dormitoryEdit");
-                                                        }
-                                                        else {
-                                                            alert("취소합니다.")
-                                                        }
-                                                    }
-                                                    }> 삭제</Button>
-
-                                                    <Button color = "success" onClick={() => {history.push({
-                                                            pathname : "/admin/facilitySeat",
-                                                            state : {
-                                                                facility_num : adminfacility.facility_num,
-                                                                facility_name : adminfacility.facility_name,
-                                                                facility_start_time : adminfacility.facility_start_time,
-                                                                facility_end_time : adminfacility.facility_end_time,
-                                                            }
-                                                        }
-
-                                                    )}}> 자리 수정</Button>
-                                                </div>
-
-                                            </ul>
-
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
+                            } >
+                                저장
+                            </Button>
                         </div>
                     </div>
                 </div>
-                {/* =============== end of dormitory edit content ===============  */}
             </Container>
-
         </>
     );
 };
 
-export default DormitoryEdit;
+export default AddFacility;
