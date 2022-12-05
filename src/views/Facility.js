@@ -87,11 +87,12 @@ const Facility = (props) => {
                 ))}
             </div>
             {sessionStorage.getItem("preventNotice") === null ?
-                <Modal className={"notice-modal"} size={"lg"} isOpen={state.modal}>
+                (notice.length === 0 ? null : <Modal className={"notice-modal"} size={"lg"} isOpen={state.modal}>
                     {notice.map((notice, index)=>(
                         <NoticeModal notice = {notice} onModalDisplay={onModalDisplay}></NoticeModal>
                     ))}
-                </Modal> : null
+                </Modal>)
+                : null
             }
         </>
     );
