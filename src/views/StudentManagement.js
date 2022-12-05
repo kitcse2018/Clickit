@@ -7,8 +7,9 @@ import "../assets/css/mycss/Third.css";
 import React, {useState} from "react";
 import {Button, Container} from "reactstrap";
 import "../assets/css/btn.css"
-import {   BrowserRouter, Route } from "react-router-dom";
-import DateRangePick from "../components/DatePicker/DateRangePick";
+import FileUpload from "../modules/FileUpload"
+
+
 // you must read here
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!!Change "Template" name      !!!
@@ -27,6 +28,7 @@ const StudentManagement = (props) => {
         setStudentList(studentList.filter(student => student.student_num !== id));
     };
 
+
     return (
         <>
             <Header />
@@ -35,7 +37,7 @@ const StudentManagement = (props) => {
                 <h1 > &nbsp; 생활관생 관리</h1>
                 <div className="Search">
                     <div id={"selectBoxSize"}>
-                    <SelectBox setOptionValue={setOptionValue} ></SelectBox>
+                        <SelectBox setOptionValue={setOptionValue} ></SelectBox>
                     </div>
                     <StudentSearch setStudentList={setStudentList} optionValue={optionValue} setVisibleSelect={setVisibleSelect} setVisibleAdd={setVisibleAdd} ></StudentSearch>
                     <div>
@@ -43,15 +45,19 @@ const StudentManagement = (props) => {
                             setVisibleAdd(!visibleAdd);
                             setVisibleSelect(!visibleSelect);
                         }} > {visibleAdd?"추가 종료":"학생 추가"} </Button>
-                        <Button className={"basicBig-btn"}  > upload </Button>
+                        <FileUpload/>
+
+
                     </div>
                 </div>
                 <div className="studentBoard">
                     {visibleAdd && <AddStudent/>}
                     {visibleSelect&&studentList.map( student => (
-                        <Student student={ student } key={ student.student_num } onRemove={onRemove} />
+                        <Student student={ student } key={ student.student_num} onRemove={onRemove} />
                     ))}
                 </div>
+
+
 
             </Container>
 

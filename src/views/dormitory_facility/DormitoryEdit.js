@@ -28,7 +28,6 @@ import "../../assets/css/btn.css"
 import Axios from "axios";
 import {useHistory} from "react-router-dom";
 import {useLocation} from "react-router-dom";
-
 import * as config from '../../config';
 const DormitoryEdit = (props) => {
     const location = useLocation();
@@ -65,22 +64,9 @@ const DormitoryEdit = (props) => {
         return s_time + " ~ " + e_time;
     }
     const [dormitoryPicName,setDormitoryPicName]= useState(items.dormitory_pic);
-    const [img, setImg] = useState('');
+
 
     const history = useHistory();
-
-    const requestImg = async (event) => {
-        // form tag를 사용하지 않아도 formdata를 만들 수 있습니다.
-        let formData = new FormData();
-        formData.append('image', event.target.files[0]);
-        // 생성한 폼 데이터에 파일 객체를 할당하고, 서버에 요청을 보냅니다.
-        try {
-            const imageRes = await Axios.post("http://"+config.HOST.toString()+"/image", formData);
-        } catch (error) {
-            console.log(error);
-            alert('server error');
-        }
-    };
 
     return (
         <>
@@ -109,7 +95,7 @@ const DormitoryEdit = (props) => {
                         <input type={"text"} className={"dormitory-name-input"} defaultValue={items.dormitory_name} onChange = {onNameChange}/>
                         <Button className={"dormitory-edit-save basic-btn"} type={"button"}  onClick={() =>{
                             alert(dormitoryPicName);
-                            Axios.post("http://localhost:3001/dormitoryUpdate",{
+                            Axios.post("http://"+config.HOST.toString()+"/dormitoryUpdate",{
                                 termsData: {
                                     dormitory_pic : dormitoryPicName,
                                     dormitory_num: items.dormitory_num,
