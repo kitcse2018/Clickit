@@ -33,6 +33,7 @@ import React, {useState} from "react";
 import Axios from "axios";
 import * as config from '../../config';
 import "../../assets/css/mycss/AddFacility.css";
+import ImgUploadForm from "../../components/imgUpload/ImgUploadForm";
 
 const AddFacility = (props) => {
     const location = useLocation();
