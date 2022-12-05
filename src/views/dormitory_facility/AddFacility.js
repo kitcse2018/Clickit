@@ -16,7 +16,14 @@ import {
     Table,
     Container,
     Row,
-    UncontrolledTooltip, Button
+    UncontrolledTooltip,
+    Button,
+    FormGroup,
+    Form,
+    Input,
+    InputGroupAddon,
+    InputGroupText,
+    InputGroup
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -24,6 +31,8 @@ import {useHistory} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import React, {useState} from "react";
 import Axios from "axios";
+import "../../assets/css/mycss/AddFacility.css";
+
 
 const AddFacility = (props) => {
     const location = useLocation();
@@ -82,7 +91,7 @@ const AddFacility = (props) => {
     return (
         <>
             <Header />
-            <Container className="addFacility-container">
+            <Container className="addFacility-container addFacility-container">
                 <div className = {"facility-add-content"}>
                     <div className={"facility-add-content-header"}>
                         <div className={"dormitory-name"}>
@@ -100,23 +109,31 @@ const AddFacility = (props) => {
                             <div className={"facility-edit-content"}>
                                 <div className={"facility-edit-content-name"}>
                                     <h3>명칭</h3>
-                                    <input type={"text"} className={"facility-name-input"} defaultValue={items.facility_name} onChange = {onNameChange}/>
+                                    <FormGroup>
+                                        <input type={"text"} className={"facility-name-input form-control-alternative"} defaultValue={items.facility_name} onChange = {onNameChange}/>
+                                    </FormGroup>
                                 </div>
                                 <div className={"facility-edit-content-limit"}>
                                     <h3>사용 가능 인원</h3>
-                                    <input type={"text"} className={"facility-limit-input"} defaultValue={items.facility_limit_people} onChange = {onLimitChange}/>
+                                    <FormGroup>
+                                        <input type={"text"} className={"facility-limit-input form-control-alternative"} defaultValue={items.facility_limit_people} onChange = {onLimitChange}/>
+                                    </FormGroup>
                                 </div>
                                 <div className={"facility-edit-content-start"}>
                                     <h3>시작 시간</h3>
-                                    <input type={"text"} className={"facility-start-input"} placeholder={"00:00"} defaultValue = {timeFormat(items.facility_start_time)} onChange = {onStartTimeChange}/>
+                                    <FormGroup>
+                                        <input type={"text"} className={"facility-start-input form-control-alternative"} placeholder={"00:00"} defaultValue = {timeFormat(items.facility_start_time)} onChange = {onStartTimeChange}/>
+                                    </FormGroup>
                                 </div>
                                 <div className={"facility-edit-content-end"}>
                                     <h3>종료 시간</h3>
-                                    <input type={"text"} className={"facility-end-input"} placeholder={"00:00"} defaultValue={timeFormat(items.facility_end_time)} onChange = {onEndTimeChange}/>
+                                    <FormGroup>
+                                        <input type={"text"} className={"facility-end-input form-control-alternative"} placeholder={"00:00"} defaultValue={timeFormat(items.facility_end_time)} onChange = {onEndTimeChange}/>
+                                    </FormGroup>
                                 </div>
                             </div>
                             {/*사진도 같이 보내줘야함 사진 주소나 bob*/}
-                            <Button className={"facility-edit-save"} type={"button"} color={"primary"} onClick={async () =>{
+                            <Button className={"facility-edit-save check"} type={"button"} color={"primary"} onClick={async () =>{
                                 if(items.facility_num ==""){
                                     if(facilityName==""||facilityLimit==""||facilityStartTime==""||facilityEndTime==""){
                                         alert("필수 항목을 입력해주세요");

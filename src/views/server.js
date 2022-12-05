@@ -3,8 +3,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const bodyParser = require("body-parser");
 const mysql = require('mysql');
-const cors = require('cors');
-const multer = require('multer');
+const cors = require('cors')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -858,7 +857,7 @@ app.post('/dormitoryUpdate',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "UPDATE dormitory AS dor SET dor.dormitory_name = ?,dor.dormitory_pic = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_pic,termsData.dormitory_num],
+        "UPDATE dormitory AS dor SET dor.dormitory_name = ? WHERE dor.dormitory_num = ?",[termsData.dormitory_name,termsData.dormitory_num],
         (err,result) => {
             if(err){
                 console.log(err)

@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 import Axios from 'axios'
 import {useHistory} from "react-router-dom";
+import "../../assets/css/DormitoryList.css"
 
 const DormitoryList = (props) => {
 
@@ -18,9 +19,11 @@ const DormitoryList = (props) => {
     return (
         <>
             {dormitoryList.map(dormitory => (
-                <div className={"dormitory-list"}>
-                    <div>
-                        <button onClick={() =>{ history.push({
+                <div className="dormitory-list">
+                    <div className="container-button">
+                        <button
+                            className="button-dormitory"
+                            onClick={() =>{ history.push({
                             pathname : "/admin/dormitoryEdit",
                             state: {
                                 dormitory_num: dormitory.dormitory_num,

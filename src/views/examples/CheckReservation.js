@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import React from "react";
 // react plugin used to create datetimepicker
 import ReactDatetime from "react-datetime";
-
+import {useMediaQuery} from "react-responsive";
 // reactstrap components
 import {
     FormGroup,
@@ -15,6 +15,10 @@ import {
 } from "reactstrap";
 import "../../assets/css/mycss/CheckReservation.css";
 import Header from "components/Headers/Header.js";
+import Axios from "axios";
+import {useHistory} from "react-router-dom";
+import AddStudent from "./AddStudent";
+import Student from "../../components/JDcomponents/Student";
 
 
 const CheckReservation = (props) => {
