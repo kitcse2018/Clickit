@@ -223,5 +223,6 @@ let routes = [
     component: StudentNotice,
     layout: "/student"
   }
+
 ];
 export default routes;
