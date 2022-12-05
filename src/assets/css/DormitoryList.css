@@ -1,0 +1,22 @@
+.dormitory-list{
+    display: inline-block;
+    width: 40%;
+}
+.container-button{
+    display: inline-block;
+    margin-bottom: 20%;
+}
+
+.button-dormitory{
+    margin-bottom: 5%;
+}
+.dormitory-input-container{
+    margin-bottom: 20%;
+    text-align: center;
+}
+.dormitory-container{
+    width: 60%;
+}
+.dormitory-body{
+    width: 100%;
+}

@@ -24,6 +24,7 @@ import Seat from "components/JDcomponents/Seat.js"
 import {useLocation} from "react-router-dom";
 import React, {useState} from "react";
 import Axios from "axios";
+import "../../assets/css/mycss/FacilitySeat.css";
 
 const FacilitySeat = (props) => {
     const location = useLocation();
@@ -62,14 +63,14 @@ const FacilitySeat = (props) => {
     return (
         <>
             <Header />
-            <Container className="addFacility-container">
+            <Container className="addFacility-container facilitySeat-container">
                 <div className={"facility-seat-content-body"}>
                     <div className ="facility-seat-header">
                         <h2>{items.facility_name}</h2>
                     </div>
                     <h2>자리</h2>
                     <div className={"facility-seat-add-body"}>
-                        <input type={"text"} className={"facility-seat-name-input"} placeholder={"자리명"} onChange = {onSeatAdd}/>
+                        <input type={"text"} className={"facility-seat-name-input facility-seat-name-input-css"} placeholder={"자리명"} onChange = {onSeatAdd}/>
                         <Button color="primary" className={"facility-seat-add"} onClick={async (e) =>{
                             let data="";
                             await Axios.get("http://localhost:3001/duplicateSeatName",{params:{facility_seat_name :addFacilitySeatName , facility_num : items.facility_num,

@@ -1,0 +1,10 @@
+.facilitySeat-container{
+    border: 1px solid blue;
+    background-color: skyblue;
+    padding: 5%;
+}
+
+.facility-seat-name-input-css{
+    width: 50%;
+    margin-bottom: 5%;
+}

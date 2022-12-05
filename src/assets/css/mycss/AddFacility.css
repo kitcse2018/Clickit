@@ -1,57 +1,9 @@
-.total{
-
-}
-.topcon{
-    border: 1px solid black;
-    display: inline-block;
-}
-.bigcon{
-    border: 1px solid black;
-    height: 330px;
-    overflow: auto;
-    text-align: center;
-}
-.conimage{
-    border: 1px solid black;
-    width: 40%;
-}
-.coninput{
-    border: 1px solid black;
-    width: 40%;
-}
-.container{
-    background-color: white;
-    display: inline-block;
-    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15) !important;
+.addFacility-container{
+    border: 1px solid blue;
+    background-color: skyblue;
+    padding: 5%;
 }
 
-.con{
-    background-color: white;
-    border: 1px solid black;
-    display: inline-block;
-    width: 95%;
-    height: 100px;
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-.button{
-    float: right;
-}
-.photo{
-    border: 1px solid black;
-    width: 100%;
-    height: 300px;
-    display: inline-flex;
-}
-.input{
-    border: 1px solid black;
-    width: auto;
-    height: auto;
-    margin: auto;
-    float: right;
-}
-.ip1{
-
+.check{
+    margin-top: 1%;
 }

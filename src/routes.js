@@ -68,15 +68,13 @@ let routes = [
       icon: "ni ni-bullet-list-67 text-blue",
       component: Notice,
       layout: "/admin"
-    },
-    {
+    },{
       path: "/CheckReservation",
       name: "예약자 확인 및 다운로드",
       icon: "ni ni-bullet-list-67 text-blue",
       component: CheckReservation,
       layout: "/admin"
-    }
-
+  }
   ], // end of admin
   [ // auth
     {
@@ -153,11 +151,57 @@ let routes = [
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryEdit,
     layout: "/admin"
-  },{
-    path: "/CheckReservation",
-    name: "예약자 현황 확인 및 다운로드",
+  },
+  {
+    path: "/terms",
+    name: "이용수칙",
     icon: "ni ni-bullet-list-67 text-blue",
-    component: CheckReservation,
+    component: Terms,
+    layout: "/admin"
+  },
+  {
+    path: "/termsEdit",
+    name: "이용수칙 수정",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: TermsEdit,
+    layout: "/admin"
+  },
+  {
+    path: "/notice",
+    name: "공지사항",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: Notice,
+    layout: "/admin"
+  },
+  {
+    path: "/noticeE"
+  },
+  {
+    path: "/dormitoryManager",
+    name: "DormitoryManager",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: DormitoryManager,
+    layout: "/admin"
+  },
+  {
+    path: "/noticeEdit",
+    name: "공지사항 수정",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: NoticeEdit,
+    layout: "/admin"
+  },
+  {
+    path: "/addFacility",
+    name: "AddFacility",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: AddFacility,
+    layout: "/admin"
+  },
+  {
+    path: "/facilitySeat",
+    name: "FacilitySeat",
+    icon: "ni ni-bullet-list-67 text-blue",
+    component: FacilitySeat,
     layout: "/admin"
   }
 ];

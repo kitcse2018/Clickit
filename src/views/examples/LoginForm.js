@@ -101,12 +101,12 @@ const LoginForm = ({ login}) => {
                                     id=" customCheckLogin"
                                     type="checkbox"
                                 />
-                                <label
+                                {/*<label
                                     className="custom-control-label"
                                     htmlFor=" customCheckLogin"
                                 >
                                     <span className="text-muted">Remember me</span>
-                                </label>
+                                </label>*/}
                             </div>
                             <div className="text-center">
                                 <Button className="my-4" color="primary" type="button" onClick={handleClick}>
@@ -119,28 +119,6 @@ const LoginForm = ({ login}) => {
                         </div>
                     </CardBody>
                 </Card>
-                <Row className="mt-3">
-                    <Col xs="6">
-                        <a
-                            className="text-light"
-                            // href="#pablo"
-                            href={"#"}
-                            onClick={(e) => e.preventDefault()}
-                        >
-                            <small>Forgot password?</small>
-                        </a>
-                    </Col>
-                    <Col className="text-right" xs="6">
-                        <a
-                            className="text-light"
-                            // href="#pablo"
-                            href={"#"}
-                            onClick={(e) => e.preventDefault()}
-                        >
-                            <small>Create new account</small>
-                        </a>
-                    </Col>
-                </Row>
             </Col>
         </>
     );
