@@ -52,6 +52,9 @@ function FileUpload() {
             //removing header
             fileData.splice(0, 1)
             setData(convertToJson(headers,fileData))
+            console.log(headers)
+            console.log(fileData[0].length)
+            console.log(fileData)
 
         }
 
@@ -68,15 +71,15 @@ function FileUpload() {
             setColDefs([])
         }
 
-        window.location.replace("/admin/Student")
+        /*window.location.replace("/admin/Student")*/
     }
     useEffect(()=>{
-        {data.map(data => (
+        {data.map(student => (
             Axios.post("http://"+config.HOST.toString()+"/addExelStudent",{
                 termsData: {
-                    student_id : data.학번,
-                    dormitory : data.생활관,
-                    student_password: data.비밀번호,
+                    student_id : student.학번,
+                    dormitory : student.생활관,
+                    student_password: student.비밀번호,
                 }
             }).then(e => {
                 console.log(e);

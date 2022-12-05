@@ -100,19 +100,23 @@ app.post("/addStudent", (req,res)=>{
 });
 app.post("/addExelStudent", (req,res)=>{
     const termsData = req.body.termsData;
-
-    db.query(
-        "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?) ON DUPLICATE KEY UPDATE student_id = (?)"
-        ,[termsData.student_id,termsData.dormitory,termsData.student_password,termsData.student_id],
-        function(err){
-            if(err){
-                console.log(err)
-                throw err;
-            }else{
-                console.log("성공");
-
-            };
-        });
+    if(termsData.student_id == null || termsData.dormitory == null || termsData.student_password== null ) {
+        console.log("빈 값 존재")
+        res.send("빈 값이 존재합니다.")
+    }else{
+        db.query(
+            "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?) ON DUPLICATE KEY UPDATE student_id = (?)"
+            ,[termsData.student_id,termsData.dormitory,termsData.student_password,termsData.student_id],
+            function(err){
+                if(err){
+                    console.log(err)
+                    res.send(err)
+                    throw err;
+                }else{
+                    console.log("성공");
+                };
+            });
+    }
 });
 app.post("/UpdateStudent", (req,res)=>{
     const postStudentId = req.body.studentId;
@@ -504,14 +508,15 @@ app.get('/getMyReservationList', (req,res) => {
     )
 });
 app.get('/selectReservationStudentList',(req,res)=>{
-    const termsData = req.body.termsData;
+    const startDate = req.query.startDate;
+    const endDate = req.query.endDate;
     db.query(
         "select st.student_id, res.start_time, res.end_time, res.record_time, " +
         "res.reservation_status, fs.facility_seat_name, fa.facility_name, res.student_temperature " +
         "from reservation as res left join seat_availability as sa on res.seat_availability_num = sa.seat_availability_num " +
         "left join facility_seat as fs on sa.facility_seat_num = fs.facility_seat_num " +
         "left join student as st on res.student_num = st.student_num left join facility as fa on fs.facility_num = fa.facility_num " +
-        "where res.record_time >= ? and res.record_time <=?",[termsData.startDate,termsData.endDate],
+        "where res.record_time >= (?) and res.record_time <=(?)",[startDate,endDate],
         function (err, result) {
             if(err){
                 console.log(err);

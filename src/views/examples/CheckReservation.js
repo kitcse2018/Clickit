@@ -17,7 +17,6 @@ import "../../assets/css/mycss/CheckReservation.css";
 import Header from "components/Headers/Header.js";
 import {DateRangePicker} from "react-date-range";
 import DateRangePick from "../../components/DatePicker/DateRangePick";
-import {addDays} from "date-fns";
 import moment from "moment";
 import Axios from "axios";
 import * as config from "../../config";
@@ -50,14 +49,18 @@ const CheckReservation = (props) => {
                                     className="mb-3"
                                     color="primary"
                                     type="button"
-                                    onClick={(e)=>{
+                                    onClick={async(e)=>{
                                         alert(startDate2);
-                                        Axios.get("http://"+config.HOST.toString()+"/selectReservationStudentList",{
-                                            termsData:{startDate: startDate2 , endDate: unlockDate,
+                                        alert(unlockDate);
+                                        await Axios.get("http://"+config.HOST.toString()+"/selectReservationStudentList",{
+                                            params:{
+                                                startDate: startDate2 ,
+                                                endDate: unlockDate,
                                             }}).then((response)=>
                                         {
-                                            setStudentReservationList(response.data);
+                                            setStudentReservationList(JSON.stringify(response.data.json));
                                             alert('정보를 가져왔습니다. Exel로 다운해주세요')
+                                            alert(JSON.stringify(response.data))
                                         });
                                     }}
                                     >
@@ -69,7 +72,8 @@ const CheckReservation = (props) => {
                             </InputGroupAddon>
                             <DateRangePick setStartDate={setStartDate} setEndDate={setEndDate}/>
                             <Button onClick={(e) => {
-                                const jsonResults = JSON.parse(JSON.stringify(studentReservationList))
+                                const jsonResults = JSON.parse(studentReservationList)
+                                alert(studentReservationList);
                                 let workbook = new excel.Workbook()
                                 let worksheet = workbook.addWorksheet("Reservations")
                                 worksheet.columns = [
