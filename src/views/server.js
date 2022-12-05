@@ -4,7 +4,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const mysql = require('mysql');
 const cors = require('cors');
-const multer = require('multer');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
