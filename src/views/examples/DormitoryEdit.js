@@ -38,6 +38,7 @@ const DormitoryEdit = (props) => {
     const [imageName,setImageName] = useState("3838005.png");
     const [dormitoryName, setDormitoryName] = useState(items.dormitory_name);
     const [postImage,setPostImage] = useState("")
+
     useEffect(()=>{
         Axios.get("http://"+config.HOST.toString()+"/getImageDormitory",{params:
                 {postDormitoryNum :items.dormitory_num}}).then((response) => {
@@ -120,7 +121,6 @@ const DormitoryEdit = (props) => {
                                     dormitory_name : items.dormitory_name,
                                 }
                             }
-
                         )}}>시설물 추가</Button>
                     </div>
                     <div className={"dormitory-edit-content-body"}>

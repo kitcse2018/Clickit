@@ -36,8 +36,7 @@ const ImgUploadForm = ({setPostImage}) => {
             .catch(err => {
                 console.error(err);
             });
-
-
+        alert("이미지 업로드가 완료 되었습니다.\n저장 버튼을 눌러서 저장 해주세요.");
     };
 
     return (
