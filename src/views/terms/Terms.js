@@ -36,6 +36,7 @@ const Terms = (props) => {
                                 terms_contents : "",
                                 terms_facility_num : "",
                                 dormitory_name : "",
+                                isTermsEdit : false,
                             }
                         })}}>이용수칙 추가</Button>
                     </div>

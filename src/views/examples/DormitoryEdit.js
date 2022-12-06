@@ -1,5 +1,5 @@
 
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -29,16 +29,24 @@ import Axios from "axios";
 import {useHistory} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import * as config from '../../config';
+import ImgUploadForm from "../../components/imgUpload/ImgUploadForm";
 const DormitoryEdit = (props) => {
     const location = useLocation();
 
     const items = location.state;
 
-    //img name variable
-    let img_name = "clickit.png";
-    //input text값 가져오기
-
+    const [imageName,setImageName] = useState("3838005.png");
     const [dormitoryName, setDormitoryName] = useState(items.dormitory_name);
+    const [postImage,setPostImage] = useState("")
+    useEffect(()=>{
+        Axios.get("http://"+config.HOST.toString()+"/getImageDormitory",{params:
+                {postDormitoryNum :items.dormitory_num}}).then((response) => {
+            console.log(response.data[0].dormitory_pic)
+            setImageName(response.data[0].dormitory_pic)
+        })
+    },[])
+
+
     const onNameChange = (e) => {
         setDormitoryName(e.target.value);
     }
@@ -63,7 +71,6 @@ const DormitoryEdit = (props) => {
 
         return s_time + " ~ " + e_time;
     }
-    const [dormitoryPicName,setDormitoryPicName]= useState(items.dormitory_pic);
 
 
     const history = useHistory();
@@ -79,25 +86,16 @@ const DormitoryEdit = (props) => {
                             <h1>{items.dormitory_name}</h1>
                         </div>
                         <div className={"dormitory-img"}>
-                            <form action="/upload" method="post" encType="multipart/form-data">
-                                <input type="file" name="imgFile"/>
-                                <input type="submit" value="S3에 보내기"/>
-                            </form>
-                            {/*   <input type={"file"} id={"fileInput"} onChange={(e)=>{
-                                setDormitoryPicName(e.target.files[0].name);
-
-                            }}/>*/}
-                            {/*이미지 나중에 가져와서 변경해주기*/}
-                            <img src={require('../../assets/img/dormitory/' + img_name)}/>
+                            <img src={require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
                         </div>
                         <Button className={"dormitory-img-edit basic-btn"} type={"button"}  size={"sm"}>이미지 수정</Button>
-                        {/*<input type={"submit"} className={"dormitory-img-edit"} value={"이미지 수정"}/>*/}
+                        <ImgUploadForm setPostImage={setPostImage}/>
                         <input type={"text"} className={"dormitory-name-input"} defaultValue={items.dormitory_name} onChange = {onNameChange}/>
                         <Button className={"dormitory-edit-save basic-btn"} type={"button"}  onClick={() =>{
-                            alert(dormitoryPicName);
+                            console.log(postImage)
                             Axios.post("http://"+config.HOST.toString()+"/dormitoryUpdate",{
                                 termsData: {
-                                    dormitory_pic : dormitoryPicName,
+                                    dormitory_pic : postImage,
                                     dormitory_num: items.dormitory_num,
                                     dormitory_name : dormitoryName,
                                 }

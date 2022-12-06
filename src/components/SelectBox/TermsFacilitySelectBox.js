@@ -7,6 +7,8 @@ const TermsFacilitySelectBox = (props) => {
         setTermsFacilityList(response.data);
     });
 
+    props.setOptionValue(0);
+
     const handleSelect = (e) => {
         props.setOptionValue(e.target.value);
         console.log(e.target.value +"\n" + e.target.options[e.target.selectedIndex].text);

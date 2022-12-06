@@ -108,7 +108,7 @@ let routes = [
   },
   {
     path: "/Student",
-    name: "Student",
+    name: "학생 관리",
     icon: "ni ni-user-run",
     component: StudentManagement,
     layout: "/admin"
@@ -164,7 +164,7 @@ let routes = [
   },
   {
     path: "/dormitoryManager",
-    name: "DormitoryManager",
+    name: "기숙사 관리",
     icon: "ni ni-bullet-list-67 text-blue",
     component: DormitoryManager,
     layout: "/admin"

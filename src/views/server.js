@@ -15,7 +15,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '1234',
+        password: '910su147!',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 1000000 }
+    limits: { fileSize: 10000000000000 }
 });
 
 db.connect();
@@ -209,10 +209,10 @@ app.post("/autoBanClear", (req,res)=>{
 });
 
 app.post("/deleteStudent", (req,res)=>{
-    const postStudentId = req.body.postStudentId;
+    const postStudentId = req.body.postStudentNum;
 
     db.query(
-        " delete from student where student_num = (?)"
+        " delete  from student where student_num = (?)"
         ,[postStudentId],
         function(err,rows,fields){
             if(err){
@@ -301,6 +301,21 @@ app.get('/facilityWithDormitory',(req,res) => {
         "SELECT * FROM facility where dormitory_num = (?)",
         [dormitoryNum],
         (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/getImageDormitory', async(req, res)=>{
+    const DormitoryNum = req.query.postDormitoryNum
+    db.query(
+        "SELECT dormitory_pic FROM dormitory where dormitory_num = (?)",
+        [DormitoryNum],
+        (err, result)=>{
             if(err){
                 console.log(err)
             }else{
@@ -527,16 +542,17 @@ app.get('/getMyReservationList', (req,res) => {
         }
     )
 });
+
 app.get('/selectReservationStudentList',(req,res)=>{
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
     db.query(
-        "select st.student_id, res.start_time, res.end_time, res.record_time, " +
+        "select st.student_id, res.start_time, res.end_time, res.record_date, " +
         "res.reservation_status, fs.facility_seat_name, fa.facility_name, res.student_temperature " +
         "from reservation as res left join seat_availability as sa on res.seat_availability_num = sa.seat_availability_num " +
         "left join facility_seat as fs on sa.facility_seat_num = fs.facility_seat_num " +
         "left join student as st on res.student_num = st.student_num left join facility as fa on fs.facility_num = fa.facility_num " +
-        "where res.record_time >= (?) and res.record_time <=(?)",[startDate,endDate],
+        "where res.record_date >= (?) and res.record_date <=(?)",[startDate,endDate],
         function (err, result) {
             if(err){
                 console.log(err);
@@ -634,6 +650,51 @@ app.delete('/noticeDelete', async(req, res)=>{
     );
 });
 
+app.post('/noticeEditSave', async (req, res)=>{
+    const noticeData = req.body.noticeData;
+    console.log(noticeData);
+    db.query(
+        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
+        [noticeData.noticeTitle, noticeData.noticeContents],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/insertNotice', async (req, res)=>{
+    const noticeData = req.body.noticeData;
+    db.query(
+        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?);",
+        [noticeData.noticeTitle, noticeData.noticeContents],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    )
+});
+
+app.post('/updateNotice', async (req, res)=>{
+    const noticeData = req.body.noticeData;
+    db.query(
+        "UPDATE notice SET notice_title = ?, notice_contents = ? WHERE notice_num = ?;",
+        [noticeData.noticeTitle, noticeData.noticeContents, noticeData.noticeNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    )
+});
 
 app.get('/getLatestNotice', async (req, res)=>{
     db.query(
@@ -753,6 +814,38 @@ app.post('/termsEditSave', async (req, res)=>{
         }
     );
 });
+
+app.post('/insertTerms', async (req, res)=>{
+    console.log("여기까지는 들어오나");
+    const termsData = req.body.termsData;
+    console.log(termsData);
+    db.query(
+        "INSERT INTO terms (terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?);",
+        [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
+        function(err, result){
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/updateTerms', async (req, res)=>{
+    const termsData = req.body.termsData;
+    db.query(
+        "UPDATE terms SET terms_title = ?, terms_contents = ?, terms_facility_num = ? WHERE terms_num = ?;",
+        [termsData.termsTitle, termsData.termsContents, termsData.termsFacility, termsData.termsNum],
+        function(err, result){
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+})
 
 app.delete('/termsDelete', async (req, res)=>{
     const postTerms = req.body.terms_num;

@@ -9,14 +9,6 @@ import {Button, Container} from "reactstrap";
 import "../assets/css/btn.css"
 import FileUpload from "../modules/FileUpload"
 
-
-// you must read here
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!Change "ImgUploadForm" name      !!!
-// !!!ex) ImgUploadForm -> fileName    !!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
 const StudentManagement = (props) => {
 
     const [studentList,setStudentList] = useState([]);
@@ -28,26 +20,22 @@ const StudentManagement = (props) => {
         setStudentList(studentList.filter(student => student.student_num !== id));
     };
 
-
     return (
         <>
             <Header />
             <Container className={"third-container"}>
-
                 <h1 > &nbsp; 생활관생 관리</h1>
                 <div className="Search">
                     <div id={"selectBoxSize"}>
                         <SelectBox setOptionValue={setOptionValue} ></SelectBox>
                     </div>
                     <StudentSearch setStudentList={setStudentList} optionValue={optionValue} setVisibleSelect={setVisibleSelect} setVisibleAdd={setVisibleAdd} ></StudentSearch>
-                    <div>
+                    <div className={"flexBox"}>
                         <Button  className={"basicBig-btn"} onClick={()=>{
                             setVisibleAdd(!visibleAdd);
                             setVisibleSelect(!visibleSelect);
                         }} > {visibleAdd?"추가 종료":"학생 추가"} </Button>
                         <FileUpload/>
-
-
                     </div>
                 </div>
                 <div className="studentBoard">
@@ -56,9 +44,6 @@ const StudentManagement = (props) => {
                         <Student student={ student } key={ student.student_num} onRemove={onRemove} />
                     ))}
                 </div>
-
-
-
             </Container>
 
         </>

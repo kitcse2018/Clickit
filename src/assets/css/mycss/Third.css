@@ -110,15 +110,20 @@ select {
     float: right;
     margin-bottom: 1%;
 }
-/*.studentBoard{*/
-/*    padding-top: 1%;*/
-/*    background-color: #efebeb;*/
-/*    border: 1px solid black;*/
-/*    width: 100%;*/
-/*    height: 440px;*/
-/*    text-align: center;*/
-/*    overflow: auto;*/
-/*}*/
+.studentBoard{
+    padding-top: 1%;
+    background-color: #efebeb;
+    border: 1px solid black;
+    width: 100%;
+    height: 440px;
+    text-align: center;
+    overflow: auto;
+}
+
+.flexBox{
+    display: flex;
+}
+
 .addStudentBox{
     border: 1px solid black;
     margin-top: 5px;

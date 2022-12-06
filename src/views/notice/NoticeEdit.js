@@ -26,19 +26,34 @@ const NoticeEdit = () => {
     }, []);
 
     function noticeSave(){
-        Axios.post("http://"+config.HOST.toString()+"/noticeEditSave", {
-            noticeData:{
-                noticeNum: items.notice_num,
-                noticeTitle: noticeTitle,
-                noticeContents: noticeContents,
-            }
-        }).then(r => {
-            console.log(r);
-        }).catch(e => {
-            console.log(e);
-        }).then(r => {
-            console.log(r);
-        })
+        if(items.isNoticeEdit){
+            Axios.post("http://"+config.HOST.toString()+"/updateNotice", {
+                noticeData:{
+                    noticeNum: items.notice_num,
+                    noticeTitle: noticeTitle,
+                    noticeContents: noticeContents,
+                }
+            }).then(r => {
+                console.log(r);
+            }).catch(e => {
+                console.log(e);
+            }).then(r => {
+                console.log(r);
+            })
+        }else{
+            Axios.post("http://"+config.HOST.toString()+"/insertNotice", {
+                noticeData:{
+                    noticeTitle: noticeTitle,
+                    noticeContents: noticeContents,
+                }
+            }).then(r => {
+                console.log(r);
+            }).catch(e => {
+                console.log(e);
+            }).then(r => {
+                console.log(r);
+            })
+        }
         document.location.replace("/admin/notice");
     }
 

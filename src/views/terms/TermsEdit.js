@@ -61,8 +61,6 @@ const TermsEdit = (props) => {
 
     const items = location.state;
 
-    console.log(items.terms_facility_num);
-
     const [value, setValue] = useState();
     const [termsTitle, setTermsTitle] = useState(items.terms_title);
     const [termsContents, setTermsContents] = useState(items.terms_contents);
@@ -76,9 +74,23 @@ const TermsEdit = (props) => {
         setTermsContents(e.target.value);
     }, []);
 
+    const onOptionChange = useCallback(e => {
+        setOptionValue(e.target.value);
+    },[]);
+
     function termsSave(){
-        if(optionValue.valueOf()===0){
-            Axios.post("http://"+config.HOST.toString()+"/termsEditSave", {
+        let termsLink = "";
+        if(items.isTermsEdit){
+            termsLink = "/updateTerms"
+        }else{
+            termsLink = "/insertTerms"
+        }
+
+        alert(optionValue);
+
+        if(optionValue === 0){
+            alert("Axios post1");
+            Axios.post("http://"+config.HOST.toString()+termsLink, {
                 termsData:{
                     termsNum : items.terms_num,
                     termsTitle: termsTitle,
@@ -93,7 +105,8 @@ const TermsEdit = (props) => {
                 console.log(r);
             })
         }else{
-            Axios.post("http://"+config.HOST.toString()+"/termsEditSave", {
+            alert("Axios post2");
+            Axios.post("http://"+config.HOST.toString()+termsLink, {
                 termsData:{
                     termsNum : items.terms_num,
                     termsTitle: termsTitle,

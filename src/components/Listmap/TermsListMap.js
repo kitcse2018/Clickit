@@ -42,6 +42,7 @@ function TermsListMap(props){
                             terms_facility_num : props.terms.terms_facility_num,
                             facility_name : props.terms.facility_name,
                             dormitory_name : props.terms.dormitory_name,
+                            isTermsEdit : true,
                         }
                     })}}>수정</Button>
                     <Button className="terms-list-delete" color="danger" onClick={()=>termsDelete(props)}>삭제</Button>

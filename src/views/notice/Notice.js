@@ -49,6 +49,7 @@ const Notice = (props) => {
                                 notice_num: "",
                                 notice_title: "",
                                 notice_contents: "",
+                                isNoticeEdit : false,
                             }
                         })}>공지사항 추가</Button>
                     </div>
