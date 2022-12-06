@@ -212,7 +212,7 @@ app.post("/deleteStudent", (req,res)=>{
     const postStudentId = req.body.postStudentId;
 
     db.query(
-        " delete  from student where student_num = (?)"
+        " delete from student where student_num = (?)"
         ,[postStudentId],
         function(err,rows,fields){
             if(err){
@@ -634,21 +634,6 @@ app.delete('/noticeDelete', async(req, res)=>{
     );
 });
 
-app.post('/noticeEditSave', async (req, res)=>{
-    const noticeData = req.body.noticeData;
-    console.log(noticeData);
-    db.query(
-        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
-        [noticeData.noticeTitle, noticeData.noticeContents],
-        (err, result)=>{
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
 
 app.get('/getLatestNotice', async (req, res)=>{
     db.query(
@@ -757,8 +742,8 @@ app.post('/termsEditSave', async (req, res)=>{
     const termsData = req.body.termsData;
     console.log(termsData);
     db.query(
-        "INSERT INTO terms (terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE terms_title = VALUES(terms_title), terms_contents = VALUES(terms_contents), terms_facility_num = VALUES(terms_facility_num);",
-        [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
+        "INSERT INTO terms (terms_num, terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE terms_title = ?, terms_contents = ?, terms_facility_num =?;",
+        [termsData.termsNum, termsData.termsTitle, termsData.termsContents, termsData.termsFacility, termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
         (err, result)=>{
             if(err){
                 console.log(err)
@@ -936,8 +921,8 @@ app.post('/noticeEditSave', async (req, res)=>{
     const noticeData = req.body.noticeData;
     console.log(noticeData);
     db.query(
-        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
-        [noticeData.noticeTitle, noticeData.noticeContents],
+        "INSERT INTO notice (notice_num, notice_title, notice_contents) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE notice_title = ?, notice_contents = ?;",
+        [noticeData.noticeNum, noticeData.noticeTitle, noticeData.noticeContents, noticeData.noticeTitle, noticeData.noticeContents],
         (err, result)=>{
             if(err){
                 console.log(err)

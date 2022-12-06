@@ -52,7 +52,6 @@ import TermsListMap from "../../components/Listmap/TermsListMap";
 import {useLocation} from "react-router-dom";
 import SelectBox from "../../components/SelectBox/SelectBox";
 import TermsFacilitySelectBox from "../../components/SelectBox/TermsFacilitySelectBox";
-import TermsEditSave from "../../components/Buttons/TermsButtons/TermsEditSave";
 import Axios from "axios";
 import * as config from '../../config';
 
@@ -61,6 +60,8 @@ const TermsEdit = (props) => {
     const location = useLocation();
 
     const items = location.state;
+
+    console.log(items.terms_facility_num);
 
     const [value, setValue] = useState();
     const [termsTitle, setTermsTitle] = useState(items.terms_title);
@@ -79,6 +80,7 @@ const TermsEdit = (props) => {
         if(optionValue.valueOf()===0){
             Axios.post("http://"+config.HOST.toString()+"/termsEditSave", {
                 termsData:{
+                    termsNum : items.terms_num,
                     termsTitle: termsTitle,
                     termsContents: termsContents,
                     termsFacility: items.terms_facility_num,
@@ -93,6 +95,7 @@ const TermsEdit = (props) => {
         }else{
             Axios.post("http://"+config.HOST.toString()+"/termsEditSave", {
                 termsData:{
+                    termsNum : items.terms_num,
                     termsTitle: termsTitle,
                     termsContents: termsContents,
                     termsFacility: optionValue,
@@ -115,13 +118,6 @@ const TermsEdit = (props) => {
                 <div className={"termsEdit-contents"}>
                     <div className={"termsEdit-top"}>
                         <Button className={"termsEdit-save"} onClick={()=>termsSave()}>저장</Button>
-                        {/*<TermsEditSave props={
-                            {
-                                terms_title : document.getElementsByClassName("termsEdit-element-header-input").item(0).value,
-                                terms_contents : document.getElementsByClassName("termsEdit-element-body-input").item(0).value,
-                                terms_facility_num : document.getElementsByClassName("input_area").item(0).children.item(0).value,
-                            }
-                        }></TermsEditSave>*/}
                     </div>
                     <div className={"termsEdit-elements"}>
                         <div className={"termsEdit-element-header"}>

@@ -60,7 +60,6 @@ const FacilitySeat = (props) => {
     let addStart = items.facility_start_time.slice(0,2);
 
 
-
     return (
         <>
             <Header />

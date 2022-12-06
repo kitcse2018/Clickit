@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import "../../assets/css/notice/NoticeListMap.css";
 import {noticeDelete} from "../../methods/notice/NoticeMethods";
 
-function NoticeListMap(props){
+function NoticeListMap(notice){
     const history = useHistory();
 
     // 밑에 실행 안 되면 className 중괄호 없애기
@@ -13,11 +13,11 @@ function NoticeListMap(props){
         <li className={"notice-list-li"}>
             <div className={"notice-list-num"}>
                 <h1>
-                    {props.notice.notice_num}
+                    {notice.notice_num}
                 </h1>
             </div>
             <div className={"notice-list-title"}>
-                {props.notice.notice_title}
+                {notice.notice_title}
             </div>
             {/*<div className={"notice-list-content"}>*/}
             {/*    {props.notice.notice_contents}*/}
@@ -26,12 +26,12 @@ function NoticeListMap(props){
                 <Button className={"notice-list-edit"} color={"primary"} onClick={()=>{history.push({
                     pathname: "/admin/noticeEdit",
                     state: {
-                        notice_num: props.notice.notice_num,
-                        notice_title: props.notice.notice_title,
-                        notice_contents: props.notice.notice_contents,
+                        notice_num: notice.notice_num,
+                        notice_title: notice.notice_title,
+                        notice_contents: notice.notice_contents,
                     }
                 })}}>수정</Button>
-                <Button className={"notice-list-delete"} color={"danger"} onClick={()=>{noticeDelete(props)}}>삭제</Button>
+                <Button className={"notice-list-delete"} color={"danger"} onClick={()=>{noticeDelete(notice)}}>삭제</Button>
             </div>
         </li>
       </>

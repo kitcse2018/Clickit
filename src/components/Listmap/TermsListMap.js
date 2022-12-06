@@ -7,6 +7,7 @@ import {useHistory} from "react-router-dom";
 
 function TermsListMap(props){
 
+    console.log(props);
 
     const history = useHistory();
 

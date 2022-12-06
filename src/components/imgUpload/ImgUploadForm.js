@@ -2,7 +2,9 @@ import Header from "components/Headers/Header.js";
 import React, {useState} from "react";
 import Axios from "axios";
 
-const ImgUploadForm = (props) => {
+
+
+const ImgUploadForm = ({setImage}) => {
 
     const [content, setContent] = useState("");
     const [uploadedImg, setUploadedImg] = useState({
@@ -10,10 +12,10 @@ const ImgUploadForm = (props) => {
         fillPath: ""
     });
 
-    const fileAdd = () => {
-        let file = document.getElementById('fileAdd');
-        file.click();
-    }
+    // const fileAdd = () => {
+    //     let file = document.getElementById('fileAdd');
+    //     file.click();
+    // }
 
     const onChange = (e) => {
         setContent(e.target.files[0]);
@@ -31,7 +33,9 @@ const ImgUploadForm = (props) => {
                 const { fileName } = res.data;
                 console.log(fileName);
                 setUploadedImg({ fileName });
+                setImage({fileName});
                 alert("The file is successfully uploaded");
+
             })
             .catch(err => {
                 console.error(err);
@@ -41,14 +45,14 @@ const ImgUploadForm = (props) => {
     return (
         <>
             <form onSubmit={onSubmit}>
-                <div onClick={fileAdd} id="uploadDiv">
+                <div id="uploadDiv">
                     <input
                         id="fileAdd"
                         type="file"
                         onChange={onChange}
                     />
                 </div>
-                <button type="submit">Upload</button>
+                <button type="submit">미리보기</button>
             </form>
         </>
     );

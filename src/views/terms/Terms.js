@@ -20,6 +20,8 @@ const Terms = (props) => {
 
     const history = useHistory();
 
+    console.log("test");
+
     return (
         <>
             <Header />

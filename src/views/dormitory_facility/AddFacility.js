@@ -29,7 +29,7 @@ import {
 import Header from "components/Headers/Header.js";
 import {useHistory} from "react-router-dom";
 import {useLocation} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Axios from "axios";
 import * as config from '../../config';
 import "../../assets/css/mycss/AddFacility.css";
@@ -39,6 +39,7 @@ const AddFacility = (props) => {
     const location = useLocation();
 
     const items = location.state;
+    const [Image, setImage] = useState("");
 
     let img_name = "clickit.png";
 
@@ -74,6 +75,14 @@ const AddFacility = (props) => {
         setAdminFacilitySeatList(response.data);
     });
 
+    useEffect(()=>{
+        if (Image != ""){
+            img_name = Image;
+        }else if(items.facility_pic != ""){
+            img_name = items.facility_pic;
+        }
+    })
+
 
 
     function timeFormat(time){
@@ -102,8 +111,10 @@ const AddFacility = (props) => {
                             <div className={"facility-edit-picture"}>
                                 <div className={"dormitory-img"}>
                                     {/*이미지 나중에 가져와서 변경해주기*/}
-                                    <img src={require('../../assets/img/dormitory/' + img_name)}/>
-                                    <ImgUploadForm></ImgUploadForm>
+                                    <img src={require('../../assets/img/kumoh/' + img_name)}/>
+                                    <ImgUploadForm setImage ={setImage} onChange={()=>{
+
+                                    }}> </ImgUploadForm>
                                 </div>
 
                             </div>
@@ -203,17 +214,17 @@ const AddFacility = (props) => {
 
                                                 let startMTime = facilityStartTime.slice(3,5);
                                                 let endMTime = facilityEndTime.slice(3,5);
-                                                let count = endTime - startTime;
+                                                let count = endTime - startTime + 1;
 
-                                                if(startMTime - endMTime > 0)
-                                                    count = endTime - startTime + 1;
+                                                if(startMTime - endMTime >= 0)
+                                                    count = endTime - startTime;
 
                                                 let addStart = facilityStartTime.slice(0,2);
 
-                                                for(let j = 0; j < count-1; j++){
+                                                for(let j = 0; j < count; j++){
                                                     let currentStartTime = addStart + ":" +  startMTime;
                                                     let addEnd = ++addStart;
-                                                    let currentEndTime = addEnd + ":" + endMTime;
+                                                    let currentEndTime = addEnd + ":" + startMTime;
                                                     if(j == (count-1)){
                                                         await Axios.post("http://"+config.HOST.toString()+"/facilitySeatAvailabilityInsert",{
                                                             termsData: {

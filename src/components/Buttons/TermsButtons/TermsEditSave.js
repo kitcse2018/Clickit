@@ -31,7 +31,7 @@ const TermsEditSave = (props) => {
                     {
                         terms_title : json.text,
                         terms_contents : json.text,
-                        terms_inner_facility_num : json.text,
+                        termsFacility : json.text,
                     }
                 );
             });
