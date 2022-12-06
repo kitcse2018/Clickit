@@ -86,10 +86,7 @@ const TermsEdit = (props) => {
             termsLink = "/insertTerms"
         }
 
-        alert(optionValue);
-
         if(optionValue === 0){
-            alert("Axios post1");
             Axios.post("http://"+config.HOST.toString()+termsLink, {
                 termsData:{
                     termsNum : items.terms_num,
@@ -105,7 +102,6 @@ const TermsEdit = (props) => {
                 console.log(r);
             })
         }else{
-            alert("Axios post2");
             Axios.post("http://"+config.HOST.toString()+termsLink, {
                 termsData:{
                     termsNum : items.terms_num,
