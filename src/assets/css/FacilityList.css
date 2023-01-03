@@ -3,10 +3,35 @@
     margin : 10px auto;
     padding : 15px;
 }
+
+.fac-card-body{
+    display: flex;
+}
+
 .fac-img{
+    margin-right: 40px;
+}
+
+.fac-info{
+    width: 100%;
+}
+
+.fac-card-title{
+    height: 20%;
+}
+
+.fac-card-text{
+    height: 50%;
+}
+
+.fac-reserve-btn{
+    float: right;
+}
+
+/*.fac-img{
     float:left;
     width: 60%;
-}
+}*/
 
 .fac-img-detail{
     object-fit: fill;
@@ -18,10 +43,6 @@
 .fac-right{
     width: 100%;
     padding-left: 2%;
-}
-
-.fac-content{
-    height: 100%;
 }
 
 .fac-body{
@@ -39,8 +60,9 @@
 .facility-list-container{
     background-color : #f4f5f7;
     /*box-shadow: 0px 0px 5px gray;*/
-    margin-top : -6rem;
+    margin-top : -10rem;
     position:relative;
+    padding: 2rem;
 }
 @media(max-width:400px){
     .facility-list-container{
