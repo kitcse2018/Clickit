@@ -43,7 +43,11 @@ const DormitoryEdit = (props) => {
         Axios.get("http://"+config.HOST.toString()+"/getImageDormitory",{params:
                 {postDormitoryNum :items.dormitory_num}}).then((response) => {
             console.log(response.data[0].dormitory_pic)
-            setImageName(response.data[0].dormitory_pic)
+            if(response.data[0].dormitory_pic==="") {
+                setImageName("3838005.png")
+            }else{
+                setImageName(response.data[0].dormitory_pic)
+            }
         })
     },[])
 

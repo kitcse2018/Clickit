@@ -20,7 +20,7 @@ import ProfileDormitoryName from "./ProfileDormitoryName";
 import ProfileReservationListMap from "../../components/Listmap/ProfileReservationListMap";
 import ProfileBlacklist from "../../components/ProfileProgress/ProfileBlacklist";
 import ProfileReservationPercent from "../../components/ProfileProgress/ProfileReservationPercent";
-import ProfileCurrentReservation from "./ProfileCurrentReservation";
+import * as config from "../../config";
 
 const Profile = () => {
 
@@ -32,19 +32,19 @@ const Profile = () => {
   const studentNum = sessionStorage.getItem("studentNum");
 
   useEffect(()=>{
-    Axios.all([Axios.get('http://localhost:3001/studentDormitoryName', {
+    Axios.all([Axios.get("http://"+config.HOST.toString()+"/studentDormitoryName", {
       params:{
         dormitoryNum: sessionStorage.getItem("dormitoryNum"),
       }
-    }), Axios.get('http://localhost:3001/getMyCurReservation',{
+    }), Axios.get("http://"+config.HOST.toString()+"/getMyCurReservation",{
         params:{
             studentNum: studentNum,
         }
-    }), Axios.get('http://localhost:3001/getMyReservationList',{
+    }), Axios.get("http://"+config.HOST.toString()+"/getMyReservationList",{
         params:{
             studentNum: studentNum,
         }
-    }), Axios.get('http://localhost:3001/getBlacklistEndDate',{
+    }), Axios.get("http://"+config.HOST.toString()+"/getBlacklistEndDate",{
         params:{
             studentNum: studentNum,
         }

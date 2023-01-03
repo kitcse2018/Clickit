@@ -26,6 +26,7 @@ const ReservationTimeListMap = (props) =>{
         //nothing
     }
 
+
     // 밑에처럼 해야 빠름
     useEffect(()=>{
         // Axios.all([Axios.get('http://localhost:3001/getSeatsByTimes',{

@@ -61,10 +61,14 @@ const TermsEdit = (props) => {
 
     const items = location.state;
 
+    console.log(items.terms_num);
+    console.log(items.terms_facility_num);
+    console.log(items);
+
     const [value, setValue] = useState();
     const [termsTitle, setTermsTitle] = useState(items.terms_title);
     const [termsContents, setTermsContents] = useState(items.terms_contents);
-    const [optionValue,setOptionValue] = useState([]);
+    const [optionValue,setOptionValue] = useState(0);
 
     const onTitleChange = useCallback(e => {
         setTermsTitle(e.target.value);
@@ -77,6 +81,20 @@ const TermsEdit = (props) => {
     const onOptionChange = useCallback(e => {
         setOptionValue(e.target.value);
     },[]);
+
+    const getOptionValue = (optionValue) => {
+        setOptionValue(optionValue);
+    }
+
+    const [termsFacilityList, setTermsFacilityList] = useState([]);
+    Axios.get("http://"+config.HOST.toString()+"/facilityNumName").then((response) => {
+        setTermsFacilityList(response.data);
+    });
+
+    const handleSelect = (e) => {
+        setOptionValue(e.target.value);
+        console.log(e.target.value +"\n" + e.target.options[e.target.selectedIndex].text);
+    }
 
     function termsSave(){
         let termsLink = "";
@@ -104,10 +122,10 @@ const TermsEdit = (props) => {
         }else{
             Axios.post("http://"+config.HOST.toString()+termsLink, {
                 termsData:{
-                    termsNum : items.terms_num,
                     termsTitle: termsTitle,
                     termsContents: termsContents,
                     termsFacility: optionValue,
+
                 }
             }).then(r => {
                 console.log(r);
@@ -136,7 +154,16 @@ const TermsEdit = (props) => {
                                        onChange = {onTitleChange} defaultValue={items.terms_title}>
                                 </Input>
                             </Form>
-                            <TermsFacilitySelectBox setOptionValue={setOptionValue}></TermsFacilitySelectBox>
+                            <form>
+                                <div className="input_area">
+                                    <select onChange={handleSelect} id="class">
+                                        <option value="0">시설 선택</option>
+                                        {termsFacilityList.map((t) => (
+                                            <option value={t.facility_num}>{t.facility_name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </form>
                         </div>
                         <div className={"termsEdit-element-body"}>
                             <Form>

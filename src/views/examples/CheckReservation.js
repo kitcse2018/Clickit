@@ -61,7 +61,6 @@ const CheckReservation = (props) => {
                                         {
                                             setStudentReservationList(response.data);
                                             alert('정보를 가져왔습니다. Exel로 다운해주세요')
-                                            alert(JSON.stringify(response.data))
                                         });
                                     }}
                                 >

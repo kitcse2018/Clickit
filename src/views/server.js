@@ -15,7 +15,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host: 'localhost',
-        password: '910su147!',
+        password: '1234',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -542,7 +542,6 @@ app.get('/getMyReservationList', (req,res) => {
         }
     )
 });
-
 app.get('/selectReservationStudentList',(req,res)=>{
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;

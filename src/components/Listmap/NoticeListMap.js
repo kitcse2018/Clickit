@@ -1,8 +1,9 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Button} from "reactstrap";
 import {useHistory} from "react-router-dom";
 import "../../assets/css/notice/NoticeListMap.css";
 import {noticeDelete} from "../../methods/notice/NoticeMethods";
+import {useEffect} from "react";
 
 function NoticeListMap(notice){
     const history = useHistory();
