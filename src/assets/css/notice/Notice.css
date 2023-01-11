@@ -1,4 +1,4 @@
-.notice-container{
+.notice-main{
     /*width: 100%;*/
     /*height: 100%;*/
     position: relative;
@@ -11,25 +11,101 @@
 .notice-contents{
     width: 100%;
     height: 100%;
-    border: 2px solid #172b4d;
-}
-/*background-color: #172b4d;*/
-.notice-top{
-    float: right;
-    margin : 15px;
+    padding: 1rem;
 }
 
-.notice-list{
+.notice-contents-header{
     width: 100%;
-    height: 80%;
-    overflow: auto;
+    height:7%;
+    vertical-align: middle;
 }
 
-.notice-paging{
-    display: flex;
-    width: 12%;
-    justify-content: space-between;
-    align-items: center;
+.notice-create{
     margin: 0 auto;
-    padding-top : 10px;
+    float: right;
 }
+
+.notice-board{
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.notice-table{
+    text-align: center;
+}
+
+.notice-list>.notice-table>.notice-thead{
+    height: 8%;
+    border-top : 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.notice-tr-title{
+    height: 60px;
+}
+
+.notice-tr>h2{
+    margin-bottom: 0px;
+}
+
+.notice-tr-list{
+    height: 70px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.notice-table-header-num{
+    width: 10%;
+}
+
+.notice-table-header-title{
+    width: 40%;
+}
+
+.notice-table-header-writer{
+    width: 15%;
+}
+
+.notice-table-header-date{
+    width: 15%;
+}
+
+.notice-table-header-button{
+    width: 15%;
+}
+
+/*.notice-container{*/
+/*    !*width: 100%;*!*/
+/*    !*height: 100%;*!*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    height: 1000px;*/
+/*    margin-top: -10rem;*/
+/*    background-color: #f4f5f7;*/
+/*}*/
+
+/*.notice-contents{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    border: 2px solid #172b4d;*/
+/*}*/
+/*!*background-color: #172b4d;*!*/
+/*.notice-top{*/
+/*    float: right;*/
+/*    margin : 15px;*/
+/*}*/
+
+/*.notice-list{*/
+/*    width: 100%;*/
+/*    height: 80%;*/
+/*    overflow: auto;*/
+/*}*/
+
+/*.notice-paging{*/
+/*    display: flex;*/
+/*    width: 12%;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    margin: 0 auto;*/
+/*    padding-top : 10px;*/
+/*}*/

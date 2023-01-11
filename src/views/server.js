@@ -428,7 +428,7 @@ app.get('/hasReservation', (req,res) => {
 app.get('/getMyCurReservation', (req,res) => {
     const studentNum = req.query.studentNum;
     db.query(
-        "SELECT * FROM reservation where student_num = ? and date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and start_time < curtime() and end_time > curtime() and reservation_status = \"예약\"",
+        "SELECT * FROM ccd.reservation where student_num = ? and date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and start_time < curtime() and end_time > curtime() and reservation_status = \"예약\"",
         [studentNum],
         function (err, result) {
             if(err){
@@ -787,7 +787,7 @@ app.get('/facilityNumName',async(req,res) => {
 
 app.get('/terms', async(req, res)=>{
     db.query(
-        "SELECT terms_num, terms_title, terms_contents, terms_facility_num, facility_name , dormitory_name FROM ccd.terms LEFT JOIN ccd.facility ON terms.terms_facility_num = facility.facility_num LEFT JOIN ccd.dormitory on facility.dormitory_num = dormitory.dormitory_num;",
+        "SELECT terms_num, terms_title, terms_contents, terms_facility_num, facility_name , dormitory_name FROM ccd.terms LEFT JOIN ccd.facility ON terms.terms_facility_num = facility.facility_num LEFT JOIN ccd.dormitory on facility.dormitory_num = dormitory.dormitory_num ORDER BY dormitory_name ASC;",
         (err, result)=>{
             if(err){
                 console.log(err)

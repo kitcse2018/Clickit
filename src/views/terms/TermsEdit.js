@@ -61,7 +61,7 @@ const TermsEdit = (props) => {
 
     const items = location.state;
 
-    console.log(items.terms_num);
+    console.log("items.terms_num : "+items.terms_num);
     console.log(items.terms_facility_num);
     console.log(items);
 

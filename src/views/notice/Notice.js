@@ -40,9 +40,9 @@ const Notice = (props) => {
     return (
         <>
             <Header />
-            <div className={"notice-container"}>
+            <div className={"notice-main"}>
                 <div className={"notice-contents"}>
-                    <div className={"notice-top"}>
+                    <div className={"notice-contents-header"}>
                         <Button className={"notice-create"} color={"primary"} onClick={()=>history.push({
                             pathname: "/admin/noticeEdit",
                             state:{
@@ -53,14 +53,49 @@ const Notice = (props) => {
                             }
                         })}>공지사항 추가</Button>
                     </div>
-
-                    <div className={"notice-list"}>
-                        {noticeList.map((noticeList)=>(
-                            <NoticeListMap notice={noticeList}/>
-                        ))}
+                    <div className={"notice-board"}>
+                        <div className={"notice-list"}>
+                            <table width={"100%"} cellSpacing={"0"} className={"notice-table"}>
+                                <thead className={"notice-thead"}>
+                                <tr className={"notice-tr-title"}>
+                                    <th scope={"col"} className={"notice-table-header-num"}><span className={"terms-tr display-4"}>번호</span></th>
+                                    <th scope={"col"} className={"notice-table-header-title"}><span className={"terms-tr display-4"}>제목</span></th>
+                                    <th scope={"col"} className={"notice-table-header-writer"}><span className={"terms-tr display-4"}>작성자</span></th>
+                                    <th scope={"col"} className={"notice-table-header-date"}><span className={"terms-tr display-4"}>작성일</span></th>
+                                    <th scope={"col"} className={"notice-table-header-button"}><span className={"terms-tr display-4"}>수정 및 삭제</span></th>
+                                </tr>
+                                </thead>
+                                <tbody className={"notice-tbody"}>
+                                {noticeList.map((noticeList, index)=>(
+                                    <NoticeListMap notice={noticeList} index={index}/>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
+            {/*<div className={"notice-container"}>*/}
+            {/*    <div className={"notice-contents"}>*/}
+            {/*        <div className={"notice-top"}>*/}
+            {/*            <Button className={"notice-create"} color={"primary"} onClick={()=>history.push({*/}
+            {/*                pathname: "/admin/noticeEdit",*/}
+            {/*                state:{*/}
+            {/*                    notice_num: "",*/}
+            {/*                    notice_title: "",*/}
+            {/*                    notice_contents: "",*/}
+            {/*                    isNoticeEdit : false,*/}
+            {/*                }*/}
+            {/*            })}>공지사항 추가</Button>*/}
+            {/*        </div>*/}
+
+            {/*        <div className={"notice-list"}>*/}
+            {/*            {noticeList.map((noticeList)=>(*/}
+            {/*                <NoticeListMap notice={noticeList}/>*/}
+            {/*            ))}*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </>
     );
 };

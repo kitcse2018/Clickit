@@ -8,11 +8,96 @@
     background-color: #f4f5f7;
 }
 
+.terms-main{
+    position: relative;
+    width: 100%;
+    height: 1000px;
+    margin-top: -10rem;
+    background-color: #f4f5f7;
+}
+
 .terms-contents{
     width: 100%;
     height: 100%;
-    border: 2px solid #172b4d;
+    padding: 1rem;
 }
+
+.terms-contents-header{
+    width: 100%;
+    height:7%;
+    vertical-align: middle;
+}
+
+.terms-create{
+    margin: 0 auto;
+    float: right;
+}
+
+.terms-board{
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.terms-table{
+    text-align: center;
+}
+
+.terms-list>.terms-table>.terms-thead{
+    height: 8%;
+    border-top : 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.terms-tr-title{
+    height: 60px;
+}
+
+.terms-tbody{
+}
+
+.terms-tr>h2{
+    margin-bottom: 0px;
+}
+
+.terms-tr-list{
+    height: 70px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+/*.terms-table>thead>tr>th{*/
+/*    border-right: 2px solid black;*/
+/*}*/
+
+/*.terms-table>thead>tr>th:last-child{*/
+/*    border-right: 0px;*/
+/*}*/
+
+.terms-table-header-num{
+    width: 15%;
+}
+
+.terms-table-header-dormitory{
+    width: 20%;
+}
+
+.terms-table-header-facility{
+    width: 20%;
+}
+
+.terms-table-header-title{
+    width: 30%;
+}
+
+.terms-table-header-button{
+    width: auto;
+}
+
+/*.terms-contents{
+    width: 100%;
+    height: 100%;
+    border: 2px solid #172b4d;
+}*/
 /*background-color: #172b4d;*/
 .terms-top{
     float: right;
