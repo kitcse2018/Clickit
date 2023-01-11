@@ -1,0 +1,13 @@
+   user: 'root',
+        host:'localhost',
+        password: 'cym0523200!',
+        database: 'ccd',
+        dateStrings: 'date'
+
+
+5. 로그아웃 구현 (auth/login 페이지로 redirect, sessionStorage에서 isLogin을 null로 변경)
+
+alert(config.HOST.toString())
+import * as config from '../../config';
+
+"+config.HOST.toString()+"
