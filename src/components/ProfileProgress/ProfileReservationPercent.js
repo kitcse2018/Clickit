@@ -5,19 +5,20 @@ import {stringToTime} from "../../methods/stringToDate";
 
 const ProfileReservationPercent = (myCurReservation) =>{
 
-    console.log(myCurReservation);
-
     let percentage = 0;
 
     const calcReservationPercent = () => {
-        const curDate = getCurrentDate().split(' ')[1];
+
+        console.log("myCurReservation: "+myCurReservation);
+
+        /*const curDate = getCurrentDate().split(' ')[1];
         const startTime = (myCurReservation.myCurReservation.start_time);
         const endTime = (myCurReservation.myCurReservation.end_time);
         // const total = endTime - startTime;
         const total = stringToTime(endTime,startTime);
         // percentage = (curDate - startTime) / total * 100;
         percentage = stringToTime(curDate,startTime) / total * 100;
-        return percentage.toString().slice(0,5);
+        return percentage.toString().slice(0,5);*/
     }
 
     return(

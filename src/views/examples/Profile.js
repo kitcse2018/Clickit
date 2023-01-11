@@ -65,12 +65,12 @@ const Profile = () => {
     window.location.href="#res-list";
   }
 
-  console.log(myCurReservation);
+  console.log("Profile myCurReservation: "+myCurReservation);
+  console.log("Profile MyReservationList: "+ myReservationList);
 
   return (
       <>
         <UserHeader />
-        {/* Page content */}
         <Container className="mt--7 percent-container" fluid>
           <div className="percentTop">
             <Card className="card-profile shadow">
@@ -103,44 +103,37 @@ const Profile = () => {
                 </div>
                 <ProfileDormitoryName dormitoryName={dormitoryName}></ProfileDormitoryName>
               </div>
-            </Card>
-          </div>
-          <div className="percent">
-            <Card className="card-profile shadow">
-              <div>
-                {blackDate.map((blackDate, key) => {
-                  return(
-                      <ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>
-                  )
-                })}
+              <div className="percent">
+                <div className={"blacklist-percent"}>
+                  {blackDate.map((blackDate, key) => {
+                    return(
+                        <ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>
+                    )
+                  })}
+                </div>
+                <div>
+                  {myCurReservation.map((myCurReservation, key) => {
+                    return(
+                        <ProfileReservationPercent myCurReservation={myCurReservation}></ProfileReservationPercent>
+                    )
+                  })}
+                </div>
+                {/*<ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>*/}
+                {/*<ProfileReservationPercent myCurReservation={myCurReservation}></ProfileReservationPercent>*/}
               </div>
-              <div>
-                {myCurReservation.map((myCurReservation, key) => {
-                  return(
-                      <ProfileReservationPercent myCurReservation={myCurReservation}></ProfileReservationPercent>
-                  )
-                })}
+              <div className={"profile-current-reservation"}>
+                <div>
+                  {/*<ProfileCurrentReservation curRes={myCurReservation}></ProfileCurrentReservation>*/}
+                </div>
               </div>
-              {/*<ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>*/}
-              {/*<ProfileReservationPercent myCurReservation={myCurReservation}></ProfileReservationPercent>*/}
-            </Card>
-          </div>
-          <div className={"profile-current-reservation"}>
-            <Card className="shadow res-list-card">
-              <div>
-                {/*<ProfileCurrentReservation curRes={myCurReservation}></ProfileCurrentReservation>*/}
-              </div>
-            </Card>
-          </div>
-          {/**/}
-          <div className={"profile-reservation-list"} id={"res-list"}>
-            <Card className={"shadow res-list-card"}>
-              <div className={"res-list-container"}>
-                {myReservationList.map((resList, key) => {
-                  return(
-                      <ProfileReservationListMap resList={resList}></ProfileReservationListMap>
-                      )
-                })}
+              <div className={"profile-reservation-list"} id={"res-list"}>
+                <div className={"res-list-container"}>
+                  {myReservationList.map((resList, key) => {
+                    return(
+                        <ProfileReservationListMap resList={resList}></ProfileReservationListMap>
+                    )
+                  })}
+                </div>
               </div>
             </Card>
           </div>
