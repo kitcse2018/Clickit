@@ -70,32 +70,25 @@ const Student = ({ student, onRemove }) => {
 
 
     return (
-        <div className="studentList">
-            <div className="gnb_menu">
-                <ul className="student_ul">
-                    <li className="dp1">
-                        <input  className="inputOrshow" type="text" name="department" placeholder={student.student_id} readOnly/>
-                    </li>
-                    <li className="dp1">
-                        <input className="inputOrshow" type="text" name="department"
-                               placeholder={student.dormitory_name} readOnly/>
-                    </li>
-                    <li className="dp1">
-                        <input className="inputOrshow" type="text" name="department"
-                               placeholder={student.student_password} readOnly/>
-                    </li>
-                </ul>
-                <div className="UDSbutton">
-                <StudentUpdateBtn student={student}/>
-                <Button className="delete-btn" onClick={() => {deleteById(student);}}>삭제</Button>
-                {
-                    student.blacklist_num == null ?
-                        <Datepicker student={student}/>:
-                        <Button className={"clear-btn"} onClick={() => banClear(student)}>해제</Button>
-                }
-                </div>
-            </div>
-        </div>
+
+
+                <table >
+                    <tr className="tr2">
+                        <th className="th2">{student.student_id}</th>
+                        <th className="th2">{student.dormitory_name}</th>
+                        <th className="th2">{student.student_password}</th>
+                        <th className="th4">
+                            <StudentUpdateBtn student={student}/>
+                            <Button className="delete-btn" onClick={() => {deleteById(student);}}>삭제</Button>
+                            {
+                                student.blacklist_num == null ?
+                                    <Datepicker student={student}/>:
+                                    <Button className={"clear-btn"} onClick={() => banClear(student)}>해제</Button>
+                            }
+                        </th>
+                    </tr>
+                    </table>
+
     );
 }
 

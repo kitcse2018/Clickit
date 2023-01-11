@@ -25,10 +25,12 @@
     width: 100%;
     margin-bottom: 10px;
     justify-content: space-between;
+    height: 8%;
 }
 .SearchBox{
     display: flex;
-    width: 45%;
+    width: 40%;
+
 }
 .inputStudent{
     width: 70%;
@@ -61,10 +63,15 @@
     display: block;
     margin-bottom: 10px;
 }
-
-
+.fas {
+    line-height: inherit;
+}
+.icon i {
+    font-size : 1.8rem;
+}
 .icon{
     height: inherit;
+    vertical-align: center;
     text-align: center;
     background-color: #f5f2f2;
     border-left: 1px solid #0a0c0d;
@@ -74,7 +81,6 @@
 .studentList{
     margin-top: 5px;
     display: inline-block;
-
     margin-bottom: 10px;
     padding-right: 5px;
     padding-left: 5px;
@@ -86,17 +92,115 @@
 #selectBoxSize{
     width: 11rem;
 }
+
+.filebox{
+    display: flex;
+}
+.btn:not(:last-child){
+    margin-right: 0;
+    overflow: hidden;
+}
+.upload-name {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    color: #fff;
+    text-align: center;
+    background-color: #999999;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius:0.375rem;
+    width: 220px;
+
+}
+.upload-name:hover{
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    color: #0c0c0c;
+    text-align: center;
+    background-color: #626161;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius:0.375rem;
+
+}
+
+
+.trd{
+    border-top: 1px solid #333;
+    border-bottom: 2px solid #333;}
+.th2{
+    width: 23%;
+    padding: 10px 10px;
+    background: #efebeb;
+    color: #666;
+    font-size: 17px;
+
+}
+.th3{
+    padding: 10px 10px;
+    background: #efebeb;
+    color: #666;
+    font-weight: bold;
+    font-size: 20px;
+}
+.th1 {
+    width: 23%;
+    padding: 10px 10px;
+    background: #efebeb;
+    color: #666;
+    font-weight: bold;
+    font-size: 20px;
+}
+.tr2{
+    border-bottom: 1px solid #c9c6c6;
+    height: 4rem;
+}
+table{
+    width: 95%;
+    margin-left: 3%;
+}
+
+.subject {
+    width: 45%;
+    text-align: left;
+}
+
+.mb-3 form-group{
+    height: 40%;
+}
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
 .input_area input {
     width: 400px;
     height: 40px;
     font-size: 20px;
     padding: 0 10px;
 }
+
 select {
+    font-size: 1.2rem;
+    width: 100%;
     text-align-last: center;
     text-align: center;
     -ms-text-align-last: center;
     -moz-text-align-last: center;
+    height: 100%;
 }
 
 .input_area select {
@@ -119,11 +223,9 @@ select {
     text-align: center;
     overflow: auto;
 }
-
-.flexBox{
-    display: flex;
+select::-ms-expand {
+    display: none;
 }
-
 .addStudentBox{
     border: 1px solid black;
     margin-top: 5px;

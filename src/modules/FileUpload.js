@@ -4,12 +4,15 @@ import * as XLSX from 'xlsx'
 import Student from "../components/JDcomponents/Student";
 import Axios from "axios";
 import * as config from "../config";
+import {Button} from "reactstrap";
 
 const EXTENSIONS = ['xlsx', 'xls', 'csv']
+
 function FileUpload() {
+    const[file,setFile] = useState();
     const [colDefs, setColDefs] = useState([])
     const [data, setData] = useState([])
-
+    const [fileURL,setfileURL] = React.useState("업로드할 파일 선택");
     const getExecution = (file) => {
         const parts = file.name.split('.')
         const extension = parts[parts.length - 1]
@@ -28,14 +31,19 @@ function FileUpload() {
         });
         return rows
     }
-
+    const SetFileUml = (e) => {
+        if(e.target.value===""){
+            setfileURL("업로드할 파일 선택");
+        }else{
+            setfileURL(e.target.value);
+        }
+        setFile(e.target.files[0]);
+    }
     const ImportExcel = (e) => {
-        const file = e.target.files[0]
 
         const reader = new FileReader()
         reader.onload = (event) => {
             //parse data
-
             const bstr = event.target.result
             const workBook = XLSX.read(bstr, { type: "binary" })
 
@@ -55,13 +63,12 @@ function FileUpload() {
             console.log(headers)
             console.log(fileData[0].length)
             console.log(fileData)
-
         }
-
 
         if (file) {
             if (getExecution(file)) {
                 reader.readAsBinaryString(file)
+                alert(fileURL)
             }
             else {
                 alert("Invalid file input, Select Excel, CSV file")
@@ -71,9 +78,11 @@ function FileUpload() {
             setColDefs([])
         }
 
-        window.location.replace("/admin/Student")
+         window.location.replace("/admin/Student")
     }
+
     useEffect(()=>{
+
         {data.map(student => (
             Axios.post("http://"+config.HOST.toString()+"/addExelStudent",{
                 termsData: {
@@ -83,16 +92,19 @@ function FileUpload() {
                 }
             }).then(e => {
                 console.log(e);
-                alert("데이터 입력이 잘못되었거나 미입력되었습니다.")
+                alert(student.학번+"데이터 입력이 잘못되었거나 미입력되었습니다.")
             })
         ))}
     },[data])
 
-    return (
-        <div className="App">
-            <input type="file" onChange={ImportExcel} />
 
+    return (
+        <div className="filebox">
+            <label className="upload-name" htmlFor="file" placeholder={"업로드할 파일 선택"}>{fileURL}</label>
+            <Button  className={"basicBig-btn"} onClick={ImportExcel}> upload</Button>
+            <input type="file" id="file" onChange={SetFileUml}/>
         </div>
+        
     );
 }
 

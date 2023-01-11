@@ -23,6 +23,7 @@ const StudentSearch = (props) => {
         });
         props.setVisibleSelect(true);
         props.setVisibleAdd(false);
+        props.setVisibleMenu(true)
 
     }
 
@@ -35,7 +36,7 @@ const StudentSearch = (props) => {
                    type="number" name = "studentId"
                    onChange={handleChange}
             />
-            <Button className={"basicBig-btn"}  onClick={()=>{submitGetStudents();}}>조회</Button>
+            <Button className="basicBig-btns" onClick={()=>{submitGetStudents();}}>조회</Button>
         </div>
     )
 }

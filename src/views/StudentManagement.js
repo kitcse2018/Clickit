@@ -15,7 +15,7 @@ const StudentManagement = (props) => {
     const [optionValue,setOptionValue] = useState([]);
     const [visibleAdd,setVisibleAdd] = useState(false);
     const [visibleSelect,setVisibleSelect] = useState(true);
-
+    const [visibleMenu,setVisibleMenu] = useState(false);
     const onRemove = id => {
         setStudentList(studentList.filter(student => student.student_num !== id));
     };
@@ -29,16 +29,23 @@ const StudentManagement = (props) => {
                     <div id={"selectBoxSize"}>
                         <SelectBox setOptionValue={setOptionValue} ></SelectBox>
                     </div>
-                    <StudentSearch setStudentList={setStudentList} optionValue={optionValue} setVisibleSelect={setVisibleSelect} setVisibleAdd={setVisibleAdd} ></StudentSearch>
-                    <div className={"flexBox"}>
+                    <StudentSearch setStudentList={setStudentList} optionValue={optionValue} setVisibleSelect={setVisibleSelect} setVisibleAdd={setVisibleAdd} setVisibleMenu={setVisibleMenu}></StudentSearch>
                         <Button  className={"basicBig-btn"} onClick={()=>{
                             setVisibleAdd(!visibleAdd);
                             setVisibleSelect(!visibleSelect);
                         }} > {visibleAdd?"추가 종료":"학생 추가"} </Button>
                         <FileUpload/>
-                    </div>
                 </div>
                 <div className="studentBoard">
+                    {visibleMenu&&<table>
+                        <tr className={"trd"}>
+                            <th className={"th1"}>학번</th>
+                            <th className={"th1"}>생활관</th>
+                            <th className={"th1"}>비밀번호</th>
+                            <th className={"th3"}>기능</th>
+                        </tr>
+                    </table>}
+
                     {visibleAdd && <AddStudent/>}
                     {visibleSelect&&studentList.map( student => (
                         <Student student={ student } key={ student.student_num} onRemove={onRemove} />

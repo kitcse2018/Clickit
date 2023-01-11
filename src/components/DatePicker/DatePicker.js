@@ -20,7 +20,7 @@ import moment from "moment/moment";
 import Axios from "axios";
 import {addDays} from "date-fns";
 import * as config from '../../config';
-
+import "../../assets/css/mycss/Modal.css";
 const DatePicker = ({student}) => {
     const[toggleModal,setToggleModal] = useState(false);
     const[StudentId,setStudentId] = useState(student.student_id);
@@ -67,14 +67,14 @@ const DatePicker = ({student}) => {
                 toggle={() => {setToggleModal(false);}}
             >
                 <div className="text-center text-muted">
-                    <span className="student-id">{StudentId} </span>
+                    <span className="student-id">ID : {StudentId} </span>
                 </div>
                             <DateRangePicker setEndDate={setEndDate} setStartDate={setStartDate}></DateRangePicker>
                                     <Row className="fit-row-2">
                                         <Col>
                                             <Button
-                                                className="my-4 up"
-                                                color="primary"
+                                                className="basic-btnb"
+                                                color="default"
                                                 type="button"
                                                 onClick={banStudent}
                                             >
@@ -84,8 +84,8 @@ const DatePicker = ({student}) => {
 
                                         <Col>
                                             <Button
-                                                className="my-4"
-                                                color="primary"
+                                                className="basic-btnb"
+                                                color="default"
                                                 type="button"
                                                 onClick={() =>{setToggleModal(false);}}
                                             >

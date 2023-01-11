@@ -1,7 +1,11 @@
 import Header from "components/Headers/Header.js";
+import {
+    Button,
+} from "reactstrap";
 import React, {useEffect, useState} from "react";
 import Axios from "axios";
 import * as config from '../../config';
+import "../../assets/css/ImageUploadForm.css";
 const ImgUploadForm = ({setPostImage}) => {
 
     const [content, setContent] = useState("");
@@ -42,12 +46,17 @@ const ImgUploadForm = ({setPostImage}) => {
     return (
         <>
             <div  id="uploadDiv">
-                <input
-                    id="fileAdd"
-                    type="file"
-                    onChange={onChange}
-                />
-                <button onClick={onSubmit}>Upload</button>
+                <div className={"selectBox"}>
+                    <input
+                        id="fileAdd"
+                        type="file"
+                        onChange={onChange}
+                    />
+                </div>
+                <div className={"uploadBox"}>
+                    <Button color = "primary" onClick={onSubmit}>이미지 업로드</Button>
+                </div>
+
             </div>
         </>
     );

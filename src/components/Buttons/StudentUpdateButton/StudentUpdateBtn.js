@@ -15,9 +15,11 @@ import {
     Row,
     Col
 } from "reactstrap";
+import "../../../assets/css/mycss/Modal.css"
 import SelectBox from "../../SelectBox/SelectBox";
 import Axios from "axios";
 import * as config from '../../../config';
+
 const Update = ({student}) => {
     const[toggleModal,setToggleModal] = useState(false);
     const[StudentId,setStudentId] = useState(student.student_id);
@@ -70,11 +72,11 @@ const Update = ({student}) => {
                                 <Card className="bg-secondary shadow border-0">
                                     <CardBody className="px-lg-5 py-lg-5">
                                         <div className="text-center text-muted mb-4">
-                                            <span className="student-id">{StudentId} </span>
+                                            <span className="student-id" >ID : {StudentId} </span>
                                         </div>
                                         <Form role="form">
                                             <FormGroup className="mb-3">
-                                                       <SelectBox className={"updateSelectBox"} setOptionValue={setOptionValue}
+                                                       <SelectBox  setOptionValue={setOptionValue}
                                                                   setDormitoryName={setDormitoryName}
                                                        ></SelectBox>
                                             </FormGroup>
@@ -85,15 +87,15 @@ const Update = ({student}) => {
                                                             <i className="ni ni-lock-circle-open" />
                                                         </InputGroupText>
                                                     </InputGroupAddon>
-                                                    <Input value={password} onChange = {onChangePassword} type="text" />
+                                                    <Input value={password} placeholder="password" onChange = {onChangePassword} type="text" />
                                                 </InputGroup>
                                             </FormGroup>
                                             <div className="text-center">
                                                 <Row className="fit-row">
                                                     <Col>
                                                         <Button
-                                                            className="my-4 up"
-                                                            color="primary"
+                                                            className="basic-btn md"
+                                                            color="default"
                                                             type="button"
                                                             onClick={updateStudent}
                                                         >
@@ -103,8 +105,8 @@ const Update = ({student}) => {
 
                                                     <Col>
                                                     <Button
-                                                        className="my-4"
-                                                        color="primary"
+                                                        className="basic-btn md"
+                                                        color="default"
                                                         type="button"
                                                          onClick={() =>{setToggleModal(false);setPassword(student.student_password)}}
                                                     >
