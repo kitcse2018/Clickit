@@ -40,32 +40,22 @@ const AddFacility = (props) => {
     const location = useLocation();
 
     const items = location.state;
-    /*    const [imageName,setImageName] = useState("3838005.png");*/
-    let img_name = "clickit.png";
-    const [postImage,setPostImage] = useState("")
+    const [imageName,setImageName] = useState("clickit.png");
+    const [postImage,setPostImage] = useState("");
+
 
     useEffect(()=>{
-        if (postImage != ""){
-            img_name = postImage;
-        }else if(items.facility_pic != ""){
-            img_name = items.facility_pic;
-        }
-    })
-
-
-    /* useEffect(()=>{
-         Axios.get("http://"+config.HOST.toString()+"/getImageFacility",{params:
-                 {postFacilityNum :items.facility_num}}).then((response) => {
-             console.log(response.data[0].facility_pic)
-             console.log(items.facility_num)
-             if(response.data[0].facility_pic==="") {
-                 setImageName("3838005.png")
-             }else{
-                 setImageName(response.data[0].facility_pic)
-             }
-         })
-     },[])
- */
+        Axios.get("http://"+config.HOST.toString()+"/getImageFacility",{params:
+                {postFacilityNum :items.facility_num}}).then((response) => {
+            console.log(response.data[0].facility_pic)
+            console.log(items.facility_num)
+            if(response.data[0].facility_pic==="") {
+                setImageName("clickit.png")
+            }else{
+                setImageName(response.data[0].facility_pic)
+            }
+        })
+    },[])
     const [facilityName, setFacilityName] = useState(items.facility_name);
     const onNameChange = (e) => {
         setFacilityName(e.target.value);
@@ -118,7 +108,7 @@ const AddFacility = (props) => {
                             <div className={"facility-edit-picture"}>
                                 <div className={"dormitory-img"}>
                                     {/*이미지 나중에 가져와서 변경해주기*/}
-                                    <img style={{ width: "90%", height: "90%"}} src={require("../../assets/img/kumoh/"+ img_name)} alt="사진 없음"/>
+                                    <img style={{ width: "90%", height: "90%"}} src={require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
                                 </div>
                                 <ImgUploadForm setPostImage={setPostImage}/>
                             </div>
@@ -129,7 +119,8 @@ const AddFacility = (props) => {
                                             if(facilityName==""||facilityLimit==""||facilityStartTime==""||facilityEndTime==""){
                                                 alert("필수 항목을 입력해주세요");
                                             }else {
-                                                Axios.post("http://"+config.HOST.toString()+"/facilityInsert",{
+                                                console.log("image name : " +postImage);
+                                                await Axios.post("http://"+config.HOST.toString()+"/facilityInsert",{
                                                     termsData: {
                                                         facility_name : facilityName,
                                                         facility_limit_people : facilityLimit,
@@ -141,6 +132,19 @@ const AddFacility = (props) => {
                                                 }).then(e => {
                                                     console.log(e);
                                                 })
+                                                // 이용수칙 디폴트값 넣기
+                                                /*await Axios.post("http://"+config.HOST.toString()+"/facilityTermsInsert",{
+                                                    termsData: {
+                                                        facility_name : facilityName,
+                                                        facility_limit_people : facilityLimit,
+                                                        facility_start_time : facilityStartTime,
+                                                        facility_end_time : facilityEndTime,
+                                                        dormitory_num : items.dormitory_num,
+                                                        facility_pic : postImage,
+                                                    }
+                                                }).then(e => {
+                                                    console.log(e);
+                                                })*/
                                                 history.push({
                                                         pathname : "/admin/dormitoryEdit",
                                                         state : {
@@ -154,7 +158,8 @@ const AddFacility = (props) => {
                                             if(facilityName==""||facilityLimit==""||facilityStartTime==""||facilityEndTime==""){
                                                 alert("필수 항목을 입력해주세요");
                                             }else{
-                                                Axios.post("http://"+config.HOST.toString()+"/facilityUpdate",{
+                                                console.log(items.facility_num+"이미지명"+postImage);
+                                                await Axios.post("http://"+config.HOST.toString()+"/facilityUpdate",{
                                                     termsData: {facility_num: items.facility_num,
                                                         facility_name : facilityName,
                                                         facility_limit_people : facilityLimit,

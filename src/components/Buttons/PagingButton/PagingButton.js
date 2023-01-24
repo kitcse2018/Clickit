@@ -5,13 +5,10 @@ import {
 } from "reactstrap";
 import "../../../assets/css/mycss/Paging.css"
 
-import Axios from "axios";
-import * as config from '../../../config';
-
 const PagingButton = ({total,limit,page,setPage}) => {
     const numPages = Math.ceil(total / limit);
     return (
-        <div className={"pagingArea"}>
+        <div className="pagingArea">
         <div className="flexBox">
             <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
                 prev

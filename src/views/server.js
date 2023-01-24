@@ -1204,7 +1204,7 @@ app.post('/facilityUpdate',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ?,fac.facility_pic = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_num,termsData.facility_pic],
+        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ?,fac.facility_pic = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_pic,termsData.facility_num],
         (err,result) => {
             if(err){
                 console.log(err)
