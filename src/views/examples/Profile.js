@@ -21,6 +21,7 @@ import ProfileReservationListMap from "../../components/Listmap/ProfileReservati
 import ProfileBlacklist from "../../components/ProfileProgress/ProfileBlacklist";
 import ProfileReservationPercent from "../../components/ProfileProgress/ProfileReservationPercent";
 import * as config from "../../config";
+import ProfileCurrentReservation from "./ProfileCurrentReservation";
 
 const Profile = () => {
 
@@ -65,8 +66,9 @@ const Profile = () => {
     window.location.href="#res-list";
   }
 
+
   console.log("Profile myCurReservation: "+myCurReservation);
-  console.log("Profile MyReservationList: "+ myReservationList);
+  console.log("myCurReservation length: "+myCurReservation.length);
 
   return (
       <>
@@ -105,22 +107,23 @@ const Profile = () => {
               </div>
               <div className="percent">
                 <div className={"blacklist-percent"}>
-                  {blackDate.map((blackDate, key) => {
-                    return(
-                        <ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>
-                    )
-                  })}
+                  {blackDate.length===0?
+                      <ProfileBlacklist blacklistDate={0}></ProfileBlacklist>
+                      :
+                      (blackDate.map((blackDate, key) => (
+                          <ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>
+                      )))
+                  }
                 </div>
                 <div>
-                  {myCurReservation.map((myCurReservation, key) => {
-                    return(
+                  {myCurReservation.map((myCurReservation, key) => (
                         <ProfileReservationPercent myCurReservation={myCurReservation}></ProfileReservationPercent>
-                    )
-                  })}
+                  ))}
                 </div>
                 {/*<ProfileBlacklist blacklistDate={blackDate}></ProfileBlacklist>*/}
                 {/*<ProfileReservationPercent myCurReservation={myCurReservation}></ProfileReservationPercent>*/}
               </div>
+              {/* 현재 예약을 ProfileReservationPercent.js 안에 넣기 */}
               <div className={"profile-current-reservation"}>
                 <div>
                   {/*<ProfileCurrentReservation curRes={myCurReservation}></ProfileCurrentReservation>*/}
@@ -128,6 +131,7 @@ const Profile = () => {
               </div>
               <div className={"profile-reservation-list"} id={"res-list"}>
                 <div className={"res-list-container"}>
+                  {/* 현재 예약은 빼고 가져오게? query 수정해야 할 듯 */}
                   {myReservationList.map((resList, key) => {
                     return(
                         <ProfileReservationListMap resList={resList}></ProfileReservationListMap>

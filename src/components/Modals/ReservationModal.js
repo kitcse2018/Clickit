@@ -9,6 +9,8 @@ import {
 import * as config from '../../config';
 const ReservationModal = ({terms, onModalDisplay, seat, facilityNum}) =>{
 
+    console.log("terms data set : "+terms[0]);
+
     const [temperature, setTemperature] = React.useState(0);
 
     const onTempChange = useCallback(e=>{

@@ -26,27 +26,9 @@ const ReservationTimeListMap = (props) =>{
         //nothing
     }
 
-
     // 밑에처럼 해야 빠름
     useEffect(()=>{
-        // Axios.all([Axios.get('http://localhost:3001/getSeatsByTimes',{
-        //     params: {
-        //         startTime : props.props.seat_availability_start_time,
-        //         endTime : props.props.seat_availability_end_time,
-        //         facilityNum : props.facilityNum,
-        //     }
-        // }), Axios.get('http://localhost:3001/getSeatsByTimes',{
-        //     params: {
-        //         facilityNum: props.facilityNum,
-        //     }
-        // }), ]).then(Axios.spread((response1, response2) => {
-        //     setSeatsList(response1.data);
-        //     setTerms(response2.data);
-        // })).catch((error) => {
-        //     console.log(error);
-        // });
         calCurTime();
-
         Axios.get("http://"+config.HOST.toString()+"/getSeatsByTimes",{
             params: {
                 startTime : props.props.seat_availability_start_time,

@@ -16,6 +16,13 @@ import ReservationModal from "../Modals/ReservationModal";
 import * as config from '../../config';
 const ReservationSeatsListMap= (props) => {
 
+    const tempTerms = [{
+        terms_num: 1,
+        terms_title: "기본 이용 수칙",
+        terms_contents: "시설을 깨끗하게 사용해주세요.",
+        terms_facility_num: 1,
+    }]
+
     const [state, setState] = useState({
         modal: false,
     });
@@ -60,7 +67,12 @@ const ReservationSeatsListMap= (props) => {
                     </Button>
                 }
                 <Modal className={"reservation-modal"} size={"lg"} isOpen={state.modal}>
-                    <ReservationModal terms={terms} onModalDisplay={onModalDisplay} seat={props.seat} facilityNum={props.props.facilityNum}></ReservationModal>
+                    <ReservationModal terms={terms.length==0?tempTerms:terms} onModalDisplay={onModalDisplay} seat={props.seat} facilityNum={props.props.facilityNum}></ReservationModal>
+                    {/*{terms.length!=0?*/}
+                    {/*    <ReservationModal terms={terms} onModalDisplay={onModalDisplay} seat={props.seat} facilityNum={props.props.facilityNum}></ReservationModal>*/}
+                    {/*    :*/}
+                    {/*    <ReservationModal {terms.length==0?tempTerms:terms} onModalDisplay={onModalDisplay} seat={props.seat} facilityNum={props.props.facilityNum}></ReservationModal>*/}
+                    {/*}*/}
                 </Modal>
             </div>
         </>

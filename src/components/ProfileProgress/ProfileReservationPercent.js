@@ -7,18 +7,15 @@ const ProfileReservationPercent = (myCurReservation) =>{
 
     let percentage = 0;
 
-    const calcReservationPercent = () => {
-
-        console.log("myCurReservation: "+myCurReservation);
-
-        /*const curDate = getCurrentDate().split(' ')[1];
+    const calcReservationPercent = (myCurReservation) => {
+        const curDate = getCurrentDate().split(' ')[1];
         const startTime = (myCurReservation.myCurReservation.start_time);
         const endTime = (myCurReservation.myCurReservation.end_time);
         // const total = endTime - startTime;
         const total = stringToTime(endTime,startTime);
         // percentage = (curDate - startTime) / total * 100;
         percentage = stringToTime(curDate,startTime) / total * 100;
-        return percentage.toString().slice(0,5);*/
+        return percentage.toString().slice(0,5);
     }
 
     return(
@@ -28,10 +25,10 @@ const ProfileReservationPercent = (myCurReservation) =>{
                     <span>내 예약 현황</span>
                 </div>
                 <div className="progress-percentage">
-                    <span>{calcReservationPercent()}%</span>
+                    <span>{calcReservationPercent(myCurReservation)}%</span>
                 </div>
             </div>
-            <Progress max="100" value={calcReservationPercent()} color="default" />
+            <Progress max="100" value={calcReservationPercent(myCurReservation)} color="default" />
         </div>
     )
 };

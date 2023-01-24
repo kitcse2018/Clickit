@@ -12,7 +12,6 @@ function NoticeListMap(notice){
        console.log(notice);
     },[]);
 
-    // 밑에 실행 안 되면 className 중괄호 없애기
     return (
       <>
           <tr className={"notice-tr-list"}>
@@ -33,7 +32,6 @@ function NoticeListMap(notice){
                   <Button className={"notice-list-delete"} color={"danger"} onClick={()=>{noticeDelete(notice)}}>삭제</Button>
               </td>
           </tr>
-
         {/*<li className={"notice-list-li"}>*/}
         {/*    <div className={"notice-list-num"}>*/}
         {/*        <h1>*/}

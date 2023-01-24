@@ -35,6 +35,26 @@ const upload = multer({
 
 db.connect();
 
+setInterval(function () {
+    const current = new Date();
+    const curHour = current.getHours();
+    const curMin = current.getMinutes();
+
+    if(curMin==0){
+        console.log("curMin is 0, updating seat_availability_status");
+        db.query("UPDATE ccd.seat_availability SET ccd.seat_availability.seat_availability_status = \"사용 가능\" where date_format(ccd.seat_availability.seat_availability_end_time, \"%H\") = date_format(curtime(), \"%H\")",
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("end_time: "+curHour+" seat_availability_status update!");
+                    console.log(result);
+                }
+            }
+        )
+    }
+}, 60000);
+
 app.post("/upload", upload.single("img"), function(req, res, next) {
     res.send({
         fileName: req.file.filename,
@@ -412,7 +432,7 @@ app.get('/hasReservation', (req,res) => {
     const endTime = req.query.endTime;
     // const seatAvailabilityNum = req.query.seatAvailabilityNum;
     db.query(
-        "SELECT count(*) FROM ccd.reservation where date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\")  and student_num = (?) and start_time = (?) and end_time = (?)"
+        "SELECT count(*) FROM ccd.reservation where date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\")  and student_num = (?) and start_time = (?) and end_time = (?) and reservation_status != \"예약 취소\""
         ,[studentNum, startTime, endTime],
         function (err, result) {
             if(err){
@@ -443,7 +463,7 @@ app.get('/getMyCurReservation', (req,res) => {
 app.get('/getMyReservationList', (req,res) => {
     const studentNum = req.query.studentNum;
     db.query(
-"SELECT * FROM reservation where student_num = ? and date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and end_time > curtime()",
+        "SELECT * FROM reservation where student_num = ? and date_format(record_date, \"%Y-%M-%D\") = date_format(curdate(), \"%Y-%M-%D\") and end_time > curtime()",
         [studentNum],
         function (err, result) {
             if(err){
@@ -457,13 +477,15 @@ app.get('/getMyReservationList', (req,res) => {
 
 app.post('/cancelReservation', (req,res) => {
     const postData = req.body.params;
+    console.log("reservation cancel request");
     db.query(
         "UPDATE reservation SET reservation_status = \"예약 취소\" WHERE reservation_num = ?",
         [postData.reservationNum],
         function (err, result) {
             if(err){
-                console.log(err)
+                console.log(err);
             }else{
+                console.log("reservation cancel success!");
                 res.send(result);
             }
         }
@@ -563,21 +585,6 @@ app.get('/selectReservationStudentList',(req,res)=>{
     )
 });
 
-app.post('/cancelReservation', (req,res) => {
-    const postData = req.body.params;
-    db.query(
-        "UPDATE reservation SET reservation_status = \"예약 취소\" WHERE reservation_num = ?",
-        [postData.reservationNum],
-        function (err, result) {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    )
-});
-
 app.post('/updateSeatAvailabilityStatusAble', (req,res) => {
     const postData = req.body.params;
     db.query(
@@ -587,6 +594,7 @@ app.post('/updateSeatAvailabilityStatusAble', (req,res) => {
             if(err){
                 console.log(err)
             }else{
+                console.log("update Seat Availability Status to Able!");
                 res.send(result);
             }
         })

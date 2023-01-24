@@ -13,7 +13,7 @@ const ProfileReservationListMap = (resList) =>{
 
     const [dorFacName, setDorFacName] = useState([]);
 
-    const cancelReservation = () =>{
+    const cancelReservation = (resList) =>{
         console.log("cancel reservation");
         if(window.confirm("예약을 취소하시겠습니까?")){
             Axios.all([Axios.post("http://"+config.HOST.toString()+'/cancelReservation',{
@@ -57,9 +57,9 @@ const ProfileReservationListMap = (resList) =>{
                         <span>{timeFormat(resStartTime, resEndTime)}</span>
                     </div>
                     <div className={"res-li-seat-name"}>
-                        <span>좌석 1</span>
+                        <span>좌석 n</span>
                     </div>
-                    <Button className={"res-cancel-btn"} color={"danger"} onClick={()=>cancelReservation()}>예약 취소</Button>
+                    <Button className={"res-cancel-btn"} color={"danger"} onClick={()=>cancelReservation(resList)}>예약 취소</Button>
                 </div>
             </li> : <></>}
         </>
