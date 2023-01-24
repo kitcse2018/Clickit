@@ -91,7 +91,7 @@ const DormitoryEdit = (props) => {
                             <h1>{items.dormitory_name}</h1>
                         </div>
                         <div className={"dormitory-img"}>
-                            <img src={require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
+                            <img style={{ width: "90%", height: "90%"}} src={require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
                         </div>
                         {/*<Button className={"dormitory-img-edit basic-btn"} type={"button"}  size={"sm"}>이미지 수정</Button>*/}
                         <ImgUploadForm setPostImage={setPostImage}/>
@@ -112,24 +112,28 @@ const DormitoryEdit = (props) => {
                         } >
                             저장
                         </Button>
-                        <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
-                                pathname : "/admin/addFacility",
-                                state : {
-                                    facility_num : "",
-                                    facility_name : "",
-                                    facility_limit_people : "",
-                                    facility_pic : "",
-                                    facility_start_time : "",
-                                    facility_end_time : "",
-                                    dormitory_num : items.dormitory_num,
-                                    dormitory_name : items.dormitory_name,
-                                }
-                            }
-                        )}}>시설물 추가</Button>
+
                     </div>
                     <div className={"dormitory-edit-content-body"}>
+                        <div>
+                            <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
+                                    pathname : "/admin/addFacility",
+                                    state : {
+                                        facility_num : "",
+                                        facility_name : "",
+                                        facility_limit_people : "",
+                                        facility_pic : "",
+                                        facility_start_time : "",
+                                        facility_end_time : "",
+                                        dormitory_num : items.dormitory_num,
+                                        dormitory_name : items.dormitory_name,
+                                    }
+                                }
+                            )}}>시설물 추가</Button>
+                        </div>
+
                         {/*dormitoryEditList에 있는 facility name limit time 넣어주기*/}
-                        <div className={"dormitory-innerFacility-list"}>
+                        <div className={"dormitory-innerFacility-list"} >
                             <ul className={"dormitory-innerFacility-list-ul"}>
                                 {adminfacilityList.map(adminfacility => (
                                     <li className={"dormitory-innerFacility-list-li"}>

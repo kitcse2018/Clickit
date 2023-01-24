@@ -9,11 +9,18 @@
     background-color: #1E90FF;
 }
 .basicBig-btn{
+    margin-left: 10px;
     color : white;
     font-size: 1rem;
     font-weight: bold;
     background-color: #1E90FF;
-
+}
+.basicBig-btns{
+    color : white;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #1E90FF;
+    margin-left:10px;
 }
 .ban-btn{
     color : white;

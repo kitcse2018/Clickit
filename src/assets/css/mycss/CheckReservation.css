@@ -6,10 +6,31 @@
     display: inline-block;
 }
 .checkReservation-container{
-    position: relative;
-    margin: -10% 5% 0% 5%;
-    width: 80%;
-    background-color: #FAF7F0;
+    width: 40%;
+    display: inline-block;
+}
+.checkReservation-body {
+    width: 100%;
+    padding: 1.5rem;
+}
+
+.checkReservation-input-container{
+    margin-top: -7%;
+    margin-bottom: 0%;
+    text-align: center;
+}
+.card-body-CheckReservation{
+    padding: 1.5rem;
+}
+.CheckReservation-col{
+    width: 40%;
+}
+.CheckReservation-row{
+    display: flex;
+    text-align: center;
+    width: 85%;
+    margin-left: 15%;
+
 }
 .checkReservation-total{
     background-color: #f4f5f7;
@@ -18,4 +39,18 @@
     position: relative;
     height: 450px;
     width: 70%;
+}
+.checkReservation-btn{
+    margin-left: 6%;
+    width: 33%;
+    color : white;
+    font-weight: bold;
+    background-color: #1E90FF;
+}
+.checkReservation-btn2{
+    margin-right: 4%;
+    width: 33%;
+    color : #FFF;
+    font-weight: bold;
+    background-color: #999999;
 }

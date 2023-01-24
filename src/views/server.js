@@ -14,8 +14,8 @@ app.use(cors());
 const db = mysql.createConnection(
     {
         user: 'root',
-        host: 'localhost',
-        password: '910su147!A',
+        host:'localhost',
+        password: 'cym0523200!',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -344,6 +344,20 @@ app.get('/getImageDormitory', async(req, res)=>{
         }
     );
 });
+app.get('/getImageFacility', async(req, res)=>{
+    const FacilityNum = req.query.postFacilityNum;
+    db.query(
+        "SELECT facility_pic FROM facility where facility_num = (?)",
+        [FacilityNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 
 app.get("/signInByAdmin", async (req,res)=>{
     const postAuthId = req.query.postAdminId;
@@ -618,7 +632,7 @@ app.get('/getBlacklistEndDate', (req,res) => {
 app.post('/updateSeatAvailabilityStatusDisable', (req,res) => {
     const postData = req.body.params;
     db.query(
-      "UPDATE seat_availability SET seat_availability_status = (?) WHERE seat_availability_num = (?)",
+        "UPDATE seat_availability SET seat_availability_status = (?) WHERE seat_availability_num = (?)",
         [postData.seatAvailabilityStatus, postData.seatAvailabilityNum],
         function (err, result) {
             if(err){
@@ -1137,7 +1151,7 @@ app.post('/facilityUpdate',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_num],
+        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ?,fac.facility_pic = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_num,termsData.facility_pic],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -1155,7 +1169,7 @@ app.post('/facilityInsert',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "INSERT INTO facility(facility_name,facility_limit_people,facility_start_time,facility_end_time,dormitory_num) VALUES(?,?,?,?,?)" ,[termsData.facility_name,termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.dormitory_num],
+        "INSERT INTO facility(facility_name,facility_limit_people,facility_start_time,facility_end_time,dormitory_num,facility_pic) VALUES(?,?,?,?,?,?)" ,[termsData.facility_name,termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.dormitory_num,termsData.facility_pic],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -1171,6 +1185,5 @@ app.post('/facilityInsert',async(req,res) => {
 app.listen(PORT,()=>{
     console.log(`yes,your server is running on port ${PORT}!`);
 });
-
 
 
