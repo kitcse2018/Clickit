@@ -13,6 +13,11 @@ const StudentSearch = (props) => {
         });
     };
 
+    function enterKey() {
+        if (window.event.keyCode === 13) {
+           submitGetStudents();
+        }
+    }
     function submitGetStudents ()  {
 
         Axios.get("http://"+config.HOST.toString()+"/searchStudents",{params : {
@@ -21,22 +26,19 @@ const StudentSearch = (props) => {
             console.log(response.data)
             props.setStudentList(response.data);
         });
-        props.setVisibleSelect(true);
-        props.setVisibleAdd(false);
         props.setVisibleMenu(true)
-
+        props.setPage(1)
     }
-
     return(
         <div className="SearchBox">
             <div className="icon">
                 <i className="fas fa-search"></i>
             </div>
-            <input placeholder="학번 입력" className="inputStudent"
+            <input onKeyUp={()=>{enterKey();}} placeholder="학번 입력" className="inputStudent"
                    type="number" name = "studentId"
                    onChange={handleChange}
             />
-            <Button className="basicBig-btns" onClick={()=>{submitGetStudents();}}>조회</Button>
+            <Button className="basicBig-btns"  onClick={()=>{submitGetStudents();}}>조회</Button>
         </div>
     )
 }

@@ -91,8 +91,8 @@ const Reservation = (props) => {
                                 {facilityTimeList.map((val, key) => {
                                     return (
                                         <ReservationTimeListMap props={val} facilityNum={items.facilityNum}></ReservationTimeListMap>
-                                        );
-                                    })
+                                    );
+                                })
                                 }
                             </div>
                         </div>

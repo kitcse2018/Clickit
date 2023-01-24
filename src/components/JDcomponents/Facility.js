@@ -1,61 +1,101 @@
-import React, {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
+// node.js library that concatenates classes (strings)
+import classnames from "classnames";
+// javascipt plugin for creating charts
+import Chart from "chart.js";
+// react plugin used to create charts
+import { Line, Bar } from "react-chartjs-2";
+// reactstrap components
+import {
+    Button,
+    Card,
+    CardHeader,
+    CardBody,
+    NavItem,
+    NavLink,
+    Nav,
+    Progress,
+    Table,
+    Container,
+    Row,
+    Col, Modal
+} from "reactstrap";
+
+// core components
+import {
+    chartOptions,
+    parseOptions,
+    chartExample1,
+    chartExample2
+} from "variables/charts.js";
+
+import Header from "components/Headers/Header.js";
+import "../assets/css/FacilityList.css";
+import FacilityListMap from "components/Listmap/FacilityListMap.js";
 import Axios from "axios";
-import {Link} from 'react-router-dom'
-import * as config from '../../config';
+import * as config from '../config';
+import NoticeModal from "./notice/NoticeModal";
+const Facility = (props) => {
 
-const Facility = () => {
-
-    const [facilityList,setfacilityList] = useState([]);
-    Axios.get("http://"+config.HOST.toString()+"/facility").then((response) => {
-        setfacilityList(response.data);
+    const [facilityList,setFacilityList] = useState([]);
+    const picList = ["오름 1동 휴게실", "오름 1동 체단실"]
+    const [state, setState] = useState({
+        modal: true,
     });
+    const [notice, setNotice] = useState([]);
+
+    useEffect(()=>{
+        Axios.get("http://"+config.HOST.toString()+"/facility" , {
+            params : {
+                dormitory_num : sessionStorage.getItem("dormitoryNum"),
+                // dormitory_num : 1, // 수정해야 됨
+            }
+        }).then((response) => {
+            setFacilityList(response.data);
+        });
+        getNotice().then();
+        console.log(notice);
+    },[]);
+
+    async function getNotice(){
+        await console.log("testing");
+        await Axios.get("http://"+config.HOST.toString()+"/getLatestNotice")
+            .then((response) => {
+                setNotice(response.data);
+            });
+        await console.log("testing");
+    }
+
+    const toggleModal = () => {
+        setState({
+            modal: !state.modal,
+        })
+    };
+
+    const onModalDisplay = useCallback(()=>{
+        setState({
+            modal: !state.modal,
+        })
+    },[state.modal]);
 
     return (
-        <div>
-            {facilityList.map(facility => (
-                <div className={"fac-box"}>
-                    <div className={"fac-left"}>
-                        <div className={"fac-img"}>
-                            <img
-                                alt="..."
-                                className="fac-img-detail"
-                                src={require("../../assets/img/theme/react.jpg")}
-                            />
-                        </div>
-                    </div>
-                    <div className={"fac-right"}>
-                        <div className={"fac-name"}>
-                            <h2>{facility.facility_name}</h2>
-                        </div>
-                        <div className={"fac-content"}>
-                            <ul className={"fac-content-detail"}>
-                                <li className={"fac-content-detail-name"}>
-                                    제한 인원 - {facility.facility_limit_peole}
-                                </li>
-                                <li className={"fac-content-detail-time"}>
-                                    이용 가능 시간 - 00:00 ~ 23:59
-                                </li>
-                            </ul>
-                        </div>
-                        <div className={"fac-status"}>
-                            <p>예약 현황 2/4 </p>
-                        </div>
-                        <div className={"fac-reserve"}>
-                                <button className={"fac-reserve-button"} onClick={async () =>{
-                                    let response = await Axios.get("http://\"+config.HOST.toString()+\"/inner_facility",{
-                                        params : {Facility_Num : facility.facility_num},
-                                    });
-                                    console.log(response.data)
-                                }} >
-                                    <a href = {'/admin/reservation/' + facility.facility_num}>
-                                        예약하기
-                                    </a>
-                                </button>
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
+        <>
+            <Header/>
+            <div className={"facility-list-container"}>
+                {facilityList.map((facility, index)=>(
+                    <FacilityListMap facility={facility} pic={picList[index]} key={index}/>
+                ))}
+            </div>
+            {sessionStorage.getItem("preventNotice") === null ?
+                (notice.length === 0 ? null : <Modal className={"notice-modal"} size={"lg"} isOpen={state.modal}>
+                    {notice.map((notice, index)=>(
+                        <NoticeModal notice = {notice} onModalDisplay={onModalDisplay}></NoticeModal>
+                    ))}
+                </Modal>)
+                : null
+            }
+        </>
     );
-}
+};
+
 export default Facility;

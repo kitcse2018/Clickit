@@ -87,7 +87,7 @@ const Update = ({student}) => {
                                                             <i className="ni ni-lock-circle-open" />
                                                         </InputGroupText>
                                                     </InputGroupAddon>
-                                                    <Input value={password} placeholder="password" onChange = {onChangePassword} type="text" />
+                                                    <Input value={password} placeholder="Password" onChange = {onChangePassword} type="text" />
                                                 </InputGroup>
                                             </FormGroup>
                                             <div className="text-center">

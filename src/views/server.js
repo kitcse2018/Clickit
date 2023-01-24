@@ -33,7 +33,7 @@ const upload = multer({
     limits: { fileSize: 10000000000000 }
 });
 
-db.connect();
+const conn = db.connect();
 
 setInterval(function () {
     const current = new Date();
@@ -90,6 +90,22 @@ app.get('/students',(req,res) => {
     );
 });
 
+app.delete('/deleteAllStudents',async(req,res) => {
+    db.query(
+        "DELETE FROM student",
+        (err,result) => {
+            if(err){
+                console.log(err)
+
+            }else{
+                console.log("삭제 성공")
+                res.send(result);
+            }
+        }
+    );
+});
+
+
 app.get("/duplicateStudent",async(req,res)=>{
     const studentId = req.query.studentId;
     db.query(
@@ -138,26 +154,50 @@ app.post("/addStudent", (req,res)=>{
             };
         });
 });
-app.post("/addExelStudent", (req,res)=>{
-    const termsData = req.body.termsData;
-    if(termsData.student_id == null || termsData.dormitory == null || termsData.student_password== null ) {
-        console.log("빈 값 존재")
-        res.send("빈 값이 존재합니다.")
-    }else{
-        db.query(
-            "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?) ON DUPLICATE KEY UPDATE student_id = (?)"
-            ,[termsData.student_id,termsData.dormitory,termsData.student_password,termsData.student_id],
-            function(err){
-                if(err){
-                    console.log(err)
-                    res.send(err)
-                    throw err;
-                }else{
-                    console.log("성공");
-                };
-            });
+
+app.post("/addExelStudent", async (req, res) => {
+
+        const ExcelData = req.body.ExcelData;
+        let index = -3;
+        let cnt = 0;
+        for (;cnt < parseInt(ExcelData.length / 3); cnt++) {
+            index = index + 3;
+            await db.query(
+                "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?),(?,?,?),(?,?,?)",
+                [ExcelData[index].학번, ExcelData[index].생활관, ExcelData[index].비밀번호,
+                    ExcelData[index + 1].학번, ExcelData[index + 1].생활관, ExcelData[index + 1].비밀번호,
+                    ExcelData[index + 2].학번, ExcelData[index + 2].생활관, ExcelData[index + 2].비밀번호],
+                function (err) {
+                    if (err) {
+                        console.log(err)
+                        throw err;
+                    } else {
+                        console.log("입력 성공");
+                    }
+                    ;
+                });
+
+        }
+        if(cnt === parseInt(ExcelData.length / 3)){
+        for (let remain = index + 3; remain < ExcelData.length; remain++) {
+            await db.query(
+                "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?)",
+                [ExcelData[remain].학번, ExcelData[remain].생활관, ExcelData[remain].비밀번호],
+                function (err) {
+                    if (err) {
+                        console.log(err)
+                        throw err;
+                    } else {
+                        console.log("입력 성공");
+                    }
+                    ;
+                });
+
+        }
     }
-});
+}
+);
+
 app.post("/UpdateStudent", (req,res)=>{
     const postStudentId = req.body.studentId;
     const postStudentDormitory = req.body.studentDormitory;
@@ -228,6 +268,18 @@ app.post("/autoBanClear", (req,res)=>{
         });
 });
 
+app.post("/autoIncreaseInitialize", (req,res)=>{
+    db.query(
+        "ALTER TABLE student auto_increment = 1",
+        (err,result) => {
+            if(err){
+                console.log(err)
+            }else{
+                console.log("초기화성공");
+                res.send(result)
+            }
+})});
+
 app.post("/deleteStudent", (req,res)=>{
     const postStudentId = req.body.postStudentNum;
 
@@ -245,6 +297,7 @@ app.post("/deleteStudent", (req,res)=>{
         });
 });
 
+
 app.get("/searchStudents", async (req,res)=>{
     const postStudentId = req.query.postStudentId;
     const postOptionValue = (req.query.postOptionValue==null)? 0 : req.query.postOptionValue;
@@ -252,7 +305,7 @@ app.get("/searchStudents", async (req,res)=>{
     console.log(req.query.postOptionValue)
     if(req.query.postStudentId==undefined&&(req.query.postOptionValue==0||req.query.postOptionValue==undefined)){
         db.query(
-            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory order by student_id asc  "
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory order by student_id asc"
             ,['%'+postStudentId+'%'],
             function(err,result){
                 if(err){
@@ -265,7 +318,7 @@ app.get("/searchStudents", async (req,res)=>{
     }
     else if(req.query.postStudentId==undefined){
         db.query(
-            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?) order by student_id asc"
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory  where dormitory.dormitory_num = (?) order by student_id asc "
             ,[postOptionValue],
             function(err,result){
                 if(err){
@@ -278,7 +331,7 @@ app.get("/searchStudents", async (req,res)=>{
     }
     else if((req.query.postOptionValue==0||req.query.postOptionValue==undefined)){
         db.query(
-            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?) order by student_id asc "
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?) order by student_id asc"
             ,['%'+postStudentId+'%'],
             function(err,result){
                 if(err){
@@ -290,7 +343,7 @@ app.get("/searchStudents", async (req,res)=>{
             });}
     else{
         db.query(
-            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)  where dormitory.dormitory_num = (?) order by student_id asc"
+            "SELECT student.*,dormitory_name,blacklist_num FROM student left outer join blacklist on blacklist.student_num=student.student_num join dormitory on dormitory.dormitory_num = student.dormitory and student_id like (?)  where dormitory.dormitory_num = (?) order by student_id asc "
             ,['%'+postStudentId+'%',postOptionValue],
             function(err,result){
                 if(err){

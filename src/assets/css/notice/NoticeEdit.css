@@ -1,9 +1,10 @@
 .noticeEdit-container{
     border: 2px solid #172b4d;
     position: relative;
-    width: 100%;
-    height: 700px;
+    width: 70%;
+    height: 600px;
     margin-top: -10rem;
+    margin-left: 14%;
     background-color: #FAF7F0;
 }
 
@@ -28,8 +29,10 @@
 .noticeEdit-elements>.noticeEdit-element-header{
     height: 10%;
     width: 100%;
+    margin-top: 12%;
     margin-bottom: 5%;
     background-color: #FAF7F0;
+    text-align: center;
 }
 
 .noticeEdit-elements>.noticeEdit-element-body{
@@ -46,7 +49,7 @@
 
 .noticeEdit-element-header-input{
     border: 1px solid black;
-    width: 50%;
+    width: 100%;
     resize: none;
     font-weight: bold;
     font-size: xx-large;
@@ -57,10 +60,27 @@
 
 .noticeEdit-element-body-input{
     border: 1px solid black;
-    width: 90%;
-    height: 50%;
+    width: 600px;
+    height: 400px;
     /**/resize: none;
     background-color: #DFD3C3;
-    margin-left: 5%;
+    margin-left: 3%;
     margin-bottom: 5%;
+}
+.Notice_title_name{
+    display: flex;
+    width: 100%;
+    margin: 5% 10% 3% 10%;
+}
+.notice_body_name{
+    display: flex;
+    width: 100%;
+    margin: 5% 10% 3% 10%;
+}
+.Notice_title{
+    margin-right: 3%;
+}
+.Notice_body_input{
+    margin-right: 3%;
+    display: flex;
 }

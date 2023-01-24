@@ -61,7 +61,7 @@ const TermsEdit = (props) => {
 
     const items = location.state;
 
-    console.log("items.terms_num : "+items.terms_num);
+    console.log(items.terms_num);
     console.log(items.terms_facility_num);
     console.log(items);
 
@@ -141,44 +141,75 @@ const TermsEdit = (props) => {
     return (
         <>
             <Header />
-            <div className={"termsEdit-container"}>
-                <div className={"termsEdit-contents"}>
-                    <div className={"termsEdit-top"}>
-                        <Button className={"termsEdit-save"} onClick={()=>termsSave()}>저장</Button>
-                    </div>
-                    <div className={"termsEdit-elements"}>
-                        <div className={"termsEdit-element-header"}>
-                            <Form>
-                                <Input className={"termsEdit-element-header-input"}
-                                       placeholder={""} type={"textarea"} rows={"1"}
-                                       onChange = {onTitleChange} defaultValue={items.terms_title}>
-                                </Input>
-                            </Form>
-                            <form>
-                                <div className="input_area">
-                                    <select onChange={handleSelect} id="class">
-                                        <option value="0">시설 선택</option>
-                                        {termsFacilityList.map((t) => (
-                                            <option value={t.facility_num}>{t.facility_name}</option>
-                                        ))}
-                                    </select>
+            <Card className="shadow">
+                <div className={"termsEdit-container"}>
+                    <div className={"termsEdit-contents"}>
+                        <div className={"termsEdit-top"}>
+                            <Button className={"termsEdit-save"} onClick={()=>termsSave()}>저장</Button>
+                        </div>
+                        <div className={"termsEdit-elements"}>
+                            <div className={"termsEdit-element-header"}>
+                                <div className="title_name">
+                                    <div className="title">
+                                        제목:
+                                    </div>
+                                    <Form>
+                                        <Input className={"termsEdit-element-header-input"}
+                                               placeholder={""} type={"textarea"} rows={"1"}
+                                               onChange = {onTitleChange} defaultValue={items.terms_title}>
+                                        </Input>
+                                    </Form>
                                 </div>
-                            </form>
-                        </div>
-                        <div className={"termsEdit-element-body"}>
-                            <Form>
-                                <Input className={"termsEdit-element-body-input"}
-                                       placeholder={""} type={"textarea"} rows={"10"}
-                                       onChange = {onContentsChange} defaultValue={items.terms_contents}>
-                                </Input>
-                            </Form>
-                        </div>
-                        <div className={"termsEdit-element-footer"}>
+                                <div className="select_facility">
+                                    <div className="select">
+                                        선택:
+                                    </div>
+                                    <form>
+                                        <div className="input_area">
+                                            <select onChange={handleSelect} id="class">
+                                                <option value="0">시설 선택</option>
+                                                {termsFacilityList.map((t) => (
+                                                    <option value={t.facility_num}>{t.facility_name}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </form>
+                                    <div className="blank"></div>
+                                    <form>
+                                        <div className="input_area">
+                                            <select onChange={handleSelect} id="class">
+                                                <option value="0">시설 선택</option>
+                                                {termsFacilityList.map((t) => (
+                                                    <option value={t.facility_num}>{t.facility_name}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
 
+                            </div>
+                            <div className={"termsEdit-element-body"}>
+                                <div className="body_input_title">
+                                    <div className="body_input">
+                                        내용:
+                                    </div>
+                                    <Form>
+                                        <Input className={"termsEdit-element-body-input"}
+                                               placeholder={""} type={"textarea"} rows={"10"}
+                                               onChange = {onContentsChange} defaultValue={items.terms_contents}>
+                                        </Input>
+                                    </Form>
+                                </div>
+
+                            </div>
+                            <div className={"termsEdit-element-footer"}>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Card>
+
         </>
     );
 };
