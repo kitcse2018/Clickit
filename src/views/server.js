@@ -15,7 +15,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host:'localhost',
-        password: 'cym0523200!',
+        password: '1234',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -297,7 +297,6 @@ app.post("/deleteStudent", (req,res)=>{
         });
 });
 
-
 app.get("/searchStudents", async (req,res)=>{
     const postStudentId = req.query.postStudentId;
     const postOptionValue = (req.query.postOptionValue==null)? 0 : req.query.postOptionValue;
@@ -550,7 +549,7 @@ app.post('/cancelReservation', (req,res) => {
         [postData.reservationNum],
         function (err, result) {
             if(err){
-                console.log(err);
+                console.log(err)
             }else{
                 console.log("reservation cancel success!");
                 res.send(result);
@@ -652,6 +651,21 @@ app.get('/selectReservationStudentList',(req,res)=>{
     )
 });
 
+app.post('/cancelReservation', (req,res) => {
+    const postData = req.body.params;
+    db.query(
+        "UPDATE reservation SET reservation_status = \"예약 취소\" WHERE reservation_num = ?",
+        [postData.reservationNum],
+        function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    )
+});
+
 app.post('/updateSeatAvailabilityStatusAble', (req,res) => {
     const postData = req.body.params;
     db.query(
@@ -661,7 +675,6 @@ app.post('/updateSeatAvailabilityStatusAble', (req,res) => {
             if(err){
                 console.log(err)
             }else{
-                console.log("update Seat Availability Status to Able!");
                 res.send(result);
             }
         })
@@ -1204,7 +1217,7 @@ app.post('/facilityUpdate',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ?,fac.facility_pic = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_pic,termsData.facility_num],
+        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ?,fac.facility_pic = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_num,termsData.facility_pic],
         (err,result) => {
             if(err){
                 console.log(err)

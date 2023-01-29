@@ -42,6 +42,7 @@ const AddFacility = (props) => {
     const items = location.state;
     const [imageName,setImageName] = useState("clickit.png");
     const [postImage,setPostImage] = useState("");
+    const [imgFile,setImgFile] = useState("");
 
 
     useEffect(()=>{
@@ -108,9 +109,9 @@ const AddFacility = (props) => {
                             <div className={"facility-edit-picture"}>
                                 <div className={"dormitory-img"}>
                                     {/*이미지 나중에 가져와서 변경해주기*/}
-                                    <img style={{ width: "90%", height: "90%"}} src={require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
+                                    <img style={{ width: "90%", height: "90%"}} src={imgFile ? imgFile : require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
                                 </div>
-                                <ImgUploadForm setPostImage={setPostImage}/>
+                                <ImgUploadForm setPostImage={setPostImage} setImgFile={setImgFile}/>
                             </div>
                             <div className={"facility-edit-content"}>
                                 <div>

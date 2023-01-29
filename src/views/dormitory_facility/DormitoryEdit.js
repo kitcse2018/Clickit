@@ -31,13 +31,13 @@ import {useLocation} from "react-router-dom";
 import * as config from '../../config';
 import ImgUploadForm from "../../components/imgUpload/ImgUploadForm";
 const DormitoryEdit = (props) => {
+
     const location = useLocation();
-
     const items = location.state;
-
     const [imageName,setImageName] = useState("3838005.png");
     const [dormitoryName, setDormitoryName] = useState(items.dormitory_name);
-    const [postImage,setPostImage] = useState("")
+    const [postImage,setPostImage] = useState("");
+    const [imgFile,setImgFile] = useState("");
 
     useEffect(()=>{
         Axios.get("http://"+config.HOST.toString()+"/getImageDormitory",{params:
@@ -91,10 +91,10 @@ const DormitoryEdit = (props) => {
                             <h1>{items.dormitory_name}</h1>
                         </div>
                         <div className={"dormitory-img"}>
-                            <img style={{ width: "90%", height: "90%"}} src={require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
+                            <img style={{ width: "90%", height: "90%"}} src={imgFile ? imgFile : require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
                         </div>
                         {/*<Button className={"dormitory-img-edit basic-btn"} type={"button"}  size={"sm"}>이미지 수정</Button>*/}
-                        <ImgUploadForm setPostImage={setPostImage}/>
+                        <ImgUploadForm setPostImage={setPostImage} setImgFile={setImgFile}/>
                         <input type={"text"} className={"dormitory-name-input"} defaultValue={items.dormitory_name} onChange = {onNameChange}/>
                         <Button className={"dormitory-edit-save basic-btn"} type={"button"}  onClick={() =>{
                             console.log(postImage)
