@@ -12,8 +12,8 @@ li{
     box-shadow: 0px 0px 5px gray;
     margin-top: -6rem;
     position: relative;
-    height: 1000px;
-    width: 1420px;
+/*    height: 100%;
+    width: 1420px;*/
 }
 
 .dormitory-name{
@@ -37,10 +37,12 @@ li{
     margin: 2rem auto 0;
     /*background-color: black;*/
     overflow: auto;
+
 }
 
 .dormitory-edit-content-header{
     flex-direction: row;
+    margin: 8rem auto 0;
 }
 .dormitory-edit-save{
     margin : 0rem 0.2rem;
@@ -62,12 +64,13 @@ li{
 
 .dormitory-edit-content-body{
     width: 90%;
-    height: 100%;
+    height: 90%;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    border: 1px solid #e6e6e6;
+    border: 1px solid #BBBBBB;
     box-shadow: 0px 0px 5px gray;
     display: inline-block;
+
 }
 
 .dormitory-innerFacility-list{

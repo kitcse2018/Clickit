@@ -65,7 +65,7 @@ const ImgUploadForm = (props) => {
                 </div>
 
                 <div className={"uploadBox"}>
-                    <Button color = "primary" onClick={onSubmit}>이미지 업로드</Button>
+                    <Button color = "primary" onClick={onSubmit} disabled={imgFileSrc ? false : true} >이미지 업로드</Button>
                 </div>
             </div>
         </>
