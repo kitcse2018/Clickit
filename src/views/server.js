@@ -15,7 +15,7 @@ const db = mysql.createConnection(
     {
         user: 'root',
         host:'localhost',
-        password: 'cym0523200!',
+        password: '910su147!A',
         database: 'ccd',
         dateStrings: 'date'
     }
@@ -697,50 +697,6 @@ app.post('/updateSeatAvailabilityStatusDisable', (req,res) => {
     );
 });
 
-app.get('/notice', async(req, res)=>{
-    db.query(
-        "SELECT * FROM notice;",
-        (err, result)=>{
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
-app.delete('/noticeDelete', async(req, res)=>{
-    const postNoticeNum = req.body.notice_num;
-    db.query(
-        "DELETE FROM notice WHERE notice_num = ?;",
-        [postNoticeNum],
-        (err, result)=>{
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
-app.post('/noticeEditSave', async (req, res)=>{
-    const noticeData = req.body.noticeData;
-    console.log(noticeData);
-    db.query(
-        "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
-        [noticeData.noticeTitle, noticeData.noticeContents],
-        (err, result)=>{
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
 app.post('/insertNotice', async (req, res)=>{
     const noticeData = req.body.noticeData;
     db.query(
@@ -859,6 +815,20 @@ app.get('/facilityNumName',async(req,res) => {
     );
 });
 
+app.get('/getFacilityName', async(req, res)=>{
+    const facilityNum = req.query.facilityNum;
+    db.query(
+        "SELECT facility_name FROM facility WHERE facility_num = ?",
+        [facilityNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 
 app.get('/terms', async(req, res)=>{
     db.query(
@@ -891,9 +861,22 @@ app.post('/termsEditSave', async (req, res)=>{
 });
 
 app.post('/insertTerms', async (req, res)=>{
-    console.log("여기까지는 들어오나");
     const termsData = req.body.termsData;
-    console.log(termsData);
+    db.query(
+        "INSERT INTO terms (terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?);",
+        [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
+        function(err, result){
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/insertDefaultTerms', async (req, res)=>{
+    const termsData = req.body.termsData;
     db.query(
         "INSERT INTO terms (terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?);",
         [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
@@ -937,6 +920,36 @@ app.delete('/termsDelete', async (req, res)=>{
     );
 });
 
+app.get('/termsPaging', async (req, res)=>{
+    const page = req.query.curPage;
+    const limit = parseInt(req.query.limit);
+    const offset = (page -1) * limit;
+    db.query(
+        "SELECT terms_num, terms_title, terms_contents, terms_facility_num, facility_name , dormitory_name FROM ccd.terms LEFT JOIN ccd.facility ON terms.terms_facility_num = facility.facility_num LEFT JOIN ccd.dormitory on facility.dormitory_num = dormitory.dormitory_num ORDER BY dormitory_name ASC LIMIT ? OFFSET ?;",
+        [limit, offset],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/countTerms', async (req, res)=>{
+    db.query(
+        "SELECT COUNT(*) AS count FROM terms;",
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.get('/getTermsByFacilityNum', async (req, res)=>{
     const facilityNum = req.query.facilityNum;
     db.query(
@@ -951,9 +964,67 @@ app.get('/getTermsByFacilityNum', async (req, res)=>{
         })
 });
 
+app.get('/getMaxPkFromFacility', async (req, res)=>{
+    db.query(
+        "SELECT MAX(facility_num) AS lastFacilityNum FROM ccd.facility;",
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+                console.log("마지막 facility_num : " + result);
+            }
+        }
+    );
+});
+
+// app.get('/notice', async(req, res)=>{
+//     db.query(
+//         "SELECT * FROM notice;",
+//         (err, result)=>{
+//             if(err){
+//                 console.log(err)
+//             }else{
+//                 res.send(result);
+//             }
+//         }
+//     );
+// });
+//
+// app.delete('/noticeDelete', async(req, res)=>{
+//     const postNoticeNum = req.body.notice_num;
+//     db.query(
+//         "DELETE FROM notice WHERE notice_num = ?;",
+//         [postNoticeNum],
+//         (err, result)=>{
+//             if(err){
+//                 console.log(err)
+//             }else{
+//                 res.send(result);
+//             }
+//         }
+//     );
+// });
+//
+// app.post('/noticeEditSave', async (req, res)=>{
+//     const noticeData = req.body.noticeData;
+//     console.log(noticeData);
+//     db.query(
+//         "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
+//         [noticeData.noticeTitle, noticeData.noticeContents],
+//         (err, result)=>{
+//             if(err){
+//                 console.log(err)
+//             }else{
+//                 res.send(result);
+//             }
+//         }
+//     );
+// });
+
 app.get('/notice', async(req, res)=>{
     db.query(
-        "SELECT * FROM notice;",
+        "SELECT * FROM notice ORDER BY notice_date DESC;",
         (err, result)=>{
             if(err){
                 console.log(err)
@@ -963,6 +1034,106 @@ app.get('/notice', async(req, res)=>{
         }
     );
 });
+
+app.delete('/noticeDelete', async(req, res)=>{
+    const postNoticeNum = req.body.notice_num;
+    db.query(
+        "DELETE FROM notice WHERE notice_num = ?;",
+        [postNoticeNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/countNotice', async (req, res)=>{
+    db.query(
+        "SELECT count(*) FROM ccd.notice;",
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/noticePaging', async (req, res)=>{
+    const page = req.query.curPage;
+    const limit = parseInt(req.query.limit);
+    const offset = (page - 1) * limit;
+    db.query(
+        "SELECT * FROM notice ORDER BY notice_date DESC LIMIT ? OFFSET ?;",
+        [limit, offset],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+// app.post('/noticeEditSave', async (req, res)=>{
+//     const noticeData = req.body.noticeData;
+//     const curDate = new Date();
+//     const lastModifiedDate = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" + curDate.getDate();
+//     console.log(noticeData);
+//     db.query(
+//         "INSERT INTO notice (notice_num, notice_title, notice_contents, notice_writer, notice_date) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE notice_title = ?, notice_contents = ?;",
+//         [noticeData.noticeNum, noticeData.noticeTitle, noticeData.noticeContents, noticeData.noticeTitle, noticeData.noticeWriter, lastModifiedDate],
+//         (err, result)=>{
+//             if(err){
+//                 console.log(err)
+//             }else{
+//                 res.send(result);
+//             }
+//         }
+//     );
+// })
+
+app.post('/noticeCreate', async (req, res)=>{
+    const noticeData = req.body.noticeData;
+    console.log(noticeData);
+    const curDate = new Date();
+    const lastModifiedDate = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" + curDate.getDate();
+    db.query(
+        "INSERT INTO notice (notice_title, notice_contents, notice_writer, notice_date) VALUES (?, ?, ?, ?);",
+        [noticeData.noticeTitle, noticeData.noticeContents, noticeData.noticeWriter, lastModifiedDate],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+})
+
+app.post('/noticeUpdate', async (req, res)=>{
+    const noticeData = req.body.noticeData;
+    console.log(noticeData);
+    const curDate = new Date();
+    const lastModifiedDate = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" + curDate.getDate();
+    db.query(
+        "UPDATE notice SET notice_title = ?, notice_contents = ?, notice_writer = ?, notice_date = ? WHERE notice_num = ?;",
+        [noticeData.noticeTitle, noticeData.noticeContents, noticeData.noticeWriter, lastModifiedDate, noticeData.noticeNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+})
+
 app.post('/facilitySeatUpdate',async(req,res) => {
     let termsData = req.body.termsData;
 
@@ -1008,6 +1179,22 @@ app.get('/getFacilitySeatNum',async(req,res) => {
         }
     );
 });
+
+app.get('/getFacilitySeatName', async(req, res)=>{
+    const seat_availability_num = req.query.seat_availability_num;
+    db.query(
+        "SELECT facility_seat_name FROM ccd.facility_seat where facility_seat_num = (SELECT facility_seat_num FROM ccd.seat_availability where seat_availability_num = ?)",
+        [seat_availability_num],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.get('/getFacilitySeatNumList',async(req,res) => {
     let facility_num = req.query.facility_num;
 
@@ -1046,7 +1233,7 @@ app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
     let termsData = req.body.termsData;
     db.query(
         //나중에 사진도 추가
-        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
+        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num, termsData.seat_availability_status],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -1070,36 +1257,6 @@ app.delete('/facilitySeatAvailabilityDelete',async(req,res) => {
         }
     );
 });
-app.delete('/noticeDelete', async(req, res)=>{
-    const postNoticeNum = req.body.notice_num;
-    db.query(
-        "DELETE FROM notice WHERE notice_num = ?;",
-        [postNoticeNum],
-        (err, result)=>{
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-});
-
-app.post('/noticeEditSave', async (req, res)=>{
-    const noticeData = req.body.noticeData;
-    console.log(noticeData);
-    db.query(
-        "INSERT INTO notice (notice_num, notice_title, notice_contents) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE notice_title = ?, notice_contents = ?;",
-        [noticeData.noticeNum, noticeData.noticeTitle, noticeData.noticeContents, noticeData.noticeTitle, noticeData.noticeContents],
-        (err, result)=>{
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    );
-})
 
 //관리자 전용 select
 app.get('/dormitoryEdit',(req,res) => {

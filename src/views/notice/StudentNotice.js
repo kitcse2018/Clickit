@@ -6,15 +6,68 @@ import Axios from "axios";
 import {useHistory} from "react-router-dom";
 import * as config from '../../config';
 import StudentNoticeListMap from "../../components/Listmap/StudentNoticeListMap";
+import {Button} from "reactstrap";
 
 const StudentNotice = (props) => {
     const [noticeList, setNoticeList] = useState([]);
+    const [noticeLength, setNoticeLength] = useState([]);
 
-    Axios.get("http://"+config.HOST.toString()+"/notice").then((response) => {
-        setNoticeList(response.data);
-    });
+    useEffect(()=>{
+        Axios.all([
+            Axios.get("http://"+config.HOST.toString()+"/noticePaging", {
+                params:{
+                    curPage: curNoticePage,
+                    limit: noticeLimit,
+                }
+            }),
+            Axios.get("http://"+config.HOST.toString()+"/countNotice")
+        ]).then(Axios.spread((response1, response2) => {
+            setNoticeList(response1.data);
+            setNoticeLength(response2.data[0]['count(*)']);
+            setMaxNoticePage(Math.ceil(response2.data[0]['count(*)']/noticeLimit));
+            console.log(response1.data);
+            console.log(response2.data[0]['count(*)']);
+        }));
+    },[])
 
     const history = useHistory();
+
+    // curPage
+    const [curNoticePage, setCurNoticePage] = useState(1);
+
+    // maxPage
+    const [maxNoticePage, setMaxNoticePage] = useState(1);
+
+    // limit
+    const [noticeLimit, setNoticeLimit] = useState(2);
+
+    function prevPage(){
+        setCurNoticePage(curNoticePage-1);
+        console.log(curNoticePage-1);
+        Axios.get("http://"+config.HOST.toString()+"/noticePaging", {
+            params:{
+                curPage: curNoticePage-1,
+                limit: noticeLimit,
+            }
+        }).then((response) => {
+            setNoticeList(response.data);
+            console.log(response.data);
+        });
+    }
+
+    function nextPage(){
+        setCurNoticePage(curNoticePage+1);
+        console.log(curNoticePage+1);
+        Axios.get("http://"+config.HOST.toString()+"/noticePaging", {
+            params:{
+                curPage: curNoticePage+1,
+                limit: noticeLimit,
+            }
+        }).then((response) => {
+            setNoticeList(response.data);
+            console.log(response.data);
+        });
+    }
 
     return (
         <>
@@ -39,20 +92,14 @@ const StudentNotice = (props) => {
                                 </tbody>
                             </table>
                         </div>
+                        <div className={"notice-page"}>
+                            <Button onClick={()=>prevPage()} disabled={curNoticePage === 1} color="primary">이전</Button>
+                            <div className={"notice-page-num"}>{curNoticePage}/{maxNoticePage}</div>
+                            <Button onClick={()=>nextPage()} disabled={curNoticePage === maxNoticePage} color="primary">다음</Button>
+                        </div>
                     </div>
                 </div>
             </div>
-            {/*<div className={"notice-container"}>*/}
-            {/*    <div className={"notice-contents"}>*/}
-            {/*        <div className={"notice-top"}>*/}
-            {/*        </div>*/}
-            {/*        <div className={"notice-list"}>*/}
-            {/*            {noticeList.map((noticeList)=>(*/}
-            {/*                <StudentNoticeListMap notice={noticeList}/>*/}
-            {/*            ))}*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </>
     );
 };
