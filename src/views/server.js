@@ -160,41 +160,62 @@ app.post("/addExelStudent", async (req, res) => {
         const ExcelData = req.body.ExcelData;
         let index = -3;
         let cnt = 0;
-        for (;cnt < parseInt(ExcelData.length / 3); cnt++) {
+    console.log(ExcelData.length)
+        console.log(ExcelData.length%3)
+        if(ExcelData.length%3===0){
+            for (;cnt < parseInt(ExcelData.length / 3); cnt++) {
+
+                index = index + 3;
+                await db.query(
+                    "INSERT IGNORE INTO student (student_id,dormitory,student_password) values (?,?,?),(?,?,?),(?,?,?)",
+                    [ExcelData[index].학번, ExcelData[index].생활관, ExcelData[index].비밀번호,
+                        ExcelData[index + 1].학번, ExcelData[index + 1].생활관, ExcelData[index + 1].비밀번호,
+                        ExcelData[index + 2].학번, ExcelData[index + 2].생활관, ExcelData[index + 2].비밀번호],
+                    function (err,result) {
+                        if (err) {
+                           return  console.log(err)
+                        } else {
+                            console.log("입력 성공1");
+                        };
+                    });
+            }
+            return res.send("업로드 성공")
+        }
+        else{
+            for (;cnt < parseInt(ExcelData.length / 3); cnt++) {
             index = index + 3;
             await db.query(
-                "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?),(?,?,?),(?,?,?)",
+                "INSERT  IGNORE INTO student (student_id,dormitory,student_password) values (?,?,?),(?,?,?),(?,?,?)",
                 [ExcelData[index].학번, ExcelData[index].생활관, ExcelData[index].비밀번호,
                     ExcelData[index + 1].학번, ExcelData[index + 1].생활관, ExcelData[index + 1].비밀번호,
                     ExcelData[index + 2].학번, ExcelData[index + 2].생활관, ExcelData[index + 2].비밀번호],
-                function (err) {
+                function (err,result) {
                     if (err) {
                         console.log(err)
-                        throw err;
+
                     } else {
-                        console.log("입력 성공");
+                        console.log("입력 성공2");
                     }
                     ;
                 });
-
         }
-        if(cnt === parseInt(ExcelData.length / 3)){
-        for (let remain = index + 3; remain < ExcelData.length; remain++) {
-            await db.query(
-                "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?)",
-                [ExcelData[remain].학번, ExcelData[remain].생활관, ExcelData[remain].비밀번호],
-                function (err) {
-                    if (err) {
-                        console.log(err)
-                        throw err;
-                    } else {
-                        console.log("입력 성공");
-                    }
-                    ;
-                });
+            for (let remain = index + 3; remain < ExcelData.length; remain++) {
+                await db.query(
+                    "INSERT IGNORE INTO student (student_id,dormitory,student_password) values (?,?,?)",
+                    [ExcelData[remain].학번, ExcelData[remain].생활관, ExcelData[remain].비밀번호],
+                    function (err,result) {
+                        if (err) {
+                            console.log(err)
+                            throw err;
+                        } else {
+                            console.log("남은 입력 성공");
+                        }
+                        ;
+                    });
 
-        }
-    }
+            }}
+        return res.send("업로드 성공")
+
 }
 );
 

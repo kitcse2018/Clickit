@@ -34,8 +34,9 @@ const StudentSearch = (props) => {
             <div className="icon">
                 <i className="fas fa-search"></i>
             </div>
+
             <input onKeyUp={()=>{enterKey();}} placeholder="학번 입력" className="inputStudent"
-                   type="number" name = "studentId"
+                  type={"number"}  name = "studentId"  onWheel={(e) => e.target.blur()}
                    onChange={handleChange}
             />
             <Button className="basicBig-btns"  onClick={()=>{submitGetStudents();}}>조회</Button>

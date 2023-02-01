@@ -9,7 +9,7 @@ import {Button} from "reactstrap";
 const EXTENSIONS = ['xlsx', 'xls', 'csv']
 
 function FileUpload() {
-
+    const [value, setValue] = useState()
     const [colDefs, setColDefs] = useState([])
     const [ExcelData, setExcelData] = useState(null)
     const [fileURL,setfileURL] = React.useState("업로드할 파일 선택");
@@ -20,40 +20,58 @@ function FileUpload() {
     }
 
     const convertToJson = (headers, data) => {
+        var cnt = 1;
         const rows = []
+        try{
         data.forEach(row => {
             let rowData = {}
-            row.forEach((element, index) => {
-                rowData[headers[index]] = element
-            })
+            cnt++;
+            try{
+                row.forEach((element, index) => {
+                    if(element==="false"){
+                        alert(cnt+"번째 빈값 존재")
+                        throw new Error("stop loop");
+                    }
+                    rowData[headers[index]] = element
+                    if(rowData[headers[1]]>7 || rowData[headers[1]] < 1){
+                        alert(cnt+"번째는 존재하지 않는 생활관입니다.")
+                        throw new Error("stop loop");
+                    }
+                })
+            }catch (e){
+                throw new Error("stop loop");
+            }
+
             rows.push(rowData)
 
-        });
+        })}
+        catch (e){
+            window.location.replace("/admin/Student")
+        };
         console.log(rows)
         return rows
 
     }
     const UploadFunc = async () => {
+
         if(ExcelData!=null){
             try{
                await Axios.delete("http://"+config.HOST.toString()+"/deleteAllStudents")
-                await Axios.post("http://"+config.HOST.toString()+"/autoIncreaseInitialize").then(
-                            await Axios.post("http://"+config.HOST.toString()+"/addExelStudent",{
-                              ExcelData : ExcelData
-                            }, {"Content-Type": 'application/json'}).then(e => {
-                                console.log(e);
-                            })
-                )
+                await Axios.post("http://"+config.HOST.toString()+"/autoIncreaseInitialize")
+                await Axios.post("http://"+config.HOST.toString()+"/addExelStudent",{
+                    ExcelData : ExcelData}, {"Content-Type": 'application/json'}).
+                then((response)=>{
+                    alert(response.data)
+                })
             }catch (err){
                 console.log(err)
-            }finally {
-                console.log("abs")
-                window.location.replace("/admin/Student")
             }
         }
         else{
             alert("file not exist")
         }
+
+        window.location.replace("/admin/Student")
 
     }
 
@@ -74,12 +92,9 @@ function FileUpload() {
             const workSheetName = workBook.SheetNames[0]
             const workSheet = workBook.Sheets[workSheetName]
             //convert to array
-            const fileData = XLSX.utils.sheet_to_json(workSheet, { header: 1 })
+            const fileData = XLSX.utils.sheet_to_json(workSheet, {defval:'false', header: 1})
             // console.log(fileData)
             const headers = fileData[0]
-            const heads = headers.map(head => ({ title: head, field: head }))
-            setColDefs(heads)
-
             //removing header
             fileData.splice(0, 1)
             setExcelData(convertToJson(headers,fileData))
