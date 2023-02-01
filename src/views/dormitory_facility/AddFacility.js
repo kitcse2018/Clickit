@@ -72,6 +72,7 @@ const AddFacility = (props) => {
     const onEndTimeChange = (e) => {
         setFacilityEndTime(e.target.value);
     }
+    const [lastFacilityNum, setLastFacilityNum] = useState(0);
 
 
     const [facilityEdit,setFacilityEdit] = useState([]);
@@ -93,6 +94,19 @@ const AddFacility = (props) => {
 
         return c_time;
     }
+
+    function insertDefaultTerms(lastFacilityNum){
+        Axios.post("http://"+config.HOST.toString()+"/insertDefaultTerms",{
+            termsData: {
+                termsTitle: "기본 이용수칙",
+                termsContents: "시설물을 이용 시 반드시 이용수칙을 준수해주시기 바랍니다.\n시설물 이용 후 정돈을 해주시기 바랍니다.",
+                termsFacility: parseInt(lastFacilityNum),
+            }
+        }).then(e => {
+            console.log(e);
+        })
+    }
+
     const history = useHistory();
     //시간 계산
     return (
@@ -132,6 +146,24 @@ const AddFacility = (props) => {
                                                 }).then(e => {
                                                     console.log(e);
                                                 })
+
+                                                Axios.get("http://"+config.HOST.toString()+"/getMaxPkFromFacility")
+                                                    .then((res)=>{
+                                                        setLastFacilityNum(res.data[0].lastFacilityNum);
+                                                        insertDefaultTerms(res.data[0].lastFacilityNum);
+                                                        // alert(res.data[0].lastFacilityNum);
+                                                        // alert("last facility num: "+ lastFacilityNum);
+                                                    })
+
+                                                // Axios.post("http://"+config.HOST.toString()+"/insertDefaultTerms",{
+                                                //     termsData: {
+                                                //         termsTitle: "기본 이용수칙",
+                                                //         termsContents: "시설물을 이용 시 반드시 이용수칙을 준수해주시기 바랍니다.\n시설물 이용 후 정돈을 해주시기 바랍니다.",
+                                                //         termsFacility: parseInt(lastFacilityNum),
+                                                //     }
+                                                // }).then(e => {
+                                                //     console.log(e);
+                                                // })
                                                 // 이용수칙 디폴트값 넣기
                                                 /*await Axios.post("http://"+config.HOST.toString()+"/facilityTermsInsert",{
                                                     termsData: {
