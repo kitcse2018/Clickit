@@ -81,7 +81,7 @@ const Reservation = (props) => {
                     <div className={"reservation-main"}>
                         <div className={"reservation-main-contents"}>
                             <div className={"innerFacility-img"}>
-                                <img src={require('../../assets/img/innerFacility/' + innerFacility_img)}/>
+                                <img src={require('../../assets/img/kumoh/' + items.facilityImg)}/>
                             </div>
                             <div className={"innerFacility-name"}>
                                 <h1 className={"display-3"}>{items.facilityName}</h1>

@@ -38,7 +38,7 @@ import NoticeModal from "./notice/NoticeModal";
 const Facility = (props) => {
 
     const [facilityList,setFacilityList] = useState([]);
-    const picList = ["오름 1동 휴게실", "오름 1동 체단실"]
+    const picList = ["오름 1동 휴게실.png", "오름 1동 체단실.png"]
     const [state, setState] = useState({
         modal: true,
     });
@@ -83,7 +83,7 @@ const Facility = (props) => {
             <Header/>
             <div className={"facility-list-container"}>
                 {facilityList.map((facility, index)=>(
-                    <FacilityListMap facility={facility} pic={picList[index]} key={index}/>
+                    <FacilityListMap facility={facility} key={index}/>
                 ))}
             </div>
             {sessionStorage.getItem("preventNotice") === null ?
