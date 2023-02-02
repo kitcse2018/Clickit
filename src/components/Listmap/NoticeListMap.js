@@ -6,10 +6,11 @@ import {noticeDelete} from "../../methods/notice/NoticeMethods";
 import {useEffect} from "react";
 
 function NoticeListMap(notice){
+
     const history = useHistory();
 
     useEffect(()=>{
-       console.log(notice);
+       console.log(notice.notice);
     },[]);
 
     return (
@@ -17,8 +18,9 @@ function NoticeListMap(notice){
           <tr className={"notice-tr-list"}>
               <td className={"notice-table-td-num"}><span className={"notice-tr"}><h2>{notice.index + 1}</h2></span></td>
               <td className={"notice-table-td-title"}><span className={"notice-tr"}><h2>{notice.notice.notice_title}</h2></span></td>
-              <td className={"notice-table-td-writer"}><span className={"notice-tr"}><h2>오름 관리자</h2></span></td>
-              <td className={"notice-table-td-date"}><span className={"notice-tr"}><h2>2023-01-01</h2></span></td>
+              <td className={"notice-table-td-writer"}><span className={"notice-tr"}><h2>{notice.notice.notice_writer}</h2></span></td>
+              {/*<td className={"notice-table-td-date"}><span className={"notice-tr"}><h2>2023-01-26</h2></span></td>*/}
+              <td className={"notice-table-td-date"}><span className={"notice-tr"}><h2>{notice.notice.notice_date.split(" ")[0]}</h2></span></td>
               <td classname={"notice-table-td-button"}>
                   <Button className={"notice-list-edit"} color={"primary"} onClick={()=>{history.push({
                       pathname: "/admin/noticeEdit",
@@ -26,6 +28,7 @@ function NoticeListMap(notice){
                           notice_num: notice.notice.notice_num,
                           notice_title: notice.notice.notice_title,
                           notice_contents: notice.notice.notice_contents,
+                          notice_writer: sessionStorage.getItem("name"),
                           isNoticeEdit: true,
                       }
                   })}}>수정</Button>

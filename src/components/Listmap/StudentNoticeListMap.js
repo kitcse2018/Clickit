@@ -37,8 +37,8 @@ function StudentNoticeListMap(props){
                 </td>
                 <td className={"notice-table-td-title"}><span
                     className={"notice-tr"}><h2>{props.notice.notice_title}</h2></span></td>
-                <td className={"notice-table-td-writer"}><span className={"notice-tr"}><h2>오름 관리자</h2></span></td>
-                <td className={"notice-table-td-date"}><span className={"notice-tr"}><h2>2023-01-01</h2></span></td>
+                <td className={"notice-table-td-writer"}><span className={"notice-tr"}><h2>{props.notice.notice_writer}</h2></span></td>
+                <td className={"notice-table-td-date"}><span className={"notice-tr"}><h2>{props.notice.notice_date.split(" ")[0]}</h2></span></td>
             </tr>
             <Modal className={"notice-modal"} size={"lg"} isOpen={state.modal}>
                 <NoticeModal notice = {notice} onModalDisplay={onModalDisplay}></NoticeModal>

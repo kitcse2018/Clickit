@@ -1,4 +1,3 @@
-
 import React, {useState} from "react";
 import Axios from "axios";
 import {Link, useHistory} from 'react-router-dom'
@@ -10,6 +9,8 @@ const FacilityListMap = (props) => {
     const history = useHistory();
 
     const [population, setPopulation] = useState(0);
+
+    console.log(props.pic);
 
     console.log(props.facility);
 

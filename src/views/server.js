@@ -160,41 +160,62 @@ app.post("/addExelStudent", async (req, res) => {
         const ExcelData = req.body.ExcelData;
         let index = -3;
         let cnt = 0;
-        for (;cnt < parseInt(ExcelData.length / 3); cnt++) {
+    console.log(ExcelData.length)
+        console.log(ExcelData.length%3)
+        if(ExcelData.length%3===0){
+            for (;cnt < parseInt(ExcelData.length / 3); cnt++) {
+
+                index = index + 3;
+                await db.query(
+                    "INSERT IGNORE INTO student (student_id,dormitory,student_password) values (?,?,?),(?,?,?),(?,?,?)",
+                    [ExcelData[index].학번, ExcelData[index].생활관, ExcelData[index].비밀번호,
+                        ExcelData[index + 1].학번, ExcelData[index + 1].생활관, ExcelData[index + 1].비밀번호,
+                        ExcelData[index + 2].학번, ExcelData[index + 2].생활관, ExcelData[index + 2].비밀번호],
+                    function (err,result) {
+                        if (err) {
+                           return  console.log(err)
+                        } else {
+                            console.log("입력 성공1");
+                        };
+                    });
+            }
+            return res.send("업로드 성공")
+        }
+        else{
+            for (;cnt < parseInt(ExcelData.length / 3); cnt++) {
             index = index + 3;
             await db.query(
-                "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?),(?,?,?),(?,?,?)",
+                "INSERT  IGNORE INTO student (student_id,dormitory,student_password) values (?,?,?),(?,?,?),(?,?,?)",
                 [ExcelData[index].학번, ExcelData[index].생활관, ExcelData[index].비밀번호,
                     ExcelData[index + 1].학번, ExcelData[index + 1].생활관, ExcelData[index + 1].비밀번호,
                     ExcelData[index + 2].학번, ExcelData[index + 2].생활관, ExcelData[index + 2].비밀번호],
-                function (err) {
+                function (err,result) {
                     if (err) {
                         console.log(err)
-                        throw err;
+
                     } else {
-                        console.log("입력 성공");
+                        console.log("입력 성공2");
                     }
                     ;
                 });
-
         }
-        if(cnt === parseInt(ExcelData.length / 3)){
-        for (let remain = index + 3; remain < ExcelData.length; remain++) {
-            await db.query(
-                "INSERT INTO student (student_id,dormitory,student_password) values (?,?,?)",
-                [ExcelData[remain].학번, ExcelData[remain].생활관, ExcelData[remain].비밀번호],
-                function (err) {
-                    if (err) {
-                        console.log(err)
-                        throw err;
-                    } else {
-                        console.log("입력 성공");
-                    }
-                    ;
-                });
+            for (let remain = index + 3; remain < ExcelData.length; remain++) {
+                await db.query(
+                    "INSERT IGNORE INTO student (student_id,dormitory,student_password) values (?,?,?)",
+                    [ExcelData[remain].학번, ExcelData[remain].생활관, ExcelData[remain].비밀번호],
+                    function (err,result) {
+                        if (err) {
+                            console.log(err)
+                            throw err;
+                        } else {
+                            console.log("남은 입력 성공");
+                        }
+                        ;
+                    });
 
-        }
-    }
+            }}
+        return res.send("업로드 성공")
+
 }
 );
 
@@ -296,6 +317,7 @@ app.post("/deleteStudent", (req,res)=>{
             };
         });
 });
+
 
 app.get("/searchStudents", async (req,res)=>{
     const postStudentId = req.query.postStudentId;
@@ -549,7 +571,7 @@ app.post('/cancelReservation', (req,res) => {
         [postData.reservationNum],
         function (err, result) {
             if(err){
-                console.log(err)
+                console.log(err);
             }else{
                 console.log("reservation cancel success!");
                 res.send(result);
@@ -651,21 +673,6 @@ app.get('/selectReservationStudentList',(req,res)=>{
     )
 });
 
-app.post('/cancelReservation', (req,res) => {
-    const postData = req.body.params;
-    db.query(
-        "UPDATE reservation SET reservation_status = \"예약 취소\" WHERE reservation_num = ?",
-        [postData.reservationNum],
-        function (err, result) {
-            if(err){
-                console.log(err)
-            }else{
-                res.send(result);
-            }
-        }
-    )
-});
-
 app.post('/updateSeatAvailabilityStatusAble', (req,res) => {
     const postData = req.body.params;
     db.query(
@@ -675,6 +682,7 @@ app.post('/updateSeatAvailabilityStatusAble', (req,res) => {
             if(err){
                 console.log(err)
             }else{
+                console.log("update Seat Availability Status to Able!");
                 res.send(result);
             }
         })
@@ -872,6 +880,20 @@ app.get('/facilityNumName',async(req,res) => {
     );
 });
 
+app.get('/getFacilityName', async(req, res)=>{
+    const facilityNum = req.query.facilityNum;
+    db.query(
+        "SELECT facility_name FROM facility WHERE facility_num = ?",
+        [facilityNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
 
 app.get('/terms', async(req, res)=>{
     db.query(
@@ -904,9 +926,22 @@ app.post('/termsEditSave', async (req, res)=>{
 });
 
 app.post('/insertTerms', async (req, res)=>{
-    console.log("여기까지는 들어오나");
     const termsData = req.body.termsData;
-    console.log(termsData);
+    db.query(
+        "INSERT INTO terms (terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?);",
+        [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
+        function(err, result){
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.post('/insertDefaultTerms', async (req, res)=>{
+    const termsData = req.body.termsData;
     db.query(
         "INSERT INTO terms (terms_title, terms_contents, terms_facility_num) VALUES (?, ?, ?);",
         [termsData.termsTitle, termsData.termsContents, termsData.termsFacility],
@@ -950,6 +985,36 @@ app.delete('/termsDelete', async (req, res)=>{
     );
 });
 
+app.get('/termsPaging', async (req, res)=>{
+    const page = req.query.curPage;
+    const limit = parseInt(req.query.limit);
+    const offset = (page -1) * limit;
+    db.query(
+        "SELECT terms_num, terms_title, terms_contents, terms_facility_num, facility_name , dormitory_name FROM ccd.terms LEFT JOIN ccd.facility ON terms.terms_facility_num = facility.facility_num LEFT JOIN ccd.dormitory on facility.dormitory_num = dormitory.dormitory_num ORDER BY dormitory_name ASC LIMIT ? OFFSET ?;",
+        [limit, offset],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/countTerms', async (req, res)=>{
+    db.query(
+        "SELECT COUNT(*) AS count FROM terms;",
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.get('/getTermsByFacilityNum', async (req, res)=>{
     const facilityNum = req.query.facilityNum;
     db.query(
@@ -964,9 +1029,67 @@ app.get('/getTermsByFacilityNum', async (req, res)=>{
         })
 });
 
+app.get('/getMaxPkFromFacility', async (req, res)=>{
+    db.query(
+        "SELECT MAX(facility_num) AS lastFacilityNum FROM ccd.facility;",
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+                console.log("마지막 facility_num : " + result);
+            }
+        }
+    );
+});
+
+// app.get('/notice', async(req, res)=>{
+//     db.query(
+//         "SELECT * FROM notice;",
+//         (err, result)=>{
+//             if(err){
+//                 console.log(err)
+//             }else{
+//                 res.send(result);
+//             }
+//         }
+//     );
+// });
+//
+// app.delete('/noticeDelete', async(req, res)=>{
+//     const postNoticeNum = req.body.notice_num;
+//     db.query(
+//         "DELETE FROM notice WHERE notice_num = ?;",
+//         [postNoticeNum],
+//         (err, result)=>{
+//             if(err){
+//                 console.log(err)
+//             }else{
+//                 res.send(result);
+//             }
+//         }
+//     );
+// });
+//
+// app.post('/noticeEditSave', async (req, res)=>{
+//     const noticeData = req.body.noticeData;
+//     console.log(noticeData);
+//     db.query(
+//         "INSERT INTO notice (notice_title, notice_contents) VALUES (?, ?) ON DUPLICATE KEY UPDATE notice_num = VALUES(noticeNum), notice_title = VALUES(notice_title), notice_contents = VALUES(notice_contents);",
+//         [noticeData.noticeTitle, noticeData.noticeContents],
+//         (err, result)=>{
+//             if(err){
+//                 console.log(err)
+//             }else{
+//                 res.send(result);
+//             }
+//         }
+//     );
+// });
+
 app.get('/notice', async(req, res)=>{
     db.query(
-        "SELECT * FROM notice;",
+        "SELECT * FROM notice ORDER BY notice_date DESC;",
         (err, result)=>{
             if(err){
                 console.log(err)
@@ -976,6 +1099,106 @@ app.get('/notice', async(req, res)=>{
         }
     );
 });
+
+app.delete('/noticeDelete', async(req, res)=>{
+    const postNoticeNum = req.body.notice_num;
+    db.query(
+        "DELETE FROM notice WHERE notice_num = ?;",
+        [postNoticeNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/countNotice', async (req, res)=>{
+    db.query(
+        "SELECT count(*) FROM ccd.notice;",
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+app.get('/noticePaging', async (req, res)=>{
+    const page = req.query.curPage;
+    const limit = parseInt(req.query.limit);
+    const offset = (page - 1) * limit;
+    db.query(
+        "SELECT * FROM notice ORDER BY notice_date DESC LIMIT ? OFFSET ?;",
+        [limit, offset],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
+// app.post('/noticeEditSave', async (req, res)=>{
+//     const noticeData = req.body.noticeData;
+//     const curDate = new Date();
+//     const lastModifiedDate = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" + curDate.getDate();
+//     console.log(noticeData);
+//     db.query(
+//         "INSERT INTO notice (notice_num, notice_title, notice_contents, notice_writer, notice_date) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE notice_title = ?, notice_contents = ?;",
+//         [noticeData.noticeNum, noticeData.noticeTitle, noticeData.noticeContents, noticeData.noticeTitle, noticeData.noticeWriter, lastModifiedDate],
+//         (err, result)=>{
+//             if(err){
+//                 console.log(err)
+//             }else{
+//                 res.send(result);
+//             }
+//         }
+//     );
+// })
+
+app.post('/noticeCreate', async (req, res)=>{
+    const noticeData = req.body.noticeData;
+    console.log(noticeData);
+    const curDate = new Date();
+    const lastModifiedDate = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" + curDate.getDate();
+    db.query(
+        "INSERT INTO notice (notice_title, notice_contents, notice_writer, notice_date) VALUES (?, ?, ?, ?);",
+        [noticeData.noticeTitle, noticeData.noticeContents, noticeData.noticeWriter, lastModifiedDate],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+})
+
+app.post('/noticeUpdate', async (req, res)=>{
+    const noticeData = req.body.noticeData;
+    console.log(noticeData);
+    const curDate = new Date();
+    const lastModifiedDate = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" + curDate.getDate();
+    db.query(
+        "UPDATE notice SET notice_title = ?, notice_contents = ?, notice_writer = ?, notice_date = ? WHERE notice_num = ?;",
+        [noticeData.noticeTitle, noticeData.noticeContents, noticeData.noticeWriter, lastModifiedDate, noticeData.noticeNum],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+})
+
 app.post('/facilitySeatUpdate',async(req,res) => {
     let termsData = req.body.termsData;
 
@@ -1021,6 +1244,22 @@ app.get('/getFacilitySeatNum',async(req,res) => {
         }
     );
 });
+
+app.get('/getFacilitySeatName', async(req, res)=>{
+    const seat_availability_num = req.query.seat_availability_num;
+    db.query(
+        "SELECT facility_seat_name FROM ccd.facility_seat where facility_seat_num = (SELECT facility_seat_num FROM ccd.seat_availability where seat_availability_num = ?)",
+        [seat_availability_num],
+        (err, result)=>{
+            if(err){
+                console.log(err)
+            }else{
+                res.send(result);
+            }
+        }
+    );
+});
+
 app.get('/getFacilitySeatNumList',async(req,res) => {
     let facility_num = req.query.facility_num;
 
@@ -1059,7 +1298,7 @@ app.post('/facilitySeatAvailabilityInsert',async(req,res) => {
     let termsData = req.body.termsData;
     db.query(
         //나중에 사진도 추가
-        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num,termsData.seat_availability_status],
+        "INSERT INTO seat_availability(seat_availability_start_time,seat_availability_end_time,facility_seat_num,seat_availability_status) VALUES(?,?,?,?) " ,[termsData.facility_start_time, termsData.facility_end_time, termsData.facility_seat_num, termsData.seat_availability_status],
         (err,result) => {
             if(err){
                 console.log(err)
@@ -1217,7 +1456,7 @@ app.post('/facilityUpdate',async(req,res) => {
 
     db.query(
         //나중에 사진도 추가
-        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ?,fac.facility_pic = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_num,termsData.facility_pic],
+        "UPDATE facility AS fac SET fac.facility_name = ?,fac.facility_limit_people = ?,fac.facility_start_time = ?, fac.facility_end_time = ?,fac.facility_pic = ? WHERE fac.facility_num = ?",[termsData.facility_name, termsData.facility_limit_people, termsData.facility_start_time, termsData.facility_end_time, termsData.facility_pic,termsData.facility_num],
         (err,result) => {
             if(err){
                 console.log(err)

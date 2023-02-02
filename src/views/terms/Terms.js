@@ -10,13 +10,55 @@ import * as config from '../../config';
 const Terms = (props) => {
 
     const [termsList, setTermsList] = useState([]);
+    const [termsLength, setTermsLength] = useState([]);
 
-    useEffect(()=> { Axios.get("http://"+config.HOST.toString()+"/terms").then((response) => {
-        setTermsList(response.data);
-    });
+    useEffect(()=> {
+        Axios.all([
+            Axios.get("http://"+config.HOST.toString()+"/termsPaging", {
+                params : {
+                    curPage : curTermsPage,
+                    limit : termsLimit,
+                }
+            }),
+            Axios.get("http://"+config.HOST.toString()+"/countTerms"),
+        ]).then(Axios.spread((response1, response2)=>{
+            setTermsList(response1.data);
+            setTermsLength(response2.data);
+            setMaxTermsPage(Math.ceil(response2.data[0].count / termsLimit));
+            console.log(response1.data);
+            console.log(response2.data[0].count);
+        }));
     },[]);
 
     const history = useHistory();
+
+    const [curTermsPage, setCurTermsPage] = useState(1);
+    const [maxTermsPage, setMaxTermsPage] = useState(1);
+    const [termsLimit, setTermsLimit] = useState(10); // 한 페이지에 보여줄 게시글 수
+
+    function prevPage(){
+        setCurTermsPage(curTermsPage-1);
+        Axios.get("http://"+config.HOST.toString()+"/termsPaging", {
+            params : {
+                curPage : curTermsPage-1,
+                limit : termsLimit,
+            }
+        }).then((response)=>{
+            setTermsList(response.data);
+        });
+    }
+
+    function nextPage(){
+        setCurTermsPage(curTermsPage+1);
+        Axios.get("http://"+config.HOST.toString()+"/termsPaging", {
+            params : {
+                curPage : curTermsPage+1,
+                limit : termsLimit,
+            }
+        }).then((response)=>{
+            setTermsList(response.data);
+        });
+    }
 
     return (
         <>
@@ -55,37 +97,14 @@ const Terms = (props) => {
                                 </tbody>
                             </table>
                         </div>
+                        <div className={"terms-page"}>
+                            <Button onClick={()=>prevPage()} disabled={curTermsPage === 1} color="primary">이전</Button>
+                            <div className={"terms-page-num"}>{curTermsPage}/{maxTermsPage}</div>
+                            <Button onClick={()=>nextPage()} disabled={curTermsPage === maxTermsPage} color="primary">다음</Button>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            {/*<Header />
-            <div className={"terms-container"}>
-                <div className={"terms-contents"}>
-                    <div className={"terms-top"}>
-                        <Button className={"terms-create"} color={"primary"} onClick={()=>{history.push({
-                            pathname : "/admin/termsEdit",
-                            state : {
-                                terms_num : "",
-                                terms_title : "",
-                                terms_contents : "",
-                                terms_facility_num : "",
-                                dormitory_name : "",
-                                isTermsEdit : false,
-                            }
-                        })}}>이용수칙 추가</Button>
-                    </div>
-                    <div className={"terms-list"}>
-                        {termsList.map((terms)=>(
-                            <TermsListMap terms={terms}/>
-                        ))}
-                    </div>
-                    <div className={"terms-paging"}>
-                        <Button className={"terms-prev"} color={"primary"}>이전</Button>
-                        <Button className={"terms-next"} color={"primary"}>다음</Button>
-                    </div>
-                </div>
-            </div>*/}
         </>
     );
 };

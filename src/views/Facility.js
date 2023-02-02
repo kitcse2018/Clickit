@@ -64,6 +64,8 @@ const Facility = (props) => {
                 setNotice(response.data);
             });
         await console.log("testing");
+        console.log(facilityList.facility_pic==""||facilityList[0].facility_pic==null?"사진 없음":"사진 있음");
+        console.log("Facility.js");
     }
 
     const toggleModal = () => {

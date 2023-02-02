@@ -27,11 +27,12 @@ const NoticeEdit = () => {
 
     function noticeSave(){
         if(items.isNoticeEdit){
-            Axios.post("http://"+config.HOST.toString()+"/updateNotice", {
+            Axios.post("http://"+config.HOST.toString()+"/noticeUpdate", {
                 noticeData:{
                     noticeNum: items.notice_num,
                     noticeTitle: noticeTitle,
                     noticeContents: noticeContents,
+                    noticeWriter: items.notice_writer,
                 }
             }).then(r => {
                 console.log(r);
@@ -41,10 +42,11 @@ const NoticeEdit = () => {
                 console.log(r);
             })
         }else{
-            Axios.post("http://"+config.HOST.toString()+"/insertNotice", {
+            Axios.post("http://"+config.HOST.toString()+"/noticeCreate", {
                 noticeData:{
                     noticeTitle: noticeTitle,
                     noticeContents: noticeContents,
+                    noticeWriter: items.notice_writer,
                 }
             }).then(r => {
                 console.log(r);
@@ -52,6 +54,10 @@ const NoticeEdit = () => {
                 console.log(e);
             }).then(r => {
                 console.log(r);
+            })
+            Axios.get("http://"+config.HOST.toString()+"/lastInsertId"
+            ).then(r => {
+                console.log("last insert id : "+r);
             })
         }
         document.location.replace("/admin/notice");
