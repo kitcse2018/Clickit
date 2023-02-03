@@ -1,18 +1,50 @@
 .facilitySeat-container{
     border: 1px solid white;
     background-color: #FAF7F0;
-    padding: 5%;
     position: relative;
     margin-top: -7%;
 }
 
+.facility-seat-header{
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.facility-seat-header-name{
+    width: 90%;
+}
+
+.back-button{
+    height: 80%;
+}
+
+.facility-seat-contents{
+    margin-top: 2rem;
+    margin-left : 2rem;
+}
+
+.facility-seat-manage{
+    margin: 0 auto;
+}
+
+.facility-seat-content-body{
+    margin: 2rem;
+}
+
+.facility-seat-add-body{
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 .facility-seat-name-input-css{
-    width: 50%;
-    margin-bottom: 5%;
+    width: 40%;
+    margin-right: 10%;
 }
 
 .facility-seat-add{
-    float: right;
+    /*float: right;*/
 }
 
 .seat-container{
@@ -20,5 +52,38 @@
     display: inline-block;
 }
 .facility-seat-list{
-    margin-left: 15%;
+    margin-top: 3rem;
+}
+
+.facility-seat-list-ul{
+    padding-left: 0px;
+}
+
+.facility-seat-ul{
+    padding-left: 0px;
+}
+
+.seat-manage-header{
+    display: flex;
+    text-align: center;
+}
+
+.seat-manage-header-name{
+    width: 20%;
+    margin: 0 auto;
+}
+
+.seat-manage-header-status{
+    width: 20%;
+    margin: 0 auto;
+}
+
+.seat-manage-header-save{
+    width: 20%;
+    margin: 0 auto;
+}
+
+.seat-manage-header-delete{
+    width: 20%;
+    margin: 0 auto;
 }

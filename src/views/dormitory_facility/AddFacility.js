@@ -41,7 +41,7 @@ const AddFacility = (props) => {
 
     const items = location.state;
     const [imageName,setImageName] = useState("clickit.png");
-    const [postImage,setPostImage] = useState("");
+    const [postImage,setPostImage] = useState("clickit.png");
     const [imgFile,setImgFile] = useState("");
 
 
@@ -110,6 +110,7 @@ const AddFacility = (props) => {
 
     const history = useHistory();
     //시간 계산
+
     return (
         <>
             <Header />
@@ -152,32 +153,7 @@ const AddFacility = (props) => {
                                                     .then((res)=>{
                                                         setLastFacilityNum(res.data[0].lastFacilityNum);
                                                         insertDefaultTerms(res.data[0].lastFacilityNum);
-                                                        // alert(res.data[0].lastFacilityNum);
-                                                        // alert("last facility num: "+ lastFacilityNum);
                                                     })
-
-                                                // Axios.post("http://"+config.HOST.toString()+"/insertDefaultTerms",{
-                                                //     termsData: {
-                                                //         termsTitle: "기본 이용수칙",
-                                                //         termsContents: "시설물을 이용 시 반드시 이용수칙을 준수해주시기 바랍니다.\n시설물 이용 후 정돈을 해주시기 바랍니다.",
-                                                //         termsFacility: parseInt(lastFacilityNum),
-                                                //     }
-                                                // }).then(e => {
-                                                //     console.log(e);
-                                                // })
-                                                // 이용수칙 디폴트값 넣기
-                                                /*await Axios.post("http://"+config.HOST.toString()+"/facilityTermsInsert",{
-                                                    termsData: {
-                                                        facility_name : facilityName,
-                                                        facility_limit_people : facilityLimit,
-                                                        facility_start_time : facilityStartTime,
-                                                        facility_end_time : facilityEndTime,
-                                                        dormitory_num : items.dormitory_num,
-                                                        facility_pic : postImage,
-                                                    }
-                                                }).then(e => {
-                                                    console.log(e);
-                                                })*/
                                                 history.push({
                                                         pathname : "/admin/dormitoryEdit",
                                                         state : {
@@ -271,14 +247,15 @@ const AddFacility = (props) => {
                                                         }
                                                     }
                                                 }
-                                                history.push({
-                                                        pathname : "/admin/dormitoryEdit",
-                                                        state : {
-                                                            dormitory_num : items.dormitory_num,
-                                                            dormitory_name : items.dormitory_name
-                                                        }
-                                                    }
-                                                )
+                                                // history.push({
+                                                //         pathname : "/admin/dormitoryEdit",
+                                                //         state : {
+                                                //             dormitory_num : items.dormitory_num,
+                                                //             dormitory_name : items.dormitory_name
+                                                //         }
+                                                //     }
+                                                // )
+                                                history.goBack();
                                             }
                                         }
                                     }

@@ -39,7 +39,7 @@ const StudentNotice = (props) => {
     const [maxNoticePage, setMaxNoticePage] = useState(1);
 
     // limit
-    const [noticeLimit, setNoticeLimit] = useState(2);
+    const [noticeLimit, setNoticeLimit] = useState(10);
 
     function prevPage(){
         setCurNoticePage(curNoticePage-1);

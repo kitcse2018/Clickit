@@ -1,25 +1,47 @@
-li{
-    list-style-type : none;
-}
+/*li{*/
+/*    list-style-type : none;*/
+/*}*/
+
 .dormitoryEdit-container {
     display: flex;
-    flex-direction: column;
-    /*align-items: center;*/
-    /*justify-content: center;*/
     width: 100%;
     height: 100%;
+    /*max-height: 700px;*/
     background-color: #f4f5f7;
     box-shadow: 0px 0px 5px gray;
-    margin-top: -6rem;
+    margin-top: -10rem;
     position: relative;
-/*    height: 100%;
-    width: 1420px;*/
+    padding-bottom: 2rem;
 }
 
-.dormitory-name{
-    margin-top: -30rem;
-    /*margin-bottom: 2rem;*/
-    font-weight: bold;
+.dormitory-edit-main{
+    width: 100%;
+    height: 100%;
+}
+
+.dormitory-edit-content-header{
+    display: flex;
+    width: auto;
+    height: 7%;
+    margin: 1rem;
+    justify-content: space-between;
+}
+
+/*.dormitory-name{*/
+/*    font-weight: bold;*/
+/*}*/
+
+.dormitory-edit-content-body{
+    display: flex;
+    margin-bottom: 1rem;
+    height: 83%;
+    margin-top: 2rem;
+}
+
+.dormitory-img-container{
+    width: 35%;
+    height: 100%;
+    margin-left: 1rem;
 }
 
 .dormitory-img {
@@ -27,91 +49,149 @@ li{
     height:300px;
     object-fit:cover;
 }
-.dormitory-edit-content{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    /*justify-content: center;*/
-    width: 90%;
-    height: 100%;
-    margin: 2rem auto 0;
-    /*background-color: black;*/
-    overflow: auto;
 
-}
-
-.dormitory-edit-content-header{
-    flex-direction: row;
-    margin: 8rem auto 0;
-}
-.dormitory-edit-save{
-    margin : 0rem 0.2rem;
-}
-.dormitory-create-innerFacility{
+.dormitory-manage{
     display: inline-block;
-    float : right;
-    margin : 0.5rem;
-}
-.dormitory-edit-content-header>input{
-    display: inline-flex;
-
 }
 
-.dormitory-img>img{
-    width: 30%;
-    height: 20%;
-}
-
-.dormitory-edit-content-body{
-    width: 90%;
-    height: 90%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    border: 1px solid #BBBBBB;
-    box-shadow: 0px 0px 5px gray;
-    display: inline-block;
-
-}
-
-.dormitory-innerFacility-list{
-    display: inline-block;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.dormitory-innerFacility-list-ul{
-    align-items:center;
-    width: 95%;
-
-}
-
-.dormitory-innerFacility-list-li:nth-child(odd){
-    background-color: #BCCEF8;
-}
-.dormitory-innerFacility-list-li:nth-child(even){
-    background-color: #CDFCF6;
-}
-
-.dormitory-innerFacility-list-li{
-
-    height: 8rem;
+.dormitory-img-edit-title{
     margin-top: 1rem;
 }
-.dormitory-innerFacility-li{
-    margin-top : 1rem;
+
+.dormitory-name-edit{
+    margin-top: 1rem;
 }
-.dp1{
-    margin-right : 0.5rem;
-}
-.dormitory-innerFacility-button{
-    margin : -0.5rem 1rem;
-    float : right;
-}
-.dormitory-innerFacility-content{
-    margin-top : -0.8rem;
-    float : left;
-}
+
 .dormitory-name-input{
-    margin-top : 1rem;
+    margin-right: 1rem;
 }
+
+.dormitory-innerFacility-list-container{
+    height: 100%;
+    width: 65%;
+}
+
+.dormitory-innerFacility-list-main{
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.dormitory-innerFacility-list-contents{
+    margin-bottom: 2rem;
+    height: 200px;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.dormitory-innerFacility-detail{
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
+.dormitory-innerFacility-button{
+    margin-right: 1rem;
+    float: right;
+}
+
+.dormitory-edit-footer{
+    height: 10%;
+    display: block;
+}
+
+.back-button{
+    float: right;
+    margin-right: 1rem;
+    margin-top: 1rem;
+}
+
+/*.dormitory-edit-content{*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    width: 90%;*/
+/*    height: 100%;*/
+/*    margin: 2rem auto;*/
+/*    overflow: auto;*/
+
+/*}*/
+
+/*.dormitory-edit-content-header{*/
+/*    flex-direction: row;*/
+/*    margin: 2rem auto 0;*/
+/*}*/
+/*.dormitory-edit-save{*/
+/*    margin : 0rem 0.2rem;*/
+/*}*/
+/*.dormitory-create-innerFacility{*/
+/*    display: inline-block;*/
+/*    float : right;*/
+/*    margin : 0.5rem;*/
+/*}*/
+/*.dormitory-edit-content-header>input{*/
+/*    display: inline-flex;*/
+
+/*}*/
+
+/*.dormitory-img>img{*/
+/*    width: 30%;*/
+/*    height: 20%;*/
+/*}*/
+
+/*.dormitory-edit-content-body{*/
+/*    width: 90%;*/
+/*    height: 90%;*/
+/*    margin-top: 2rem;*/
+/*    margin-bottom: 2rem;*/
+/*    display: inline-block;*/
+
+/*}*/
+
+/*.dormitory-innerFacility-list{*/
+/*    display: inline-block;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.dormitory-innerFacility-list-ul{*/
+/*    align-items:center;*/
+/*    width: 95%;*/
+
+/*}*/
+
+/*.dormitory-innerFacility-list-container{*/
+/*    margin-bottom: 1rem;*/
+/*    height: 8rem;*/
+/*    margin-top: 1rem;*/
+/*}*/
+
+/*.dormitory-innerFacility-list-container:nth-child(odd){*/
+/*    background-color: #BCCEF8;*/
+/*}*/
+
+/*.dormitory-innerFacility-list-container:nth-child(even){*/
+/*    background-color: #CDFCF6;*/
+/*}*/
+
+/*.dormitory-innerFacility-list-contents{*/
+/*    margin-top : 1rem;*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+
+/*.dp1{*/
+/*    margin-right : 0.5rem;*/
+/*}*/
+
+/*.dormitory-innerFacility-button{*/
+/*    margin : -0.5rem 1rem;*/
+/*    float : right;*/
+/*}*/
+
+/*.dormitory-name-input{*/
+/*    margin-top : 1rem;*/
+/*}*/
+
+/*.back-button{*/
+/*    float: right;*/
+/*    margin-right: 1rem;*/
+/*}*/

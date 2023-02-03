@@ -1,25 +1,7 @@
-
-import React, {useCallback, useEffect, useState} from "react";
-// node.js library that concatenates classes (strings)
-import classnames from "classnames";
-// javascipt plugin for creating charts
-import Chart from "chart.js";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-// reactstrap components
+import React, {useEffect, useState} from "react";
 import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    NavItem,
-    NavLink,
-    Nav,
-    Progress,
-    Table,
+    Button, Card,
     Container,
-    Row,
-    Col
 } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
@@ -77,6 +59,9 @@ const DormitoryEdit = (props) => {
         return s_time + " ~ " + e_time;
     }
 
+    function goBack(){
+        history.goBack();
+    }
 
     const history = useHistory();
 
@@ -84,133 +69,132 @@ const DormitoryEdit = (props) => {
         <>
             <Header />
             <Container className={"dormitoryEdit-container"}>
-                {/* =============== start dormitory edit content =============== */}
-                <div className={"dormitory-edit-content"}>
+                <div className={"dormitory-edit-main"}>
                     <div className={"dormitory-edit-content-header"}>
                         <div className={"dormitory-name"}>
                             <h1>{items.dormitory_name}</h1>
                         </div>
-                        <div className={"dormitory-img"}>
-                            <img style={{ width: "90%", height: "90%"}} src={imgFile ? imgFile : require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
-                        </div>
-                        {/*<Button className={"dormitory-img-edit basic-btn"} type={"button"}  size={"sm"}>이미지 수정</Button>*/}
-                        <ImgUploadForm setPostImage={setPostImage} setImgFile={setImgFile}/>
-                        <input type={"text"} className={"dormitory-name-input"} defaultValue={items.dormitory_name} onChange = {onNameChange}/>
-                        <Button className={"dormitory-edit-save basic-btn"} type={"button"}  onClick={() =>{
-                            console.log(postImage)
-                            Axios.post("http://"+config.HOST.toString()+"/dormitoryUpdate",{
-                                termsData: {
-                                    dormitory_pic : postImage,
-                                    dormitory_num: items.dormitory_num,
-                                    dormitory_name : dormitoryName,
+                        <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
+                                pathname : "/admin/addFacility",
+                                state : {
+                                    facility_num : "",
+                                    facility_name : "",
+                                    facility_limit_people : "",
+                                    facility_pic : "",
+                                    facility_start_time : "",
+                                    facility_end_time : "",
+                                    dormitory_num : items.dormitory_num,
+                                    dormitory_name : items.dormitory_name,
                                 }
-                            }).then(e => {
-                                console.log(e);
-                            })
-                            window.location.href = "/admin/dormitoryManager";
-                        }
-                        } >
-                            저장
-                        </Button>
-
+                            }
+                        )}}>시설물 추가</Button>
                     </div>
                     <div className={"dormitory-edit-content-body"}>
-                        <div>
-                            <Button className={"dormitory-create-innerFacility"} type={"button"} color={"primary"} onClick={() => {history.push({
-                                    pathname : "/admin/addFacility",
-                                    state : {
-                                        facility_num : "",
-                                        facility_name : "",
-                                        facility_limit_people : "",
-                                        facility_pic : "",
-                                        facility_start_time : "",
-                                        facility_end_time : "",
-                                        dormitory_num : items.dormitory_num,
-                                        dormitory_name : items.dormitory_name,
-                                    }
+                        <div className={"dormitory-img-container"}>
+                            <div className={"dormitory-img"}>
+                                <img style={{ width: "90%", height: "90%"}} src={imgFile ? imgFile : require("../../assets/img/kumoh/"+ imageName)} alt="사진 없음"/>
+                            </div>
+                            <div className={"dormitory-manage"}>
+                                <div className={"dormitory-img-edit-title"}>
+                                    <h3>기숙사 사진 수정</h3>
+                                </div>
+                                <ImgUploadForm setPostImage={setPostImage} setImgFile={setImgFile}/>
+                            </div>
+                            <div className={"dormitory-name-edit"}>
+                                <div className={"dormitory-name-title"}>
+                                    <h3>기숙사 이름 수정</h3>
+                                </div>
+                                <input type={"text"} className={"dormitory-name-input"} defaultValue={items.dormitory_name} onChange = {onNameChange}/>
+                                <Button className={"dormitory-edit-save basic-btn"} type={"button"}  onClick={() =>{
+                                    console.log(postImage)
+                                    Axios.post("http://"+config.HOST.toString()+"/dormitoryUpdate",{
+                                        termsData: {
+                                            dormitory_pic : postImage,
+                                            dormitory_num: items.dormitory_num,
+                                            dormitory_name : dormitoryName,
+                                        }
+                                    }).then(e => {
+                                        console.log(e);
+                                    })
+                                    window.location.href = "/admin/dormitoryManager";
                                 }
-                            )}}>시설물 추가</Button>
+                                } >
+                                    저장
+                                </Button>
+                            </div>
                         </div>
-
-                        {/*dormitoryEditList에 있는 facility name limit time 넣어주기*/}
-                        <div className={"dormitory-innerFacility-list"} >
-                            <ul className={"dormitory-innerFacility-list-ul"}>
+                        <div className={"dormitory-innerFacility-list-container"} >
+                            <div className={"dormitory-innerFacility-list-main"}>
                                 {adminfacilityList.map(adminfacility => (
-                                    <li className={"dormitory-innerFacility-list-li"}>
-                                        <div className="gnb_menu">
-                                            <ul className="dormitory-innerFacility-li">
-                                                <div className={"dormitory-innerFacility-content"}>
-                                                    <li className="dormitory-innerFacility-name">
-                                                        <h1>{adminfacility.facility_name}</h1>
-                                                    </li>
-                                                    <li className="dp1">
-                                                        <h3>이용 가능 인원[{adminfacility.facility_limit_people}]</h3>
-                                                    </li>
-                                                    <li className="dp1">
-                                                        <h3>이용 가능 시간 {timeFormat(adminfacility.facility_start_time,adminfacility.facility_end_time)}</h3>
-                                                    </li>
-                                                </div>
-
-                                                <div className={"dormitory-innerFacility-button"}>
-                                                    <Button color = "primary" className={"dormitory-update-innerFacility basic-btn"} type={"button"}  onClick={() => {history.push({
-                                                            pathname : "/admin/addFacility",
-                                                            state : {
-                                                                facility_num : adminfacility.facility_num,
-                                                                facility_name : adminfacility.facility_name,
-                                                                facility_limit_people : adminfacility.facility_limit_people,
-                                                                facility_pic : adminfacility.facility_pic,
-                                                                facility_start_time : adminfacility.facility_start_time,
-                                                                facility_end_time : adminfacility.facility_end_time,
-                                                                dormitory_num : items.dormitory_num,
-                                                                dormitory_name : items.dormitory_name
-                                                            }
-                                                        }
-
-                                                    )}}> 수정</Button>
-
-                                                    <Button color="danger" onClick={() =>{
-                                                        if(window.confirm("정말 삭제하시겠습니까?")) {
-                                                            Axios.post("http://"+config.HOST.toString()+"/deleteFacility", {
-                                                                termsData: {
-                                                                    facility_num: adminfacility.facility_num,
-                                                                }
-                                                            }).then(e => {
-                                                                console.log(e);
-                                                            })
-                                                            alert("삭제 되었습니다.");
-                                                            window.location.replace("/admin/dormitoryEdit");
-                                                        }
-                                                        else {
-                                                            alert("취소합니다.")
-                                                        }
-                                                    }
-                                                    }> 삭제</Button>
-
-                                                    <Button color = "success" onClick={() => {history.push({
-                                                            pathname : "/admin/facilitySeat",
-                                                            state : {
-                                                                facility_num : adminfacility.facility_num,
-                                                                facility_name : adminfacility.facility_name,
-                                                                facility_start_time : adminfacility.facility_start_time,
-                                                                facility_end_time : adminfacility.facility_end_time,
-                                                            }
-                                                        }
-
-                                                    )}}> 자리 수정</Button>
-                                                </div>
-
-                                            </ul>
-
+                                    <div className={"dormitory-innerFacility-list-contents"}>
+                                        <div className={"dormitory-innerFacility-detail"}>
+                                            <div className="dormitory-innerFacility-name">
+                                                <h1>{adminfacility.facility_name}</h1>
+                                            </div>
+                                            <div className="dormitory-innerFacility-capacity">
+                                                <h3>이용 가능 인원: {adminfacility.facility_limit_people}명</h3>
+                                            </div>
+                                            <div className="dormitory-innerFacility-time">
+                                                <h3>이용 가능 시간 {timeFormat(adminfacility.facility_start_time,adminfacility.facility_end_time)}</h3>
+                                            </div>
                                         </div>
-                                    </li>
+                                        <div className={"dormitory-innerFacility-button"}>
+                                            <Button color = "primary" className={"dormitory-update-innerFacility basic-btn"} type={"button"}  onClick={() => {history.push({
+                                                    pathname : "/admin/addFacility",
+                                                    state : {
+                                                        facility_num : adminfacility.facility_num,
+                                                        facility_name : adminfacility.facility_name,
+                                                        facility_limit_people : adminfacility.facility_limit_people,
+                                                        facility_pic : adminfacility.facility_pic,
+                                                        facility_start_time : adminfacility.facility_start_time,
+                                                        facility_end_time : adminfacility.facility_end_time,
+                                                        dormitory_num : items.dormitory_num,
+                                                        dormitory_name : items.dormitory_name
+                                                    }
+                                                }
+
+                                            )}}> 수정</Button>
+
+                                            <Button color="danger" onClick={() =>{
+                                                if(window.confirm("정말 삭제하시겠습니까?")) {
+                                                    Axios.post("http://"+config.HOST.toString()+"/deleteFacility", {
+                                                        termsData: {
+                                                            facility_num: adminfacility.facility_num,
+                                                        }
+                                                    }).then(e => {
+                                                        console.log(e);
+                                                    })
+                                                    alert("삭제 되었습니다.");
+                                                    window.location.replace("/admin/dormitoryEdit");
+                                                }
+                                                else {
+                                                    alert("취소합니다.")
+                                                }
+                                            }
+                                            }> 삭제</Button>
+
+                                            <Button color = "success" onClick={() => {history.push({
+                                                    pathname : "/admin/facilitySeat",
+                                                    state : {
+                                                        facility_num : adminfacility.facility_num,
+                                                        facility_name : adminfacility.facility_name,
+                                                        facility_start_time : adminfacility.facility_start_time,
+                                                        facility_end_time : adminfacility.facility_end_time,
+                                                    }
+                                                }
+
+                                            )}}> 자리 수정</Button>
+                                        </div>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
                         </div>
                     </div>
+                    <div className={"dormitory-edit-footer"}>
+                        <Button onClick={()=>goBack()} color={"primary"} className={"back-button"}>수정 완료</Button>
+                    </div>
                 </div>
-                {/* =============== end of dormitory edit content ===============  */}
             </Container>
-
         </>
     );
 };

@@ -31,7 +31,7 @@ const Seat = ({adminFacilitySeat,adminFacility}) => {
 
     return (
         <>
-            <div className={"gnb_menu"}>
+            <div className={"seat-list"}>
                 <ul className={"facility-seat-ul"}>
                     <li className={"dp1"}>
                         <input type={"text"} className={"facility-name-input"} defaultValue={adminFacilitySeat.facility_seat_name} onChange={onSeatNameChange}/>
