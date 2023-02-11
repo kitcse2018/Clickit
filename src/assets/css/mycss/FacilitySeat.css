@@ -69,21 +69,22 @@
 }
 
 .seat-manage-header-name{
-    width: 20%;
-    margin: 0 auto;
+    width: 200px;
+
 }
 
 .seat-manage-header-status{
-    width: 20%;
-    margin: 0 auto;
+    width: 160px;
+
+
 }
 
 .seat-manage-header-save{
-    width: 20%;
-    margin: 0 auto;
+    width: 74px;
+
 }
 
 .seat-manage-header-delete{
-    width: 20%;
-    margin: 0 auto;
+    width: 74px;
+    margin: 0 20% 0 0;
 }
