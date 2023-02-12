@@ -55,10 +55,6 @@ const NoticeEdit = () => {
             }).then(r => {
                 console.log(r);
             })
-            Axios.get("http://"+config.HOST.toString()+"/lastInsertId"
-            ).then(r => {
-                console.log("last insert id : "+r);
-            })
         }
         document.location.replace("/admin/notice");
     }
@@ -66,47 +62,47 @@ const NoticeEdit = () => {
     return (
         <>
             <Header />
-            <Card className="shadow">
-                <div className={"noticeEdit-container"}>
-                    {/*<div className={"noticeEdit-contents"}>*/}
-                    <div className={"noticeEdit-elements"}>
-                        <div className={"noticeEdit-top"}>
-                            <Button className={"noticeEdit-save"} color={"primary"} onClick={()=>noticeSave()}>저장</Button>
-                        </div>
-                        <div className={"noticeEdit-element-header"}>
-                            <div className="Notice_title_name">
-                                <div className="Notice_title">
-                                    제목:
-                                </div>
-                                <Form className="noticeEdit-element-form">
-                                    <Input className={"noticeEdit-element-header-input"}
-                                           placeholder={"제목"} type={"textarea"} rows={"1"}
-                                           defaultValue={items.notice_title} onChange={onTitleChange}>
-                                    </Input>
-                                </Form>
+            {/*<Card className="shadow">*/}
+            <div className={"noticeEdit-container"}>
+                {/*<div className={"noticeEdit-contents"}>*/}
+                <div className={"noticeEdit-elements"}>
+                    <div className={"noticeEdit-top"}>
+                        <Button className={"noticeEdit-save"} color={"primary"} onClick={()=>noticeSave()}>저장</Button>
+                    </div>
+                    <div className={"noticeEdit-element-header"}>
+                        <div className="Notice_title_name">
+                            <div className="Notice_title">
+                                제목:
                             </div>
-                        </div>
-                        <div className={"noticeEdit-element-body"}>
-                            <div className="notice_body_name">
-                                <div className="Notice_body_input">
-                                    내용:
-                                </div>
-                                <Form>
-                                    <Input className={"noticeEdit-element-body-input"}
-                                           type={"textarea"} placeholder={"내용"} rows={"10"}
-                                           defaultValue={items.notice_contents} onChange={onContentsChange}>
-                                    </Input>
-                                </Form>
-                            </div>
-                        </div>
-
-                        <div className={"noticeEdit-element-footer"}>
-
+                            <Form className="noticeEdit-element-form">
+                                <Input className={"noticeEdit-element-header-input"}
+                                       placeholder={"제목"} type={"textarea"} rows={"1"}
+                                       defaultValue={items.notice_title} onChange={onTitleChange}>
+                                </Input>
+                            </Form>
                         </div>
                     </div>
-                    {/*</div>*/}
+                    <div className={"noticeEdit-element-body"}>
+                        <div className="notice_body_name">
+                            <div className="Notice_body_input">
+                                내용:
+                            </div>
+                            <Form>
+                                <Input className={"noticeEdit-element-body-input"}
+                                       type={"textarea"} placeholder={"내용"} rows={"10"}
+                                       defaultValue={items.notice_contents} onChange={onContentsChange}>
+                                </Input>
+                            </Form>
+                        </div>
+                    </div>
+
+                    <div className={"noticeEdit-element-footer"}>
+
+                    </div>
                 </div>
-            </Card>
+                {/*</div>*/}
+            </div>
+            {/*</Card>*/}
 
         </>
     )

@@ -60,7 +60,7 @@ const DormitoryEdit = (props) => {
     }
 
     function goBack(){
-        history.goBack();
+        window.location.href = "/admin/dormitoryManager";
     }
 
     const history = useHistory();

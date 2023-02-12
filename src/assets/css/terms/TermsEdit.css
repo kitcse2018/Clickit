@@ -6,16 +6,17 @@
     margin-top: -10rem;
     margin-left: 14%;
     background-color: #FAF7F0;
+    overflow: hidden;
 }
 .termsEdit-contents{
     width: 100%;
-    height: auto;
+    height: 250%;
     background-color: #FAF7F0;
 }
 /*background-color: #172b4d;*/
 .termsEdit-top{
     float: right;
-    margin : 15px;
+    /**/margin : 15px;
 }
 
 .termsEdit-elements{

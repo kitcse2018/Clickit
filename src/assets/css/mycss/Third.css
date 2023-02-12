@@ -95,10 +95,10 @@
 .filebox{
     display: flex;
 }
-.btn:not(:last-child){
-    margin-right: 0;
-    overflow: hidden;
-}
+/*.btn:not(:last-child){*/
+/*    margin-right: 0;*/
+/*    overflow: hidden;*/
+/*}*/
 label{
     margin:0;
 }

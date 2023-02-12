@@ -65,19 +65,19 @@ const Terms = (props) => {
             <Header />
             <div className={"terms-main"}>
                 <div className={"terms-contents"}>
-                    <div className={"terms-contents-header"}>
-                        <Button className={"terms-create"} color={"primary"} onClick={()=>{history.push({
-                            pathname : "/admin/termsEdit",
-                            state : {
-                                terms_num : "",
-                                terms_title : "",
-                                terms_contents : "",
-                                terms_facility_num : "",
-                                dormitory_name : "",
-                                isTermsEdit : false,
-                            }
-                        })}}>이용수칙 추가</Button>
-                    </div>
+                    {/*<div className={"terms-contents-header"}>*/}
+                    {/*    <Button className={"terms-create"} color={"primary"} onClick={()=>{history.push({*/}
+                    {/*        pathname : "/admin/termsEdit",*/}
+                    {/*        state : {*/}
+                    {/*            terms_num : "",*/}
+                    {/*            terms_title : "",*/}
+                    {/*            terms_contents : "",*/}
+                    {/*            terms_facility_num : "",*/}
+                    {/*            dormitory_name : "",*/}
+                    {/*            isTermsEdit : false,*/}
+                    {/*        }*/}
+                    {/*    })}}>이용수칙 추가</Button>*/}
+                    {/*</div>*/}
                     <div className={"terms-board"}>
                         <div className={"terms-list"}>
                             <table width="100%" cellSpacing="0" className={"terms-table"}>
@@ -87,7 +87,7 @@ const Terms = (props) => {
                                     <th scope="col" className={"terms-table-header-dormitory"}><span className={"terms-tr display-4"}>생활관</span></th>
                                     <th scope="col" className={"terms-table-header-facility"}><span className={"terms-tr display-4"}>시설물</span></th>
                                     <th scope="col" className={"terms-table-header-title"}><span className={"terms-tr display-4"}>제목</span></th>
-                                    <th scope={"col"} className={"terms-table-header-button"}><span className={"terms-tr display-4"}>수정 및 삭제</span></th>
+                                    <th scope={"col"} className={"terms-table-header-button"}><span className={"terms-tr display-4"}>수정</span></th>
                                 </tr>
                                 </thead>
                                 <tbody className={"terms-tbody"}>

@@ -16,3 +16,10 @@
     height: 250px;
     overflow: auto;
 }
+
+.notice-modal-button{
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}

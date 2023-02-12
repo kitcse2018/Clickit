@@ -36,9 +36,9 @@ const NoticeModal = ({notice, onModalDisplay}) =>{
                           <div className="facility-notice">
                               {notice.notice_contents}
                           </div>
-                          <div className="text-center">
+                          <div className="notice-modal-button">
                               <Button
-                                  className="my-4"
+                                  className="toNoticePage"
                                   color="primary"
                                   type="button"
                                     onClick={()=>toStudentNoticeModal()}
@@ -46,7 +46,7 @@ const NoticeModal = ({notice, onModalDisplay}) =>{
                                   공지사항 페이지 이동
                               </Button>
                               <Button
-                                  className="ml-auto"
+                                  className="closeNotice"
                                   color="danger"
                                   data-dismiss="modal"
                                   type="button"

@@ -5,6 +5,7 @@ import {stringToDate} from "../../methods/stringToDate";
 
 const ProfileBlacklist = (blacklistDate) => {
 
+    console.log("blacklistDate.blacklistDate\n");
     console.log(blacklistDate.blacklistDate);
 
     let percentage = 0;
@@ -15,18 +16,17 @@ const ProfileBlacklist = (blacklistDate) => {
     // },[]);
 
     const calcBlacklistDate = (blacklistDate) => {
+        const curDate = new Date(getCurrentDate().split(' ')[0]);
+        const blackEndDate = new Date(blacklistDate.end_date.split(' ')[0]);
+        const blackStartDate = new Date(blacklistDate.start_date.split(' ')[0]);
 
-        // const curDate = new Date(getCurrentDate().split(' ')[0]);
-        // const blackEndDate = new Date(blacklistDate.blacklistDate.end_date.split(' ')[0]);
-        // const blackStartDate = new Date(blacklistDate.blacklistDate.start_date.split(' ')[0]);
-        //
-        // if(blackEndDate > curDate){
-        //     const total = blackEndDate - blackStartDate;
-        //     percentage = (curDate - blackStartDate) / total * 100;
-        //     return percentage.toString().slice(0,5);
-        // }else{
-        //     return 0;
-        // }
+        if(blackEndDate > curDate){
+            const total = blackEndDate - blackStartDate;
+            percentage = (curDate - blackStartDate) / total * 100;
+            return percentage.toString().slice(0,5);
+        }else{
+            return 0;
+        }
     }
 
     return(
